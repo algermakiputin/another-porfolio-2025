@@ -1,0 +1,48 @@
+.project-meta {
+    display: grid;
+    grid-template-columns: 270px 1fr;
+}
+
+.project-meta .card-media {
+    height: 370px;
+    border-radius: 5px;
+}
+
+.project-meta .card-content {
+    padding-top: 0;
+    padding-left: 3.25em;
+    padding-right: 3.25em;
+}
+
+.project-info-list {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    margin-bottom: 1em;
+}
+
+.metric {
+    background-color: #fafafa;
+    border: 1px solid rgba(0,0,0,0.025);
+    padding: 1em;
+}
+
+.metric .label {
+    color: #54B689;
+    font-weight: bold;
+}
+
+.metric .data {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.metric .unit {
+    font-size: 1rem;
+    color: #8f8f8f;
+}
+
+.metric .description {
+    font-size: 0.875rem;
+    color: #8f8f8f;
+}

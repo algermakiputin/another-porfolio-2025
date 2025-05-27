@@ -1,0 +1,10 @@
+.left-decoration {
+    content: "";
+    display: inline-block;
+    width: 5px;
+    height: 100%;
+    background: #54B689;
+    position: absolute;
+    left: 0;
+    top: 0;
+}

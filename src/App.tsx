@@ -1,25 +1,45 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Header from './components/template/header/Header';
+import HomePage from './pages/home/HomePage';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import { BrowserRouter, Route, Routes, Outlet } from "react-router";
+import PortfolioPage from './pages/portfolio/PortfolioPage';
+import PortfolioSinglePage from './pages/portfolio/singlePage/PortfolioSinglePage';
+import Footer from './components/template/footer/Footer';
+
+
+const darkTheme = createTheme({
+  palette: {
+    mode: 'light',
+  },
+});
+
+const Layout = () => {
+  return (
+    <>
+      <Header />
+      <div className='content-wrapper'>
+        <Outlet />
+        <Footer />
+      </div>
+    </>
+  )
+}
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  return ( 
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Layout />}>
+          <Route index element={<HomePage />} />
+          <Route path='/portfolio' element={<PortfolioPage />} />
+          <Route path='/portfolio/:portfolio' element={<PortfolioSinglePage />} />
+          <Route path='/blog' element={<></>} />
+          <Route path='/contact' element={<></>} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 

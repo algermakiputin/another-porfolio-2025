@@ -1,0 +1,71 @@
+.carousel {
+    padding-bottom: 30px;
+}
+.carousel-wrapper {
+    padding-right: 30px;
+}
+
+.carousel-item {
+    padding: 1.5rem;
+    padding-left: 3rem;
+    border: 1px solid rgba(0, 0, 0, 0.025);
+    background: #fafafa;
+    height: 100%;
+    position: relative;
+    padding-right: 30px;
+}
+
+.carousel-item::before {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 40px 40px 0 0;
+    border-color: #54B689 transparent transparent transparent;
+    -webkit-transform: rotate(360deg);
+}
+
+.format-quote {
+    position: absolute;
+    left: 0.35rem;
+    top: 0.3rem;
+    color: #fff;
+    font-size: 0.95rem!important;
+}
+
+.carousel-wrapper blockquote {
+    margin: 0;
+    padding: 0;
+}
+
+.profile-wrapper {
+    position: relative;
+    align-items: center;
+    display: flex;
+    vertical-align: middle;
+    margin-top: 20px;
+}
+
+.image-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.image-wrapper img {
+    max-width: 60px;
+    border-radius: 50%;
+}
+
+.info {
+    padding-left: 80px;
+    padding-top: .5rem;
+}
+
+.reviews-carousel-dots  {
+  
+}

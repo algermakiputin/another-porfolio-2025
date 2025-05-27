@@ -1,0 +1,12 @@
+.hireMe {
+    background-color: #fafafa;
+    text-align: center;
+    padding-top: 3.5em;
+    padding-bottom: 3.5em;
+    margin-bottom: 5em;
+}
+
+.hireMe .inner {
+    max-width: 700px;
+    margin: auto;
+}
