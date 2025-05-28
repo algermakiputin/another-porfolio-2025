@@ -15,7 +15,7 @@ const HomePage = () => {
             <Grid 
                 container 
                 sx={{
-                    p: {lg: 7, md: 4, sm: 2},
+                    p: {lg: 7, md: 4, xs: 4},
                     pt: {lg: 10, md: 6, xs: 4},
                     background: '#fafafa'
                 }} 
@@ -29,9 +29,9 @@ const HomePage = () => {
                         <Button sx={{mr: 1}} startIcon={<SendIcon />} className="home-btn message" variant="contained" color="secondary">Hire Me</Button>
                     </Box>
                 </Grid>
-                <Grid size={{md: 5, sm: 5}}>
+                <Grid size={{md: 5, sm: 5}} sx={{mt: {xs: 4}}}>
                     <Typography>
-                        <img src="/images/profile.jpg" style={{width: '100%', maxWidth: 400}} />
+                        <img src="/images/profile.jpg" className="my-image" style={{width: '100%', maxWidth: 400}} />
                     </Typography>
                 </Grid>
             </Grid>

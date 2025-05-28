@@ -14,6 +14,11 @@
 
 .site-title {
     padding-top: 1.5rem;
+    font-weight: bold;
+}
+
+.mobile-menu-toggler {
+  display: none!important;
 }
 
 @media only screen and (max-width: 768px) {
@@ -23,8 +28,34 @@
     display: block;
     position: relative;
   }
+  .my-image {
+    max-width: 300px;
+  }
   .site-title {
     padding: 0;
     margin: 0;
+  } 
+
+  .top-header-wrapper {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+ 
+    justify-content: center;
+    align-items: center;
+  }
+  .mobile-menu-icon {
+    color: #fff;
+  }
+
+  .site-title {
+    margin-left: -40px!important;
+  }
+  .mobile-menu-toggler 
+  
+  {
+      border: 1px solid rgba(255, 255, 255, 0.8)!important;
+      display: block!important;
+      border-radius: 0!important;
+      max-height: 40px!important;
   }
 }

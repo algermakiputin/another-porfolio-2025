@@ -29,8 +29,8 @@ const responsive = {
 const Reviews = () => {
     return (
         <Box sx={{
-                    p: {lg: 7, md: 4, xs: 2},
-                    pt: {lg: 7, md: 4, xs: 2}
+                    p: {lg: 7, md: 4, sm:4, xs: 4},
+                    pt: {lg: 7, md: 4, sm:4, xs: 4}
                 }}>
             <SectionHeader title='Testimonials' />
             <Carousel className='carousel' responsive={responsive} showDots={true} arrows={false} dotListClass='reviews-carousel-dots'>

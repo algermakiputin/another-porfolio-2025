@@ -1,26 +1,45 @@
-import { Box, Collapse, List, ListItem, ListItemButton } from "@mui/material";
-import './header.css'; 
+import { Box, Button, Collapse, IconButton, List, ListItem, ListItemButton } from "@mui/material";
 import { ListItemContent, ListItemDecorator, Typography } from "@mui/joy";
 import { Home } from "@mui/icons-material";
 import CodeIcon from '@mui/icons-material/Code';
-import WorkIcon from '@mui/icons-material/Work';
+import MenuIcon from '@mui/icons-material/Menu';
 import BookIcon from '@mui/icons-material/Book';
 import ContactsIcon from '@mui/icons-material/Contacts';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate  } from "react-router";
+import MenuOpenIcon from '@mui/icons-material/MenuOpen';
+import './header.css'; 
+import useGetWindowsDimension from "../../../hooks/useGetWindowsDimension";
 
 const Header = () => {
+    const [width] = useGetWindowsDimension();
     const [collapse, setCollapse] = useState(true);
     const navigate = useNavigate ();
     
     const linkHandler = (route: string) => {
         navigate(route);
     };
+
+    useEffect(() => {
+        if (width > 0) {
+            const shouldCollapse = width >= 770;
+            setCollapse(shouldCollapse);
+        }
+    }, [width]);
+
+    const collapseHandler = () => setCollapse(!collapse);
     
     return <Box>
         <div className="header">
             <Box sx={{pl: 4, pr: 4}}>
-                <Typography sx={{color: '#fff', mt: 2, mb: 2}} level="h3" className="site-title">Alger Makiputin</Typography>
+                <div className="top-header-wrapper">
+                    <IconButton className="mobile-menu-toggler" onClick={collapseHandler}> 
+                    {
+                        collapse ? <MenuOpenIcon className="mobile-menu-icon" /> : <MenuIcon className="mobile-menu-icon"/>
+                    }
+                    </IconButton>
+                    <Typography sx={{color: '#fff', mt: 2, mb: 2}} level="h3" className="site-title">Alger Makiputin</Typography>
+                </div>
             </Box>
             <Collapse in={collapse}>
                 <Box sx={{pl: 4, pr: 4}}>
@@ -41,20 +60,21 @@ const Header = () => {
                                 <ListItemContent>Portfolio</ListItemContent>
                             </ListItemButton>
                         </ListItem>
-                        <ListItem>
-                            <ListItemButton>
+                        {/* Services is to be followed after the MVP is built */}
+                        {/* <ListItem>
+                            <ListItemButton onClick={() => linkHandler('/blog')}>
                                 <ListItemDecorator sx={{mr: 1}}><WorkIcon /></ListItemDecorator>
                                 <ListItemContent>Services</ListItemContent>
                             </ListItemButton>
-                        </ListItem>
+                        </ListItem> */}
                         <ListItem>
-                            <ListItemButton>
+                            <ListItemButton onClick={() => linkHandler('/blog')}>
                                 <ListItemDecorator sx={{mr: 1}}><BookIcon /></ListItemDecorator>
                                 <ListItemContent>Blog</ListItemContent>
                             </ListItemButton>
                         </ListItem>
                         <ListItem>
-                            <ListItemButton>
+                            <ListItemButton onClick={() => linkHandler('/contact')}>
                                 <ListItemDecorator sx={{mr: 1}}><ContactsIcon /></ListItemDecorator>
                                 <ListItemContent>Contact</ListItemContent>
                             </ListItemButton>

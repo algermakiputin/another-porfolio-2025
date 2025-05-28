@@ -1,13 +1,13 @@
 import { Box } from "@mui/material";
 import React, {Fragment} from "react";
-import PortfolioLayout from "./PortfolioLayout"; 
-import PortfolioHeader from "./header/PortfolioHeader";
+import PortfolioLayout from "./PortfolioLayout";
+import PageHeader from "../../components/template/PageHeader/PageHeader";
 
 const PortfolioPage = () => {
     return (
         <Fragment>
             <Box>
-                <PortfolioHeader />
+                <PageHeader />
                 <PortfolioLayout />
             </Box>
         </Fragment>

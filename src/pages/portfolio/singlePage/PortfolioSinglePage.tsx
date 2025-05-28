@@ -1,5 +1,4 @@
 import { Box, Grid } from "@mui/material";
-import PortfolioHeader from "../header/PortfolioHeader";
 import Card from '@mui/material/Card'; 
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -7,11 +6,12 @@ import Typography from "@mui/material/Typography";
 import './portfolioSinglePage.css'
 import HireMeSection from "../../../components/hireMeSection/HireMeSection";
 import WarehouseIcon from '@mui/icons-material/Warehouse';
+import PageHeader from "../../../components/template/PageHeader/PageHeader";
 
 const PortfolioSinglePage = () => {
     return (
         <>
-            <PortfolioHeader 
+            <PageHeader 
                 hideButton={true} 
                 title="Case Study: POSLite Inventory Software" 
                 description="Project intro goes here. In the intro it's a good idea to answer a potential client's need/problem so it's more likely to land your next project or job."
