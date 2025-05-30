@@ -1,4 +1,5 @@
 export type Project = {
+    category: string;
     image: string;
     platform: string;
     slug: string;
@@ -26,4 +27,9 @@ type Result = {
     title: string;
     metric: string;
     description: string;
+}
+
+export enum ProjectType {
+    WEB_APP = "web-app",
+    MOBILE_APP = "mobile-app"
 }

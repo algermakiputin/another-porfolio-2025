@@ -1,4 +1,4 @@
-import { Box, Button, Collapse, IconButton, List, ListItem, ListItemButton } from "@mui/material";
+import { Box, Collapse, IconButton, List, ListItem, ListItemButton } from "@mui/material";
 import { ListItemContent, ListItemDecorator, Typography } from "@mui/joy";
 import { Home } from "@mui/icons-material";
 import CodeIcon from '@mui/icons-material/Code';
@@ -6,7 +6,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import BookIcon from '@mui/icons-material/Book';
 import ContactsIcon from '@mui/icons-material/Contacts';
 import { useEffect, useState } from "react";
-import { Link, NavLink, useNavigate  } from "react-router";
+import { NavLink, useNavigate  } from "react-router";
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
@@ -47,8 +47,8 @@ const Header = () => {
             </Box>
             <Collapse in={collapse}>
                 <Box sx={{pl: 4, pr: 4}}>
-                    <img src="/images/left-profile.jpg" width={120}  style={{borderRadius: '50%', marginTop: 15,marginBottom: 15}}/>
-                    <Typography sx={{color: '#fff'}}  level="body-sm">Hi, my name is Alger Makiputin and I'm a senior software engineer. Welcome to my personal website!</Typography>
+                    <img src="/images/left-profile.jpg" width={120} alt="profile"  style={{borderRadius: '50%', marginTop: 15,marginBottom: 15}}/>
+                    <Typography sx={{color: '#fff'}}  level="body-sm">Hi there! Welcome to my portfolio take a look around and see what I’ve been working on!</Typography>
                     <ul className="social-icons-list">
                         <li>
                             <NavLink to={'https://ph.linkedin.com/in/alger-makiputin'} target="__blank">

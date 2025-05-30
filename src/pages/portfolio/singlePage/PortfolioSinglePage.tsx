@@ -42,7 +42,7 @@ const PortfolioSinglePage = () => {
                 <Card className="project-meta" elevation={0} sx={{p: 4, background: '#fafafa', border: 0}}>
                     <CardMedia
                         sx={{ height: 190, borderRadius: 0 }}
-                        image="https://cdn.pixabay.com/photo/2017/08/10/08/47/laptop-2620118_1280.jpg"
+                        image={project?.image}
                         title={project?.title}
                         className="card-media"
                     />

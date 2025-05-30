@@ -2,6 +2,7 @@
     "projects": [
         {
             "platform": "web",
+            "category": "web-app",
             "image": "/images/projects/inventory-software.jpeg",
             "slug": "poslite-inventory-software",
             "title": "POSLite Inventory Softwares",
@@ -50,6 +51,7 @@
         },
         {
             "platform": "web",
+            "category": "web-app",
             "image": "/images/projects/trading-journal.jpeg",
             "slug": "hero-journals",
             "title": "Stocks Trading Journal - Hero Journal",
@@ -98,6 +100,7 @@
         },
         {
             "platform": "mobile",
+            "category": "mobile-app",
             "slug": "filipino-alamat",
             "title": "Filipino Alamat",
             "image": "/images/projects/filipino-alamat.jpeg",
@@ -146,6 +149,7 @@
         {
             "platform": "mobile",
             "slug": "stockapp",
+            "category": "mobile-app",
             "image": "/images/projects/posmobile.png",
             "title": "StockApp Inventory",
             "metaDescription": "StockApp Inventory is a mobile app inventory software solution tailored for small businesses, available in google play store",

@@ -9,6 +9,7 @@ import PortfolioSinglePage from './pages/portfolio/singlePage/PortfolioSinglePag
 import Footer from './components/template/footer/Footer';
 import BlogPage from './pages/blog/BlogPage';
 import ContactPage from './pages/contact/ContactPage';
+import ScrollToTop from './components/scroll/ScrollToTop';
 
 const darkTheme = createTheme({
   palette: {
@@ -19,6 +20,7 @@ const darkTheme = createTheme({
 const Layout = () => {
   return (
     <>
+      <ScrollToTop />
       <Header />
       <div className='content-wrapper'>
         <Outlet />
