@@ -3,27 +3,34 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from "@mui/material/Typography";
-import './portfolioSinglePage.css'
 import HireMeSection from "../../../components/hireMeSection/HireMeSection";
 import WarehouseIcon from '@mui/icons-material/Warehouse';
+import Groups3Icon from '@mui/icons-material/Groups3';
+import LanguageIcon from '@mui/icons-material/Language';
+import AndroidIcon from '@mui/icons-material/Android';
+import CategoryIcon from '@mui/icons-material/Category';
+import PeopleIcon from '@mui/icons-material/People';
 import PageHeader from "../../../components/template/PageHeader/PageHeader";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router";
+import './portfolioSinglePage.css';
+import { Project } from "../../../types/ProjectType";
 
 const PortfolioSinglePage = () => {
-    const [project, setProject] = useState<any>();
+    const [project, setProject] = useState<Project>();
     const { slug } = useParams();
 
-    const fetchProject = async() => {
+    const fetchProject = useCallback(async () => {
         const request = await fetch('/contents/projects.json', {method: 'GET'});
         const json = await request.json();
         const selectedProject = json?.projects?.find((row: any) => row.slug === slug);
         setProject(selectedProject);
-    }
+    }, [slug]);
+
     useEffect(() => {
         fetchProject();
-    }, []);
-    console.log(`project`, project);
+    }, [fetchProject]);
+
     return (
         <>
             <PageHeader 
@@ -41,14 +48,25 @@ const PortfolioSinglePage = () => {
                     />
                     <CardContent className="card-content">
                         <Typography gutterBottom variant="h5" component="div">
-                        POSLite Inventory Software
+                        { project?.title }
                         </Typography>
-                        <ul className="project-info-list">
-                            <li><Typography variant="body2" ><WarehouseIcon fontSize="small" sx={{mr: 1}}/> Industry: { project?.meta?.industry }</Typography></li>
-                            <li><Typography variant="body2">Size: {project?.meta?.size}</Typography></li>
-                            <li><Typography variant="body2">Website: www.project.com</Typography></li>
-                        </ul>
-                        <Typography variant="body1" sx={{mb: 2}}>
+                        {
+                            project?.platform === "web" ? (
+                                <ul className="project-info-list">
+                                    <li><Typography variant="body2" className="meta-info"><WarehouseIcon fontSize="small" sx={{mr: 1}}/> Industry: { project?.meta?.industry }</Typography></li>
+                                    <li><Typography variant="body2" className="meta-info"><Groups3Icon fontSize="small" sx={{mr: 1}}/>Size: {project?.meta?.size}</Typography></li>
+                                    <li><Typography variant="body2" className="meta-info"><LanguageIcon fontSize="small" sx={{mr: 1}} />Website: www.project.com</Typography></li>
+                                </ul>
+                            ) : (
+                                <ul className="project-info-list">
+                                    <li><Typography variant="body2" className="meta-info"><AndroidIcon fontSize="small" sx={{mr: 1}}/> Platform: { project?.meta?.platform }</Typography></li>
+                                    <li><Typography variant="body2" className="meta-info"><CategoryIcon fontSize="small" sx={{mr: 1}}/> Category: {project?.meta?.category}</Typography></li>
+                                    <li><Typography variant="body2" className="meta-info"><PeopleIcon fontSize="small" sx={{mr: 1}} /> Target Audience: { project?.meta?.targetAudience }</Typography></li>
+                                    <li><Typography variant="body2" className="meta-info"><LanguageIcon fontSize="small" sx={{mr: 1}} /> Language Supported: { project?.meta?.language }</Typography></li>
+                                </ul>
+                            )
+                        }
+                        <Typography variant="body2" sx={{mb: 2}}>
                             { project?.shortDescription }
                         </Typography>
                         <Typography variant="h6">Project Requirements</Typography>
@@ -62,19 +80,19 @@ const PortfolioSinglePage = () => {
                     </CardContent>
                 </Card>
                 <Box sx={{mt: 4, mb: 4}}>
-                    <Typography variant="h5" sx={{mb: 2}}>Project Overview</Typography>
+                    <Typography variant="h5" className="section-title" sx={{mb: 2}}>Project Overview</Typography>
                     <Typography variant="body1">{ project?.overview }</Typography>
                 </Box>
                 <Box sx={{mt: 4, mb: 4}}>
-                    <Typography variant="h5" sx={{mb: 2}}>The Challenge</Typography>
+                    <Typography variant="h5" className="section-title" sx={{mb: 2}}>The Challenge</Typography>
                     <Typography variant="body1">{ project?.challenge }</Typography>
                 </Box>
                 <Box sx={{mt: 4, mb: 4}}>
-                    <Typography variant="h5" sx={{mb: 2}}>The Approach and Solution</Typography>
+                    <Typography variant="h5" className="section-title" sx={{mb: 2}}>The Approach and Solution</Typography>
                     <Typography variant="body1">{ project?.approach }</Typography>
                 </Box>
                 <Box sx={{mt: 4, mb: 4}}>
-                    <Typography variant="h5" sx={{mb: 2}}>The Results</Typography>
+                    <Typography variant="h5" className="section-title" sx={{mb: 2}}>The Results</Typography>
                     <Grid container spacing={2} sx={{mb: 2}}>
                         {
                             project?.results?.map((result: any) => (

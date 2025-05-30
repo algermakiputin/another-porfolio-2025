@@ -14,11 +14,21 @@
     padding-right: 3.25em;
 }
 
+.meta-info {
+    display: flex;
+    align-items: center;
+}
+
 .project-info-list {
-    padding: 0;
+    padding: 0!important;
     margin: 0;
     list-style-type: none;
     margin-bottom: 1em;
+    padding-left: 0!important;
+}
+
+.project-info-list li {
+    padding-left: 0;
 }
 
 .metric {
@@ -45,4 +55,9 @@
 .metric .description {
     font-size: 0.875rem;
     color: #8f8f8f;
+}
+
+.section-title {
+    font-size: 1.25em;
+    font-weight: bold!important;
 }

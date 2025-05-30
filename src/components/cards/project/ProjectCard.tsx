@@ -6,14 +6,20 @@ import { Button } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import './projectCard.css';
 import { title } from 'process';
+import { useNavigate } from 'react-router';
 
 type Props = {
     description?: string;
     title?: string;
     image?: string;
+    path?: string;
 }
-const ProjectCard = ({ description, title, image } : Props) => {
-    const onNavigateHandler = (path: string) => {};
+const ProjectCard = ({ description, title, image, path } : Props) => {
+    const navigate = useNavigate();
+    const onNavigateHandler = (path: string) => {
+        navigate(`/project/${path}`);
+    };
+    
     return (
         <div className='project-wrapper'>
             <Card className="portfolio-item" elevation={0}>
@@ -32,7 +38,7 @@ const ProjectCard = ({ description, title, image } : Props) => {
                     </Typography>
                 </CardContent>
                 <div className="middle">
-                    <Button className='view-project-btn' variant='contained' startIcon={<Visibility />}>View Case Study</Button>
+                    <Button onClick={() => onNavigateHandler(path ?? '')} className='view-project-btn' variant='contained' startIcon={<Visibility />}>View Case Study</Button>
                 </div>
             </Card>
         </div>

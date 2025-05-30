@@ -1,46 +1,195 @@
 {
     "projects": [
         {
+            "platform": "web",
+            "image": "/images/projects/inventory-software.jpeg",
             "slug": "poslite-inventory-software",
             "title": "POSLite Inventory Softwares",
-            "metaDescription": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facere nam id rerum ipsam? Voluptates, quo id consequatur repellat quibusdam minima ullam qui eaque maxime corrupti, natus doloremque suscipit quod beatae.",
-            "shortDescription": "Lorem",
+            "metaDescription": "POSLite is a web-based Inventory Software built using Codeigniter PHP framework. This solution allows businesses to track, organize, and manage their inventory, including items, orders, sales, and deliveries.",
+            "shortDescription": "POSLite is a lightweight, web-based Point of Sale and Inventory Management System built with PHP and the CodeIgniter framework. Designed for small to medium-sized retail and wholesale businesses, it streamlines sales, inventory tracking, and expense management through an intuitive interface and essential features.",
             "meta": {
-                "industry": "Tech",
+                "industry": "Retail - Grocery",
                 "size": "1-50",
-                "website": "https://poslitesoftware.com"
+                "website": "https://poslitesoftware.com",
+                "client": "Retail - Grocery Store Owners"
             },
             "requirements": [
-                "requirment1",
-                "requirement2",
-                "requirement3"
+                "Inventory Control: Add/edit products, track stock in real time, handle stock-in/out, and log adjustments.",
+                "Alerts & Reordering: Automated low-stock alerts and reorder triggers.",
+                "POS Integration: Sync sales with stock levels and enable barcode scanning.",
+                "User Management: Role-based access and activity logs.",
+                "Reports & Analytics: Generate stock, valuation, and sales reports in PDF/Excel formats.",
+                "Access: Web-based dashboard with mobile-friendly interface."
             ],
-            "overview": "The overview of the project",
-            "challege": "The Challenge of the project",
-            "approach": "The Approach of the project",
+            "overview": "POSLite is a lightweight, user-friendly inventory management software designed to help small and medium-sized businesses efficiently track, control, and optimize their stock levels in real time. Built with simplicity and scalability in mind, POSLite offers seamless integration barcode scanners, printers and providing businesses with complete visibility into their inventory operations.",
+            "challenge": "Most retail/wholesale store owner faced significant challenges managing its growing inventory. Manual stock tracking led to frequent stockouts and overstocking. Manually auditing  inventory could also take more than 10+ hours per week. With manual operation leading to limited real-time visibility made it hard to forecast demand and manage suppliers efficiently.",
+            "approach": "Retail/business owners implemented POSLite, a lightweight yet powerful inventory management system tailored for retail operations. The software was seamlessly integrated with their existing operation and barcode scanners, allowing for a smooth transition. With POSLite, Business owners gained real-time inventory tracking across all product categories, significantly improving visibility and control. The team also set up automatic low-stock alerts and reorder triggers, ensuring timely replenishment and minimizing stockouts. Additionally, staff members were given mobile access to the PosLite dashboard, enabling them to manage inventory and make updates on the go with ease.",
             "results": [
                 {
-                    "title": "Efficiency",
-                    "metric": "20%",
-                    "description": "hello world"
+                    "title": "Inventory Waste Reduction",
+                    "metric": "30%",
+                    "description": "Reduction in inventory waste due to better demand forecasting"
+                },
+                {
+                    "title": "Restocking Cycle",
+                    "metric": "50%",
+                    "description": "faster restocking cycles with real-time data and vendor notifications."
                 },
                 {
                     "title": "Efficiency",
-                    "metric": "20%",
-                    "description": "hello world"
+                    "metric": "55%",
+                    "description": "Saved over 40 hours/month in manual inventory labor."
                 },
                 {
-                    "title": "Efficiency",
-                    "metric": "20%",
-                    "description": "hello world"
-                },
-                {
-                    "title": "Efficiency",
-                    "metric": "20%",
-                    "description": "hello world"
+                    "title": "Visibility",
+                    "metric": "80%",
+                    "description": "Improved financial visibility with detailed sales, shrinkage, and supplier reports."
                 }
             ],
-            "conclusion": ""
+            "conclusion": "By adopting PosLite, retail business owners was able to modernize its inventory operations, reduce waste, and free up staff to focus on customer service. POSLite continues to support their growth with scalable, reliable inventory tools."
+        },
+        {
+            "platform": "web",
+            "image": "/images/projects/trading-journal.jpeg",
+            "slug": "hero-journals",
+            "title": "Stocks Trading Journal - Hero Journal",
+            "metaDescription": "Web-based software designed to help retail traders manage their trades, progress and improve overall trading activities.",
+            "shortDescription": "Hero Journals is a powerful tool designed to help traders log, analyze, and refine their trading strategies. Built using Laravel and React JS. It allows users to record trades, monitor performance metrics, and gain insights into trading habits, facilitating continuous improvement and informed decision-making.",
+            "meta": {
+                "industry": "Financial",
+                "size": "50-100",
+                "website": "https://poslitesoftware.com",
+                "client": "Independent Traders"
+            },
+            "requirements": [
+                "Trade Management: Manual entry and CSV/API import of trades.",
+                "Tagging & Notes: Custom tags and journaling for strategy, emotion, and setups.",
+                "Analytics Dashboard: Real-time stats (PnL, win rate, risk/reward, drawdown) with visual charts.",
+                "Search & Filters: Powerful filtering by symbol, strategy, tag, and time frame.",
+                "Goal Tracking: Set and monitor personal trading goals.",
+                "User Accounts: Secure login, profile settings, and private journal space."
+            ],
+            "overview": "Hero Journals is a web app designed to help traders log, analyze, and improve their trading performance. It provides a structured system to track trades, evaluate strategies, and monitor trading psychology over time, with a focus on usability, automation, and insightful analytics.",
+            "challenge": "Traditionally, retail traders managed their trading records in Excel and Google Sheets. While this method was functional, it lacked automation, analytical depth, and real-time insights. Manual data entry was both time-consuming and prone to errors, making it difficult to maintain accuracy. Additionally, they had no consolidated view of key performance metrics such as win rate, risk/reward ratio, and drawdown. Tracking trade psychology and decision-making patterns was also challenging, and the fragmented data made it nearly impossible to identify recurring mistakes or capitalize on consistent strengths.",
+            "approach": "Retail traders adopted Hero Journals, a digital platform designed for active traders seeking deeper insight into their performance and decision-making processes. The platform provided a more efficient and organized alternative to his previous manual tracking methods. \n One of the key features retail traders benefited from was the automatic trade import functionality, which allowed him to seamlessly upload data from brokerage CSVs and APIs. This eliminated the need for manual entry and ensured that his records were always up to date. \n The app also enabled retail traders to use custom tags and notes to track specific strategies, emotional states, and trade setups. This helped them analyze not just the outcomes of their trades, but also the reasoning and mindset behind each decision. \n Interactive dashboards provided a clear visual representation of his performance, displaying metrics such as profit and loss trends, average risk/reward ratios, and maximum drawdowns. These insights made it easier for traders to assess his trading edge and refine his approach. \n Additionally, the app’s searchable trade history allowed traders to filter and review trades based on setups, strategies, or results, making post-trade analysis faster and more effective. With built-in goal tracking and journaling tools, he was also able to monitor his progress over time and stay accountable to his trading discipline.",
+            "results": [
+                {
+                    "title": "Save Time",
+                    "metric": "60%",
+                    "description": "Reduced trade review time by 60%, allowing faster end-of-day analysis"
+                },
+                {
+                    "title": "Insights",
+                    "metric": "80%",
+                    "description": "Identified that 80% of losses came from trades outside of traders primary setup."
+                },
+                {
+                    "title": "Performance",
+                    "metric": "58%",
+                    "description": "Traders adjusted rules based on journal insights, increasing win rate from 58%."
+                },
+                {
+                    "title": "Managed Emotions",
+                    "metric": "50%",
+                    "description": "Gained better control over emotional trading habits with pre and post trade journaling."
+                }
+            ],
+            "conclusion": "Hero Journals empowered retail traders to turn disorganized data into actionable insight. With improved consistency, self-awareness, and accountability, he now trades with greater confidence and discipline. Whether you’re a solo trader or part of a trading group, the app offers the clarity and tools needed to level up your performance."
+        },
+        {
+            "platform": "mobile",
+            "slug": "filipino-alamat",
+            "title": "Filipino Alamat",
+            "image": "/images/projects/filipino-alamat.jpeg",
+            "metaDescription": "Web-based software designed to help retail traders manage their trades, progress and improve overall trading activities.",
+            "shortDescription": "Filipino is a free android app that brings over traditional Filipino legends (alamat) to your fingertips. Designed culture enthusiasts, it offers a curated collection of folklore that explains natural phenomena, moral values, and cultural origins. Users can read and listen to stories and anytime, anywhere with user-friendly interface.",
+            "meta": {
+                "platform": "Android",
+                "category": "Education / Literature",
+                "targetAudience": "Students, educators, and filipino families",
+                "language": "Filipino, English"
+            },
+            "requirements": [
+                "Story Library: Curated alamat stories with text and illustrations",
+                "Listen to Stories: High-quality audio narration",
+                "Search & Filters: Find stories by keyword, region, or theme.",
+                "Educational Notes: Cultural context and moral lessons included with each story.",
+                "Story Submission: Users can get creative and submit their own stories for the public"
+            ],
+            "overview": "The Filipino Alamat App is a mobile application designed to preserve and promote Filipino folklore (alamat) by offering a curated collection of stories in both text and audio formats. It aims to engage children, educators, and Filipino families through an easy-to-use, culturally enriching platform.",
+            "challenge": "In a fast-paced digital world, traditional Filipino folktales—or alamat—have become less accessible to younger generations. These culturally rich stories, once passed down through oral tradition, are now scattered across outdated books or inconsistent online sources. Educators, parents, and heritage advocates lacked a centralized, engaging platform where these tales could be read or listened to in a format that appeals to today’s users.",
+            "approach": "To preserve and modernize the storytelling tradition, the Filipino Alamat Android App was developed. The app offers a curated library of classic and regional alamat (folk stories) in both readable text and audio formats, making it accessible to a wide range of users, from children to educators and families. \n A growing collection of illustrated folk stories from various regions of the Philippines is featured in the app, showcasing the rich diversity of the country’s oral traditions. Users can enjoy high-quality audio narrations in Filipino, with optional English translations or subtitles to support language learning and comprehension. \n Designed with simplicity in mind, the app features a child-friendly interface that makes it ideal for classroom activities or bedtime storytelling. Users can also bookmark stories and access them offline, providing convenience for reading anytime, anywhere. \n Additionally, each story includes educational notes that explain cultural themes, moral lessons, and the historical or mythical origins of the tale—enhancing the educational value of the app and promoting a deeper appreciation of Filipino heritage.",
+            "results": [
+                {
+                    "title": "Downloads",
+                    "metric": "10,000+",
+                    "description": "10,000+ downloads within the first 6 months"
+                },
+                {
+                    "title": "Rating",
+                    "metric": "4.8",
+                    "description": "4.8-star average rating on the Play Store"
+                },
+                {
+                    "title": "Education",
+                    "metric": "Grades",
+                    "description": "+10,000 aided with their school assignments"
+                },
+                {
+                    "title": "Connection",
+                    "metric": "Bonding",
+                    "description": "Users use it to bond with their families"
+                }
+            ],
+            "conclusion": "The Filipino Alamat app successfully bridges the gap between heritage and technology by making folk stories accessible, engaging, and educational. It preserves the spirit of oral storytelling while embracing the convenience and reach of mobile platforms. As interest in cultural identity grows among Filipinos worldwide, Filipino Alamat serves as a timeless companion for the digital age."
+        },
+        {
+            "platform": "mobile",
+            "slug": "stockapp",
+            "image": "/images/projects/posmobile.png",
+            "title": "StockApp Inventory",
+            "metaDescription": "StockApp Inventory is a mobile app inventory software solution tailored for small businesses, available in google play store",
+            "shortDescription": "StockApp is a user-friendly Android application designed to streamline inventory tracking for small businesses. With features like real-time stock updates, sales recordings, and low-stock alerts, it simplifies the process of managing products, suppliers, and transactions.",
+            "meta": {
+                "platform": "Android",
+                "category": "Productivity / Inventory Management",
+                "targetAudience": "Small business owners, store manager, vendors",
+                "language": "Filipino, English"
+            },
+            "requirements": [
+                "Add, edit, and delete products",
+                "Real-time stock tracking (quantity in/out updates automatically)",
+                "Barcode scanner for quick product lookup and updates",
+                "Low stock alerts to notify when items need restocking",
+                "Sales tracking with basic reports (daily, weekly, monthly)",
+                "Multi-location support (optional – for businesses with multiple stores)"
+            ],
+            "overview": "The Filipino Alamat App is a mobile application designed to preserve and promote Filipino folklore (alamat) by offering a curated collection of stories in both text and audio formats. It aims to engage children, educators, and Filipino families through an easy-to-use, culturally enriching platform.",
+            "challenge": "Many small business owners and shopkeepers struggle with manual or outdated inventory tracking methods such as spreadsheets or paper logs. These methods are prone to error, time-consuming, and offer little visibility into stock movement or sales trends. Without a dedicated system, businesses often face issues like overstocking, stockouts, and inaccurate reporting.",
+            "approach": "To address these challenges, the StockApp Inventory Software was developed as a mobile-first inventory management solution tailored for small businesses. The Android app offers real-time tools to help business owners monitor inventory, manage stock levels, and gain insights into sales performance—all from the convenience of a smartphone. \n The app features real-time stock tracking, allowing automatic updates as items are sold or restocked. With barcode scanning support, users can quickly look up products or update inventory with ease. To prevent stockouts, the app sends low-stock alerts and restock reminders, helping businesses stay ahead of supply shortages. \n Additionally, StockApp includes sales recording tools and daily report summaries, giving users a clear view of their sales trends and inventory flow. For businesses operating across multiple outlets, the app also supports multi-location inventory management, ensuring a centralized and accurate tracking system.",
+            "results": [
+                {
+                    "title": "Accuracy ",
+                    "metric": "70%",
+                    "description": "Reduced inventory errors by over 70%"
+                },
+                {
+                    "title": "Stocking Time",
+                    "metric": "50%",
+                    "description": "Speedup stock-taking time by nearly 50%"
+                },
+                {
+                    "title": "Users",
+                    "metric": "NA",
+                    "description": "NA"
+                },
+                {
+                    "title": "Reviews",
+                    "metric": "NA",
+                    "description": "NA"
+                }
+            ],
+            "conclusion": "StockApp empowers small business owners with a simple yet powerful mobile tool for managing inventory on the go. Its intuitive design, offline capability, and smart alerts make it a must-have for anyone looking to move beyond spreadsheets and manual logs. As mobile business tools become increasingly essential, StockApp is leading the way in inventory management for entrepreneurs."
         }
     ]
 }
