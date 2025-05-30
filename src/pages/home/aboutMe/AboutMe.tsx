@@ -13,7 +13,9 @@ const AboutMe = () => {
                 }}>
         <SectionHeader title="What I do" />
         <Typography level="body-md" sx={{mb: 8, mt: -2}}>
-                Hi there! I'm a seasoned full-stack developer who loves turning ideas into interactive, user-friendly web/mobile applications. From crafting sleek front-end interfaces with React to building robust back-end systems with Node.js, I handle both sides to create seamless digital experiences. Whether it's a dynamic dashboard, a sleek e-commerce site, or a real-time chat app, I'm here to bring your vision to life with clean code and a touch of creativity.
+                I have over 7 years experience in software development, I've worked with clients accross the globe. My technical proficiency encompasses a wide range of tools and frameworks, including JavaScript, React, Node.js, Python, and various database systems. I am adept at integrating APIs, implementing responsive designs, and optimizing application performance to ensure seamless user experiences. 
+                Below is a quick overview of my main technical skills set and technologies I use. 
+                For a more detailed overview of my professional background and to explore some of the projects I've worked on, please visit my online resume and project portfolio.
         </Typography>
         <Grid container spacing={2} sx={{flexGrow: 1}}>
             <Grid size={{lg: 3, md: 4, sm: 6, xs: 6}} sx={{mb: 5}}>

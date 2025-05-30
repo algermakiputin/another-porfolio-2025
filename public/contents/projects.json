@@ -1,0 +1,46 @@
+{
+    "projects": [
+        {
+            "slug": "poslite-inventory-software",
+            "title": "POSLite Inventory Softwares",
+            "metaDescription": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facere nam id rerum ipsam? Voluptates, quo id consequatur repellat quibusdam minima ullam qui eaque maxime corrupti, natus doloremque suscipit quod beatae.",
+            "shortDescription": "Lorem",
+            "meta": {
+                "industry": "Tech",
+                "size": "1-50",
+                "website": "https://poslitesoftware.com"
+            },
+            "requirements": [
+                "requirment1",
+                "requirement2",
+                "requirement3"
+            ],
+            "overview": "The overview of the project",
+            "challege": "The Challenge of the project",
+            "approach": "The Approach of the project",
+            "results": [
+                {
+                    "title": "Efficiency",
+                    "metric": "20%",
+                    "description": "hello world"
+                },
+                {
+                    "title": "Efficiency",
+                    "metric": "20%",
+                    "description": "hello world"
+                },
+                {
+                    "title": "Efficiency",
+                    "metric": "20%",
+                    "description": "hello world"
+                },
+                {
+                    "title": "Efficiency",
+                    "metric": "20%",
+                    "description": "hello world"
+                }
+            ],
+            "conclusion": ""
+        }
+    ]
+}

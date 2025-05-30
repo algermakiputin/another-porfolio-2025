@@ -11,7 +11,8 @@
 }
 
 .home-btn.message {
-    background-color: #3b3b3b;
+    background-color: var(--button-secondary-background)!important;
+    color: var(--white);
 }
 
 @media only screen and (max-width: 768px) {

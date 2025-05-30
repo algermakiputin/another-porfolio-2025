@@ -21,6 +21,38 @@
   display: none!important;
 }
 
+.social-icons-list {
+  padding: 0;
+  margin: 0;
+  margin-top: 1.5em;
+  margin-bottom: 1em;
+}
+
+.social-icons-list li {
+  list-style-type: none;
+  display: inline-block;
+  background-color: var(--white);
+  border-radius: 50%;
+  line-height: 0.8em;
+  padding: 0.45em;
+  justify-content: center;
+  align-items: center;
+  max-width: 100px;
+  margin-right: 0.5em;
+  cursor: pointer;
+}
+
+.social-icons-list li:hover,
+.social-icons-list li:active {
+    color: #40976f;
+    background-color: rgba(255, 255, 255, 0.8);
+    transition: all 0.4s ease-in-out;
+}
+
+.social-icons-list li:nth-last-child {
+  margin-right: 0;
+}
+
 @media only screen and (max-width: 768px) {
   .header {
     height: auto;

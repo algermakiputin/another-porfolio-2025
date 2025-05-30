@@ -6,8 +6,12 @@ import MenuIcon from '@mui/icons-material/Menu';
 import BookIcon from '@mui/icons-material/Book';
 import ContactsIcon from '@mui/icons-material/Contacts';
 import { useEffect, useState } from "react";
-import { useNavigate  } from "react-router";
+import { Link, NavLink, useNavigate  } from "react-router";
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import YouTubeIcon from '@mui/icons-material/YouTube';
+import RssFeedIcon from '@mui/icons-material/RssFeed';
 import './header.css'; 
 import useGetWindowsDimension from "../../../hooks/useGetWindowsDimension";
 
@@ -39,15 +43,37 @@ const Header = () => {
                     }
                     </IconButton>
                     <Typography sx={{color: '#fff', mt: 2, mb: 2}} level="h3" className="site-title">Alger Makiputin</Typography>
-                </div>
+                </div> 
             </Box>
             <Collapse in={collapse}>
                 <Box sx={{pl: 4, pr: 4}}>
                     <img src="/images/left-profile.jpg" width={120}  style={{borderRadius: '50%', marginTop: 15,marginBottom: 15}}/>
                     <Typography sx={{color: '#fff'}}  level="body-sm">Hi, my name is Alger Makiputin and I'm a senior software engineer. Welcome to my personal website!</Typography>
+                    <ul className="social-icons-list">
+                        <li>
+                            <NavLink to={'https://ph.linkedin.com/in/alger-makiputin'} target="__blank">
+                                <LinkedInIcon sx={{color: 'var(--primary-background)', fontSize: 18}} fontSize="inherit" />
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to={'https://github.com/algermakiputin'} target="__blank">
+                                <GitHubIcon sx={{color: 'var(--primary-background)', fontSize: 18}} fontSize="inherit" />
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to={'https://www.youtube.com/c/AlgerMakiputin'} target="__blank">
+                                <YouTubeIcon sx={{color: 'var(--primary-background)', fontSize: 18}} fontSize="inherit" />
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to={'https://algerwrites.medium.com/'} target="__blank">
+                                <RssFeedIcon sx={{color: 'var(--primary-background)', fontSize: 18}} fontSize="inherit" />
+                            </NavLink>
+                        </li>
+                    </ul>
                 </Box>
                 <Box>
-                    <List>
+                    <List sx={{maxWidth: 200, margin: 'auto'}}>
                         <ListItem>
                             <ListItemButton onClick={() => linkHandler('/')}>
                                 <ListItemDecorator sx={{mr: 1}}><Home /></ListItemDecorator>

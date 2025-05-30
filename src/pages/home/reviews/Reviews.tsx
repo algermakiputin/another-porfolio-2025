@@ -33,20 +33,20 @@ const Reviews = () => {
                     pt: {lg: 7, md: 4, sm:4, xs: 4}
                 }}>
             <SectionHeader title='Testimonials' />
-            <Carousel className='carousel' responsive={responsive} showDots={true} arrows={false} dotListClass='reviews-carousel-dots'>
+            <Carousel autoPlay className='carousel' responsive={responsive} showDots={true} arrows={false} dotListClass='reviews-carousel-dots'>
                 <div className='carousel-wrapper'> 
                     <div className='carousel-item'>
                         <FormatQuoteIcon className='format-quote' />
-                        <blockquote>
-                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsam saepe dolorum vero soluta. Ad officia alias ex illo? Sint sequi nulla ex eos eaque facilis obcaecati voluptas sit quod iusto.
-                        </blockquote>
+                        <Typography>
+                            I worked with Alger over the past 2 years, he has consistently demonstrated a profound understanding of both front-end and back-end development, seamlessly bridging the gap between design and functionality. I highly recommend Alger for any venture requiring a skilled Full Stack Engineer."
+                        </Typography>
                         <div className='profile-wrapper'>
                             <div className='image-wrapper'>
-                                <img src='https://media.istockphoto.com/id/1682296067/photo/happy-studio-portrait-or-professional-man-real-estate-agent-or-asian-businessman-smile-for.jpg?s=612x612&w=0&k=20&c=9zbG2-9fl741fbTWw5fNgcEEe4ll-JegrGlQQ6m54rg=' />
+                                <img src='/images/reviews/roy.jpg' />
                             </div>
                             <div className='info'>
-                                <Typography level='body-xs'>John Doe</Typography>
-                                <Typography level='body-sm'>Project Manager</Typography>
+                                <Typography level='body-xs'>Roy S**oy</Typography>
+                                <Typography level='body-sm'>Tech Solution Architect Manager</Typography>
                             </div>
                         </div>
                     </div>
@@ -54,16 +54,16 @@ const Reviews = () => {
                 <div className='carousel-wrapper'> 
                     <div className='carousel-item'>
                         <FormatQuoteIcon className='format-quote' />
-                        <blockquote>
-                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsam saepe dolorum vero soluta. Ad officia alias ex illo? Sint sequi nulla ex eos eaque facilis obcaecati voluptas sit quod iusto.
-                        </blockquote>
+                        <Typography>
+                            Collaborating with Alger has been a transformative experience for our car parts business. We needed a robust inventory software to manage our extensive inventory and provide a seamless shopping experience for our customers. Alger delivered a solution that exceeded our expectations.
+                        </Typography>
                         <div className='profile-wrapper'>
                             <div className='image-wrapper'>
-                                <img src='https://media.istockphoto.com/id/1682296067/photo/happy-studio-portrait-or-professional-man-real-estate-agent-or-asian-businessman-smile-for.jpg?s=612x612&w=0&k=20&c=9zbG2-9fl741fbTWw5fNgcEEe4ll-JegrGlQQ6m54rg=' />
+                                <img src='/images/reviews/carlos.jpg' />
                             </div>
                             <div className='info'>
-                                <Typography level='body-xs'>John Doe</Typography>
-                                <Typography level='body-sm'>Project Manager</Typography>
+                                <Typography level='body-xs'>Carlos R**ble</Typography>
+                                <Typography level='body-sm'>Business Owner</Typography>
                             </div>
                         </div>
                     </div>
@@ -71,16 +71,16 @@ const Reviews = () => {
                 <div className='carousel-wrapper'> 
                     <div className='carousel-item'>
                         <FormatQuoteIcon className='format-quote' />
-                        <blockquote>
-                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsam saepe dolorum vero soluta. Ad officia alias ex illo? Sint sequi nulla ex eos eaque facilis obcaecati voluptas sit quod iusto.
-                        </blockquote>
+                        <Typography>
+                            Partnering with Alger has been transformative for our grocery business. He took the time to understand our unique challenges and delivered a tailored solution that streamlined our inventory management and operations. His work has been instrumental in driving our success.
+                        </Typography>
                         <div className='profile-wrapper'>
                             <div className='image-wrapper'>
-                                <img src='https://media.istockphoto.com/id/1682296067/photo/happy-studio-portrait-or-professional-man-real-estate-agent-or-asian-businessman-smile-for.jpg?s=612x612&w=0&k=20&c=9zbG2-9fl741fbTWw5fNgcEEe4ll-JegrGlQQ6m54rg=' />
+                                <img src='/images/reviews/ian.jpg' />
                             </div>
                             <div className='info'>
-                                <Typography level='body-xs'>John Doe</Typography>
-                                <Typography level='body-sm'>Project Manager</Typography>
+                                <Typography level='body-xs'>Ian A**enza</Typography>
+                                <Typography level='body-sm'>Business Owner</Typography>
                             </div>
                         </div>
                     </div>
@@ -88,16 +88,16 @@ const Reviews = () => {
                 <div className='carousel-wrapper'> 
                     <div className='carousel-item'>
                         <FormatQuoteIcon className='format-quote' />
-                        <blockquote>
-                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsam saepe dolorum vero soluta. Ad officia alias ex illo? Sint sequi nulla ex eos eaque facilis obcaecati voluptas sit quod iusto.
-                        </blockquote>
+                        <Typography>
+                            Working with Alger has been a transformative experience for my retail business. Operating from abroad, I was initially concerned about managing a development project remotely. However, Alger's professionalism and clear communication quickly put those concerns to rest.
+                        </Typography>
                         <div className='profile-wrapper'>
                             <div className='image-wrapper'>
-                                <img src='https://media.istockphoto.com/id/1682296067/photo/happy-studio-portrait-or-professional-man-real-estate-agent-or-asian-businessman-smile-for.jpg?s=612x612&w=0&k=20&c=9zbG2-9fl741fbTWw5fNgcEEe4ll-JegrGlQQ6m54rg=' />
+                                <img src='/images/reviews/arnel.jpg' />
                             </div>
                             <div className='info'>
-                                <Typography level='body-xs'>John Doe</Typography>
-                                <Typography level='body-sm'>Project Manager</Typography>
+                                <Typography level='body-xs'>Arnel S**an</Typography>
+                                <Typography level='body-sm'>Grocery Store Owner</Typography>
                             </div>
                         </div>
                     </div>
@@ -105,16 +105,16 @@ const Reviews = () => {
                 <div className='carousel-wrapper'> 
                     <div className='carousel-item'>
                         <FormatQuoteIcon className='format-quote' />
-                        <blockquote>
-                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsam saepe dolorum vero soluta. Ad officia alias ex illo? Sint sequi nulla ex eos eaque facilis obcaecati voluptas sit quod iusto.
-                        </blockquote>
+                        <Typography>
+                            I worked with Alger as I needed a software to help me streamlined our online thai product business. He delivered a custom inventory system that not only improved our stock tracking but also enhanced our operational efficiency. Very accomodating with a great aftersales service.
+                        </Typography>
                         <div className='profile-wrapper'>
                             <div className='image-wrapper'>
-                                <img src='https://media.istockphoto.com/id/1682296067/photo/happy-studio-portrait-or-professional-man-real-estate-agent-or-asian-businessman-smile-for.jpg?s=612x612&w=0&k=20&c=9zbG2-9fl741fbTWw5fNgcEEe4ll-JegrGlQQ6m54rg=' />
+                                <img src='/images/reviews/edmund.jpg' />
                             </div>
                             <div className='info'>
-                                <Typography level='body-xs'>John Doe</Typography>
-                                <Typography level='body-sm'>Project Manager</Typography>
+                                <Typography level='body-xs'>Edmund L*i</Typography>
+                                <Typography level='body-sm'>Ecommerce Store Owner</Typography>
                             </div>
                         </div>
                     </div>

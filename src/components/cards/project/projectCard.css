@@ -50,6 +50,11 @@
   background-color: #434343!important;
 }
 
+.project-title {
+  font-size: 1.25em!important;
+  font-weight: bold!important;
+}
+
 .portfolio-item:hover .middle {
   opacity: 1;
 }

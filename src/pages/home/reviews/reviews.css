@@ -1,5 +1,5 @@
 .carousel {
-    padding-bottom: 30px;
+    padding-bottom: 2.5em;
 }
 .carousel-wrapper {
     padding-right: 30px;
@@ -66,8 +66,8 @@
     padding-top: .5rem;
 }
 
-.reviews-carousel-dots  {
-  
+.react-multi-carousel-dot button {
+    border: 0;
 }
 
 @media only screen and (max-width: 450px) {

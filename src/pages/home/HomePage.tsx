@@ -8,6 +8,7 @@ import SendIcon from '@mui/icons-material/Send';
 import Projects from "./projects/Projects";
 import Blog from "./blog/Blog";
 import './homepage.css';
+import { NavLink } from "react-router";
 
 const HomePage = () => {
     return (  
@@ -23,10 +24,10 @@ const HomePage = () => {
                 <Grid  size={{md: 7, sm: 7}}>
                     <Typography level="h2" sx={{mb: 1}}>Alger Makiputin</Typography>
                     <Typography level="body-lg" sx={{mb: 2}}>Full Stack Software Engineer</Typography>
-                    <Typography level="body-md" sx={{mb: 4}}>I'm a software engineer specialised in frontend and backend development for complex scalable web apps. I write about software development on my blog. Want to know how I may help your project? Check out my project portfolio and online resume.</Typography>
+                    <Typography level="body-md" sx={{mb: 4}}>I'm a Full Stack Software Engineer skilled in both front-end and back-end development. I built websites and mobiles app for a living, when I am not at work I do running and going to the gym as a hobby. I also do boxing and yoga occasionally. When I am tired to go out, I just stay at home playing some MMO's or tackle a pile of unread books. I also write about stocks and software development in my <NavLink to={'/blog'}>blog</NavLink>. Feel free to checkout my <NavLink to={'/portfolio'}>portfolio</NavLink> to see how I can assist with your project.</Typography>
                     <Box>
                         <Button sx={{mr: 1}} startIcon={<ArrowCircleRightIcon />} className="home-btn portfolio" variant="contained" color="success">View Portfolio</Button>
-                        <Button sx={{mr: 1}} startIcon={<SendIcon />} className="home-btn message" variant="contained" color="secondary">Hire Me</Button>
+                        <Button sx={{mr: 1}} startIcon={<SendIcon />} className="home-btn message" variant="contained" color="inherit">Hire Me</Button>
                     </Box>
                 </Grid>
                 <Grid size={{md: 5, sm: 5}} sx={{mt: {xs: 4}}}>
