@@ -10,12 +10,23 @@ import Footer from './components/template/footer/Footer';
 import BlogPage from './pages/blog/BlogPage';
 import ContactPage from './pages/contact/ContactPage';
 import ScrollToTop from './components/scroll/ScrollToTop';
-import { Box } from '@mui/material';
+import { Box, colors } from '@mui/material';
 
 const typography = {
   h2: {
       fontSize: '2em',
-      fontWeight: 'bold'
+      fontWeight: 'bold',
+  },
+  h3: {
+    color: 'rgba(255,255,255,0.95)',
+    fontSize: '1rem',
+    fontWeight: 'bold'
+  },
+  body2: {
+    color: "rgba(255,255,255,0.7)"
+  },
+  body1: {
+    color: "rgba(255,255,255,0.7)"
   }
 }
 
