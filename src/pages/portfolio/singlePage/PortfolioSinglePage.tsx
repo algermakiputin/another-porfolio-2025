@@ -12,7 +12,7 @@ import CategoryIcon from '@mui/icons-material/Category';
 import PeopleIcon from '@mui/icons-material/People';
 import PageHeader from "../../../components/template/PageHeader/PageHeader";
 import { useCallback, useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { NavLink, useParams } from "react-router";
 import './portfolioSinglePage.css';
 import { Project } from "../../../types/ProjectType";
 
@@ -38,8 +38,8 @@ const PortfolioSinglePage = () => {
                 title={`Case Study: ${project?.title}`}
                 description={project?.metaDescription}
                 />
-            <Box sx={{p: 7}}>
-                <Card className="project-meta" elevation={0} sx={{p: 4, background: '#fafafa', border: 0}}>
+            <Box sx={{p: {md: 4, xs: 4, lg: 7, sm:4}}}>
+                <Card className="project-meta" elevation={0} sx={{p: {lg: 4, sx: 0}, background: '#fafafa', border: 0}}>
                     <CardMedia
                         sx={{ height: 190, borderRadius: 0 }}
                         image={project?.image}
@@ -55,7 +55,7 @@ const PortfolioSinglePage = () => {
                                 <ul className="project-info-list">
                                     <li><Typography variant="body2" className="meta-info"><WarehouseIcon fontSize="small" sx={{mr: 1}}/> Industry: { project?.meta?.industry }</Typography></li>
                                     <li><Typography variant="body2" className="meta-info"><Groups3Icon fontSize="small" sx={{mr: 1}}/>Size: {project?.meta?.size}</Typography></li>
-                                    <li><Typography variant="body2" className="meta-info"><LanguageIcon fontSize="small" sx={{mr: 1}} />Website: www.project.com</Typography></li>
+                                    <li><Typography variant="body2" className="meta-info"><LanguageIcon fontSize="small" sx={{mr: 1}} />{project?.meta?.linkLabel}:  &nbsp;<NavLink to={project?.meta?.link ?? '' } target="__blank" className={'link'}>{project?.meta?.website }</NavLink></Typography></li>
                                 </ul>
                             ) : (
                                 <ul className="project-info-list">
@@ -96,7 +96,7 @@ const PortfolioSinglePage = () => {
                     <Grid container spacing={2} sx={{mb: 2}}>
                         {
                             project?.results?.map((result: any) => (
-                                <Grid size={3}>
+                                <Grid size={{lg: 3, md: 6, sm: 6, xs: 12}}>
                                     <div className="metric">
                                         <Typography className="label">{ result?.title }</Typography>
                                         <Typography className="data" sx={{mb: 1}}>{ result?.metric } <small className="unit">Up</small></Typography>

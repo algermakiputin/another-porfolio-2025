@@ -33,7 +33,7 @@ const ProjectCard = ({ description, title, image, path } : Props) => {
                     <Typography className='project-title' gutterBottom variant="h5" component="div" onClick={() => onNavigateHandler('test')}>
                     { title ? title : 'POSLite Inventory Software'}
                     </Typography>
-                    <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                    <Typography variant="body2" className='description' sx={{ color: 'text.secondary' }}>
                     { description ? description : 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica'}
                     </Typography>
                 </CardContent>

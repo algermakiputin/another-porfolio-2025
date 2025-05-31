@@ -61,3 +61,15 @@
     font-size: 1.25em;
     font-weight: bold!important;
 }
+
+@media only screen and (max-width: 425px) {
+    .project-meta {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+    .card-content {
+        padding-left: 1em!important;
+        padding-right: 1em!important;
+        padding-top: 1em!important;
+    }
+}

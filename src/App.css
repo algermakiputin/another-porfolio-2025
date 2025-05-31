@@ -1,8 +1,9 @@
 :root {
   --primary-background: #54B689;
-  --seconday-background: #fafafa;
+  --secondary-background: #fafafa;
   --white: #ffffff;
   --button-secondary-background: #4f4f4f;
+  --primary-border: 1px solid rgba(0,0,0,0.025) !important;
 }
 
 .App {

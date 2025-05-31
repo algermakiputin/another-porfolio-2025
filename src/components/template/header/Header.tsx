@@ -12,14 +12,13 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import RssFeedIcon from '@mui/icons-material/RssFeed';
-import './header.css'; 
 import useGetWindowsDimension from "../../../hooks/useGetWindowsDimension";
+import './header.css'; 
 
 const Header = () => {
     const [width] = useGetWindowsDimension();
     const [collapse, setCollapse] = useState(true);
     const navigate = useNavigate ();
-    
     const linkHandler = (route: string) => {
         navigate(route);
     };

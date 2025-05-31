@@ -13,14 +13,14 @@ type Props = {
 }
 const BlogCard = ({title, description, image, publishedDate, link} : Props) => {
     return (
-        <Card sx={{  }}>
+        <Card elevation={0} sx={{border: 'var(--primary-border)'}}>
             <CardMedia
                 component="img"
                 height={278}
                 image={image}
                 alt={title}
             />
-            <CardContent>
+            <CardContent sx={{backgroundColor: 'var(--secondary-background)'}}>
                 <Typography gutterBottom variant="h5" component="div">
                     {title}
                 </Typography>

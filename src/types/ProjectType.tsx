@@ -14,6 +14,9 @@ export type Project = {
         category?: string;
         targetAudience?: string;
         language?: string;
+        link?: string;
+        linkLabel?: string;
+        client?: string;
     },
     requirements: string[],
     overview: string;

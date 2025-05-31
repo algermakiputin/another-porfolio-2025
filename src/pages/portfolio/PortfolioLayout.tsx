@@ -1,14 +1,9 @@
 import React from "react";
 import Isotope from "isotope-layout";
 import './portfolioLayout.css';
-import Card from '@mui/material/Card'; 
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia'; 
-import Typography from '@mui/material/Typography';
 import { Box } from "@mui/material";
 import { useNavigate } from "react-router";
 import ProjectCard from "../../components/cards/project/ProjectCard";
-import { ProjectType } from "../../types/ProjectType";
 import useGetProjects from "../../hooks/useGetProjects";
 
 
@@ -46,7 +41,7 @@ const PortfolioLayout = () => {
         <li className={`portfolio-menu ${filterKey === 'web-app' ? 'active' : ''}`} onClick={handleFilterKeyChange("web-app")}>Web App</li>
         <li className={`portfolio-menu ${filterKey === 'mobile-app' ? 'active' : ''}`} onClick={handleFilterKeyChange("mobile-app")}>Mobile App</li>
       </ul>
-      <Box sx={{p: {lg: 7, md: 4, sm: 2}}}>
+      <Box sx={{p: {lg: 7, md: 4, sm: 4, xs: 4}}}>
         <ul className="filter-container">
           {
             projects?.map((project) => (

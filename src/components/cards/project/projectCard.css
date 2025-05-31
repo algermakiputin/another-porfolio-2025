@@ -59,11 +59,50 @@
   opacity: 1;
 }
 
+@media only screen and (max-width: 1450px) {
+  .project-wrapper .card-content .description {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+  }
+  
+  .project-wrapper .project-title {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 250px;
+  }
+}
+
 @media only screen and (max-width: 768px) {
   .portfolio-item {
-        display: grid;
-        grid-template-columns: 1fr;
-        border-radius: 0!important;
-        position: relative;
-    }
+      display: grid;
+      grid-template-columns: 1fr;
+      border-radius: 0!important;
+      position: relative;
+  }
+
+  .project-wrapper .card-content .description {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+  }
+
+  .project-wrapper .project-title {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 300px;
+  }
+}
+
+@media only screen and (max-width: 425px) { 
+  .filter-item:nth-child(odd) .project-wrapper {
+      padding-right: 0;
+  }
+  .filter-item:nth-child(even) .project-wrapper {
+      padding-left: 0;
+  }
 }

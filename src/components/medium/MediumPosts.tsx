@@ -1,11 +1,10 @@
-import { Grid, Typography } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import { Grid } from '@mui/material';
+import { useEffect, useState } from 'react';
 import BlogCard from '../cards/BlogCard';
 
 function urlify(text: string) {
     const match = text?.match(/https?:\/\/[^"]+/);
     const firstLink = match ? match[0] : null;
-    console.log(firstLink);
     return firstLink;
 }
 
@@ -34,7 +33,6 @@ function formatReadableDate(raw: string) {
         minute: "2-digit",
         hour12: true,
     };
-
     return date.toLocaleString("en-US", options);
 }
 
@@ -53,7 +51,6 @@ const MediumPosts = ({limit, size, featured} : Props) => {
           'https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@algerwrites'
         );
         const data = await response.json();
-        console.log(`data?.items`, data?.items?.[4]);
         if (featured) {
             setPosts([
               data?.items?.[0],
@@ -75,14 +72,12 @@ const MediumPosts = ({limit, size, featured} : Props) => {
     <div className="medium-feed">
       <Grid container spacing={2} sx={{flexGrow: 1}}>
         {posts.map((post: any) => {
-            console.log(`post`, post);
             const tags = getContentTags(post);
             const figureTagValue = tags?.[0]?.tagName === "figure" ? tags?.[0]?.value : tags?.[1]?.value;
             const content = tags?.[1]?.tagName === "p" ? tags?.[1]?.value : tags?.[2]?.value;
             const url = urlify(figureTagValue);
-          
             return (
-                <Grid size={size}>
+                <Grid size={{lg: size, md: 12}} key={post.title}>
                     <BlogCard 
                         title={post.title}
                         description={content?.slice(0, 220) + '...'}

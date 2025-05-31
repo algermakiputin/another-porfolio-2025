@@ -11,12 +11,24 @@ import BlogPage from './pages/blog/BlogPage';
 import ContactPage from './pages/contact/ContactPage';
 import ScrollToTop from './components/scroll/ScrollToTop';
 
-const darkTheme = createTheme({
+const theme = createTheme({
   palette: {
-    mode: 'light',
+    mode: 'dark',
+  },
+  cssVariables: true,
+  colorSchemes: {
+    light: true,
+    dark: true,
   },
 });
 
+theme.typography.h2 = {
+  fontSize: '2em',
+  fontWeight: 'bold',
+  color: theme.palette.background.default
+}
+
+ 
 const Layout = () => {
   return (
     <>
@@ -32,19 +44,22 @@ const Layout = () => {
 
 function App() {
   return ( 
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<Layout />}>
-          <Route index element={<HomePage />} />
-          <Route path='/portfolio' element={<PortfolioPage />} />
-          <Route path='/blog' element={<BlogPage />} />
-          <Route path='/contact' element={<ContactPage />} />
-          <Route path='/project/:slug' element={<PortfolioSinglePage />} />
-          <Route path='/blog' element={<></>} />
-          <Route path='/contact' element={<></>} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Layout />}>
+            <Route index element={<HomePage />} />
+            <Route path='/portfolio' element={<PortfolioPage />} />
+            <Route path='/blog' element={<BlogPage />} />
+            <Route path='/contact' element={<ContactPage />} />
+            <Route path='/project/:slug' element={<PortfolioSinglePage />} />
+            <Route path='/blog' element={<></>} />
+            <Route path='/contact' element={<></>} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 

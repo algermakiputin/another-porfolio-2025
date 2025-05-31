@@ -14,8 +14,13 @@ const PageHeader = ({hideButton, title, description, anotherDescription} : Props
         navigate('/contact');
     }
     return (
-        <Box sx={{background: '#fafafa', p: {lg: 7, md: 4, sm: 2}, textAlign: 'center'}}>
-            <Box sx={{maxWidth: 700, margin: 'auto'}}>
+        <Box sx={{background: '#fafafa', p: {lg: 7, md: 4, sm: 4, sx: 4}, textAlign: 'center'}}>
+            <Box sx={{
+                    maxWidth: {lg: 780, md: 600, sm: 350, xs: 350}, 
+                    margin: 'auto',
+                    paddingTop: { lg: 2, xs: 4},
+                    paddingBottom: { lg: 2, xs: 4}
+                    }}>
                 <Typography variant="h2" sx={{mb: 2, fontSize: '2em', fontWeight: 'bold'}}>{ title ? title : 'Portfolio' }</Typography>
                 <Typography variant="body1">{ description ? description : 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, ipsum eaque totam cum fuga culpa nostrum blanditiis corrupti sequi dolore, distinctio ea, consequuntur et a quaerat praesentium. Perferendis, placeat aliquid.' }</Typography>
                 { anotherDescription && <Typography sx={{mt: 2}}>{anotherDescription}</Typography> }
