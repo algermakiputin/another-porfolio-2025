@@ -20,7 +20,7 @@ const BlogCard = ({title, description, image, publishedDate, link} : Props) => {
                 image={image}
                 alt={title}
             />
-            <CardContent sx={{backgroundColor: 'var(--secondary-background)'}}>
+            <CardContent sx={{backgroundColor: 'var(--mui-palette-background-paper)'}}>
                 <Typography gutterBottom variant="h5" component="div">
                     {title}
                 </Typography>

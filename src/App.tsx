@@ -10,23 +10,54 @@ import Footer from './components/template/footer/Footer';
 import BlogPage from './pages/blog/BlogPage';
 import ContactPage from './pages/contact/ContactPage';
 import ScrollToTop from './components/scroll/ScrollToTop';
+import { Box } from '@mui/material';
 
-const theme = createTheme({
-  palette: {
-    mode: 'dark',
-  },
+const typography = {
+  h2: {
+      fontSize: '2em',
+      fontWeight: 'bold'
+  }
+}
+
+const lightTheme = createTheme({
   cssVariables: true,
-  colorSchemes: {
-    light: true,
-    dark: true,
+  palette: {
+    mode: 'light',
+    background: {
+      default: '#fff',
+      paper: '#fafafa'
+    }
   },
+  typography: {
+    ...typography
+  }
 });
 
-theme.typography.h2 = {
-  fontSize: '2em',
-  fontWeight: 'bold',
-  color: theme.palette.background.default
-}
+const darkTheme = createTheme({
+  cssVariables: true,
+  colorSchemes: {
+    dark:  true
+  },
+  palette: {
+    mode: 'dark',
+    background: {
+      default: '#11181D',
+      paper: '#151e29',
+    },
+    primary: {
+      main: "#54B689",
+    },
+    secondary: {
+      main: "#4f4f4f"
+    },
+    common: {
+      black: "#1e2a3a"
+    }
+  },
+  typography: {
+    ...typography
+  }
+});
 
  
 const Layout = () => {
@@ -34,17 +65,19 @@ const Layout = () => {
     <>
       <ScrollToTop />
       <Header />
-      <div className='content-wrapper'>
-        <Outlet />
-        <Footer />
-      </div>
+      <Box sx={{background: '--mui-palette-background-default'}}>
+        <div className='content-wrapper'>
+          <Outlet />
+          <Footer />
+        </div>
+      </Box>
     </>
   )
 }
 
 function App() {
   return ( 
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={darkTheme}>
       <CssBaseline />
       <BrowserRouter>
         <Routes>

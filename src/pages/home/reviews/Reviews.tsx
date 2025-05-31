@@ -1,5 +1,5 @@
-import { Typography } from '@mui/joy';
-import { Box } from '@mui/material';
+
+import { Box, Typography } from '@mui/material';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import SectionHeader from '../../../components/sectionHeader/SectionHeader';
@@ -36,8 +36,8 @@ const Reviews = () => {
             <Carousel autoPlay className='carousel' responsive={responsive} showDots={true} arrows={false} dotListClass='reviews-carousel-dots'>
                 <div className='carousel-wrapper'> 
                     <div className='carousel-item'>
-                        <FormatQuoteIcon className='format-quote' />
-                        <Typography>
+                        <FormatQuoteIcon className='format-quote'/>
+                        <Typography variant='body2'>
                             I worked with Alger over the past 2 years, he has consistently demonstrated a profound understanding of both front-end and back-end development, seamlessly bridging the gap between design and functionality. I highly recommend Alger for any venture requiring a skilled Full Stack Engineer."
                         </Typography>
                         <div className='profile-wrapper'>
@@ -45,8 +45,8 @@ const Reviews = () => {
                                 <img src='/images/reviews/roy.jpg' />
                             </div>
                             <div className='info'>
-                                <Typography level='body-xs'>Roy S**oy</Typography>
-                                <Typography level='body-sm'>Tech Solution Architect Manager</Typography>
+                                <Typography variant='body2'>Roy S**oy</Typography>
+                                <Typography variant='body2'>Tech Solution Architect Manager</Typography>
                             </div>
                         </div>
                     </div>
@@ -62,8 +62,8 @@ const Reviews = () => {
                                 <img src='/images/reviews/carlos.jpg' />
                             </div>
                             <div className='info'>
-                                <Typography level='body-xs'>Carlos R**ble</Typography>
-                                <Typography level='body-sm'>Business Owner</Typography>
+                                <Typography variant='body2'>Carlos R**ble</Typography>
+                                <Typography variant='body2'>Business Owner</Typography>
                             </div>
                         </div>
                     </div>
@@ -79,8 +79,8 @@ const Reviews = () => {
                                 <img src='/images/reviews/ian.jpg' />
                             </div>
                             <div className='info'>
-                                <Typography level='body-xs'>Ian A**enza</Typography>
-                                <Typography level='body-sm'>Business Owner</Typography>
+                                <Typography variant='body2'>Ian A**enza</Typography>
+                                <Typography variant='body2'>Business Owner</Typography>
                             </div>
                         </div>
                     </div>
@@ -96,8 +96,8 @@ const Reviews = () => {
                                 <img src='/images/reviews/arnel.jpg' />
                             </div>
                             <div className='info'>
-                                <Typography level='body-xs'>Arnel S**an</Typography>
-                                <Typography level='body-sm'>Grocery Store Owner</Typography>
+                                <Typography variant='body2'>Arnel S**an</Typography>
+                                <Typography variant='body2'>Grocery Store Owner</Typography>
                             </div>
                         </div>
                     </div>
@@ -113,8 +113,8 @@ const Reviews = () => {
                                 <img src='/images/reviews/edmund.jpg' />
                             </div>
                             <div className='info'>
-                                <Typography level='body-xs'>Edmund L*i</Typography>
-                                <Typography level='body-sm'>Ecommerce Store Owner</Typography>
+                                <Typography variant='body2'>Edmund L*i</Typography>
+                                <Typography variant='body2'>Ecommerce Store Owner</Typography>
                             </div>
                         </div>
                     </div>

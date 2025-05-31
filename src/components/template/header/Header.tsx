@@ -1,4 +1,4 @@
-import { Box, Collapse, IconButton, List, ListItem, ListItemButton } from "@mui/material";
+import { Box, Collapse, IconButton, List, ListItem, ListItemButton, useTheme } from "@mui/material";
 import { ListItemContent, ListItemDecorator, Typography } from "@mui/joy";
 import { Home } from "@mui/icons-material";
 import CodeIcon from '@mui/icons-material/Code';
@@ -16,6 +16,7 @@ import useGetWindowsDimension from "../../../hooks/useGetWindowsDimension";
 import './header.css'; 
 
 const Header = () => {
+    const theme = useTheme();
     const [width] = useGetWindowsDimension();
     const [collapse, setCollapse] = useState(true);
     const navigate = useNavigate ();
@@ -31,9 +32,14 @@ const Header = () => {
     }, [width]);
 
     const collapseHandler = () => setCollapse(!collapse);
-    
+    const getBackgroundColor = () => {
+        if (theme.palette.mode === "dark") {
+            return "#1e2a3a";
+        }
+        return "#54B689";
+    }
     return <Box>
-        <div className="header">
+        <div className="header" style={{backgroundColor: getBackgroundColor()}}>
             <Box sx={{pl: 4, pr: 4}}>
                 <div className="top-header-wrapper">
                     <IconButton className="mobile-menu-toggler" onClick={collapseHandler}> 
@@ -41,7 +47,7 @@ const Header = () => {
                         collapse ? <MenuOpenIcon className="mobile-menu-icon" /> : <MenuIcon className="mobile-menu-icon"/>
                     }
                     </IconButton>
-                    <Typography sx={{color: '#fff', mt: 2, mb: 2}} level="h3" className="site-title">Alger Makiputin</Typography>
+                    <Typography sx={{color: '#fff', mt: 2, mb: 2, fontSize: '1.5em', fontWeight: 'bold'}} level="h1" className="site-title">Alger Makiputin</Typography>
                 </div> 
             </Box>
             <Collapse in={collapse}>
