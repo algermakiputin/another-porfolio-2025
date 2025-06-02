@@ -39,7 +39,14 @@ const PortfolioSinglePage = () => {
                 description={project?.metaDescription}
                 />
             <Box sx={{p: {md: 4, xs: 4, lg: 7, sm:4}}}>
-                <Card className="project-meta" elevation={0} sx={{p: {lg: 4, sx: 0}, background: '#fafafa', border: 0}}>
+                <Card 
+                    className="project-meta" 
+                    elevation={0} 
+                    sx={{p: {lg: 4, sx: 0}, 
+                    background: '#fafafa', 
+                    border: 0,
+                    backgroundColor: 'var(--mui-palette-background-paper)'
+                    }}>
                     <CardMedia
                         sx={{ height: 190, borderRadius: 0 }}
                         image={project?.image}

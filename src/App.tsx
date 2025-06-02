@@ -10,66 +10,8 @@ import Footer from './components/template/footer/Footer';
 import BlogPage from './pages/blog/BlogPage';
 import ContactPage from './pages/contact/ContactPage';
 import ScrollToTop from './components/scroll/ScrollToTop';
-import { Box, colors } from '@mui/material';
-
-const typography = {
-  h2: {
-      fontSize: '2em',
-      fontWeight: 'bold',
-  },
-  h3: {
-    color: 'rgba(255,255,255,0.95)',
-    fontSize: '1rem',
-    fontWeight: 'bold'
-  },
-  body2: {
-    color: "rgba(255,255,255,0.7)"
-  },
-  body1: {
-    color: "rgba(255,255,255,0.7)"
-  }
-}
-
-const lightTheme = createTheme({
-  cssVariables: true,
-  palette: {
-    mode: 'light',
-    background: {
-      default: '#fff',
-      paper: '#fafafa'
-    }
-  },
-  typography: {
-    ...typography
-  }
-});
-
-const darkTheme = createTheme({
-  cssVariables: true,
-  colorSchemes: {
-    dark:  true
-  },
-  palette: {
-    mode: 'dark',
-    background: {
-      default: '#11181D',
-      paper: '#151e29',
-    },
-    primary: {
-      main: "#54B689",
-    },
-    secondary: {
-      main: "#4f4f4f"
-    },
-    common: {
-      black: "#1e2a3a"
-    }
-  },
-  typography: {
-    ...typography
-  }
-});
-
+import { Box } from '@mui/material';
+import { useGetDarkTheme } from './theme/useGetDarkTheme';
  
 const Layout = () => {
   return (
@@ -87,6 +29,7 @@ const Layout = () => {
 }
 
 function App() {
+  const { darkTheme } = useGetDarkTheme();
   return ( 
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />

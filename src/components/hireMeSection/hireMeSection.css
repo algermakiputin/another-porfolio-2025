@@ -1,5 +1,5 @@
 .hireMe {
-    background-color: #fafafa;
+    background-color: var(--mui-palette-background-paper);
     text-align: center;
     padding-top: 3.5em;
     padding-bottom: 3.5em;

@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import {Box, Grid, Button, Typography, useTheme } from "@mui/material";
+import {Box, Grid, Button, Typography, useTheme, ThemeProvider } from "@mui/material";
 import AboutMe from "./aboutMe/AboutMe";
 import Reviews from "./reviews/Reviews";
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
@@ -23,13 +23,17 @@ const HomePage = () => {
                 sx={{
                     p: {lg: 7, md: 4, xs: 4},
                     pt: {lg: 10, md: 6, xs: 4},
-                    background: isDark ? 'var(--mui-palette-background-default)' : 'var(--mui-palette-background-paper)'
+                    background: isDark ? 'var(--mui-palette-background-default)' : 'var(--mui-palette-background-paper)',
+                    borderBottom: '1px solid rgba(255,255,255,0.05)'
                 }} 
                 spacing={2}>
                 <Grid  size={{md: 7, sm: 7}} sx={{pr: {lg: 2}}}>
                     <Typography variant="h2" sx={{mb: 1, fontSize: '3em'}}>Alger Makiputin</Typography>
-                    <Typography variant="body1" sx={{mb: 2, color: isDark ? 'rgba(255,255,255,0.7)'  : 'var(--mui-palette-secondary-light)'}}>Full Stack Software Engineer</Typography>
-                    <Typography variant="body1" sx={{mb: 4}}>I'm a Full Stack Software Engineer skilled in both front-end and back-end development. I built websites and mobiles app for a living, when I am not at work I do running and going to the gym as a hobby. I also do boxing and yoga occasionally. When I am tired to go out, I just stay at home playing some MMO's or tackle a pile of unread books. I also write about stocks and software development in my <NavLink className={'link'} to={'/blog'}>blog</NavLink>. Feel free to checkout my <NavLink className={'link'} to={'/portfolio'}>portfolio</NavLink> to see how I can assist with your project.</Typography>
+                    
+                    <Box fontWeight={100}>
+                        <Typography variant="body1" fontWeight={'light'} sx={{mb: 2, fontSize: '1.5em', fontWeight: 300, color: isDark ? 'rgba(255,255,255,0.7)'  : 'var(--mui-palette-secondary-light)'}}>Full Stack Software Engineer</Typography>
+                    </Box>
+                    <Typography fontWeight={'light'} variant="body1" sx={{mb: 4}}>I'm a Full Stack Software Engineer skilled in both front-end and back-end development. I built websites and mobiles app for a living, when I am not at work I do running and going to the gym as a hobby. I also do boxing and yoga occasionally. When I am tired to go out, I just stay at home playing some MMO's or tackle a pile of unread books. I also write about stocks and software development in my <NavLink className={'link'} to={'/blog'}>blog</NavLink>. Feel free to checkout my <NavLink className={'link'} to={'/portfolio'}>portfolio</NavLink> to see how I can assist with your project.</Typography>
                     <Box>
                         <Button onClick={() => buttonHandler('/portfolio')} sx={{mr: 1}} startIcon={<ArrowCircleRightIcon />} className="home-btn portfolio" variant="contained" color="success">View Portfolio</Button>
                         <Button onClick={() => buttonHandler('/contact')} sx={{mr: 1}} startIcon={<SendIcon />} className="home-btn message" variant="contained" color="inherit">Hire Me</Button>
