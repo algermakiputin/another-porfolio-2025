@@ -2,14 +2,17 @@ import { Box, Button, Typography } from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
 import { useNavigate } from "react-router";
 import useGetTheme from "../../../hooks/useGetTheme";
+import Socials from "../../socials/Socials";
 
 type Props = {
     hideButton?: boolean;
     title?: string;
     description?: string;
     anotherDescription?: string;
+    mailTo?: string;
+    socials?: boolean;
 }
-const PageHeader = ({hideButton, title, description, anotherDescription} : Props ) => {
+const PageHeader = ({hideButton, title, description, anotherDescription, mailTo, socials} : Props ) => {
     const { isDark } = useGetTheme();
     const navigate = useNavigate();
     const handleHireMe = () => {
@@ -29,8 +32,9 @@ const PageHeader = ({hideButton, title, description, anotherDescription} : Props
                     paddingBottom: { lg: 2, xs: 4}
                     }}>
                 <Typography variant="h2" sx={{mb: 2, fontSize: '2em', fontWeight: 'bold'}}>{ title ? title : 'Portfolio' }</Typography>
-                <Typography variant="body1">{ description ? description : 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, ipsum eaque totam cum fuga culpa nostrum blanditiis corrupti sequi dolore, distinctio ea, consequuntur et a quaerat praesentium. Perferendis, placeat aliquid.' }</Typography>
+                <Typography variant="body1">{ description } { mailTo && <a className="link" href="mailto:algerapudmakiputin@gmail.com">algerapudmakiputin@gmail.com</a> }</Typography>
                 { anotherDescription && <Typography sx={{mt: 2}}>{anotherDescription}</Typography> }
+                { socials && <Socials />}
                 { !hideButton && <Button onClick={handleHireMe} sx={{mt: 2}} startIcon={<SendIcon />} className="home-btn portfolio" variant="contained" color="success">Hire Me</Button> }
             </Box> 
         </Box>

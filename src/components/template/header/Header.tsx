@@ -16,6 +16,7 @@ import RssFeedIcon from '@mui/icons-material/RssFeed';
 import useGetWindowsDimension from "../../../hooks/useGetWindowsDimension";
 import './header.css'; 
 import DarkModeToggle from "../../toggle/DarkModeToggle";
+import Socials from "../../socials/Socials";
 
 const Header = () => {
     const theme = useTheme();
@@ -59,7 +60,7 @@ const Header = () => {
                 <Box sx={{pl: 4, pr: 4}}>
                     <img src="/images/left-profile.jpg" width={120} alt="profile"  style={{borderRadius: '50%', marginTop: 15,marginBottom: 15}}/>
                     <Typography sx={{color: '#fff'}}  variant="body2">Hi there! Welcome to my portfolio take a look around and see what I’ve been working on!</Typography>
-                    <ul className="social-icons-list">
+                    {/* <ul className="social-icons-list">
                         <li>
                             <NavLink to={'https://ph.linkedin.com/in/alger-makiputin'} target="__blank">
                                 <LinkedInIcon sx={{color: 'var(--primary-background)', fontSize: 18}} fontSize="inherit" />
@@ -80,7 +81,8 @@ const Header = () => {
                                 <RssFeedIcon sx={{color: 'var(--primary-background)', fontSize: 18}} fontSize="inherit" />
                             </NavLink>
                         </li>
-                    </ul>
+                    </ul> */}
+                    <Socials />
                 </Box>
                 <Box sx={{pl: 4, pr: 4}}>
                     <Divider sx={{mt: 4, borderColor: 'rgba(255,255,255,0.08)', opacity: 0.5}}/>

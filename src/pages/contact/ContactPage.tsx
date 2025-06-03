@@ -9,6 +9,7 @@ import SendIcon from '@mui/icons-material/Send';
 import { useState } from "react";
 import { useForm, Controller, Control } from "react-hook-form";
 import ReCAPTCHA from "react-google-recaptcha";
+import { GoogleReCaptcha } from "react-google-recaptcha-v3";
 
 const ContactPage = () => {
     const [loading, setLoading] = useState(false);
@@ -46,8 +47,10 @@ const ContactPage = () => {
         <>
             <PageHeader 
                 hideButton={true} 
-                title="Contact" 
-                description="Interested in hiring me for your project or just want to say hi? You can fill in the contact form below or send me an email to simon.doe@yourwebsite.com" 
+                title="Contact"
+                mailTo="algerapudmakiputin@gmail.com"
+                socials={true}
+                description="Interested in hiring me for your project or just want to say hi? You can fill in the contact form below or send me an email to" 
                 anotherDescription="Want to get connected? Follow me on the social channels below."
                 />
             <Box sx={{p: {lg: 7, md: 4, xs: 2}}}>
@@ -119,14 +122,15 @@ const ContactPage = () => {
                                 <Controller
                                     control={control}
                                     name="recaptcha"
-                                    rules={{ required: false }}
+                                    rules={{ required: "true" }}
                                     render={({ field }) => (
                                         <ReCAPTCHA
-                                            sitekey={process.env.REACT_APP_SITE_KEY ?? ''}
+                                            sitekey={"6Lf2lFQrAAAAAEn8EO8yi8NeoRHqap80ZXlTuMo0"}
                                             onChange={field.onChange}
                                         />
                                     )}
                                 />
+                                { errors?.recaptcha && <FormHelperText error>{ "Recaptcha is required" }</FormHelperText>}
                             </Grid>
                             <Button disabled={loading} type="submit" endIcon={<SendIcon />} className="home-btn portfolio" variant="contained" color="success">Send Now</Button>
                         </Grid>
