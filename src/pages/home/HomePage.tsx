@@ -12,16 +12,13 @@ import useGetTheme from "../../hooks/useGetTheme";
 
 const HomePage = () => {
     const { isDark  } = useGetTheme();
-    const navigate = useNavigate();
-    var iframe = document.getElementsByName('webchat')?.[0];
+    const navigate = useNavigate(); 
     const buttonHandler = (route: string) => {
         navigate(route);
     }
 
     const chatWithBot = (e: any) => {
-        e.preventDefault();
-        removeClass(iframe, 'bpClose');
-        addClass(iframe, 'bpOpen');
+        (window as any)?.botpress?.open();
     }
 
     return (  
@@ -62,30 +59,3 @@ const HomePage = () => {
 }
 
 export default HomePage;
-
-
-function hasClass(el: HTMLElement, className: string)
-{
-    if (el.classList)
-        return el.classList.contains(className);
-    return !!el.className.match(new RegExp('(\\s|^)' + className + '(\\s|$)'));
-}
-
-function addClass(el: HTMLElement, className: string)
-{
-    if (el.classList)
-        el.classList.add(className)
-    else if (!hasClass(el, className))
-        el.className += " " + className;
-}
-
-function removeClass(el: HTMLElement, className: string)
-{
-    if (el.classList)
-        el.classList.remove(className)
-    else if (hasClass(el, className))
-    {
-        var reg = new RegExp('(\\s|^)' + className + '(\\s|$)');
-        el.className = el.className.replace(reg, ' ');
-    }
-}
