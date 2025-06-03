@@ -2,3 +2,14 @@
     border-radius: 5px;
     margin-right: 0.5rem;
 }
+
+.tech-icon.angular {
+    display: inline-block;
+}
+
+@media only screen and (max-width: 768px) {
+  .tech-icon.angular {
+    display: none;
+  }
+}
+

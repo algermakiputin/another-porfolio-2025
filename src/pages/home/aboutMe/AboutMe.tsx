@@ -42,7 +42,7 @@ const AboutMe = () => {
                     <Box sx={{mb:1, maxHeight: iconWrapperMaxHeight, display: 'block', height: iconWrapperMaxHeight}}>
                         <JavascriptIcon width={imageWidth} height={imageWidth} className="tech-icon" />
                         <Typescript width={imageWidth} height={imageWidth} className="tech-icon" />
-                        <Angular width={imageWidth} height={imageWidth} className="tech-icon" />
+                        <Angular width={imageWidth} height={imageWidth} className="tech-icon angular" />
                         <Nodejs width={imageWidth} height={imageWidth} className="tech-icon" />
                         <Reactjs width={imageWidth} height={imageWidth} className="tech-icon" />
                     </Box>
