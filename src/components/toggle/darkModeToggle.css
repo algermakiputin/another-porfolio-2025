@@ -1,0 +1,39 @@
+
+.checkbox {
+  opacity: 0;
+  position: absolute;
+}
+
+.checkbox-label {
+  background-color: inherit;
+  width: 65px;
+  height: 30px;
+  border-radius: 50px;
+  position: relative;
+  padding: 5px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; 
+  border: solid 3px rgba(255,255,255, 0.4)
+}
+
+.fa-moon {color: rgba(255,255,255, 0.4)}
+
+.fa-sun {color: rgba(255,255,255, 0.4)}
+
+.checkbox-label .ball {
+  background-color: rgba(255,255,255, 0.4);
+  width: 32px;
+  height: 19.5px;
+  position: absolute;
+  left:1px;
+  top: 2px;
+  right: 0;
+  border-radius: 10px;
+  transition: transform 0.2s linear;
+}
+
+.checkbox:checked + .checkbox-label .ball {
+  transform: translateX(24px);
+}
