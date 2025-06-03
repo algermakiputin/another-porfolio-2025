@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { Project } from "../types/ProjectType";
 
-const useGetProjects = (slug?: string) => {
+const useGetProjects = (slug?: string, limit?: number) => {
     const [projects, setProjects] = useState<Project[]>();
     const [selectedProject, setSelectedProject] = useState<Project>();
 
@@ -10,8 +10,12 @@ const useGetProjects = (slug?: string) => {
         const json = await request.json();
         const selectedProject = json?.projects?.find((row: any) => row.slug === slug);
         setSelectedProject(selectedProject);
-        setProjects(json?.projects);
-    }, [slug]);
+        if (limit) {
+            setProjects(json?.projects?.slice(0,4));
+        } else {
+            setProjects(json?.projects);
+        }
+    }, [slug, limit]);
 
     useEffect(() => {
         fetchProject();

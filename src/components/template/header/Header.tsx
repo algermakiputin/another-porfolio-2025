@@ -1,5 +1,5 @@
-import { Box, Collapse, Divider, IconButton, List, ListItem, ListItemButton, useTheme } from "@mui/material";
-import { ListItemContent, ListItemDecorator, Typography } from "@mui/joy";
+import { Box, Collapse, Divider, IconButton, List, ListItem, ListItemButton, useTheme, Typography } from "@mui/material";
+import { ListItemContent, ListItemDecorator } from "@mui/joy";
 import { Home } from "@mui/icons-material";
 import CodeIcon from '@mui/icons-material/Code';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -49,13 +49,13 @@ const Header = () => {
                         collapse ? <MenuOpenIcon className="mobile-menu-icon" /> : <MenuIcon className="mobile-menu-icon"/>
                     }
                     </IconButton>
-                    <Typography sx={{color: '#fff', mt: 2, mb: 2, fontSize: '1.5em', fontWeight: 'bold'}} level="h1" className="site-title">Alger Makiputin</Typography>
+                    <Typography sx={{color: '#fff', mt: 2, mb: 2, fontSize: '1.5em', fontWeight: 'bold'}} variant="h1" className="site-title">Alger Makiputin</Typography>
                 </div> 
             </Box>
             <Collapse in={collapse}>
                 <Box sx={{pl: 4, pr: 4}}>
                     <img src="/images/left-profile.jpg" width={120} alt="profile"  style={{borderRadius: '50%', marginTop: 15,marginBottom: 15}}/>
-                    <Typography sx={{color: '#fff'}}  level="body-sm">Hi there! Welcome to my portfolio take a look around and see what I’ve been working on!</Typography>
+                    <Typography sx={{color: '#fff'}}  variant="body2">Hi there! Welcome to my portfolio take a look around and see what I’ve been working on!</Typography>
                     <ul className="social-icons-list">
                         <li>
                             <NavLink to={'https://ph.linkedin.com/in/alger-makiputin'} target="__blank">
@@ -80,16 +80,16 @@ const Header = () => {
                     </ul>
                 </Box>
                 <Box sx={{pl: 4, pr: 4}}>
-                    <Divider sx={{mt: 4, borderColor: 'rgba(255,255,255,0.08)', opacity: 0.25}}/>
+                    <Divider sx={{mt: 4, borderColor: 'rgba(255,255,255,0.08)', opacity: 0.5}}/>
                     <List sx={{maxWidth: 200, margin: 'auto'}}>
                         <ListItem>
-                            <ListItemButton onClick={() => linkHandler('/')}>
+                            <ListItemButton onClick={() => linkHandler('/')} sx={{fontWeight: 'bold'}}>
                                 <ListItemDecorator sx={{mr: 1}}><Home /></ListItemDecorator>
                                 <ListItemContent>About Me</ListItemContent>
                             </ListItemButton>
                         </ListItem>
                         <ListItem>
-                            <ListItemButton onClick={() => linkHandler('/portfolio')}>
+                            <ListItemButton onClick={() => linkHandler('/portfolio')} sx={{fontWeight: 'bold'}}>
                                 <ListItemDecorator sx={{mr: 1}}><CodeIcon /></ListItemDecorator>
                                 <ListItemContent>Portfolio</ListItemContent>
                             </ListItemButton>
@@ -102,19 +102,19 @@ const Header = () => {
                             </ListItemButton>
                         </ListItem> */}
                         <ListItem>
-                            <ListItemButton onClick={() => linkHandler('/blog')}>
+                            <ListItemButton onClick={() => linkHandler('/blog')} sx={{fontWeight: 'bold'}}>
                                 <ListItemDecorator sx={{mr: 1}}><RssFeedIcon /></ListItemDecorator>
                                 <ListItemContent>Blog</ListItemContent>
                             </ListItemButton>
                         </ListItem>
                         <ListItem>
-                            <ListItemButton onClick={() => linkHandler('/contact')}>
+                            <ListItemButton onClick={() => linkHandler('/contact')} sx={{fontWeight: 'bold'}}>
                                 <ListItemDecorator sx={{mr: 1}}><ContactMailIcon /></ListItemDecorator>
                                 <ListItemContent>Contact</ListItemContent>
                             </ListItemButton>
                         </ListItem>
                     </List>
-                    <Divider sx={{mt: 1, borderColor: 'rgba(255,255,255,0.08)', opacity: 0.25}}  />
+                    <Divider sx={{mt: 1, borderColor: 'rgba(255,255,255,0.08)', opacity: 0.5}}  />
                     <DarkModeToggle />
                 </Box>
             </Collapse>

@@ -31,7 +31,7 @@ const HomePage = () => {
                     <Typography variant="h2" sx={{mb: 1, fontSize: '3em'}}>Alger Makiputin</Typography>
                     
                     <Box fontWeight={100}>
-                        <Typography variant="body1" fontWeight={'light'} sx={{mb: 2, fontSize: '1.5em', fontWeight: 300, color: isDark ? 'rgba(255,255,255,0.7)'  : '#4f4f4f'}}>Full Stack Software Engineer</Typography>
+                        <Typography variant="body1"  sx={{mb: 2, fontSize: '1.5em', fontWeight: 300, color: isDark ? 'rgba(255,255,255,0.7)'  : '#4f4f4f', opacity: 0.65}}>Full Stack Software Engineer</Typography>
                     </Box>
                     <Typography variant="body1" sx={{mb: 4}}>I'm a Full Stack Software Engineer skilled in both front-end and back-end development. I built websites and mobiles app for a living, when I am not at work I do running and going to the gym as a hobby. I also do boxing and yoga occasionally. When I am tired to go out, I just stay at home playing some MMO's or tackle a pile of unread books. I also write about stocks and software development in my <NavLink className={'link'} to={'/blog'}>blog</NavLink>. Feel free to checkout my <NavLink className={'link'} to={'/portfolio'}>portfolio</NavLink> to see how I can assist with your project.</Typography>
                     <Box>

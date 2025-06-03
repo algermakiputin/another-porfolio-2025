@@ -5,8 +5,8 @@ import useGetProjects from '../../../hooks/useGetProjects';
 import './projects.css';
 
 const Projects = () => {
-    const { projects } = useGetProjects();
-    console.log(`projects`, projects);
+    const { projects } = useGetProjects('', 4);
+
     return (
         <Box sx={{
                     p: {lg: 7, md: 4, xs: 4, sm: 4},
@@ -17,7 +17,7 @@ const Projects = () => {
                 {
                     projects?.length && (
                         projects?.map((project) => (
-                            <Grid size={{md: 6, sm: 6}}>
+                            <Grid size={{md: 6, sm: 6}} key={project.slug}>
                                 <ProjectCard
                                     image={project.image}
                                     description={project.shortDescription}
