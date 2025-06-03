@@ -1,4 +1,4 @@
-import { Box, Button, Container, Grid, TextField } from "@mui/material";
+import { Alert, Box, Button, Container, Grid, TextField } from "@mui/material";
 import PageHeader from "../../components/template/PageHeader/PageHeader";
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -9,10 +9,11 @@ import SendIcon from '@mui/icons-material/Send';
 import { useState } from "react";
 import { useForm, Controller, Control } from "react-hook-form";
 import ReCAPTCHA from "react-google-recaptcha";
-import { GoogleReCaptcha } from "react-google-recaptcha-v3";
+import CheckIcon from '@mui/icons-material/Check';
 
 const ContactPage = () => {
     const [loading, setLoading] = useState(false);
+    const [success, setSuccess] = useState(false);
     const [formSpreeErrors, setFormSpreeErrors] = useState<string>('');
     const { register, handleSubmit, watch, formState: { errors }, control, reset } = useForm();
 
@@ -29,7 +30,7 @@ const ContactPage = () => {
         }).then(response => {
             if (response?.ok) {
                 reset();
-                alert("Form submitted successfully"); 
+                setSuccess(true);
             } else {
                 response.json().then(data => {
                 if (Object.hasOwn(data, 'errors')) {
@@ -55,6 +56,15 @@ const ContactPage = () => {
                 />
             <Box sx={{p: {lg: 7, md: 4, xs: 2}}}>
                 <Container sx={{maxWidth: 900, margin: 'auto'}} maxWidth={false}>
+                    {
+                        success && <Alert icon={<CheckIcon fontSize="inherit" />} sx={{mb: 2}} severity="success">
+                            Thank you! Your message has been received. We'll be in touch soon.
+                        </Alert>
+                    }
+                    {
+                        formSpreeErrors && <Alert severity="error" sx={{mb: 2}}>{ formSpreeErrors }</Alert>
+                    }
+                    
                     <form onSubmit={handleSubmit(onSubmitHandler)}>
                         <Grid container spacing={2}>
                             <Grid size={6}>

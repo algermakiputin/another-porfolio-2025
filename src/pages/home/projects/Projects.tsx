@@ -1,12 +1,17 @@
-import { Box, Grid } from "@mui/material";
+import { Box, Button, Grid } from "@mui/material";
 import SectionHeader from "../../../components/sectionHeader/SectionHeader";
 import ProjectCard from '../../../components/cards/project/ProjectCard';
 import useGetProjects from '../../../hooks/useGetProjects';
 import './projects.css';
+import { ArrowCircleRight } from "@mui/icons-material";
+import { useNavigate } from "react-router";
 
 const Projects = () => {
     const { projects } = useGetProjects('', 4);
-
+    const navigate = useNavigate();
+    const buttonHandler = (route: string) => {
+        navigate(route);
+    }
     return (
         <Box sx={{
                     p: {lg: 7, md: 4, xs: 4, sm: 4},
@@ -29,6 +34,9 @@ const Projects = () => {
                     )
                 }
             </Grid>
+            <Box sx={{textAlign: 'center'}}>
+                <Button onClick={() => buttonHandler('/portfolio')} sx={{mt: 2}} startIcon={<ArrowCircleRight />} className="home-btn portfolio" variant="contained" color="success">View Portfolio</Button>
+            </Box>
         </Box>
     );
 }
