@@ -3,7 +3,7 @@ import Header from './components/template/header/Header';
 import HomePage from './pages/home/HomePage';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import { BrowserRouter, Route, Routes, Outlet } from "react-router";
+import { BrowserRouter, Route, Routes, HashRouter, Outlet, Navigate } from "react-router";
 import PortfolioPage from './pages/portfolio/PortfolioPage';
 import PortfolioSinglePage from './pages/portfolio/singlePage/PortfolioSinglePage';
 import Footer from './components/template/footer/Footer';
@@ -49,7 +49,7 @@ function App() {
             <Route path='/blog' element={<></>} />
             <Route path='/contact' element={<></>} />
           </Route>
-        </Routes>
+        </Routes> 
       </BrowserRouter>
     </ThemeProvider>
   );
