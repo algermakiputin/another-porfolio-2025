@@ -139,12 +139,12 @@
                 },
                 {
                     "title": "Education",
-                    "metric": "80%",
+                    "metric": "Grades",
                     "description": "+10,000 aided with their school assignments"
                 },
                 {
                     "title": "Connection",
-                    "metric": "50%",
+                    "metric": "Bonding",
                     "description": "Users use it to bond with their families"
                 }
             ],
@@ -200,6 +200,104 @@
                 }
             ],
             "conclusion": "StockApp empowers small business owners with a simple yet powerful mobile tool for managing inventory on the go. Its intuitive design, offline capability, and smart alerts make it a must-have for anyone looking to move beyond spreadsheets and manual logs. As mobile business tools become increasingly essential, StockApp is leading the way in inventory management for entrepreneurs."
+        },
+        {
+            "platform": "web",
+            "category": "web-app",
+            "image": "/images/projects/payroll.jpeg",
+            "slug": "face-recognition-based-payroll-and-attendance-software",
+            "title": "Transforming Workforce Management with Face Recognition-Based Payroll and Attendance Software",
+            "metaDescription": "This solution is a web based application built using ReactJS and Laravel for the backend. It is also mobile friendly so users can access the attendance face recognition using mobile device.",
+            "shortDescription": "7th Grocery Store implemented a face recognition-based payroll and attendance system to eliminate manual tracking, reduce time fraud, and automate payroll processing. The solution combined AI-powered facial recognition, mobile attendance for remote workers, real-time dashboards, and GPS validation to streamline HR operations across multiple locations.",
+            "meta": {
+                "industry": "Retail - Grocery",
+                "size": "10-50",
+                "link": "https://www.youtube.com/watch?v=6Y8ZoKfsP8A",
+                "client": "7th Grocery Store",
+                "linkLabel": "Demo",
+                "website": "Youtube"
+            },
+            "requirements": [
+                "Face Recognition Login: 98.9% accurate detection under varied lighting and with masks",
+                "Real-Time Sync: Instant updates to a centralized cloud system across all locations",
+                "Auto Payroll Calculation: Overtime, late arrivals, and leaves are automatically computed",
+                "Audit Trail & Reporting: Generates monthly reports, audit logs, and compliance summaries",
+                "Secure Data Handling: GDPR & ISO 27001 compliant infrastructure"
+            ],
+            "overview": "7th Grocery Store embarked on a digital transformation initiative to modernize its workforce management by implementing a face recognition-based payroll and attendance system. The project aimed to replace outdated manual processes with a smart, automated solution that would enhance accuracy, eliminate time fraud, and streamline payroll operations. \n The solution integrated AI-powered facial recognition technology with real-time attendance tracking, automated payroll calculations, and centralized HR reporting. By leveraging biometric authentication, the system ensured secure and tamper-proof attendance records while significantly reducing administrative overhead. The project covered over 20+ employees across three store locations, including provisions for remote and field staff through a mobile face scan app. \n This strategic implementation not only addressed key operational pain points but also positioned 7thgrocery as a forward-thinking employer investing in transparency, efficiency, and employee satisfaction. \n ",
+            "challenge": "7thgrocery Store was grappling with significant inefficiencies in its workforce management system. The company relied on manual attendance tracking methods, including paper logs and ID cards, which frequently resulted in data entry errors and inconsistencies. One of the most pressing issues was the prevalence of buddy punching—where employees clocked in or out on behalf of their colleagues—leading to inflated labor costs and a lack of accountability. \n Additionally, the payroll process was heavily manual, requiring over five days of HR effort each month to compile, verify, and process employee data. This not only strained the HR department but also delayed salary disbursements and created dissatisfaction among employees. Compounding these challenges was the lack of real-time visibility into attendance across multiple factory locations, which made workforce oversight and decision-making increasingly difficult. Collectively, these issues hampered productivity, compromised compliance, and eroded trust in the company’s time and attendance system.",
+            "approach": "To address the challenges faced by 7th Grocery Store, we deployed an integrated Face Recognition-Based Payroll and Attendance System designed for accuracy, automation, and scalability. At the core of the solution were AI-powered face recognition terminals installed at all entry and exit points. These terminals enabled fast, secure, and contactless employee identification, significantly reducing errors and eliminating the possibility of buddy punching. \n To accommodate remote and field employees, a mobile face scan application was introduced, allowing them to log attendance securely from any location. A real-time attendance dashboard was also implemented, giving HR personnel and department heads instant visibility into workforce data across all locations. \n The system was further enhanced with an automated payroll module that synced seamlessly with attendance records, enabling precise calculation of working hours, overtime, and deductions. Leave management was also integrated, ensuring that all approved leaves were factored into the final payroll. For the mobile workforce, geo-fencing and GPS-based logging features were added to validate attendance locations and enhance accountability. Together, these components created a comprehensive, automated system that revolutionized how 7Th Grocery manages time, attendance, and payroll.",
+            "results": [
+                {
+                    "title": "Payroll Processing Time",
+                    "metric": "80%",
+                    "description": "Processing time down to 4 hours"
+                },
+                {
+                    "title": "Attendance Accuracy",
+                    "metric": "99%",
+                    "description": "More accurate attendance tracking"
+                },
+                {
+                    "title": "Avoid Buddy Punching Incidents",
+                    "metric": "100%",
+                    "description": "This Incidents has been eliminated"
+                },
+                {
+                    "title": "Employee Satisfaction",
+                    "metric": "50%",
+                    "description": "Improve overall employee satisfaction."
+                }
+            ],
+            "conclusion": "By implementing a face recognition-based payroll and attendance software, 7Th Grocery streamlined its HR operations, reduced fraud, and increased employee trust. This solution demonstrates how AI and automation can modernize workforce management for small business owners."
+        },
+        {
+            "platform": "mobile",
+            "slug": "japanese-candlestick-patterns",
+            "category": "mobile-app",
+            "image": "/images/projects/candlestick.jpeg",
+            "title": "Empowering Retail Traders with a Candlestick Pattern Learning App",
+            "metaDescription": "Japanese Candlestick Patterns is an android app that helps beginner traders who wants to get familiar with Japanese Candlestick Patterns.",
+            "shortDescription": "This interactive learning app helps users master over 40 candlestick chart patterns through bite-sized lessons, and fun quizes. With gamified progression and personalized learning paths, it offers a fun and effective way to build technical analysis skills for trading.",
+            "meta": {
+                "platform": "Android",
+                "category": "EdTech / FinTech",
+                "targetAudience": "Beginner to intermediate retail traders, students, financial enthusiasts",
+                "language": "Filipino, English",
+                "linkLabel": "Google Play Store",
+                "website": "NA"
+            },
+            "requirements": [
+                "Pattern Library: 40+ candlestick patterns with detailed explanations and illustrations",
+                "Bullish and Bearish Patterns: Learn about bullish and bearish forming patterns",
+                "Quizzes: Interactive quiz to test your skills"
+            ],
+            "overview": "Japanese Candlestick Patterns was developed to fill a critical gap in the trading education market: the lack of accessible, practical tools for learning candlestick patterns. The goal was to create an engaging, easy-to-use android application that helps users identify and understand key chart patterns used in technical analysis. By combining visual learning with quizzes, and real-time examples, the app aimed to turn theory into actionable knowledge.",
+            "challenge": "Many beginner traders struggle to understand candlestick patterns, often relying on scattered online resources or overwhelming textbooks. Existing platforms either lack structure or are too advanced, failing to bridge the gap between learning and real-world application. The challenge was to create an educational experience that was both informative and user-friendly, offering structured content and hands-on practice without overwhelming users.",
+            "approach": "To meet the educational needs of aspiring traders, the development team created a comprehensive candlestick pattern learning app packed with powerful and user-friendly features. At the core of the app are interactive learning modules that break down over 40 bullish and bearish candlestick patterns into bite-sized, easy-to-understand lessons. These patterns range from simple forms like doji and hammer to more complex ones like engulfing patterns and the three white soldiers. To ensure users can apply what they learn, the app includes multi-level quizzes to test and exercise the patterns that they learned.",
+            "results": [
+                {
+                    "title": "App Downloads",
+                    "metric": "5,000+",
+                    "description": "App Downloads for the first 3months"
+                },
+                {
+                    "title": "Average Session",
+                    "metric": "14min",
+                    "description": "14 minutes average session"
+                },
+                {
+                    "title": "Engagement",
+                    "metric": "10,000+",
+                    "description": "Daily active users"
+                },
+                {
+                    "title": "Reviews",
+                    "metric": "NA",
+                    "description": "NA"
+                }
+            ],
+            "conclusion": "Japanese Candlestick Patterns successfully transformed complex financial education into an accessible, interactive, and enjoyable experience. By focusing on user engagement, practical skills, and adaptive learning, the app empowered thousands of aspiring traders to master candlestick charting—equipping them with essential tools for smarter trading decisions."
         }
     ]
 }
