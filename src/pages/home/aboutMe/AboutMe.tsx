@@ -20,22 +20,14 @@ import { ReactComponent as GithubDark} from '../../../assets/svg/GithubDark.svg'
 import { ReactComponent as AwsDark} from '../../../assets/svg/AwsDark.svg';
 import './aboutMe.css';
 import useGetTheme from "../../../hooks/useGetTheme";
-
-const Javascript = (
-    <svg width="45" height="45" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <g id="js">
-        <g id="js_2">
-        <path id="Vector" d="M100 0.000488281H0V100H100V0.000488281Z" fill="#F7DF1E"/>
-        <path id="Vector_2" d="M67.1745 78.1259C69.1888 81.4148 71.8094 83.8323 76.4444 83.8323C80.338 83.8323 82.8253 81.8862 82.8253 79.1973C82.8253 75.9751 80.2698 74.8339 75.9841 72.9592L73.6348 71.9513C66.8539 69.0624 62.3491 65.4434 62.3491 57.7926C62.3491 50.745 67.719 45.3799 76.111 45.3799C82.0856 45.3799 86.3809 47.4592 89.4761 52.9037L82.1586 57.6021C80.5475 54.7132 78.8094 53.5751 76.111 53.5751C73.3587 53.5751 71.6142 55.3212 71.6142 57.6021C71.6142 60.4212 73.3602 61.5624 77.392 63.3085L79.7412 64.3148C87.7253 67.7386 92.2333 71.2291 92.2333 79.0767C92.2333 87.537 85.5872 92.1719 76.6618 92.1719C67.9348 92.1719 62.2967 88.0132 59.538 82.5624L67.1745 78.1259ZM33.9793 78.9402C35.4555 81.5592 36.7983 83.7735 40.0269 83.7735C43.1142 83.7735 45.0618 82.5656 45.0618 77.8688V45.9164H54.4586V77.9958C54.4586 87.7259 48.7539 92.1545 40.4269 92.1545C32.9031 92.1545 28.546 88.2608 26.3301 83.5712L33.9793 78.9402Z" fill="black"/>
-        </g>
-        </g>
-    </svg>
-);
+import { NavLink } from "react-router";
+import { useEffect } from "react";
 
 const AboutMe = () => {
     const imageWidth = 24;
     const iconWrapperMaxHeight = 30;
     const { isDark } = useGetTheme();
+
     return (
         <Box sx={{
                     p: {md: 4, xs: 4, lg: 7, sm:4},
@@ -43,9 +35,7 @@ const AboutMe = () => {
                 }}>
             <SectionHeader title="What I do" />
             <Typography variant="body1" sx={{mb: 8, mt: -2}}>
-                    I have over 7 years experience in software development, I've worked with clients accross the globe. My technical proficiency encompasses a wide range of tools and frameworks, including JavaScript, React, Node.js, Python, and various database systems. I am adept at integrating APIs, implementing responsive designs, and optimizing application performance to ensure seamless user experiences. 
-                    Below is a quick overview of my main technical skills set and technologies I use. 
-                    For a more detailed overview of my professional background and to explore some of the projects I've worked on, please visit my online resume and project portfolio.
+                    I have over 7 years of experience in software development, I've had the opportunity to work with clients from all over the world. I'm skilled in a variety of technologies, including JavaScript, React, Node.js, Python, and several database systems. I focus on building responsive, high-performance applications and enjoy working on everything from API integrations to fine-tuning user interfaces. Below is a snapshot of my core technical skills and tools I work with regularly. For a deeper look at my background and the projects I've been involved in, feel free to check out my <NavLink to={'/portfolio'} className={'link'}>portfolio.</NavLink>.
             </Typography>
             <Grid container spacing={2} sx={{flexGrow: 1}}>
                 <Grid size={{lg: 3, md: 4, sm: 6, xs: 6}} sx={{mb: 5}}>
