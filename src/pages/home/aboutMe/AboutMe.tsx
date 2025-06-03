@@ -1,12 +1,37 @@
 import SectionHeader from "../../../components/sectionHeader/SectionHeader";
 import { Box, Grid, Typography } from "@mui/material"; 
+import { ReactComponent as JavascriptIcon} from '../../../assets/svg/Javascript.svg';
+import { ReactComponent as Angular} from '../../../assets/svg/Angular.svg';
+import { ReactComponent as Nodejs} from '../../../assets/svg/Nodejs.svg';
+import { ReactComponent as Typescript} from '../../../assets/svg/Typescript.svg';
+import { ReactComponent as Reactjs} from '../../../assets/svg/Reactjs.svg';
+import { ReactComponent as Laravel} from '../../../assets/svg/Laravel.svg';
+import { ReactComponent as Codeigniter} from '../../../assets/svg/Codeigniter.svg';
+import { ReactComponent as Php} from '../../../assets/svg/Php.svg';
+import { ReactComponent as Git} from '../../../assets/svg/Git.svg';
+import { ReactComponent as Gitlab} from '../../../assets/svg/Gitlab.svg';
+import { ReactComponent as Github} from '../../../assets/svg/Github.svg';
+import { ReactComponent as Docker} from '../../../assets/svg/Docker.svg';
+import { ReactComponent as Aws} from '../../../assets/svg/Aws.svg';
+import { ReactComponent as Gcloud} from '../../../assets/svg/Gcloud.svg';
+import { ReactComponent as Wordpress} from '../../../assets/svg/Wordpress.svg';
+import { ReactComponent as Postman} from '../../../assets/svg/Postman.svg';
 import './aboutMe.css';
-import useGetTheme from "../../../hooks/useGetTheme";
+
+const Javascript = (
+    <svg width="45" height="45" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g id="js">
+        <g id="js_2">
+        <path id="Vector" d="M100 0.000488281H0V100H100V0.000488281Z" fill="#F7DF1E"/>
+        <path id="Vector_2" d="M67.1745 78.1259C69.1888 81.4148 71.8094 83.8323 76.4444 83.8323C80.338 83.8323 82.8253 81.8862 82.8253 79.1973C82.8253 75.9751 80.2698 74.8339 75.9841 72.9592L73.6348 71.9513C66.8539 69.0624 62.3491 65.4434 62.3491 57.7926C62.3491 50.745 67.719 45.3799 76.111 45.3799C82.0856 45.3799 86.3809 47.4592 89.4761 52.9037L82.1586 57.6021C80.5475 54.7132 78.8094 53.5751 76.111 53.5751C73.3587 53.5751 71.6142 55.3212 71.6142 57.6021C71.6142 60.4212 73.3602 61.5624 77.392 63.3085L79.7412 64.3148C87.7253 67.7386 92.2333 71.2291 92.2333 79.0767C92.2333 87.537 85.5872 92.1719 76.6618 92.1719C67.9348 92.1719 62.2967 88.0132 59.538 82.5624L67.1745 78.1259ZM33.9793 78.9402C35.4555 81.5592 36.7983 83.7735 40.0269 83.7735C43.1142 83.7735 45.0618 82.5656 45.0618 77.8688V45.9164H54.4586V77.9958C54.4586 87.7259 48.7539 92.1545 40.4269 92.1545C32.9031 92.1545 28.546 88.2608 26.3301 83.5712L33.9793 78.9402Z" fill="black"/>
+        </g>
+        </g>
+    </svg>
+);
 
 const AboutMe = () => {
-    const imageWidth = 28;
+    const imageWidth = 24;
     const iconWrapperMaxHeight = 30;
-    const { isDark } = useGetTheme();
     return (
         <Box sx={{
                     p: {md: 4, xs: 4, lg: 7, sm:4},
@@ -20,21 +45,21 @@ const AboutMe = () => {
             </Typography>
             <Grid container spacing={2} sx={{flexGrow: 1}}>
                 <Grid size={{lg: 3, md: 4, sm: 6, xs: 6}} sx={{mb: 5}}>
-                    <Box sx={{mb:1, maxHeight: iconWrapperMaxHeight}}>
-                        <img src="/icons/javascript.png" alt="javascript" className="tech-icon" width={imageWidth}  />
-                        <img src="/icons/node.js.png" alt="node" className="tech-icon" width={imageWidth}  />
-                        <img src="/icons/react.png" alt="react" className="tech-icon" width={imageWidth}  />
-                        <img src="/icons/angular.png" alt="angular" width={imageWidth} className="tech-icon"  />
-                        {/* <img src="/icons/typeScript.png" width={imageWidth} className="tech-icon" /> */}
+                    <Box sx={{mb:1, maxHeight: iconWrapperMaxHeight, display: 'block', height: iconWrapperMaxHeight}}>
+                        <JavascriptIcon width={imageWidth} height={imageWidth} className="tech-icon" />
+                        <Typescript width={imageWidth} height={imageWidth} className="tech-icon" />
+                        <Angular width={imageWidth} height={imageWidth} className="tech-icon" />
+                        <Nodejs width={imageWidth} height={imageWidth} className="tech-icon" />
+                        <Reactjs width={imageWidth} height={imageWidth} className="tech-icon" />
                     </Box>
                     <Typography sx={{mb:1 }} variant="h3">Full Stack Javascript Development</Typography>
                     <Typography variant="body2"> With expertise in both front-end and back-end technologies, I specialize in creating intuitive user interfaces and robust server-side solutions using JavaScript and its modern frameworks.</Typography>
                 </Grid>
                 <Grid size={{lg: 3, md: 4, sm: 6, xs: 6}} sx={{mb: 5}}>
                     <Box sx={{mb:1, maxHeight: iconWrapperMaxHeight}}>
-                        <img src="/icons/Laravel.png" alt="laravel" className="tech-icon" width={imageWidth}  />
-                        <img src="/icons/Codeigniter.png" alt="codeigniter" className="tech-icon" width={imageWidth}  />
-                        <img src="/icons/PHP.png" alt="PHP" className="tech-icon" width={imageWidth}  />
+                        <Laravel width={imageWidth} height={imageWidth} className="tech-icon" />
+                        <Codeigniter width={imageWidth} height={imageWidth} className="tech-icon" />
+                        <Php width={imageWidth} height={imageWidth} className="tech-icon" />
                     </Box>
                     <Typography sx={{mb:1}} variant="h3">Full Stack PHP Development</Typography>
                     <Typography variant="body2">I also specialize in building robust and scalable web applications using the LAMP stack—Linux, Apache, MySQL, and PHP. A reliable foundation for developing dynamic websites.</Typography>
@@ -49,18 +74,18 @@ const AboutMe = () => {
                 </Grid>
                 <Grid size={{lg: 3, md: 4, sm: 6, xs: 6}} sx={{mb: 5}}>
                     <Box sx={{mb:1, maxHeight: iconWrapperMaxHeight}}>
-                        <img src="/icons/AWS.png" alt="aws" className="tech-icon" width={imageWidth}  />
-                        <img src="/icons/GoogleCloud.png" alt="google cloud" className="tech-icon" width={imageWidth}  />
+                        <Aws width={imageWidth} height={imageWidth} className="tech-icon" />
+                        <Gcloud width={imageWidth} height={imageWidth} className="tech-icon" />
                     </Box>
                     <Typography sx={{mb:1}} variant="h3">Cloud Computing</Typography>
                     <Typography variant="body2">I'm a certified as AWS Cloud Practicioner. Experienced with Amazon Web Services (AWS) and Google Cloud Platform (GCP), utilizing services like EC2, S3, Lambda and more.</Typography>
                 </Grid>
                 <Grid size={{lg: 3, md: 4, sm: 6, xs: 6}} sx={{mb: 5}}>
                     <Box sx={{mb:1, maxHeight: iconWrapperMaxHeight}}>
-                        <img src="/icons/Git.png" alt="git" className="tech-icon" width={imageWidth}  />
-                        <img src="/icons/Github.png" alt="github" className="tech-icon" width={imageWidth}  />
-                        <img src="/icons/Gitlab.png" alt="gitlab" className="tech-icon" width={imageWidth}  />
-                        <img src="/icons/Docker.png" alt="docker" width={imageWidth} className="tech-icon"  />
+                        <Git width={imageWidth} height={imageWidth} className="tech-icon" />
+                        <Github width={imageWidth} height={imageWidth} className="tech-icon" />
+                        <Gitlab width={imageWidth} height={imageWidth} className="tech-icon" />
+                        <Docker width={imageWidth} height={imageWidth} className="tech-icon" />
                     </Box>
                     <Typography sx={{mb:1}} variant="h3">Devops</Typography>
                     <Typography variant="body2">Proficient in Git for source code management, enabling efficient collaboration and version tracking. Also Skilled in Docker for facilitating scalable and efficient deployments.</Typography>
@@ -69,14 +94,14 @@ const AboutMe = () => {
                     <Box sx={{mb:1, maxHeight: iconWrapperMaxHeight}}>
                         <img src="/icons/Graphql.png" alt="graphql" className="tech-icon" width={imageWidth}  />
                         <img src="/icons/Express.png" alt="express" className="tech-icon" width={imageWidth}  />
-                        <img src="/icons/Postman.png" alt="postman" className="tech-icon" width={imageWidth}  />
+                        <Postman width={imageWidth} height={imageWidth} className="tech-icon" />
                     </Box>
                     <Typography sx={{mb:1}} variant="h3">API Development</Typography>
                     <Typography variant="body2">Strong foundation in building scalable APIs that power modern softwares. I specialize in creating seamless integrations between systems, enabling efficient data exchange.</Typography>
                 </Grid>
                 <Grid size={{lg: 3, md: 4, sm: 6, xs: 6}} sx={{mb: 5}}>
                     <Box sx={{mb:1, maxHeight: iconWrapperMaxHeight}}>
-                        <img src="/icons/Wordpress.png" alt="WP" className="tech-icon" width={imageWidth}  />
+                        <Wordpress width={imageWidth} height={imageWidth} className="tech-icon" />
                         <img src="/icons/WooCommerce.png" alt="WC" className="tech-icon" width={imageWidth}  />
                         <img src="/icons/HTML5.png" alt="html5" className="tech-icon" width={imageWidth}  />
                         <img src="/icons/CSS3.png" alt="css3" width={imageWidth} className="tech-icon"  />

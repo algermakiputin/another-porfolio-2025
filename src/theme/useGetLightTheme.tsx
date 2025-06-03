@@ -27,7 +27,7 @@ const typography = {
         fontWeight: 'bold',
     },
     h3: {
-        color: 'rgba(255,255,255,0.95)',
+        color: '#292929',
         fontSize: '1rem',
         fontWeight: 'bold'
     },
