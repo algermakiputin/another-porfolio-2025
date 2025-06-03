@@ -38,7 +38,7 @@ function App() {
   return ( 
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <CssBaseline />
-      <BrowserRouter basename='/another-portfolio-2025'>
+      <BrowserRouter>
         <Routes>
           <Route path='/' element={<Layout />}>
             <Route index element={<HomePage />} />
