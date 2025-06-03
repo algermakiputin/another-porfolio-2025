@@ -24,6 +24,9 @@ const Header = () => {
     const navigate = useNavigate ();
     const linkHandler = (route: string) => {
         navigate(route);
+        if (width <= 770) {
+            setCollapse(false);
+        }
     };
 
     useEffect(() => {
@@ -115,7 +118,9 @@ const Header = () => {
                         </ListItem>
                     </List>
                     <Divider sx={{mt: 1, borderColor: 'rgba(255,255,255,0.08)', opacity: 0.5}}  />
-                    <DarkModeToggle />
+                    <div className="toggle-container">
+                        <DarkModeToggle />
+                    </div>
                 </Box>
             </Collapse>
         </div>

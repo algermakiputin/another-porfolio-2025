@@ -53,6 +53,10 @@
 }
 
 @media only screen and (max-width: 768px) {
+  .top-header-wrapper{
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
   .header {
     height: auto;
     width: 100%; 
@@ -76,6 +80,7 @@
   }
   .mobile-menu-icon {
     color: #fff;
+    margin-top: -0.1rem;
   }
 
   .site-title {
@@ -88,5 +93,10 @@
       display: block!important;
       border-radius: 0!important;
       max-height: 40px!important;
+      border-radius: 3px!important;
+  }
+
+  .toggle-container {
+    padding-bottom: 2rem;
   }
 }
