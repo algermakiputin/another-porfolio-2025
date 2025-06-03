@@ -33,11 +33,11 @@ const Reviews = () => {
                     pt: {lg: 7, md: 4, sm:4, xs: 4}
                 }}>
             <SectionHeader title='Testimonials' />
-            <Carousel autoPlay className='carousel' responsive={responsive} showDots={true} arrows={false} dotListClass='reviews-carousel-dots'>
+            <Carousel autoPlay autoPlaySpeed={6500} className='carousel' responsive={responsive} showDots={true} arrows={false} dotListClass='reviews-carousel-dots'>
                 <div className='carousel-wrapper'> 
                     <div className='carousel-item'>
-                        <FormatQuoteIcon className='format-quote'/>
-                        <Typography variant='body2'>
+                        <FormatQuoteIcon className='format-quote' />
+                        <Typography>
                             I worked with Alger over the past 2 years, he has consistently demonstrated a profound understanding of both front-end and back-end development, seamlessly bridging the gap between design and functionality. I highly recommend Alger for any venture requiring a skilled Full Stack Engineer."
                         </Typography>
                         <div className='profile-wrapper'>

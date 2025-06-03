@@ -1,4 +1,4 @@
-import { Box, Collapse, IconButton, List, ListItem, ListItemButton, useTheme } from "@mui/material";
+import { Box, Collapse, Divider, IconButton, List, ListItem, ListItemButton, useTheme } from "@mui/material";
 import { ListItemContent, ListItemDecorator, Typography } from "@mui/joy";
 import { Home } from "@mui/icons-material";
 import CodeIcon from '@mui/icons-material/Code';
@@ -79,7 +79,8 @@ const Header = () => {
                         </li>
                     </ul>
                 </Box>
-                <Box>
+                <Box sx={{pl: 4, pr: 4}}>
+                    <Divider sx={{mt: 4, borderColor: 'rgba(255,255,255,0.08)', opacity: 0.25}}/>
                     <List sx={{maxWidth: 200, margin: 'auto'}}>
                         <ListItem>
                             <ListItemButton onClick={() => linkHandler('/')}>
@@ -113,6 +114,7 @@ const Header = () => {
                             </ListItemButton>
                         </ListItem>
                     </List>
+                    <Divider sx={{mt: 1, borderColor: 'rgba(255,255,255,0.08)', opacity: 0.25}}  />
                     <DarkModeToggle />
                 </Box>
             </Collapse>
