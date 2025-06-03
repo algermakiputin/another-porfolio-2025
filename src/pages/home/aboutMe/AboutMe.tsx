@@ -35,7 +35,7 @@ const AboutMe = () => {
                 }}>
             <SectionHeader title="What I do" />
             <Typography variant="body1" sx={{mb: 8, mt: -2}}>
-                    I have over 7 years of experience in software development, I've had the opportunity to work with clients from all over the world. I'm skilled in a variety of technologies, including JavaScript, React, Node.js, Python, and several database systems. I focus on building responsive, high-performance applications and enjoy working on everything from API integrations to fine-tuning user interfaces. Below is a snapshot of my core technical skills and tools I work with regularly. For a deeper look at my background and the projects I've been involved in, feel free to check out my <NavLink to={'/portfolio'} className={'link'}>portfolio.</NavLink>.
+                    I have over 7 years of experience in software development, I've had the opportunity to work with clients from all over the world. I'm skilled in a variety of technologies, including JavaScript, React, Node.js, Python, and several database systems. I focus on building responsive, high-performance applications and enjoy working on everything from API integrations to fine-tuning user interfaces. Below is a snapshot of my core technical skills and tools I work with regularly. For a deeper look at my background and the projects I've been involved in, feel free to check out my <NavLink to={'/portfolio'} className={'link'}>portfolio</NavLink>.
             </Typography>
             <Grid container spacing={2} sx={{flexGrow: 1}}>
                 <Grid size={{lg: 3, md: 4, sm: 6, xs: 6}} sx={{mb: 5}}>
