@@ -16,7 +16,10 @@ import { ReactComponent as Aws} from '../../../assets/svg/Aws.svg';
 import { ReactComponent as Gcloud} from '../../../assets/svg/Gcloud.svg';
 import { ReactComponent as Wordpress} from '../../../assets/svg/Wordpress.svg';
 import { ReactComponent as Postman} from '../../../assets/svg/Postman.svg';
+import { ReactComponent as GithubDark} from '../../../assets/svg/GithubDark.svg';
+import { ReactComponent as AwsDark} from '../../../assets/svg/AwsDark.svg';
 import './aboutMe.css';
+import useGetTheme from "../../../hooks/useGetTheme";
 
 const Javascript = (
     <svg width="45" height="45" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -32,6 +35,7 @@ const Javascript = (
 const AboutMe = () => {
     const imageWidth = 24;
     const iconWrapperMaxHeight = 30;
+    const { isDark } = useGetTheme();
     return (
         <Box sx={{
                     p: {md: 4, xs: 4, lg: 7, sm:4},
@@ -74,7 +78,9 @@ const AboutMe = () => {
                 </Grid>
                 <Grid size={{lg: 3, md: 4, sm: 6, xs: 6}} sx={{mb: 5}}>
                     <Box sx={{mb:1, maxHeight: iconWrapperMaxHeight}}>
-                        <Aws width={imageWidth} height={imageWidth} className="tech-icon" />
+                        {
+                            isDark ? <AwsDark width={imageWidth} height={imageWidth} className="tech-icon" /> : <Aws width={imageWidth} height={imageWidth} className="tech-icon" />
+                        }
                         <Gcloud width={imageWidth} height={imageWidth} className="tech-icon" />
                     </Box>
                     <Typography sx={{mb:1}} variant="h3">Cloud Computing</Typography>
@@ -83,7 +89,10 @@ const AboutMe = () => {
                 <Grid size={{lg: 3, md: 4, sm: 6, xs: 6}} sx={{mb: 5}}>
                     <Box sx={{mb:1, maxHeight: iconWrapperMaxHeight}}>
                         <Git width={imageWidth} height={imageWidth} className="tech-icon" />
-                        <Github width={imageWidth} height={imageWidth} className="tech-icon" />
+                        { isDark ? (
+                            <GithubDark width={imageWidth} height={imageWidth} className="tech-icon" />
+                        ) : <Github width={imageWidth} height={imageWidth} className="tech-icon" />}
+                         
                         <Gitlab width={imageWidth} height={imageWidth} className="tech-icon" />
                         <Docker width={imageWidth} height={imageWidth} className="tech-icon" />
                     </Box>
@@ -93,8 +102,8 @@ const AboutMe = () => {
                 <Grid size={{lg: 3, md: 4, sm: 6, xs: 6}} sx={{mb: 5}}>
                     <Box sx={{mb:1, maxHeight: iconWrapperMaxHeight}}>
                         <img src="/icons/Graphql.png" alt="graphql" className="tech-icon" width={imageWidth}  />
-                        <img src="/icons/Express.png" alt="express" className="tech-icon" width={imageWidth}  />
                         <Postman width={imageWidth} height={imageWidth} className="tech-icon" />
+                        <img src="/icons/Express.png" alt="express" className="tech-icon" width={imageWidth}  />
                     </Box>
                     <Typography sx={{mb:1}} variant="h3">API Development</Typography>
                     <Typography variant="body2">Strong foundation in building scalable APIs that power modern softwares. I specialize in creating seamless integrations between systems, enabling efficient data exchange.</Typography>

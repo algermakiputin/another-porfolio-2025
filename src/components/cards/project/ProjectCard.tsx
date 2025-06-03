@@ -38,7 +38,7 @@ const ProjectCard = ({ description, title, image, path } : Props) => {
                     </Typography>
                 </CardContent>
                 <div className="middle">
-                    <Button onClick={() => onNavigateHandler(path ?? '')} className='view-project-btn' variant='contained' startIcon={<Visibility />}>View Case Study</Button>
+                    <Button size='large' onClick={() => onNavigateHandler(path ?? '')} className='view-project-btn' variant='contained' startIcon={<Visibility />}>View Case Study</Button>
                 </div>
             </Card>
         </div>
