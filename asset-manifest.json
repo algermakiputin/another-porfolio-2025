@@ -1,18 +1,36 @@
 {
   "files": {
-    "main.css": "/static/css/main.3e5bf6a6.css",
-    "main.js": "/static/js/main.ed17956b.js",
+    "main.css": "/static/css/main.f3221f45.css",
+    "main.js": "/static/js/main.9b712a0a.js",
     "static/js/453.acca0757.chunk.js": "/static/js/453.acca0757.chunk.js",
+    "static/media/Postman.svg": "/static/media/Postman.c661650b49157736816d0620db8c124d.svg",
     "static/media/revicons.eot": "/static/media/revicons.a77de540a38981833f9e.eot",
     "static/media/revicons.ttf": "/static/media/revicons.57fd05d4ae650374c8de.ttf",
     "static/media/revicons.woff": "/static/media/revicons.e8746a624ed098489406.woff",
+    "static/media/Aws.svg": "/static/media/Aws.3b2089da018d5f0715469f04f2093afc.svg",
+    "static/media/AwsDark.svg": "/static/media/AwsDark.700f3319da434300f3fea07bb1e6bf9e.svg",
+    "static/media/Php.svg": "/static/media/Php.7b162e056462f8db3b80448acba9dd35.svg",
+    "static/media/Docker.svg": "/static/media/Docker.e8dba67ec4e02242ec71b0eebffdacc1.svg",
+    "static/media/Laravel.svg": "/static/media/Laravel.f48135b959b41df9dac75cdccda26d6b.svg",
+    "static/media/Nodejs.svg": "/static/media/Nodejs.619c9d6c6a3f36fb25cb20e4544f721e.svg",
+    "static/media/Github.svg": "/static/media/Github.05052a5f8b29c6125316c2ac7a27f293.svg",
+    "static/media/GithubDark.svg": "/static/media/GithubDark.96a0bfea93feae4ff235d8fcab6fec4d.svg",
+    "static/media/Typescript.svg": "/static/media/Typescript.4926579c0652045da10ec924264e007f.svg",
+    "static/media/Wordpress.svg": "/static/media/Wordpress.6097b3294499fca41204ce9cbd21cb6b.svg",
+    "static/media/Gcloud.svg": "/static/media/Gcloud.0dde9b439293e178948590a85727dcaa.svg",
+    "static/media/Codeigniter.svg": "/static/media/Codeigniter.a260bacc4dbe3ecd10fd585a1669008f.svg",
+    "static/media/Reactjs.svg": "/static/media/Reactjs.d8e8411cb11ed39ed18ee06d0aee9900.svg",
+    "static/media/Git.svg": "/static/media/Git.4d663e0ae7e4fff9533f42d6deed251b.svg",
+    "static/media/Gitlab.svg": "/static/media/Gitlab.bb7630ae596ebbe244f1308373c4110d.svg",
+    "static/media/Javascript.svg": "/static/media/Javascript.bf3e675334764738074aa637fe8ce6b6.svg",
     "index.html": "/index.html",
-    "main.3e5bf6a6.css.map": "/static/css/main.3e5bf6a6.css.map",
-    "main.ed17956b.js.map": "/static/js/main.ed17956b.js.map",
+    "static/media/Angular.svg": "/static/media/Angular.079115dd065b5efda75d985e764aa5dd.svg",
+    "main.f3221f45.css.map": "/static/css/main.f3221f45.css.map",
+    "main.9b712a0a.js.map": "/static/js/main.9b712a0a.js.map",
     "453.acca0757.chunk.js.map": "/static/js/453.acca0757.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.3e5bf6a6.css",
-    "static/js/main.ed17956b.js"
+    "static/css/main.f3221f45.css",
+    "static/js/main.9b712a0a.js"
   ]
 }
