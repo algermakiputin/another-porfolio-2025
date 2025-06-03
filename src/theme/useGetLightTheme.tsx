@@ -25,6 +25,7 @@ const typography = {
     h2: {
         fontSize: '2em',
         fontWeight: 'bold',
+        color: "#292929"
     },
     h3: {
         color: '#292929',
