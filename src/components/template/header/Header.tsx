@@ -14,6 +14,7 @@ import YouTubeIcon from '@mui/icons-material/YouTube';
 import RssFeedIcon from '@mui/icons-material/RssFeed';
 import useGetWindowsDimension from "../../../hooks/useGetWindowsDimension";
 import './header.css'; 
+import DarkModeToggle from "../../toggle/DarkModeToggle";
 
 const Header = () => {
     const theme = useTheme();
@@ -111,6 +112,7 @@ const Header = () => {
                             </ListItemButton>
                         </ListItem>
                     </List>
+                    <DarkModeToggle />
                 </Box>
             </Collapse>
         </div>

@@ -1,13 +1,11 @@
 import { Box, Stack, Typography } from '@mui/material';
-import LightModeIcon from '@mui/icons-material/LightMode';
-import DarkModeIcon from '@mui/icons-material/DarkMode';
 import ContrastIcon from '@mui/icons-material/Contrast';
-import React, { useContext, useState } from 'react';
+import React from 'react';
 import './darkModeToggle.css';
 import { useThemeContext } from '../../context/ThemeContext';
 
 const DarkModeToggle = () => {
-    const { toggleTheme, setDarkMode } = useThemeContext();
+    const { setDarkMode } = useThemeContext();
     const onCheckHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         setDarkMode((mode: boolean) => !mode);
     }   

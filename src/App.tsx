@@ -12,6 +12,8 @@ import ContactPage from './pages/contact/ContactPage';
 import ScrollToTop from './components/scroll/ScrollToTop';
 import { Box } from '@mui/material';
 import { useGetDarkTheme } from './theme/useGetDarkTheme';
+import useGetLightTheme from './theme/useGetLightTheme';
+import { useThemeContext } from './context/ThemeContext';
  
 const Layout = () => {
   return (
@@ -29,9 +31,12 @@ const Layout = () => {
 }
 
 function App() {
+  const { darkMode } = useThemeContext();
   const { darkTheme } = useGetDarkTheme();
+  const { lightTheme } = useGetLightTheme();
+
   return ( 
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <CssBaseline />
       <BrowserRouter>
         <Routes>
