@@ -32,9 +32,9 @@ const typography = {
         fontWeight: 'bold'
     },
     body2: {
-        color: "rgba(255,255,255,0.7)"
+        color: "#4f4f4f"
     },
     body1: {
-        color: "rgba(255,255,255,0.7)"
+        color: "#4f4f4f"
     }
 }

@@ -5,6 +5,7 @@ import CodeIcon from '@mui/icons-material/Code';
 import MenuIcon from '@mui/icons-material/Menu';
 import BookIcon from '@mui/icons-material/Book';
 import ContactsIcon from '@mui/icons-material/Contacts';
+import ContactMailIcon from '@mui/icons-material/ContactMail';
 import { useEffect, useState } from "react";
 import { NavLink, useNavigate  } from "react-router";
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
@@ -101,13 +102,13 @@ const Header = () => {
                         </ListItem> */}
                         <ListItem>
                             <ListItemButton onClick={() => linkHandler('/blog')}>
-                                <ListItemDecorator sx={{mr: 1}}><BookIcon /></ListItemDecorator>
+                                <ListItemDecorator sx={{mr: 1}}><RssFeedIcon /></ListItemDecorator>
                                 <ListItemContent>Blog</ListItemContent>
                             </ListItemButton>
                         </ListItem>
                         <ListItem>
                             <ListItemButton onClick={() => linkHandler('/contact')}>
-                                <ListItemDecorator sx={{mr: 1}}><ContactsIcon /></ListItemDecorator>
+                                <ListItemDecorator sx={{mr: 1}}><ContactMailIcon /></ListItemDecorator>
                                 <ListItemContent>Contact</ListItemContent>
                             </ListItemButton>
                         </ListItem>

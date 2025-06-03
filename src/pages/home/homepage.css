@@ -6,6 +6,10 @@
     outline: none; 
 }
 
+.home-btn:hover {
+  opacity: 0.85;
+}
+
 .home-btn.portfolio {
     background-color: #54B689;
     color: #fff!important;
