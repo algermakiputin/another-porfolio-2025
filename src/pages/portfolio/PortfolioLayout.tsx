@@ -1,61 +1,55 @@
 import React from "react";
 import Isotope from "isotope-layout";
 import './portfolioLayout.css';
-import { Box } from "@mui/material";
-import { useNavigate } from "react-router";
+import { Box, Grid } from "@mui/material";
 import ProjectCard from "../../components/cards/project/ProjectCard";
 import useGetProjects from "../../hooks/useGetProjects";
 
-
 const PortfolioLayout = () => {
-    const { projects } = useGetProjects();
-    const navigate = useNavigate();
-    const isotope = React.useRef<Isotope | null>(null);
-  // store the filter keyword in a state
-    const [filterKey, setFilterKey] = React.useState("*");
-
-  // initialize an Isotope object with configs
+    const { projects } = useGetProjects(); 
+    const isotope = React.useRef<Isotope | null>(null); 
+    const [filterKey, setFilterKey] = React.useState("*"); 
   React.useEffect(() => {
-    isotope.current = new Isotope(".filter-container", {
+    isotope.current = new Isotope(".grid", {
       itemSelector: ".filter-item",
-      layoutMode: "fitRows"
+      // layoutMode: 'fitRows',
+      percentPosition: true
+     
     });
     // cleanup
     return () => isotope.current?.destroy();
-  }, [projects]);
+  }, [projects]); 
 
-  // handling filter key change
   React.useEffect(() => {
     if (filterKey === "*") isotope.current?.arrange({ filter: `*` });
     else isotope.current?.arrange({ filter: `.${filterKey}` });
-  }, [filterKey]);
-  console.log(`filterkey`, filterKey);
+  }, [filterKey]); 
+
   const handleFilterKeyChange = (key: string) => () => setFilterKey(key);
-  const onNavigateHandler = (path: string) => {
-    navigate(`/portfolio/${path}`)
-  } 
+ 
   return (
-    <>
+    <> 
       <ul className="portfolio-menu-wrapper">
         <li className={`portfolio-menu ${filterKey === "*" ? 'active' : ''}`} onClick={handleFilterKeyChange("*")}>All</li>
         <li className={`portfolio-menu ${filterKey === 'web-app' ? 'active' : ''}`} onClick={handleFilterKeyChange("web-app")}>Web App</li>
         <li className={`portfolio-menu ${filterKey === 'mobile-app' ? 'active' : ''}`} onClick={handleFilterKeyChange("mobile-app")}>Mobile App</li>
       </ul>
-      <Box sx={{p: {lg: 7, md: 4, sm: 4, xs: 4}}}>
-        <ul className="filter-container">
+      <Box sx={{p: {lg: 6, md: 4, sm: 4, xs: 4}, pt: {lg: 4, md: 4, sm: 4, xs: 4}}}>
+        <Grid className="grid" container sx={{flexGrow: 1}} spacing={2}>
           {
             projects?.map((project) => (
-              <div className={`filter-item ${project?.category}`}>
+              <Grid className={`filter-item ${project?.category}`} size={6} key={project.slug}>
                   <ProjectCard 
                     title={project.title}
                     description={project?.shortDescription}
                     image={project?.image}
                     path={project.slug}
                     />
-              </div> 
+              </Grid> 
             ))
           }
-        </ul>
+        </Grid>
+    
       </Box>
     </>
   );

@@ -13,18 +13,9 @@
     margin-right: 0;
 }
 
-.filter-item { 
-    width: 50% !important;
-    display: inline-block;
-    height: auto;
-    margin-bottom: 1.25em;
-    width: 100%;
+.filter-item {  
+    margin-bottom: 1.25em; 
 }
-
-.filter-container {
-    padding: 0;
-    margin: auto; 
-} 
 
 .portfolio-menu.active {
     border-top: 2px solid #54B689;
@@ -37,4 +28,14 @@
     width: 100%!important;
     display: block;
   }
+} 
+
+.filter-item {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+}
+.grid {
+    display: grid!important;
+    grid-template-columns: 1fr 1fr 1fr!important;
+    gap: 100px!important;
 }

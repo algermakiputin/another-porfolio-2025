@@ -22,12 +22,12 @@
     border-collapse: collapse;
 } 
 
-.filter-item:nth-child(odd) .project-wrapper {
+/* .filter-item:nth-child(odd) .project-wrapper {
     padding-right: 1em;
 }
 .filter-item:nth-child(even) .project-wrapper {
     padding-left: 1em;
-}
+} */
 
 .middle {
   transition: 0.5s ease;

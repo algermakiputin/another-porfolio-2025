@@ -37,7 +37,7 @@ const Reviews = () => {
                 <div className='carousel-wrapper'> 
                     <div className='carousel-item'>
                         <FormatQuoteIcon className='format-quote' />
-                        <Typography>
+                        <Typography variant='body1'>
                             I worked with Alger over the past 2 years, he has consistently demonstrated a profound understanding of both front-end and back-end development, seamlessly bridging the gap between design and functionality. I highly recommend Alger for any venture requiring a skilled Full Stack Engineer."
                         </Typography>
                         <div className='profile-wrapper'>

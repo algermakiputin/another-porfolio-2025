@@ -1,8 +1,14 @@
 .carousel {
     padding-bottom: 2.5em;
 }
+
+.carousel .info {
+    position: relative;
+    bottom: 0;
+}
 .carousel-wrapper {
     padding-right: 30px;
+      height: 100%!important;
 }
 
 .carousel-item {
@@ -13,6 +19,7 @@
     height: 100%;
     position: relative;
     padding-right: 30px;
+    padding-bottom: 6rem;
 }
 
 .carousel-item::before {
@@ -43,11 +50,12 @@
 }
 
 .profile-wrapper {
-    position: relative;
+    position: absolute;
     align-items: center;
     display: flex;
     vertical-align: middle;
     margin-top: 20px;
+    bottom: 1.8rem;
 }
 
 .image-wrapper {
