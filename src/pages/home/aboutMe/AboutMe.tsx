@@ -91,7 +91,7 @@ const AboutMe = () => {
                 </Grid>
                 <Grid size={{lg: 3, md: 4, sm: 6, xs: 6}} sx={{mb: 5}}>
                     <Box sx={{mb:1, maxHeight: iconWrapperMaxHeight}}>
-                        <img src="/icons/Graphql.png" alt="graphql" className="tech-icon" width={imageWidth}  />
+                        <img src="/icons/GraphQl.png" alt="graphql" className="tech-icon" width={imageWidth}  />
                         <Postman width={imageWidth} height={imageWidth} className="tech-icon" />
                         <img src="/icons/Express.png" alt="express" className="tech-icon" width={imageWidth}  />
                     </Box>
