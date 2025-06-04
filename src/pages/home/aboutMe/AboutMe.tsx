@@ -18,6 +18,7 @@ import { ReactComponent as Wordpress} from '../../../assets/svg/Wordpress.svg';
 import { ReactComponent as Postman} from '../../../assets/svg/Postman.svg';
 import { ReactComponent as GithubDark} from '../../../assets/svg/GithubDark.svg';
 import { ReactComponent as AwsDark} from '../../../assets/svg/AwsDark.svg';
+import { ReactComponent as Graphql} from '../../../assets/svg/Graphql.svg';
 import './aboutMe.css';
 import useGetTheme from "../../../hooks/useGetTheme";
 import { NavLink } from "react-router";
@@ -91,7 +92,7 @@ const AboutMe = () => {
                 </Grid>
                 <Grid size={{lg: 3, md: 4, sm: 6, xs: 6}} sx={{mb: 5}}>
                     <Box sx={{mb:1, maxHeight: iconWrapperMaxHeight}}>
-                        <img src="/icons/GraphQl.png" alt="graphql" className="tech-icon" width={imageWidth}  />
+                        <Graphql width={imageWidth} height={imageWidth} className="tech-icon" />
                         <Postman width={imageWidth} height={imageWidth} className="tech-icon" />
                         <img src="/icons/Express.png" alt="express" className="tech-icon" width={imageWidth}  />
                     </Box>
