@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.cc81288b.css",
-    "main.js": "/static/js/main.5c592360.js",
+    "main.css": "/static/css/main.da098e34.css",
+    "main.js": "/static/js/main.84430087.js",
     "static/js/453.acca0757.chunk.js": "/static/js/453.acca0757.chunk.js",
     "static/media/Postman.svg": "/static/media/Postman.93460cd3d07ce8c801b7054d48610556.svg",
     "static/media/revicons.eot": "/static/media/revicons.a77de540a38981833f9e.eot",
@@ -16,8 +16,8 @@
     "static/media/Github.svg": "/static/media/Github.119d6479756b882a06b345314cabbf21.svg",
     "static/media/GithubDark.svg": "/static/media/GithubDark.fb17d25d9b19951a2f754cd7f9acd5fd.svg",
     "static/media/Graphql.svg": "/static/media/Graphql.f7e893fe252e5745836167bc6920e06c.svg",
-    "static/media/Typescript.svg": "/static/media/Typescript.9d427a41acb8d38be14e2d4a2e08d56a.svg",
     "index.html": "/index.html",
+    "static/media/Typescript.svg": "/static/media/Typescript.9d427a41acb8d38be14e2d4a2e08d56a.svg",
     "static/media/Wordpress.svg": "/static/media/Wordpress.9be5fe54b4cb8f46610b3d04ebb966c7.svg",
     "static/media/Gcloud.svg": "/static/media/Gcloud.fdc04a837a038139889c50e4c8bd8be1.svg",
     "static/media/Codeigniter.svg": "/static/media/Codeigniter.e372c0bc593fefb9cdfbb77d3d83f5c0.svg",
@@ -26,12 +26,12 @@
     "static/media/Git.svg": "/static/media/Git.aa64ae5bda13bd0d7acf96571d99264b.svg",
     "static/media/Javascript.svg": "/static/media/Javascript.defe8e369293ff49667a19eb75a904d4.svg",
     "static/media/Angular.svg": "/static/media/Angular.84a85107177b582b37438402e19590bc.svg",
-    "main.cc81288b.css.map": "/static/css/main.cc81288b.css.map",
-    "main.5c592360.js.map": "/static/js/main.5c592360.js.map",
+    "main.da098e34.css.map": "/static/css/main.da098e34.css.map",
+    "main.84430087.js.map": "/static/js/main.84430087.js.map",
     "453.acca0757.chunk.js.map": "/static/js/453.acca0757.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.cc81288b.css",
-    "static/js/main.5c592360.js"
+    "static/css/main.da098e34.css",
+    "static/js/main.84430087.js"
   ]
 }
