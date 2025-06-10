@@ -28,6 +28,7 @@ const ContactPage = () => {
             method: 'POST',
             body: formData
         }).then(response => {
+            console.log(`response`, response);
             if (response?.ok) {
                 reset();
                 setSuccess(true);
@@ -142,7 +143,7 @@ const ContactPage = () => {
                                 />
                                 { errors?.recaptcha && <FormHelperText error>{ "Recaptcha is required" }</FormHelperText>}
                             </Grid>
-                            <Button disabled={loading} type="submit" endIcon={<SendIcon />} className="home-btn portfolio" variant="contained" color="success">Send Now</Button>
+                            <Button disabled={loading} type="submit" endIcon={<SendIcon />} className="home-btn portfolio" variant="contained" color="success">{loading ? 'Loading...' : 'Send Now'}</Button>
                         </Grid>
                     </form>
                 </Container>
