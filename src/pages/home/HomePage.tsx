@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import {Box, Grid, Button, Typography, useTheme, ThemeProvider } from "@mui/material";
+import {Box, Grid, Button, Typography } from "@mui/material";
 import AboutMe from "./aboutMe/AboutMe";
 import Reviews from "./reviews/Reviews";
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
@@ -33,8 +33,7 @@ const HomePage = () => {
                 }} 
                 spacing={2}>
                 <Grid  size={{md: 7, sm: 7}} sx={{pr: {lg: 2}}}>
-                    <Typography variant="h2" sx={{mb: 1, fontSize: '3em'}}>Alger Makiputin</Typography>
-                    
+                    <Typography variant="h2" className="name-heading" sx={{mb: 1, fontSize: '2.5em'}}>Alger Makiputin</Typography>
                     <Box fontWeight={100}>
                         <Typography variant="body1"  sx={{mb: 2, fontSize: '1.5em', fontWeight: 300, color: isDark ? 'rgba(255,255,255,0.7)'  : '#4f4f4f', opacity: 0.65}}>Full Stack Software Engineer</Typography>
                     </Box>

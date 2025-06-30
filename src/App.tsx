@@ -1,9 +1,9 @@
 import './App.css';
 import Header from './components/template/header/Header';
 import HomePage from './pages/home/HomePage';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import { BrowserRouter, Route, Routes, HashRouter, Outlet, Navigate } from "react-router";
+import { BrowserRouter, Route, Routes, Outlet } from "react-router";
 import PortfolioPage from './pages/portfolio/PortfolioPage';
 import PortfolioSinglePage from './pages/portfolio/singlePage/PortfolioSinglePage';
 import Footer from './components/template/footer/Footer';
@@ -14,6 +14,7 @@ import { Box } from '@mui/material';
 import { useGetDarkTheme } from './theme/useGetDarkTheme';
 import useGetLightTheme from './theme/useGetLightTheme';
 import { useThemeContext } from './context/ThemeContext';
+import Webchat from './components/webchat/Webchat';
  
 const Layout = () => {
   return (
@@ -38,6 +39,7 @@ function App() {
   return ( 
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <CssBaseline />
+      <Webchat />
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Layout />}>

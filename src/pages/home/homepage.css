@@ -27,4 +27,7 @@
     height: auto;
     width: 100%; 
   }
+  .name-heading {
+    font-size: 2em!important;
+  }
 }

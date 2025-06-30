@@ -108,7 +108,7 @@
             "slug": "filipino-alamat",
             "title": "Filipino Alamat",
             "image": "/images/projects/filipino-alamat.jpeg",
-            "metaDescription": "Web-based software designed to help retail traders manage their trades, progress and improve overall trading activities.",
+            "metaDescription": "Mobile application available in Google play store, built using react native",
             "shortDescription": "Filipino is a free android app that brings over traditional Filipino legends (alamat) to your fingertips. Designed culture enthusiasts, it offers a curated collection of folklore that explains natural phenomena, moral values, and cultural origins. Users can read and listen to stories and anytime, anywhere with user-friendly interface.",
             "meta": {
                 "platform": "Android",
