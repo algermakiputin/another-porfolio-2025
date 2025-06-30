@@ -21,8 +21,9 @@ import Socials from "../../socials/Socials";
 const Header = () => {
     const theme = useTheme();
     const [width] = useGetWindowsDimension();
-    const [collapse, setCollapse] = useState(true);
+    const [collapse, setCollapse] = useState(false);
     const navigate = useNavigate ();
+
     const linkHandler = (route: string) => {
         navigate(route);
         if (width <= 770) {
