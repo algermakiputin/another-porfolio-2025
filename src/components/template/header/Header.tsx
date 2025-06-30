@@ -3,15 +3,10 @@ import { ListItemContent, ListItemDecorator } from "@mui/joy";
 import { Home } from "@mui/icons-material";
 import CodeIcon from '@mui/icons-material/Code';
 import MenuIcon from '@mui/icons-material/Menu';
-import BookIcon from '@mui/icons-material/Book';
-import ContactsIcon from '@mui/icons-material/Contacts';
 import ContactMailIcon from '@mui/icons-material/ContactMail';
 import { useEffect, useState } from "react";
-import { NavLink, useNavigate  } from "react-router";
+import { useNavigate  } from "react-router";
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
-import GitHubIcon from '@mui/icons-material/GitHub';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import YouTubeIcon from '@mui/icons-material/YouTube';
 import RssFeedIcon from '@mui/icons-material/RssFeed';
 import useGetWindowsDimension from "../../../hooks/useGetWindowsDimension";
 import './header.css'; 
@@ -39,12 +34,14 @@ const Header = () => {
     }, [width]);
 
     const collapseHandler = () => setCollapse(!collapse);
+    
     const getBackgroundColor = () => {
         if (theme.palette.mode === "dark") {
             return "#1e2a3a";
         }
         return "#54B689";
     }
+
     return <Box>
         <div className="header" style={{backgroundColor: getBackgroundColor()}}>
             <Box sx={{pl: 4, pr: 4}}>
