@@ -114,7 +114,9 @@
                 "platform": "Android",
                 "category": "Education / Literature",
                 "targetAudience": "Students, educators, and filipino families",
-                "language": "Filipino, English"
+                "language": "Filipino, English",
+                "linkLabel": "Google Play Store",
+                "link": "https://play.google.com/store/apps/details?id=com.angalamat&hl=en"
             },
             "requirements": [
                 "Story Library: Curated alamat stories with text and illustrations",
@@ -156,7 +158,7 @@
             "category": "mobile-app",
             "image": "/images/projects/posmobile.png",
             "title": "StockApp Inventory",
-            "metaDescription": "StockApp Inventory is a mobile app inventory software solution tailored for small businesses, available in google play store",
+            "metaDescription": "StockApp Inventory is a mobile inventory management solution designed specifically for small businesses that need a simple, reliable, and affordable way to track and control their stock. With an intuitive interface and powerful features, the app makes it easy to manage products, monitor stock levels, and keep your business organized all from your smartphone.",
             "shortDescription": "StockApp is a user-friendly Android application designed to streamline inventory tracking for small businesses. With features like real-time stock updates, sales recordings, and low-stock alerts, it simplifies the process of managing products, suppliers, and transactions.",
             "meta": {
                 "platform": "Android",
@@ -174,7 +176,7 @@
                 "Sales tracking with basic reports (daily, weekly, monthly)",
                 "Multi-location support (optional – for businesses with multiple stores)"
             ],
-            "overview": "The Filipino Alamat App is a mobile application designed to preserve and promote Filipino folklore (alamat) by offering a curated collection of stories in both text and audio formats. It aims to engage children, educators, and Filipino families through an easy-to-use, culturally enriching platform.",
+            "overview": "StockApp Inventory is a powerful yet easy-to-use mobile application designed to help businesses and individuals efficiently manage their inventory anytime, anywhere. Whether you’re running a retail shop, managing a warehouse, or tracking personal collections, StockApp makes stock management simple, accurate, and accessible.",
             "challenge": "Many small business owners and shopkeepers struggle with manual or outdated inventory tracking methods such as spreadsheets or paper logs. These methods are prone to error, time-consuming, and offer little visibility into stock movement or sales trends. Without a dedicated system, businesses often face issues like overstocking, stockouts, and inaccurate reporting.",
             "approach": "To address these challenges, the StockApp Inventory Software was developed as a mobile-first inventory management solution tailored for small businesses. The Android app offers real-time tools to help business owners monitor inventory, manage stock levels, and gain insights into sales performance—all from the convenience of a smartphone. \n The app features real-time stock tracking, allowing automatic updates as items are sold or restocked. With barcode scanning support, users can quickly look up products or update inventory with ease. To prevent stockouts, the app sends low-stock alerts and restock reminders, helping businesses stay ahead of supply shortages. \n Additionally, StockApp includes sales recording tools and daily report summaries, giving users a clear view of their sales trends and inventory flow. For businesses operating across multiple outlets, the app also supports multi-location inventory management, ensuring a centralized and accurate tracking system.",
             "results": [
@@ -265,7 +267,7 @@
                 "targetAudience": "Beginner to intermediate retail traders, students, financial enthusiasts",
                 "language": "Filipino, English",
                 "linkLabel": "Google Play Store",
-                "website": "NA"
+                "link": "https://play.google.com/store/apps/details?id=com.candlestickpatterns&hl=en"
             },
             "requirements": [
                 "Pattern Library: 40+ candlestick patterns with detailed explanations and illustrations",

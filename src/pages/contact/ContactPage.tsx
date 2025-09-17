@@ -1,155 +1,214 @@
 import { Alert, Box, Button, Container, Grid, TextField } from "@mui/material";
 import PageHeader from "../../components/template/PageHeader/PageHeader";
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import FormHelperText from '@mui/material/FormHelperText';
-import SendIcon from '@mui/icons-material/Send';
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import FormHelperText from "@mui/material/FormHelperText";
+import SendIcon from "@mui/icons-material/Send";
 import { useState } from "react";
-import { useForm, Controller, Control } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import ReCAPTCHA from "react-google-recaptcha";
-import CheckIcon from '@mui/icons-material/Check';
+import CheckIcon from "@mui/icons-material/Check";
 
 const ContactPage = () => {
-    const [loading, setLoading] = useState(false);
-    const [success, setSuccess] = useState(false);
-    const [formSpreeErrors, setFormSpreeErrors] = useState<string>('');
-    const { register, handleSubmit, watch, formState: { errors }, control, reset } = useForm();
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [formSpreeErrors, setFormSpreeErrors] = useState<string>("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    control,
+    reset,
+  } = useForm();
 
-    const onSubmitHandler = async (data: any) => {
-        const formData = new FormData();
-        formData.append('name', data?.name);
-        formData.append('email', data?.email);
-        formData.append('message', data?.message);
-        formData.append('service', data?.service);
-        setLoading(true);
-        await fetch(process.env.REACT_APP_FORM_SPREE_URL ?? '', { 
-            method: 'POST',
-            body: formData
-        }).then(response => {
-            console.log(`response`, response);
-            if (response?.ok) {
-                reset();
-                setSuccess(true);
+  const onSubmitHandler = async (data: any) => {
+    const formData = new FormData();
+    formData.append("name", data?.name);
+    formData.append("email", data?.email);
+    formData.append("message", data?.message);
+    formData.append("service", data?.service);
+    setLoading(true);
+    await fetch(process.env.REACT_APP_FORM_SPREE_URL ?? "", {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => {
+        console.log(`response`, response);
+        if (response?.ok) {
+          reset();
+          setSuccess(true);
+        } else {
+          response.json().then((data) => {
+            if (Object.hasOwn(data, "errors")) {
+              setFormSpreeErrors(
+                data["errors"].map((error: any) => error["message"]).join(", ")
+              );
             } else {
-                response.json().then(data => {
-                if (Object.hasOwn(data, 'errors')) {
-                    setFormSpreeErrors(data["errors"].map((error: any) => error["message"]).join(", "));
-                } else {
-                    setFormSpreeErrors("Oops! There was a problem submitting your form");
-                }
-                })
+              setFormSpreeErrors(
+                "Oops! There was a problem submitting your form"
+              );
             }
-        }).catch(() => setFormSpreeErrors("Oops! There was a problem submitting your form"));
-        setLoading(false);
-    };
+          });
+        }
+      })
+      .catch(() =>
+        setFormSpreeErrors("Oops! There was a problem submitting your form")
+      );
+    setLoading(false);
+  };
 
-    return (
-        <>
-            <PageHeader 
-                hideButton={true} 
-                title="Contact"
-                mailTo="algerapudmakiputin@gmail.com"
-                socials={true}
-                description="Interested in hiring me for your project or just want to say hi? You can fill in the contact form below or send me an email to" 
-                anotherDescription="Want to get connected? Follow me on the social channels below."
+  return (
+    <>
+      <PageHeader
+        hideButton={true}
+        title="Contact"
+        mailTo="algerapudmakiputin@gmail.com"
+        socials={true}
+        description="Interested in hiring me for your project or just want to say hi? You can fill in the contact form below or send me an email to"
+        anotherDescription="Want to get connected? Follow me on the social channels below."
+      />
+      <Box sx={{ p: { lg: 7, md: 4, xs: 2 } }}>
+        <Container sx={{ maxWidth: 900, margin: "auto" }} maxWidth={false}>
+          {success && (
+            <Alert
+              icon={<CheckIcon fontSize="inherit" />}
+              sx={{ mb: 2 }}
+              severity="success"
+            >
+              Thank you! Your message has been received. We'll be in touch soon.
+            </Alert>
+          )}
+          {formSpreeErrors && (
+            <Alert severity="error" sx={{ mb: 2 }}>
+              {formSpreeErrors}
+            </Alert>
+          )}
+
+          <form onSubmit={handleSubmit(onSubmitHandler)}>
+            <Grid container spacing={2}>
+              <Grid size={6}>
+                <FormControl fullWidth>
+                  <TextField
+                    label="Name"
+                    type="text"
+                    {...register("name", { required: "Name is required" })}
+                    error={errors?.name ? true : false}
+                  />
+                  {errors?.name && (
+                    <FormHelperText error>
+                      {String(errors?.name?.message)}
+                    </FormHelperText>
+                  )}
+                </FormControl>
+              </Grid>
+              <Grid size={6}>
+                <FormControl fullWidth>
+                  <TextField
+                    label="Email"
+                    type="email"
+                    {...register("email", {
+                      required: "Email address is required",
+                      pattern: {
+                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                        message: "invalid email address",
+                      },
+                    })}
+                    error={errors?.email ? true : false}
+                  />
+                  {errors?.email && (
+                    <FormHelperText error>
+                      {String(errors?.email.message)}
+                    </FormHelperText>
+                  )}
+                </FormControl>
+              </Grid>
+              <Grid size={12}>
+                <FormControl fullWidth>
+                  <InputLabel id="service-label">
+                    Select a service you're interested in
+                  </InputLabel>
+                  <Select
+                    labelId="service-label-id"
+                    id="service-select"
+                    defaultValue={""}
+                    label={"Select a service you're interested in"}
+                    {...register("service", {
+                      required: "Service is required",
+                    })}
+                    error={errors?.service ? true : false}
+                  >
+                    <MenuItem value={""}>Select Service</MenuItem>
+                    <MenuItem value={"Mobile App Development"}>
+                      Mobile App Development
+                    </MenuItem>
+                    <MenuItem value={"Web Development"}>
+                      Web Development
+                    </MenuItem>
+                    <MenuItem value={"API Development"}>
+                      API Development
+                    </MenuItem>
+                  </Select>
+                  {errors?.service && (
+                    <FormHelperText error>
+                      {String(errors?.service?.message)}
+                    </FormHelperText>
+                  )}
+                </FormControl>
+              </Grid>
+              <Grid size={12}>
+                <FormControl fullWidth>
+                  <TextField
+                    rows={10}
+                    multiline
+                    label="Your message"
+                    {...register("message", {
+                      required: "Message is required",
+                    })}
+                    error={errors?.message ? true : false}
+                  />
+                  {errors?.message && (
+                    <FormHelperText error>
+                      {String(errors?.message?.message)}
+                    </FormHelperText>
+                  )}
+                </FormControl>
+              </Grid>
+              <Grid size={12}>
+                <Controller
+                  control={control}
+                  name="recaptcha"
+                  rules={{ required: "true" }}
+                  render={({ field }) => (
+                    <ReCAPTCHA
+                      sitekey={"6Lf2lFQrAAAAAEn8EO8yi8NeoRHqap80ZXlTuMo0"}
+                      onChange={field.onChange}
+                    />
+                  )}
                 />
-            <Box sx={{p: {lg: 7, md: 4, xs: 2}}}>
-                <Container sx={{maxWidth: 900, margin: 'auto'}} maxWidth={false}>
-                    {
-                        success && <Alert icon={<CheckIcon fontSize="inherit" />} sx={{mb: 2}} severity="success">
-                            Thank you! Your message has been received. We'll be in touch soon.
-                        </Alert>
-                    }
-                    {
-                        formSpreeErrors && <Alert severity="error" sx={{mb: 2}}>{ formSpreeErrors }</Alert>
-                    }
-                    
-                    <form onSubmit={handleSubmit(onSubmitHandler)}>
-                        <Grid container spacing={2}>
-                            <Grid size={6}>
-                                <FormControl fullWidth>
-                                    <TextField 
-                                        label="Name" 
-                                        type="text" 
-                                        {...register('name', { required: "Name is required"})} 
-                                        error={errors?.name ? true : false}
-                                        />
-                                    { errors?.name && <FormHelperText error>{ String(errors?.name?.message) }</FormHelperText>}
-                                </FormControl>
-                            </Grid>
-                            <Grid size={6}>
-                                <FormControl fullWidth>
-                                    <TextField 
-                                        label="Email" 
-                                        type="email" 
-                                        {...register('email', { 
-                                            required: "Email address is required", 
-                                            pattern: {
-                                                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                                                message: "invalid email address"
-                                                }
-                                            }
-                                        )
-                                        }
-                                        error={errors?.email ? true : false}
-                                        />
-                                    { errors?.email && <FormHelperText error>{ String(errors?.email.message) }</FormHelperText>}
-                                </FormControl>
-                            </Grid>
-                            <Grid size={12}>
-                                <FormControl fullWidth>
-                                    <InputLabel id="service-label">Select a service you're interested in</InputLabel>
-                                    <Select
-                                        labelId="service-label-id"
-                                        id="service-select"
-                                        defaultValue={""}
-                                        label={"Select a service you're interested in"}
-                                        {...register('service', { required: "Service is required"})}
-                                        error={errors?.service ? true : false}
-                                    >
-                                        <MenuItem value={""}>Select Service</MenuItem>
-                                        <MenuItem value={"Mobile App Development"}>Mobile App Development</MenuItem>
-                                        <MenuItem value={"Web Development"}>Web Development</MenuItem>
-                                        <MenuItem value={"API Development"}>API Development</MenuItem>
-                                    </Select>
-                                    { errors?.service && <FormHelperText error>{ String(errors?.service?.message) }</FormHelperText>}
-                                </FormControl>
-                            </Grid>
-                            <Grid size={12}>
-                                <FormControl fullWidth>
-                                    <TextField 
-                                        rows={10} 
-                                        multiline 
-                                        label="Your message" 
-                                        {...register('message', { required: true})} 
-                                        error={errors?.message ? true : false}
-                                        />
-                                    { errors?.name && <FormHelperText error>{ String(errors?.name?.message) }</FormHelperText>}
-                                </FormControl>
-                            </Grid>
-                            <Grid size={12}>
-                                <Controller
-                                    control={control}
-                                    name="recaptcha"
-                                    rules={{ required: "true" }}
-                                    render={({ field }) => (
-                                        <ReCAPTCHA
-                                            sitekey={"6Lf2lFQrAAAAAEn8EO8yi8NeoRHqap80ZXlTuMo0"}
-                                            onChange={field.onChange}
-                                        />
-                                    )}
-                                />
-                                { errors?.recaptcha && <FormHelperText error>{ "Recaptcha is required" }</FormHelperText>}
-                            </Grid>
-                            <Button disabled={loading} type="submit" endIcon={<SendIcon />} className="home-btn portfolio" variant="contained" color="success">{loading ? 'Loading...' : 'Send Now'}</Button>
-                        </Grid>
-                    </form>
-                </Container>
-            </Box>
-        </>
-    );
-}
+                {errors?.recaptcha && (
+                  <FormHelperText error>
+                    {"Recaptcha is required"}
+                  </FormHelperText>
+                )}
+              </Grid>
+              <Button
+                disabled={loading}
+                type="submit"
+                endIcon={<SendIcon />}
+                className="home-btn portfolio"
+                variant="contained"
+                color="success"
+              >
+                {loading ? "Loading..." : "Send Now"}
+              </Button>
+            </Grid>
+          </form>
+        </Container>
+      </Box>
+    </>
+  );
+};
 
 export default ContactPage;
