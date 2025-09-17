@@ -164,9 +164,7 @@
                 "platform": "Android",
                 "category": "Productivity / Inventory Management",
                 "targetAudience": "Small business owners, store manager, vendors",
-                "language": "Filipino, English",
-                "linkLabel": "Google Play Store",
-                "website": "NA"
+                "language": "Filipino, English"
             },
             "requirements": [
                 "Add, edit, and delete products",
