@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.32870dd4.css",
-    "main.js": "/static/js/main.8c03a530.js",
+    "main.css": "/static/css/main.39c0d769.css",
+    "main.js": "/static/js/main.64619124.js",
     "static/js/453.acca0757.chunk.js": "/static/js/453.acca0757.chunk.js",
     "static/media/Postman.svg": "/static/media/Postman.c661650b49157736816d0620db8c124d.svg",
     "static/media/revicons.eot": "/static/media/revicons.a77de540a38981833f9e.eot",
@@ -26,12 +26,12 @@
     "static/media/Gitlab.svg": "/static/media/Gitlab.bb7630ae596ebbe244f1308373c4110d.svg",
     "static/media/Javascript.svg": "/static/media/Javascript.bf3e675334764738074aa637fe8ce6b6.svg",
     "static/media/Angular.svg": "/static/media/Angular.079115dd065b5efda75d985e764aa5dd.svg",
-    "main.32870dd4.css.map": "/static/css/main.32870dd4.css.map",
-    "main.8c03a530.js.map": "/static/js/main.8c03a530.js.map",
+    "main.39c0d769.css.map": "/static/css/main.39c0d769.css.map",
+    "main.64619124.js.map": "/static/js/main.64619124.js.map",
     "453.acca0757.chunk.js.map": "/static/js/453.acca0757.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.32870dd4.css",
-    "static/js/main.8c03a530.js"
+    "static/css/main.39c0d769.css",
+    "static/js/main.64619124.js"
   ]
 }
