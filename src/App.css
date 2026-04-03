@@ -1,10 +1,30 @@
 :root {
-  --primary-background: #54B689;
+  --primary-background: #0ea47a;
   --secondary-background: #fafafa;
   --white: #ffffff;
   --button-secondary-background: #4f4f4f;
   --primary-border: 1px solid rgba(0,0,0,0.025) !important;
 }
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.fade-in-up-delay-1 { animation: fadeInUp 0.6s ease 0.1s both; }
+.fade-in-up-delay-2 { animation: fadeInUp 0.6s ease 0.2s both; }
+.fade-in-up-delay-3 { animation: fadeInUp 0.6s ease 0.3s both; }
+.fade-in-up-delay-4 { animation: fadeInUp 0.6s ease 0.4s both; }
 
 .App {
   text-align: center;
@@ -62,4 +82,19 @@
   .content-wrapper {
     margin-left: 0;
   }
+}
+
+@keyframes pageFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-transition {
+  animation: pageFadeIn 0.3s ease forwards;
 }

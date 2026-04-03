@@ -1,10 +1,88 @@
 .tech-icon {
-    border-radius: 5px;
-    margin-right: 0.5rem;
+    border-radius: 4px;
 }
 
 .tech-icon.angular {
     display: inline-block;
+}
+
+.skill-card {
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.07);
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.skill-card.light {
+    background: #ffffff;
+}
+
+.skill-card.dark {
+    background: var(--mui-palette-background-paper);
+    border-color: rgba(255, 255, 255, 0.06);
+}
+
+.skill-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.09);
+}
+
+.skill-icon-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 0.875rem;
+    flex-wrap: wrap;
+    min-height: 28px;
+}
+
+/* AI Skill Card */
+.skill-card.ai-skill-card {
+    background: linear-gradient(135deg, #0b1120 0%, #0d1f2d 60%, #0a1f1a 100%) !important;
+    border: 1px solid rgba(14, 164, 122, 0.35) !important;
+    box-shadow: 0 6px 24px rgba(14, 164, 122, 0.12);
+    position: relative;
+    overflow: hidden;
+}
+
+.skill-card.ai-skill-card::before {
+    content: '';
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle, rgba(14,164,122,0.18) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.skill-card.ai-skill-card:hover {
+    box-shadow: 0 12px 36px rgba(14, 164, 122, 0.22) !important;
+    border-color: rgba(14, 164, 122, 0.55) !important;
+}
+
+.ai-skill-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: rgba(14, 164, 122, 0.2);
+    color: #0bcf97;
+}
+
+.ai-skill-badge {
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 0.15rem 0.5rem;
+    border-radius: 20px;
+    background: linear-gradient(90deg, #0ea47a, #0bcf97);
+    color: #fff;
+    font-family: 'Inter', sans-serif;
 }
 
 @media only screen and (max-width: 768px) {

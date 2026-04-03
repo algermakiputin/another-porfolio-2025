@@ -13,7 +13,7 @@ export const useGetDarkTheme = () => {
           paper: '#151e29',
         },
         primary: {
-          main: "#54B689",
+          main: "#0ea47a",
         },
         secondary: {
           main: "#4f4f4f"
@@ -33,20 +33,24 @@ export const useGetDarkTheme = () => {
 }
 
 const typography = {
+    fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
     h2: {
         fontSize: '2em',
-        fontWeight: 'bold',
-        color: 'rgba(255,255,255,0.95)'
+        fontWeight: 700,
+        color: 'rgba(255,255,255,0.95)',
+        letterSpacing: '-0.02em',
     },
     h3: {
         color: 'rgba(255,255,255,0.95)',
         fontSize: '1rem',
-        fontWeight: 'bold'
+        fontWeight: 600,
     },
     body2: {
-        color: "rgba(255,255,255,0.7)"
+        color: "rgba(255,255,255,0.65)",
+        lineHeight: 1.7,
     },
     body1: {
-        color: "rgba(255,255,255,0.7)"
+        color: "rgba(255,255,255,0.7)",
+        lineHeight: 1.7,
     }
 }

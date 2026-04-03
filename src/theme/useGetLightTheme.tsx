@@ -6,8 +6,8 @@ const useGetLightTheme = () => {
     palette: {
         mode: 'light',
         background: {
-        default: '#fff',
-        paper: '#fafafa'
+        default: '#f1f5f9',
+        paper: '#ffffff'
         }
     },
     typography: {
@@ -22,20 +22,24 @@ const useGetLightTheme = () => {
 export default useGetLightTheme;
 
 const typography = {
+    fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
     h2: {
         fontSize: '2em',
-        fontWeight: 'bold',
-        color: "#292929"
+        fontWeight: 700,
+        color: "#1a1a1a",
+        letterSpacing: '-0.02em',
     },
     h3: {
-        color: '#292929',
+        color: '#1a1a1a',
         fontSize: '1rem',
-        fontWeight: 'bold'
+        fontWeight: 600,
     },
     body2: {
-        color: "#4f4f4f"
+        color: "#555",
+        lineHeight: 1.7,
     },
     body1: {
-        color: "#4f4f4f"
+        color: "#4a4a4a",
+        lineHeight: 1.7,
     }
 }

@@ -12,13 +12,22 @@ const PortfolioLayout = () => {
   React.useEffect(() => {
     isotope.current = new Isotope(".grid", {
       itemSelector: ".filter-item",
-      // layoutMode: 'fitRows',
-      percentPosition: true
-     
+      percentPosition: true,
     });
-    // cleanup
+    // Re-layout after images load so card heights are correct
+    const images = document.querySelectorAll<HTMLImageElement>(".grid img");
+    let loaded = 0;
+    const onLoad = () => {
+      loaded++;
+      if (loaded === images.length) isotope.current?.layout();
+    };
+    images.forEach(img => {
+      if (img.complete) { loaded++; }
+      else { img.addEventListener("load", onLoad); img.addEventListener("error", onLoad); }
+    });
+    if (loaded === images.length && images.length > 0) isotope.current?.layout();
     return () => isotope.current?.destroy();
-  }, [projects]); 
+  }, [projects]);
 
   React.useEffect(() => {
     if (filterKey === "*") isotope.current?.arrange({ filter: `*` });
@@ -34,18 +43,22 @@ const PortfolioLayout = () => {
         <li className={`portfolio-menu ${filterKey === 'web-app' ? 'active' : ''}`} onClick={handleFilterKeyChange("web-app")}>Web App</li>
         <li className={`portfolio-menu ${filterKey === 'mobile-app' ? 'active' : ''}`} onClick={handleFilterKeyChange("mobile-app")}>Mobile App</li>
       </ul>
-      <Box sx={{p: {lg: 6, md: 4, sm: 4, xs: 4}, pt: {lg: 4, md: 4, sm: 4, xs: 4}}}>
+      <Box sx={{p: {lg: 6, md: 4, sm: 4, xs: 4}, pt: {lg: 4, md: 4, sm: 4, xs: 4}, pb: {lg: 6, md: 5, sm: 5, xs: 5}}}>
         <Grid className="grid" container sx={{flexGrow: 1}} spacing={2}>
           {
             projects?.map((project) => (
-              <Grid className={`filter-item ${project?.category}`} size={6} key={project.slug}>
-                  <ProjectCard 
+              <Grid className={`filter-item ${project?.category}`} size={6} key={project.slug} sx={{ display: 'flex' }}>
+                  <ProjectCard
                     title={project.title}
                     description={project?.shortDescription}
                     image={project?.image}
                     path={project.slug}
+                    category={project.category}
+                    industry={project.meta?.industry}
+                    resultMetric={project.results?.[0]?.metric}
+                    resultTitle={project.results?.[0]?.title}
                     />
-              </Grid> 
+              </Grid>
             ))
           }
         </Grid>

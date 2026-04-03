@@ -1,8 +1,10 @@
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
+import { Box } from '@mui/material';
 import { NavLink } from 'react-router';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import useGetTheme from '../../hooks/useGetTheme';
 import './blogcard.css';
 
@@ -13,27 +15,41 @@ type Props = {
     publishedDate: string;
     link: string;
 }
-const BlogCard = ({title, description, image, publishedDate, link} : Props) => {
+
+const BlogCard = ({ title, description, image, publishedDate, link }: Props) => {
     const { isDark } = useGetTheme();
     return (
-        <Card elevation={0} sx={{border: 'var(--primary-border)'}}>
-            <CardMedia
-                component="img"
-                height={278}
-                image={image}
-                alt={title}
-            />
-            <CardContent sx={{backgroundColor: 'var(--mui-palette-background-paper)'}}>
-                <Typography gutterBottom variant="h5" component="div" sx={{fontSize: '1.25rem', fontWeight: 'bold'}}>
+        <Card elevation={0} className={`blog-card ${isDark ? 'dark' : 'light'}`}>
+
+            {/* Image */}
+            <Box className="blog-image-wrap">
+                <img
+                    src={image}
+                    alt={title}
+                    className="blog-card-image"
+                />
+            </Box>
+
+            {/* Content */}
+            <CardContent className="blog-card-content">
+                <Typography gutterBottom variant="h5" component="div" className="blog-title">
                     {title}
                 </Typography>
-                <Typography variant="body2" sx={{ color: 'text.secondary', mb: 2 }}>
-                    { description }
+                <Typography variant="body2" className="blog-description">
+                    {description}
                 </Typography>
-                <NavLink to={link} style={{textDecoration:'none'}} target='__blank'>
-                    <Typography variant="body1" className='read-more' sx={{mb: 2, textDecoration: 'none'}} color="#54B689">Read More</Typography>
-                </NavLink>
-                <Typography variant="body2" color={isDark ? "rgba(255,255,255,0.4)" : "rgba(41,41,41,0.75)"} fontSize={"0.75rem"}>{ publishedDate }</Typography>
+
+                {/* Footer: CTA + date */}
+                <Box className="blog-footer">
+                    <NavLink to={link} target="_blank" className="blog-read-more">
+                        <span>Read Article</span>
+                        <ArrowForwardIcon className="read-more-arrow" />
+                    </NavLink>
+                    <Box className="blog-date">
+                        <CalendarTodayIcon className="date-icon" />
+                        <Typography className="date-text">{publishedDate}</Typography>
+                    </Box>
+                </Box>
             </CardContent>
         </Card>
     );

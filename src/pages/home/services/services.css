@@ -1,0 +1,75 @@
+.service-card {
+    padding: 1.75rem;
+    border-radius: 12px;
+    height: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    box-sizing: border-box;
+}
+
+.service-card.dark {
+    background: var(--mui-palette-background-paper);
+    border-color: rgba(255, 255, 255, 0.06);
+}
+
+.service-card.light {
+    background: var(--mui-palette-background-paper);
+}
+
+.service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+}
+
+.service-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    background: rgba(14, 164, 122, 0.1);
+    color: #0ea47a;
+}
+
+/* AI Featured Card */
+.service-card.ai-featured {
+    background: linear-gradient(135deg, #0b1120 0%, #0d1f2d 60%, #0a1f1a 100%);
+    border: 1px solid rgba(14, 164, 122, 0.3);
+    box-shadow: 0 8px 32px rgba(14, 164, 122, 0.12);
+    position: relative;
+    overflow: hidden;
+}
+
+.service-card.ai-featured::before {
+    content: '';
+    position: absolute;
+    top: -60px;
+    right: -60px;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(14,164,122,0.15) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.service-card.ai-featured:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(14, 164, 122, 0.2);
+    border-color: rgba(14, 164, 122, 0.5);
+}
+
+.ai-icon {
+    background: rgba(14, 164, 122, 0.2) !important;
+    color: #0bcf97 !important;
+}
+
+.ai-new-badge {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 0.2rem 0.55rem;
+    border-radius: 20px;
+    background: linear-gradient(90deg, #0ea47a, #0bcf97);
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+}

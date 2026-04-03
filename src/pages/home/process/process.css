@@ -1,0 +1,125 @@
+/* ── Timeline bar (desktop only) ── */
+.process-timeline-bar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2.5rem;
+    padding: 0 6px;
+}
+
+.timeline-step-indicator {
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.timeline-step-indicator:last-child {
+    flex: 0 0 auto;
+}
+
+.timeline-dot-circle {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0ea47a, #0bcf97);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 4px 14px rgba(14,164,122,0.35);
+    z-index: 1;
+}
+
+.timeline-dot-number {
+    color: #fff !important;
+    font-weight: 700 !important;
+    font-size: 0.78rem !important;
+    letter-spacing: 0.04em !important;
+}
+
+.timeline-connector {
+    flex: 1;
+    height: 2px;
+    background: linear-gradient(90deg, rgba(14,164,122,0.6), rgba(14,164,122,0.15));
+    position: relative;
+}
+
+.timeline-connector::after {
+    content: '';
+    position: absolute;
+    right: -5px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 6px solid rgba(14,164,122,0.4);
+}
+
+@media (max-width: 960px) {
+    .process-timeline-bar {
+        display: none;
+    }
+}
+
+/* ── Step cards ── */
+.process-step {
+    padding: 1.75rem;
+    border-radius: 12px;
+    height: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    position: relative;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.process-step::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #0ea47a, #0bcf97);
+    border-radius: 12px 12px 0 0;
+}
+
+.process-step.dark {
+    background: var(--mui-palette-background-paper);
+    border-color: rgba(255, 255, 255, 0.06);
+}
+
+.process-step.light {
+    background: #ffffff;
+}
+
+.process-step:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+}
+
+.step-number {
+    font-size: 3.5rem !important;
+    font-weight: 800 !important;
+    color: rgba(14, 164, 122, 0.1) !important;
+    line-height: 1 !important;
+    margin-bottom: 0.5rem !important;
+    letter-spacing: -0.05em !important;
+    font-family: 'Inter', sans-serif !important;
+    position: absolute;
+    top: 1rem;
+    right: 1.25rem;
+}
+
+.step-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    background: rgba(14, 164, 122, 0.1);
+    color: #0ea47a;
+    margin-top: 0.5rem;
+}
