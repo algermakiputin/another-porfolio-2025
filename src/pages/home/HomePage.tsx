@@ -60,13 +60,17 @@ const HomePage = () => {
         <Grid size={{ lg: 3, md: 3, sm: 6, xs: 6 }}>
           <Box className="credibility-item">
             <Typography className="credibility-number">8+</Typography>
-            <Typography className="credibility-label">Years Experience</Typography>
+            <Typography className="credibility-label">
+              Years Experience
+            </Typography>
           </Box>
         </Grid>
         <Grid size={{ lg: 3, md: 3, sm: 6, xs: 6 }}>
           <Box className="credibility-item">
             <Typography className="credibility-number">3</Typography>
-            <Typography className="credibility-label">Industries Served</Typography>
+            <Typography className="credibility-label">
+              Industries Served
+            </Typography>
           </Box>
         </Grid>
         <Grid size={{ lg: 3, md: 3, sm: 6, xs: 6 }}>
@@ -98,15 +102,24 @@ const HomePage = () => {
         }}
       >
         <Grid container spacing={2}>
-          <Grid size={{ md: 7, sm: 7 }} sx={{ pr: { lg: 2 } }} className="hero-content">
+          <Grid
+            size={{ md: 7, sm: 7 }}
+            sx={{ pr: { lg: 2 } }}
+            className="hero-content"
+          >
             <Box className="hero-available-badge">
               <span className="hero-available-dot" />
-              Available for new projects
+              Showcasing personal projects
+              {/* Available for new projects */}
             </Box>
             <Typography
               variant="h2"
               className="name-heading"
-              sx={{ mb: 0.5, fontSize: { lg: "2.6em", xs: "2em" }, lineHeight: 1.15 }}
+              sx={{
+                mb: 0.5,
+                fontSize: { lg: "2.6em", xs: "2em" },
+                lineHeight: 1.15,
+              }}
             >
               Alger Makiputin
             </Typography>
@@ -150,7 +163,11 @@ const HomePage = () => {
               </Button>
             </Box>
           </Grid>
-          <Grid size={{ md: 5, sm: 5 }} sx={{ mt: { xs: 4, sm: 0 } }} className="hero-image">
+          <Grid
+            size={{ md: 5, sm: 5 }}
+            sx={{ mt: { xs: 4, sm: 0 } }}
+            className="hero-image"
+          >
             <img
               src="/images/profile.jpg"
               alt="Alger Makiputin"

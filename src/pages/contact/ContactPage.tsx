@@ -47,6 +47,7 @@ const ContactPage = () => {
     setLoading(true);
     await fetch(process.env.REACT_APP_FORM_SPREE_URL ?? "", {
       method: "POST",
+      headers: { Accept: "application/json" },
       body: formData,
     })
       .then((response) => {
