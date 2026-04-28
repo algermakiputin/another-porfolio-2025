@@ -10,17 +10,17 @@ import EmailIcon from "@mui/icons-material/Email";
 import "./footer.css";
 
 const navLinks = [
-  { label: "About",      route: "/", section: "about" },
-  { label: "Projects",   route: "/", section: "projects" },
+  { label: "About", route: "/", section: "about" },
+  { label: "Projects", route: "/", section: "projects" },
   { label: "Industries", route: "/", section: "industries" },
-  { label: "Blog",       route: "/", section: "blog" },
-  { label: "Contact",    route: "/", section: "contact" },
+  { label: "Blog", route: "/", section: "blog" },
+  { label: "Contact", route: "/", section: "contact" },
 ];
 
 const resourceLinks = [
-  { label: "Blog",         route: "/blog" },
+  { label: "Blog", route: "/blog" },
   { label: "Case Studies", route: "/portfolio" },
-  { label: "FAQs",         route: "/contact" },
+  { label: "FAQs", route: "/contact" },
 ];
 
 const socials = [
@@ -68,7 +68,14 @@ const Footer = () => {
           {/* Brand */}
           <Box className="footer-brand">
             <Box className="footer-logo" onClick={() => router.push("/")}>
-              <img src="/app-logo.png" alt="AM" className="footer-logo-img" width={44} height={44} loading="lazy" />
+              <img
+                src="/app-logo.png"
+                alt="Alger Makiputin Full Stack Engineer Logo"
+                className="footer-logo-img"
+                width={44}
+                height={44}
+                loading="lazy"
+              />
               <Box>
                 <div className="footer-logo-name">Alger Makiputin</div>
                 <div className="footer-logo-role">Full Stack Engineer</div>
@@ -147,7 +154,8 @@ const Footer = () => {
             © 2026 Alger Makiputin. All rights reserved.
           </Typography>
           <Typography className="footer-tagline">
-            Built with a focus on performance, scalability, and clean architecture.
+            Built with a focus on performance, scalability, and clean
+            architecture.
           </Typography>
         </Box>
       </Box>

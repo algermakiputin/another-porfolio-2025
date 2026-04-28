@@ -13,10 +13,10 @@ const navGroups = [
   {
     label: "Navigation",
     items: [
-      { label: "About",    route: "/",          section: undefined },
+      { label: "About", route: "/", section: undefined },
       { label: "Projects", route: "/portfolio", section: undefined },
-      { label: "Blog",     route: "/blog",      section: undefined },
-      { label: "Contact",  route: "/contact",   section: undefined },
+      { label: "Blog", route: "/blog", section: undefined },
+      { label: "Contact", route: "/contact", section: undefined },
     ],
   },
 ];
@@ -45,7 +45,9 @@ const Header = () => {
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [menuOpen]);
 
   const scrollToSection = (section: string) => {
@@ -68,11 +70,19 @@ const Header = () => {
 
   return (
     <>
-      <Box className={`top-header ${isDark ? "dark" : "light"}${scrolled ? " scrolled" : ""}`}>
+      <Box
+        className={`top-header ${isDark ? "dark" : "light"}${scrolled ? " scrolled" : ""}`}
+      >
         <Box className="top-header-inner">
           {/* Logo */}
           <Box className="header-logo" onClick={() => linkHandler("/")}>
-            <img src="/app-logo.png" alt="AM" className="header-logo-img" width={38} height={38} />
+            <img
+              src="/app-logo.png"
+              alt="Alger Makiputin Full Stack Engineer Logo"
+              className="header-logo-img"
+              width={38}
+              height={38}
+            />
             <Box>
               <div className="logo-name">Alger Makiputin</div>
               <div className="logo-role">Full Stack Engineer</div>
@@ -99,7 +109,11 @@ const Header = () => {
             <DarkModeToggle />
             {!isMobile && (
               <>
-                <Box component="span" className="header-cta-sep" aria-hidden="true" />
+                <Box
+                  component="span"
+                  className="header-cta-sep"
+                  aria-hidden="true"
+                />
                 <Button
                   onClick={() => linkHandler("/contact")}
                   className="hire-me-top-btn"
@@ -129,10 +143,18 @@ const Header = () => {
             onClick={() => setMenuOpen(false)}
           />
 
-          <Box className={`mobile-drawer ${isDark ? "dark" : "light"} ${menuOpen ? "open" : ""}`}>
-
+          <Box
+            className={`mobile-drawer ${isDark ? "dark" : "light"} ${menuOpen ? "open" : ""}`}
+          >
             <Box className="mobile-drawer-profile">
-              <img src="/app-logo.png" alt="AM" className="mobile-drawer-avatar" width={46} height={46} loading="lazy" />
+              <img
+                src="/app-logo.png"
+                alt="Alger Makiputin Full Stack Engineer Logo"
+                className="mobile-drawer-avatar"
+                width={46}
+                height={46}
+                loading="lazy"
+              />
               <Box>
                 <div className="mobile-drawer-name">Alger Makiputin</div>
                 <div className="mobile-drawer-role">Full Stack Engineer</div>
@@ -172,7 +194,6 @@ const Header = () => {
                 Hire Me →
               </Button>
             </Box>
-
           </Box>
         </>
       )}

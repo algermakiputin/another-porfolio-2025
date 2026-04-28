@@ -1,1 +1,1 @@
-self.__REACT_LOADABLE_MANIFEST="{}"
+self.__REACT_LOADABLE_MANIFEST='{"views/portfolio/PortfolioLayout.tsx -> isotope-layout":{"id":6162,"files":["static/chunks/162.1d722194fa0432e4.js"]}}';

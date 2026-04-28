@@ -1,4 +1,11 @@
 {
+  "/_not-found/page": "app/_not-found/page.js",
   "/icon.png/route": "app/icon.png/route.js",
-  "/page": "app/page.js"
+  "/apple-icon.png/route": "app/apple-icon.png/route.js",
+  "/sitemap.xml/route": "app/sitemap.xml/route.js",
+  "/page": "app/page.js",
+  "/contact/page": "app/contact/page.js",
+  "/blog/page": "app/blog/page.js",
+  "/portfolio/page": "app/portfolio/page.js",
+  "/project/[slug]/page": "app/project/[slug]/page.js"
 }
