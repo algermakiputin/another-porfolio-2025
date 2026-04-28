@@ -142,7 +142,7 @@ const PortfolioSinglePage = () => {
           <Grid container>
             <Grid size={{ lg: 5, md: 5, xs: 12 }}>
               <Box className="project-image-side">
-                <img src={project?.image} alt={project?.title} />
+                <img src={project?.image} alt={project?.title} width={800} height={450} loading="lazy" />
               </Box>
             </Grid>
 
@@ -279,7 +279,7 @@ const PortfolioSinglePage = () => {
               {project.techStack.map((tech) => (
                 <Box key={tech} className="tech-pill">
                   {techIconMap[tech] && (
-                    <img src={techIconMap[tech]} alt={tech} width={16} height={16} />
+                    <img src={techIconMap[tech]} alt={tech} width={16} height={16} loading="lazy" />
                   )}
                   <span>{tech}</span>
                 </Box>

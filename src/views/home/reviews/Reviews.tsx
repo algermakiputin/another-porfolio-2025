@@ -150,7 +150,7 @@ const Reviews = () => {
                 </Typography>
 
                 <Box className="review-profile">
-                  <img src={t.avatar} alt={t.name} className="review-avatar" />
+                  <img src={t.avatar} alt={t.name} className="review-avatar" width={46} height={46} loading="lazy" />
                   <Box>
                     <Typography className="review-name">{t.name}</Typography>
                     <Typography className="review-role">{t.role}</Typography>

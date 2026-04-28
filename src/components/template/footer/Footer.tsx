@@ -68,7 +68,7 @@ const Footer = () => {
           {/* Brand */}
           <Box className="footer-brand">
             <Box className="footer-logo" onClick={() => router.push("/")}>
-              <img src="/app-logo.png" alt="AM" className="footer-logo-img" />
+              <img src="/app-logo.png" alt="AM" className="footer-logo-img" width={44} height={44} loading="lazy" />
               <Box>
                 <div className="footer-logo-name">Alger Makiputin</div>
                 <div className="footer-logo-role">Full Stack Engineer</div>

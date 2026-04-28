@@ -264,11 +264,13 @@ const HomePage = () => {
                       src="/images/profile.jpg"
                       alt="Alger Makiputin"
                       className="hero-photo"
+                      width={600}
+                      height={750}
                     />
                     <Box className="hero-photo-overlay" aria-hidden="true" />
                   </Box>
                   <Box className="aws-cert-card">
-                    <img src="/icons/AWS.png" alt="AWS" width={28} />
+                    <img src="/icons/AWS.png" alt="AWS" width={28} height={28} loading="lazy" />
                     <Box>
                       <Typography className="aws-cert-title">
                         AWS Certified
@@ -319,6 +321,9 @@ const HomePage = () => {
                     src={logo.icon}
                     alt={logo.label}
                     className="trust-logo-img"
+                    width={32}
+                    height={21}
+                    loading="lazy"
                   />
                 ) : (
                   <span className="trust-logo-text">{logo.label}</span>

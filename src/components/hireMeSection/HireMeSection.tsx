@@ -6,6 +6,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import SmartToyOutlinedIcon from "@mui/icons-material/SmartToyOutlined";
 import "./hireMeSection.css";
 import { useRouter } from "next/navigation";
+import { loadAndOpenWebchat } from "../webchat/Webchat";
 
 const HireMeSection = () => {
   const router = useRouter();
@@ -49,7 +50,7 @@ const HireMeSection = () => {
                 View My Work
               </Button>
               <Button
-                onClick={() => window.botpress?.open()}
+                onClick={() => loadAndOpenWebchat()}
                 className="hire-cta-btn-ai"
                 variant="outlined"
                 startIcon={<SmartToyOutlinedIcon />}

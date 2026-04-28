@@ -72,7 +72,7 @@ const Header = () => {
         <Box className="top-header-inner">
           {/* Logo */}
           <Box className="header-logo" onClick={() => linkHandler("/")}>
-            <img src="/app-logo.png" alt="AM" className="header-logo-img" />
+            <img src="/app-logo.png" alt="AM" className="header-logo-img" width={38} height={38} />
             <Box>
               <div className="logo-name">Alger Makiputin</div>
               <div className="logo-role">Full Stack Engineer</div>
@@ -132,7 +132,7 @@ const Header = () => {
           <Box className={`mobile-drawer ${isDark ? "dark" : "light"} ${menuOpen ? "open" : ""}`}>
 
             <Box className="mobile-drawer-profile">
-              <img src="/app-logo.png" alt="AM" className="mobile-drawer-avatar" />
+              <img src="/app-logo.png" alt="AM" className="mobile-drawer-avatar" width={46} height={46} loading="lazy" />
               <Box>
                 <div className="mobile-drawer-name">Alger Makiputin</div>
                 <div className="mobile-drawer-role">Full Stack Engineer</div>

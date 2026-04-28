@@ -26,7 +26,7 @@ const BlogCard = ({ title, description, image, publishedDate, link, category, in
   return (
     <Card elevation={0} className={`blog-card ${isDark ? "dark" : "light"}${isCompact ? " blog-card--compact" : " blog-card--featured"}`}>
       <Box className="blog-image-wrap">
-        <img src={image} alt={title} className="blog-card-image" />
+        <img src={image} alt={title} className="blog-card-image" loading="lazy" />
       </Box>
 
       <CardContent className="blog-card-content">

@@ -30,7 +30,7 @@ const icons = {
 };
 
 const Icon = ({ src, alt, size = 24 }: { src: string; alt: string; size?: number }) => (
-  <img src={src} alt={alt} width={size} height={size} className="tech-icon" />
+  <img src={src} alt={alt} width={size} height={size} className="tech-icon" loading="lazy" />
 );
 
 const AboutMe = () => {
@@ -91,8 +91,8 @@ const AboutMe = () => {
         <Grid size={{ lg: 3, md: 4, sm: 6, xs: 6 }}>
           <Box className={cardClass}>
             <Box className="skill-icon-row">
-              <img src="/icons/cordova.png" alt="Cordova" className="tech-icon" width={24} />
-              <img src="/icons/react.png" alt="React Native" className="tech-icon" width={24} />
+              <img src="/icons/cordova.png" alt="Cordova" className="tech-icon" width={24} height={24} loading="lazy" />
+              <img src="/icons/react.png" alt="React Native" className="tech-icon" width={24} height={24} loading="lazy" />
             </Box>
             <Typography sx={{ mb: 0.75 }} variant="h3">iOS &amp; Android</Typography>
             <Typography variant="body2">Cross-platform mobile apps with React Native and Cordova. One codebase, two platforms.</Typography>
@@ -128,7 +128,7 @@ const AboutMe = () => {
             <Box className="skill-icon-row">
               <Icon src={icons.graphql} alt="GraphQL" />
               <Icon src={icons.postman} alt="Postman" />
-              <img src="/icons/Express.png" alt="Express" className="tech-icon" width={24} />
+              <img src="/icons/Express.png" alt="Express" className="tech-icon" width={24} height={24} loading="lazy" />
             </Box>
             <Typography sx={{ mb: 0.75 }} variant="h3">API Development</Typography>
             <Typography variant="body2">RESTful and GraphQL APIs built for performance, scalability, and seamless system integrations.</Typography>
@@ -139,9 +139,9 @@ const AboutMe = () => {
           <Box className={cardClass}>
             <Box className="skill-icon-row">
               <Icon src={icons.wordpress} alt="WordPress" />
-              <img src="/icons/WooCommerce.png" alt="WooCommerce" className="tech-icon" width={24} />
-              <img src="/icons/HTML5.png" alt="HTML5" className="tech-icon" width={24} />
-              <img src="/icons/CSS3.png" alt="CSS3" className="tech-icon" width={24} />
+              <img src="/icons/WooCommerce.png" alt="WooCommerce" className="tech-icon" width={24} height={24} loading="lazy" />
+              <img src="/icons/HTML5.png" alt="HTML5" className="tech-icon" width={24} height={24} loading="lazy" />
+              <img src="/icons/CSS3.png" alt="CSS3" className="tech-icon" width={24} height={24} loading="lazy" />
             </Box>
             <Typography sx={{ mb: 0.75 }} variant="h3">WordPress</Typography>
             <Typography variant="body2">Custom themes, plugins, WooCommerce, and technical SEO for high-performing WordPress sites.</Typography>
@@ -151,9 +151,9 @@ const AboutMe = () => {
         <Grid size={{ lg: 3, md: 4, sm: 6, xs: 6 }}>
           <Box className={cardClass}>
             <Box className="skill-icon-row">
-              <img src="/icons/Windows11.png" alt="Windows" className="tech-icon" width={24} />
-              <img src="/icons/Linux.png" alt="Linux" className="tech-icon" width={24} />
-              <img src="/icons/Apple.png" alt="macOS" className="tech-icon" width={24} />
+              <img src="/icons/Windows11.png" alt="Windows" className="tech-icon" width={24} height={24} loading="lazy" />
+              <img src="/icons/Linux.png" alt="Linux" className="tech-icon" width={24} height={24} loading="lazy" />
+              <img src="/icons/Apple.png" alt="macOS" className="tech-icon" width={24} height={24} loading="lazy" />
             </Box>
             <Typography sx={{ mb: 0.75 }} variant="h3">Operating Systems</Typography>
             <Typography variant="body2">Comfortable developing and deploying on Windows, Linux, and macOS environments.</Typography>

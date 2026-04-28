@@ -14,7 +14,6 @@ import ScrollToTop from "../components/scroll/ScrollToTop";
 import ScrollProgress from "../components/ui/ScrollProgress";
 import BackToTop from "../components/ui/BackToTop";
 import StickyBottomCTA from "../components/ui/StickyBottomCTA";
-import Webchat from "../components/webchat/Webchat";
 
 function ThemedApp({ children }: { children: React.ReactNode }) {
   const { darkMode } = useThemeContext();
@@ -32,7 +31,6 @@ function ThemedApp({ children }: { children: React.ReactNode }) {
   return (
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <CssBaseline />
-      <Webchat />
       <ScrollToTop />
       <ScrollProgress />
       <BackToTop />
