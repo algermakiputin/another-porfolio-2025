@@ -2,6 +2,8 @@ import { readFileSync } from "fs";
 import { join } from "path";
 import type { MetadataRoute } from "next";
 
+export const dynamic = "force-static";
+
 const BASE_URL = "https://algermakiputin.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
