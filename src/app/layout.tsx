@@ -9,11 +9,11 @@ const BASE_URL = "https://algermakiputin.com";
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default: "Alger Makiputin — Full Stack Engineer",
+    default: "Alger Makiputin | Full Stack Developer for Startups & MVPs",
     template: "%s | Alger Makiputin",
   },
   description:
-    "Full Stack Engineer helping startups and businesses turn ideas into reliable, high-performance applications. From MVPs to production systems — performance, scalability, and clean architecture.",
+    "Full Stack Developer helping startups and businesses build scalable MVPs, web apps, and production-ready systems using React, Node.js, TypeScript, and AWS.",
   keywords: [
     "full stack developer Philippines",
     "React developer for startups",
@@ -47,24 +47,24 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: BASE_URL,
-    siteName: "Alger Makiputin — Full Stack Engineer",
-    title: "Alger Makiputin — Full Stack Engineer",
+    siteName: "Alger Makiputin | Full Stack Developer for Startups & MVPs",
+    title: "Alger Makiputin | Full Stack Developer for Startups & MVPs",
     description:
-      "Full Stack Engineer helping startups and businesses turn ideas into reliable, high-performance applications.",
+      "Full Stack Developer helping startups and businesses build scalable MVPs, web apps, and production-ready systems using React, Node.js, TypeScript, and AWS.",
     images: [
       {
         url: "/images/og-cover.jpg",
         width: 1200,
         height: 630,
-        alt: "Alger Makiputin — Full Stack Engineer",
+        alt: "Alger Makiputin | Full Stack Developer for Startups and MVPs",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Alger Makiputin — Full Stack Engineer",
+    title: "Alger Makiputin | Full Stack Developer for Startups & MVPs",
     description:
-      "Full Stack Engineer helping startups and businesses turn ideas into reliable, high-performance applications.",
+      "Full Stack Developer helping startups and businesses build scalable MVPs, web apps, and production-ready systems using React, Node.js, TypeScript, and AWS.",
     images: ["/images/og-cover.jpg"],
     creator: "@algermakiputin",
   },
