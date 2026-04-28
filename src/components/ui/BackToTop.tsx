@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
@@ -23,19 +25,19 @@ const BackToTop = () => {
                 width: "42px",
                 height: "42px",
                 borderRadius: "50%",
-                background: "#0ea47a",
+                background: "#16a34a",
                 border: "none",
                 cursor: "pointer",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                boxShadow: "0 4px 14px rgba(14,164,122,0.4)",
+                boxShadow: "0 4px 14px rgba(22,163,74,0.4)",
                 zIndex: 1000,
                 transition: "transform 0.2s ease, box-shadow 0.2s ease",
             }}
             onMouseEnter={e => {
                 (e.currentTarget as HTMLButtonElement).style.transform = "translateY(-3px)";
-                (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 8px 20px rgba(14,164,122,0.5)";
+                (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 8px 20px rgba(22,163,74,0.5)";
             }}
             onMouseLeave={e => {
                 (e.currentTarget as HTMLButtonElement).style.transform = "translateY(0)";

@@ -1,11 +1,52 @@
-.left-decoration {
-    content: "";
-    display: inline-block;
-    width: 4px;
-    height: 100%;
-    background: linear-gradient(180deg, #0ea47a, #0bcf97);
-    border-radius: 4px;
-    position: absolute;
-    left: 0;
-    top: 0;
+.section-header-wrapper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 2.5rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.section-header-left {
+  flex: 1;
+}
+
+/* 28–32px per style guide */
+.section-title {
+  font-size: clamp(1.75rem, 2.5vw, 2rem) !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.025em !important;
+  line-height: 1.2 !important;
+  margin-bottom: 0.4rem !important;
+}
+
+.section-subtitle {
+  font-size: 0.9rem !important;
+  line-height: 1.55 !important;
+  opacity: 0.6;
+  max-width: 480px;
+}
+
+.section-action-link {
+  background: none;
+  border: none;
+  color: #16a34a;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  white-space: nowrap;
+  padding: 0;
+  margin-top: 0.35rem;
+  transition: gap 0.18s ease, opacity 0.15s ease;
+  flex-shrink: 0;
+  letter-spacing: 0.005em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.section-action-link:hover {
+  opacity: 0.72;
+  text-decoration: underline;
 }

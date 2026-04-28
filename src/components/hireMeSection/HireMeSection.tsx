@@ -1,34 +1,67 @@
+"use client";
+
 import { Box, Button, Typography } from "@mui/material";
-import SendIcon from '@mui/icons-material/Send';
-import './hireMeSection.css';
-import { useNavigate } from "react-router";
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import SmartToyOutlinedIcon from "@mui/icons-material/SmartToyOutlined";
+import "./hireMeSection.css";
+import { useRouter } from "next/navigation";
 
 const HireMeSection = () => {
-    const navigation = useNavigate();
-    const buttonHandler = () => {
-        navigation('/contact');
-    };
-    return (
-        <div className="hireMe">
-            <div className="inner">
-                <Box sx={{
-                    p: {md: 4, xs: 4, lg: 7, sm: 4},
-                    pt: {md: 4, xs: 2, lg: 7}
-                }}>
-                    <Typography variant="h5" sx={{mb: 1, fontWeight: 700, letterSpacing: '-0.01em', color: '#fff'}}>
-                        Ready to build something great?
-                    </Typography>
-                    <Typography variant="body1" sx={{maxWidth: 520, margin: 'auto', mb: 0, color: 'rgba(255,255,255,0.85)'}}>
-                        Whether you need a full project built from scratch, a feature added to an existing system,
-                        or just want to talk through an idea, I am here. Let us figure out what you need and make it happen.
-                    </Typography>
-                    <Button onClick={buttonHandler} className="hire-btn" startIcon={<SendIcon />} variant="contained">
-                        Get in Touch
-                    </Button>
-                </Box>
-            </div>
-        </div>
-    );
-}
+  const router = useRouter();
+
+  return (
+    <Box className="hire-cta-outer page-section">
+      <Box className="section-inner">
+        <Box className="hire-cta-card">
+          <Box className="hire-cta-dots" aria-hidden="true" />
+
+          <Box className="hire-cta-inner">
+            <Box className="hire-cta-icon-wrap">
+              <MailOutlineIcon sx={{ color: "#fff", fontSize: "1.5rem" }} />
+              <Box className="hire-cta-icon-dot" />
+            </Box>
+
+            <Box className="hire-cta-text">
+              <Typography variant="h5" className="hire-cta-title">
+                Have an idea?
+              </Typography>
+              <Typography variant="body2" className="hire-cta-sub">
+                I can help you turn it into a scalable product.
+              </Typography>
+            </Box>
+
+            <Box className="hire-cta-actions">
+              <Button
+                onClick={() => router.push("/contact")}
+                className="hire-cta-btn-primary"
+                variant="contained"
+                endIcon={<ArrowForwardIcon />}
+              >
+                Get In Touch
+              </Button>
+              <Button
+                onClick={() => router.push("/portfolio")}
+                className="hire-cta-btn-secondary"
+                variant="outlined"
+                endIcon={<ArrowForwardIcon />}
+              >
+                View My Work
+              </Button>
+              <Button
+                onClick={() => window.botpress?.open()}
+                className="hire-cta-btn-ai"
+                variant="outlined"
+                startIcon={<SmartToyOutlinedIcon />}
+              >
+                Chat with AI
+              </Button>
+            </Box>
+          </Box>
+        </Box>
+      </Box>
+    </Box>
+  );
+};
 
 export default HireMeSection;

@@ -1,21 +1,34 @@
-import { Typography, Box } from "@mui/joy";
-import './sectionHeader.css'; 
-import { useTheme } from "@mui/material";
+"use client";
 
-const SectionHeader = ({ title } : { title: string}) => {
-    const theme = useTheme();
-    const isDark = theme.palette.mode === "dark";
-    return (
-        <Box>
-            <Typography 
-                sx={{position: 'relative', paddingLeft: '1rem', mb: 6, color: isDark ? "white" : "var(--mui-palette-grey-900)"}} 
-                startDecorator={<span className="left-decoration"></span>} 
-                level="h2"
-                >
-                { title }
-            </Typography>
-        </Box>
-    );
+import { Box, Typography } from "@mui/material";
+import './sectionHeader.css';
+
+type Props = {
+  title: string;
+  subtitle?: string;
+  action?: { label: string; onClick: () => void };
+};
+
+const SectionHeader = ({ title, subtitle, action }: Props) => {
+  return (
+    <Box className="section-header-wrapper">
+      <Box className="section-header-left">
+        <Typography variant="h2" className="section-title">
+          {title}
+        </Typography>
+        {subtitle && (
+          <Typography variant="body2" className="section-subtitle">
+            {subtitle}
+          </Typography>
+        )}
+      </Box>
+      {action && (
+        <button className="section-action-link" onClick={action.onClick}>
+          {action.label} →
+        </button>
+      )}
+    </Box>
+  );
 };
 
 export default SectionHeader;

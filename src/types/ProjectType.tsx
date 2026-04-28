@@ -6,10 +6,13 @@ export type Project = {
     title: string;
     metaDescription: string;
     shortDescription: string;
+    role?: string;
+    responsibilities?: string[];
+    techStack?: string[];
     meta: {
-        industry: string;
-        size: string;
-        website: string;
+        industry?: string;
+        size?: string;
+        website?: string;
         platform?: string;
         category?: string;
         targetAudience?: string;
@@ -18,12 +21,12 @@ export type Project = {
         linkLabel?: string;
         client?: string;
     },
-    requirements: string[],
-    overview: string;
-    challenge: string;
-    approach: string;
-    results: Result[],
-    conclusion: string;
+    requirements?: string[];
+    overview?: string;
+    challenge?: string;
+    approach?: string;
+    results?: Result[];
+    conclusion?: string;
 }
 
 type Result = {

@@ -1,186 +1,182 @@
-import {
-  Box,
-  Collapse,
-  Divider,
-  IconButton,
-  useTheme,
-  Typography,
-} from "@mui/material";
-import { Home } from "@mui/icons-material";
-import CodeIcon from "@mui/icons-material/Code";
+"use client";
+
+import { Box, Button, IconButton, useTheme } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import ContactMailIcon from "@mui/icons-material/ContactMail";
-import { useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
-import RssFeedIcon from "@mui/icons-material/RssFeed";
+import { useState, useEffect } from "react";
+import { useRouter, usePathname } from "next/navigation";
+import DarkModeToggle from "../../toggle/DarkModeToggle";
 import useGetWindowsDimension from "../../../hooks/useGetWindowsDimension";
 import "./header.css";
-import DarkModeToggle from "../../toggle/DarkModeToggle";
-import Socials from "../../socials/Socials";
 
-const navItems = [
-  { label: "About Me", icon: <Home />, route: "/" },
-  { label: "Portfolio", icon: <CodeIcon />, route: "/portfolio" },
-  { label: "Blog", icon: <RssFeedIcon />, route: "/blog" },
-  { label: "Contact", icon: <ContactMailIcon />, route: "/contact" },
+const navGroups = [
+  {
+    label: "Navigation",
+    items: [
+      { label: "About",    route: "/",          section: undefined },
+      { label: "Projects", route: "/portfolio", section: undefined },
+      { label: "Blog",     route: "/blog",      section: undefined },
+      { label: "Contact",  route: "/contact",   section: undefined },
+    ],
+  },
 ];
+
+const navItems = navGroups.flatMap((g) => g.items);
 
 const Header = () => {
   const theme = useTheme();
+  const isDark = theme.palette.mode === "dark";
   const [width] = useGetWindowsDimension();
-  const [collapse, setCollapse] = useState(false);
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  const linkHandler = (route: string) => {
-    navigate(route);
-    if (width <= 770) setCollapse(false);
-  };
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
+  const isMobile = width > 0 && width <= 900;
 
   useEffect(() => {
-    if (width > 0) setCollapse(width >= 770);
-  }, [width]);
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
-  const collapseHandler = () => setCollapse(!collapse);
+  useEffect(() => {
+    if (!isMobile) setMenuOpen(false);
+  }, [isMobile]);
 
-  const getBackgroundColor = () =>
-    theme.palette.mode === "dark" ? "#0b1120" : "#0f172a";
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [menuOpen]);
 
-  const isActive = (route: string) =>
-    route === "/"
-      ? location.pathname === "/"
-      : location.pathname.startsWith(route);
+  const scrollToSection = (section: string) => {
+    setTimeout(() => {
+      document.getElementById(section)?.scrollIntoView({ behavior: "smooth" });
+    }, 80);
+  };
+
+  const linkHandler = (route: string, section?: string) => {
+    router.push(route);
+    if (section) scrollToSection(section);
+    setMenuOpen(false);
+  };
+
+  const isActive = (route: string) => {
+    const p = pathname ?? "/";
+    if (route === "/") return p === "/";
+    return p.startsWith(route);
+  };
 
   return (
-    <Box>
-      <div className="header" style={{ backgroundColor: getBackgroundColor() }}>
-        <Box sx={{ pl: 4, pr: 4 }}>
-          <div className="top-header-wrapper">
-            <IconButton
-              className="mobile-menu-toggler"
-              onClick={collapseHandler}
-            >
-              {collapse ? (
-                <MenuOpenIcon className="mobile-menu-icon" />
-              ) : (
-                <MenuIcon className="mobile-menu-icon" />
-              )}
-            </IconButton>
-            <Typography
-              sx={{
-                color: "#fff",
-                mt: 2,
-                mb: 0.25,
-                fontSize: "1.5em",
-                fontWeight: "bold",
-              }}
-              variant="h1"
-              className="site-title"
-            >
-              Alger Makiputin
-            </Typography>
-          </div>
-        </Box>
-
-        <Collapse in={collapse}>
-          <Box sx={{ pl: 4, pr: 4 }}>
-            {/* Role */}
-            <Typography
-              sx={{
-                color: "rgba(255,255,255,0.45)",
-                fontSize: "0.75rem",
-                fontWeight: 500,
-                letterSpacing: "0.06em",
-                textTransform: "uppercase",
-                mb: 2,
-              }}
-            >
-              Full Stack Engineer
-            </Typography>
-
-            {/* Profile photo */}
-            <img
-              src="/images/left-profile.jpg"
-              width={110}
-              alt="profile"
-              style={{
-                borderRadius: "50%",
-                marginBottom: 14,
-                border: "2px solid rgba(14,164,122,0.35)",
-              }}
-            />
-
-            {/* Tagline */}
-            <Typography
-              sx={{
-                color: "rgba(255,255,255,0.7)",
-                fontSize: "0.8rem",
-                lineHeight: 1.6,
-                mb: 0.75,
-              }}
-              variant="body2"
-            >
-              8+ years building web, mobile, and AI-powered software for retail,
-              e-commerce, and banking.
-            </Typography>
-
-            {/* Availability badge */}
-            <Box
-              sx={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 0.6,
-                mt: 0.5,
-                mb: 0.5,
-              }}
-            >
-              <Box className="availability-dot" />
-              <Typography
-                sx={{ color: "#0bcf97", fontSize: "0.72rem", fontWeight: 600 }}
-              >
-                Showcasing personal projects
-                {/* Available for projects */}
-              </Typography>
+    <>
+      <Box className={`top-header ${isDark ? "dark" : "light"}${scrolled ? " scrolled" : ""}`}>
+        <Box className="top-header-inner">
+          {/* Logo */}
+          <Box className="header-logo" onClick={() => linkHandler("/")}>
+            <img src="/app-logo.png" alt="AM" className="header-logo-img" />
+            <Box>
+              <div className="logo-name">Alger Makiputin</div>
+              <div className="logo-role">Full Stack Engineer</div>
             </Box>
-
-            <Socials />
           </Box>
 
-          <Box sx={{ pl: 4, pr: 4 }}>
-            <Divider
-              sx={{
-                mt: 3,
-                borderColor: "rgba(255,255,255,0.08)",
-                opacity: 0.5,
-              }}
-            />
-            <nav style={{ marginTop: "0.5rem", marginBottom: "0.5rem" }}>
+          {/* Desktop nav */}
+          {!isMobile && (
+            <nav className="top-nav-links">
               {navItems.map((item) => (
                 <button
-                  key={item.route}
-                  onClick={() => linkHandler(item.route)}
-                  className={`sidebar-nav-item ${isActive(item.route) ? "active" : ""}`}
+                  key={item.label}
+                  onClick={() => linkHandler(item.route, item.section)}
+                  className={`top-nav-item ${isActive(item.route) ? "active" : ""}`}
                 >
-                  <span className="sidebar-nav-icon">{item.icon}</span>
-                  <span>{item.label}</span>
+                  {item.label}
                 </button>
               ))}
             </nav>
-            <Divider
-              sx={{
-                mt: 1,
-                borderColor: "rgba(255,255,255,0.08)",
-                opacity: 0.5,
-              }}
-            />
-            <div className="toggle-container">
-              <DarkModeToggle />
-            </div>
+          )}
+
+          {/* Right side */}
+          <Box className="header-right">
+            <DarkModeToggle />
+            {!isMobile && (
+              <>
+                <Box component="span" className="header-cta-sep" aria-hidden="true" />
+                <Button
+                  onClick={() => linkHandler("/contact")}
+                  className="hire-me-top-btn"
+                  variant="contained"
+                >
+                  Hire Me →
+                </Button>
+              </>
+            )}
+            {isMobile && (
+              <IconButton
+                onClick={() => setMenuOpen(!menuOpen)}
+                sx={{ color: isDark ? "rgba(255,255,255,0.8)" : "#0f172a" }}
+              >
+                {menuOpen ? <MenuOpenIcon /> : <MenuIcon />}
+              </IconButton>
+            )}
           </Box>
-        </Collapse>
-      </div>
-    </Box>
+        </Box>
+      </Box>
+
+      {/* Mobile drawer */}
+      {isMobile && (
+        <>
+          <Box
+            className={`mobile-backdrop ${menuOpen ? "visible" : ""}`}
+            onClick={() => setMenuOpen(false)}
+          />
+
+          <Box className={`mobile-drawer ${isDark ? "dark" : "light"} ${menuOpen ? "open" : ""}`}>
+
+            <Box className="mobile-drawer-profile">
+              <img src="/app-logo.png" alt="AM" className="mobile-drawer-avatar" />
+              <Box>
+                <div className="mobile-drawer-name">Alger Makiputin</div>
+                <div className="mobile-drawer-role">Full Stack Engineer</div>
+                <div className="mobile-drawer-status">
+                  <span className="mobile-status-dot" />
+                  Available for projects
+                </div>
+              </Box>
+            </Box>
+
+            <Box className="mobile-drawer-divider" />
+
+            {navGroups.map((group) => (
+              <Box key={group.label} className="mobile-nav-group">
+                <div className="mobile-nav-group-label">{group.label}</div>
+                {group.items.map((item) => (
+                  <button
+                    key={item.label}
+                    onClick={() => linkHandler(item.route, item.section)}
+                    className={`mobile-nav-item ${isActive(item.route) ? "active" : ""}`}
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </Box>
+            ))}
+
+            <Box className="mobile-drawer-divider" />
+
+            <Box className="mobile-drawer-cta">
+              <Button
+                onClick={() => linkHandler("/contact")}
+                className="hire-me-top-btn mobile-hire-btn"
+                variant="contained"
+                fullWidth
+              >
+                Hire Me →
+              </Button>
+            </Box>
+
+          </Box>
+        </>
+      )}
+    </>
   );
 };
 

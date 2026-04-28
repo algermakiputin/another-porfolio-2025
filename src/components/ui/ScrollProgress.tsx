@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 
 const ScrollProgress = () => {
@@ -21,7 +23,7 @@ const ScrollProgress = () => {
                 left: 0,
                 height: "3px",
                 width: `${progress}%`,
-                background: "linear-gradient(90deg, #0ea47a, #0bcf97)",
+                background: "linear-gradient(90deg, #16a34a, #22c55e)",
                 zIndex: 9999,
                 transition: "width 0.1s linear",
                 pointerEvents: "none",

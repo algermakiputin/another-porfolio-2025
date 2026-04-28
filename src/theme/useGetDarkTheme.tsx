@@ -4,22 +4,28 @@ export const useGetDarkTheme = () => {
     const darkTheme = createTheme({
       cssVariables: true,
       colorSchemes: {
-        dark:  true
+        dark: true
       },
       palette: {
         mode: 'dark',
-        background: {
-          default: '#11181D',
-          paper: '#151e29',
-        },
         primary: {
-          main: "#0ea47a",
+          main: '#16a34a',
+          dark: '#15803d',
         },
         secondary: {
-          main: "#4f4f4f"
+          main: '#334155',
         },
+        background: {
+          default: '#0b1220',
+          paper: '#111827',
+        },
+        text: {
+          primary: '#e5e7eb',
+          secondary: '#94a3b8',
+        },
+        divider: 'rgba(255,255,255,0.07)',
         common: {
-          black: "#1e2a3a"
+          black: '#0b1220',
         }
       },
       typography: {
@@ -34,23 +40,31 @@ export const useGetDarkTheme = () => {
 
 const typography = {
     fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+    h1: {
+        letterSpacing: '-0.03em',
+        lineHeight: 1.15,
+    },
     h2: {
-        fontSize: '2em',
+        fontSize: '1.875rem',
         fontWeight: 700,
         color: 'rgba(255,255,255,0.95)',
         letterSpacing: '-0.02em',
+        lineHeight: 1.2,
     },
     h3: {
-        color: 'rgba(255,255,255,0.95)',
-        fontSize: '1rem',
+        color: 'rgba(255,255,255,0.92)',
+        fontSize: '1.05rem',
         fontWeight: 600,
-    },
-    body2: {
-        color: "rgba(255,255,255,0.65)",
-        lineHeight: 1.7,
+        lineHeight: 1.35,
     },
     body1: {
-        color: "rgba(255,255,255,0.7)",
-        lineHeight: 1.7,
-    }
+        color: 'rgba(255,255,255,0.68)',
+        lineHeight: 1.65,
+        fontSize: '0.9625rem',
+    },
+    body2: {
+        color: 'rgba(255,255,255,0.55)',
+        lineHeight: 1.65,
+        fontSize: '0.875rem',
+    },
 }

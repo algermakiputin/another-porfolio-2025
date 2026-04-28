@@ -1,37 +1,42 @@
+/* ─── Design Tokens ─── */
 :root {
-  --primary-background: #0ea47a;
-  --secondary-background: #fafafa;
+  --green-600: #16a34a;
+  --green-700: #15803d;
+  --green-400: #22c55e;
+  --green-50:  rgba(22, 163, 74, 0.06);
+  --green-100: rgba(22, 163, 74, 0.1);
+  --green-200: rgba(22, 163, 74, 0.18);
+  --green-300: rgba(22, 163, 74, 0.28);
+  --green-shadow: rgba(22, 163, 74, 0.28);
+
+  --bg-light:    #f8fafc;
+  --bg-card:     #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted:  #94a3b8;
+  --border:      #e2e8f0;
+  --shadow-sm:   0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-md:   0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-lg:   0 8px 32px rgba(0, 0, 0, 0.1);
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
+
+  --primary-background: var(--green-600);
+  --secondary-background: #f8fafc;
   --white: #ffffff;
-  --button-secondary-background: #4f4f4f;
-  --primary-border: 1px solid rgba(0,0,0,0.025) !important;
+  --button-secondary-background: #334155;
 }
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(24px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.fade-in-up {
-  animation: fadeInUp 0.6s ease forwards;
-}
-
-.fade-in-up-delay-1 { animation: fadeInUp 0.6s ease 0.1s both; }
-.fade-in-up-delay-2 { animation: fadeInUp 0.6s ease 0.2s both; }
-.fade-in-up-delay-3 { animation: fadeInUp 0.6s ease 0.3s both; }
-.fade-in-up-delay-4 { animation: fadeInUp 0.6s ease 0.4s both; }
-
-.App {
-  text-align: center;
+/* ─── Base ─── */
+body {
+  background-color: var(--bg-light);
 }
 
 .link {
-  color: var(--primary-background);
+  color: var(--green-600);
   text-decoration: none;
 }
 
@@ -39,62 +44,104 @@
   cursor: pointer;
   text-decoration: underline;
 }
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
+/* ─── Page layout ─── */
 .content-wrapper {
-  margin-left: 280px;
+  padding-top: 68px;
+}
+
+@media only screen and (max-width: 900px) {
+  .content-wrapper {
+    padding-top: 60px;
+  }
+}
+
+/* ─── Page section container ─── */
+.page-section {
+  padding: 80px;
+}
+
+.section-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media only screen and (max-width: 1024px) {
+  .page-section { padding: 56px 32px; }
 }
 
 @media only screen and (max-width: 768px) {
-  .content-wrapper {
-    margin-left: 0;
-  }
+  .page-section { padding: 40px 24px; }
 }
 
+/* ─── Scroll reveal ─── */
+.reveal {
+  opacity: 0;
+  transform: translateY(36px);
+  filter: blur(4px);
+  will-change: opacity, transform, filter;
+  transition:
+    opacity  0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    filter   0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+  filter: blur(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.08s; }
+.reveal-delay-2 { transition-delay: 0.16s; }
+.reveal-delay-3 { transition-delay: 0.24s; }
+
+/* ─── Entry animations ─── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in-up           { animation: fadeInUp 0.6s ease forwards; }
+.fade-in-up-delay-1   { animation: fadeInUp 0.6s ease 0.1s both; }
+.fade-in-up-delay-2   { animation: fadeInUp 0.6s ease 0.2s both; }
+.fade-in-up-delay-3   { animation: fadeInUp 0.6s ease 0.3s both; }
+.fade-in-up-delay-4   { animation: fadeInUp 0.6s ease 0.4s both; }
+
 @keyframes pageFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 .page-transition {
   animation: pageFadeIn 0.3s ease forwards;
+}
+
+/* ─── Legacy button classes (used in non-home pages) ─── */
+.home-btn {
+  font-weight: 600;
+  padding: .45rem 1.25rem;
+  height: 2.6rem;
+  font-size: 0.95rem;
+  outline: none;
+  border-radius: var(--radius-md) !important;
+  letter-spacing: 0.01em;
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.home-btn:hover {
+  transform: translateY(-1px);
+}
+
+.home-btn.portfolio {
+  background-color: var(--green-600) !important;
+  color: #fff !important;
+  font-weight: 600;
+  box-shadow: 0 4px 14px var(--green-shadow) !important;
+}
+
+.home-btn.message {
+  background-color: var(--button-secondary-background) !important;
+  color: var(--white);
+  font-weight: 600;
 }

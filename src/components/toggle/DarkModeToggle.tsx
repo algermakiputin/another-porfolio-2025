@@ -1,31 +1,32 @@
-import { Box, Stack, Typography } from '@mui/material';
-import ContrastIcon from '@mui/icons-material/Contrast';
-import React from 'react';
-import './darkModeToggle.css';
+"use client";
+
+import IconButton from '@mui/material/IconButton';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
 import { useThemeContext } from '../../context/ThemeContext';
 
 const DarkModeToggle = () => {
-    const { setDarkMode } = useThemeContext();
-    const onCheckHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setDarkMode((mode: boolean) => !mode);
-    }   
+    const { darkMode, setDarkMode } = useThemeContext();
+
     return (
-        <Box sx={{pt: 4}}>
-            <Stack direction={'row'} alignItems={'center'} gap={0.5} sx={{justifyContent: 'center', mb: 2}}>
-                <ContrastIcon fontSize='small' />
-                <Typography variant='body2' fontWeight={"bold"} color='#fff'>Dark Mode</Typography>
-            </Stack>
-            
-            <Box sx={{display:'flex', justifyContent: 'center', alignItems: 'center'}}>
-                <Box>
-                    <input type="checkbox" className="checkbox" id="checkbox" onChange={onCheckHandler} />
-                    <label className="checkbox-label" htmlFor='checkbox'>
-                        <span className="ball"></span>
-                    </label>
-                </Box>
-            </Box>
-        </Box>
+        <IconButton
+            onClick={() => setDarkMode((m: boolean) => !m)}
+            aria-label="Toggle dark mode"
+            size="small"
+            sx={{
+                opacity: 0.72,
+                color: darkMode ? 'rgba(255,255,255,0.7)' : '#475569',
+                '&:hover': {
+                    opacity: 1,
+                    background: darkMode ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)',
+                    color: darkMode ? '#fff' : '#0f172a',
+                },
+                transition: 'color 0.15s ease, background 0.15s ease, opacity 0.15s ease',
+            }}
+        >
+            {darkMode ? <LightModeIcon fontSize="small" /> : <DarkModeIcon fontSize="small" />}
+        </IconButton>
     );
-}
+};
 
 export default DarkModeToggle;
