@@ -3,6 +3,7 @@
 import { Grid, Skeleton, Box } from "@mui/material";
 import { useEffect, useState } from "react";
 import BlogCard from "../cards/BlogCard";
+import type { BlogPost } from "../../app/blog/page";
 
 function urlify(text: string) {
   const match = text?.match(/https?:\/\/[^"]+/);
@@ -29,21 +30,41 @@ function formatReadableDate(raw: string) {
 type Props = {
   limit?: number;
   columns?: number;
+  initialPosts?: BlogPost[];
 };
 
-const MediumPosts = ({ limit = 4, columns = 3 }: Props) => {
-  const [posts, setPosts] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+const MediumPosts = ({ limit = 4, columns = 3, initialPosts }: Props) => {
+  const [posts, setPosts] = useState<BlogPost[]>(initialPosts ?? []);
+  const [loading, setLoading] = useState(!initialPosts);
   const [fetchFailed, setFetchFailed] = useState(false);
 
   useEffect(() => {
+    if (initialPosts) return;
+
     const fetchMediumPosts = async () => {
       try {
         const response = await fetch(
           "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@algerwrites",
         );
         const data = await response.json();
-        setPosts(data.items.slice(0, limit));
+        const items: any[] = data.items.slice(0, limit);
+        setPosts(
+          items
+            .filter((p) => p?.title && p?.pubDate && p?.link)
+            .map((post, _i) => {
+              const tags = getContentTags(post);
+              const figureValue = tags?.[0]?.tagName === "figure" ? tags?.[0]?.value : tags?.[1]?.value;
+              const descTag = tags?.[1]?.tagName === "p" ? tags?.[1]?.value : tags?.[2]?.value;
+              return {
+                title: post.title,
+                description: descTag ? descTag.slice(0, 200) + "..." : "",
+                image: urlify(figureValue ?? "") ?? "",
+                publishedDate: formatReadableDate(post.pubDate),
+                link: post.link,
+                category: post?.categories?.[0] ?? "",
+              };
+            }),
+        );
       } catch (error) {
         console.error("Error fetching Medium posts:", error);
         setFetchFailed(true);
@@ -76,31 +97,19 @@ const MediumPosts = ({ limit = 4, columns = 3 }: Props) => {
               </Box>
             </Grid>
           ))
-        : posts.map((post: any, i: number) => {
-            const tags = getContentTags(post);
-            const figureTagValue =
-              tags?.[0]?.tagName === "figure"
-                ? tags?.[0]?.value
-                : tags?.[1]?.value;
-            const content =
-              tags?.[1]?.tagName === "p" ? tags?.[1]?.value : tags?.[2]?.value;
-            const url = urlify(figureTagValue);
-            const category = post?.categories?.[0] ?? "";
-            if (!post?.title || !post?.pubDate || !post?.link) return null;
-            return (
-              <Grid size={{ lg: columns, md: 6, sm: 6, xs: 12 }} key={post.title} sx={{ display: 'flex' }}>
-                <BlogCard
-                  title={post.title}
-                  description={content?.slice(0, 200) + "..."}
-                  image={url ?? ""}
-                  publishedDate={formatReadableDate(post.pubDate)}
-                  link={post.link}
-                  category={category}
-                  index={i}
-                />
-              </Grid>
-            );
-          })}
+        : posts.map((post, i) => (
+            <Grid size={{ lg: columns, md: 6, sm: 6, xs: 12 }} key={post.title} sx={{ display: 'flex' }}>
+              <BlogCard
+                title={post.title}
+                description={post.description}
+                image={post.image}
+                publishedDate={post.publishedDate}
+                link={post.link}
+                category={post.category}
+                index={i}
+              />
+            </Grid>
+          ))}
     </Grid>
   );
 };

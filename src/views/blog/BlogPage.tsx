@@ -3,9 +3,12 @@
 import { Box, Typography } from "@mui/material";
 import MediumPosts from "../../components/medium/MediumPosts";
 import useGetTheme from "../../hooks/useGetTheme";
+import type { BlogPost } from "../../app/blog/page";
 import "./blog.css";
 
-const BlogPage = () => {
+type Props = { posts?: BlogPost[] };
+
+const BlogPage = ({ posts }: Props) => {
     const { isDark } = useGetTheme();
     return (
         <>
@@ -56,7 +59,7 @@ const BlogPage = () => {
 
             {/* Articles grid */}
             <Box className="blog-grid-wrap">
-                <MediumPosts limit={9} columns={4} />
+                <MediumPosts limit={9} columns={4} initialPosts={posts} />
             </Box>
         </>
     );
