@@ -1,9 +1,68 @@
 {
     "projects": [
         {
+            "platform": "mobile",
+            "category": "mobile-app",
+            "image": "/images/projects/hunter-vault.webp",
+            "slug": "hunter-vault",
+            "title": "Hunter Vault - Level Up Finance",
+            "metaDescription": "Hunter Vault is a gamified personal finance app for iOS and Android inspired by Solo Leveling RPG aesthetics. It transforms budgeting, debt tracking, and savings into an epic adventure with quests, ranks, and rewards — all 100% offline with zero data collection.",
+            "role": "Full Stack Developer",
+            "responsibilities": [
+                "Product design & RPG-themed UI/UX system",
+                "React Native cross-platform development",
+                "Offline-first architecture & local data storage",
+                "Gamification engine (quests, ranks, rewards)",
+                "App Store & Google Play deployment"
+            ],
+            "techStack": ["React Native", "TypeScript", "SQLite", "Expo", "iOS", "Android"],
+            "shortDescription": "Hunter Vault is a gamified budgeting app for iOS and Android that transforms personal finance into an RPG adventure. Inspired by Solo Leveling, users track income, conquer debt, complete daily quests, and rise through ranks — all while keeping their data 100% private and offline.",
+            "meta": {
+                "platform": "iOS & Android",
+                "category": "Finance / Productivity",
+                "targetAudience": "Gamers, millennials, and people who struggle with traditional budgeting",
+                "linkLabel": "Visit Website",
+                "link": "https://huntervault.app"
+            },
+            "requirements": [
+                "Budget Tracking: Manage income, expenses, and savings with an RPG-themed interface",
+                "Debt Management: Track and conquer debt through dungeon raid mechanics",
+                "Daily Quests: Habit-forming financial tasks that reward consistency",
+                "Rank Progression: Rise from E-Rank to S-Rank Monarch as financial goals are met",
+                "Privacy-First: 100% offline, no account needed, zero data collected, no ads",
+                "Cross-Platform: Available on both iOS and Android"
+            ],
+            "overview": "Hunter Vault is a personal finance app that reimagines budgeting as an RPG adventure, inspired by the Solo Leveling universe. Instead of spreadsheets and boring dashboards, users manage their financial life through quests, ranks, and a vault system — making money management engaging, motivating, and habit-forming. Built with a privacy-first philosophy, the app works entirely offline with no account required and zero data collection.",
+            "challenge": "Most budgeting apps fail because they're boring — users open them once and never return. The core challenge was building a finance tool that people actually want to use daily. A second constraint was doing this without compromising privacy: no ads, no data collection, no account lock-in. Building an engaging gamification layer on top of real financial logic while keeping the app fully offline required a fundamentally different architecture from typical finance apps.",
+            "approach": "Hunter Vault was designed around a single insight: people who game consistently show up every day because the progression loop is rewarding. By mapping financial behaviors to RPG mechanics — income as XP, debt as dungeon raids, savings goals as quests — the app makes responsible financial habits feel like meaningful progression. The rank system (E to S+) gives users a clear visual sense of growth over time. Going fully offline with no account requirement removed the biggest barrier to entry: trust. Users never have to wonder who holds their financial data.",
+            "results": [
+                {
+                    "title": "Daily Active Users",
+                    "metric": "100+",
+                    "description": "100+ daily active users since launch"
+                },
+                {
+                    "title": "Platforms",
+                    "metric": "iOS & Android",
+                    "description": "Available on both major mobile platforms"
+                },
+                {
+                    "title": "Privacy",
+                    "metric": "100%",
+                    "description": "Fully offline — zero data collected, no account required"
+                },
+                {
+                    "title": "Cost",
+                    "metric": "Free",
+                    "description": "Free forever with no ads"
+                }
+            ],
+            "conclusion": "Hunter Vault proves that personal finance tools don't have to be boring. By combining RPG-inspired gamification with a privacy-first, offline-first architecture, the app delivers a budgeting experience that users actually want to return to daily — turning one of personal finance's oldest problems (consistency) into a fun, rewarding habit."
+        },
+        {
             "platform": "web",
             "category": "web-app",
-            "image": "/images/projects/inventory-software.jpeg",
+            "image": "/images/projects/inventory-software.webp",
             "slug": "poslite-inventory-software",
             "title": "POSLite Inventory Softwares",
             "metaDescription": "POSLite is a web-based Inventory Software built using Codeigniter PHP framework. This solution allows businesses to track, organize, and manage their inventory, including items, orders, sales, and deliveries.",
@@ -63,7 +122,7 @@
         {
             "platform": "web",
             "category": "web-app",
-            "image": "/images/projects/trading-journal.jpeg",
+            "image": "/images/projects/trading-journal.webp",
             "slug": "hero-journals",
             "title": "Stocks Trading Journal - Hero Journal",
             "metaDescription": "Web-based software designed to help retail traders manage their trades, progress and improve overall trading activities.",
@@ -125,7 +184,7 @@
             "category": "mobile-app",
             "slug": "filipino-alamat",
             "title": "Filipino Alamat",
-            "image": "/images/projects/filipino-alamat.jpeg",
+            "image": "/images/projects/filipino-alamat.webp",
             "metaDescription": "Mobile application available in Google play store, built using react native",
             "role": "Mobile Developer",
             "responsibilities": [
@@ -183,7 +242,7 @@
             "platform": "mobile",
             "slug": "stockapp",
             "category": "mobile-app",
-            "image": "/images/projects/posmobile.png",
+            "image": "/images/projects/posmobile.webp",
             "title": "StockApp Inventory",
             "metaDescription": "StockApp Inventory is a mobile inventory management solution designed specifically for small businesses that need a simple, reliable, and affordable way to track and control their stock. With an intuitive interface and powerful features, the app makes it easy to manage products, monitor stock levels, and keep your business organized all from your smartphone.",
             "role": "Mobile Developer",
@@ -240,7 +299,7 @@
         {
             "platform": "web",
             "category": "web-app",
-            "image": "/images/projects/payroll.jpeg",
+            "image": "/images/projects/payroll.webp",
             "slug": "face-recognition-based-payroll-and-attendance-software",
             "title": "Transforming Workforce Management with Face Recognition-Based Payroll and Attendance Software",
             "metaDescription": "This solution is a web based application built using ReactJS and Laravel for the backend. It is also mobile friendly so users can access the attendance face recognition using mobile device.",
@@ -300,7 +359,7 @@
             "platform": "mobile",
             "slug": "japanese-candlestick-patterns",
             "category": "mobile-app",
-            "image": "/images/projects/candlestick.jpeg",
+            "image": "/images/projects/candlestick.webp",
             "title": "Empowering Retail Traders with a Candlestick Pattern Learning App",
             "metaDescription": "Japanese Candlestick Patterns is an android app that helps beginner traders who wants to get familiar with Japanese Candlestick Patterns.",
             "role": "Mobile Developer",

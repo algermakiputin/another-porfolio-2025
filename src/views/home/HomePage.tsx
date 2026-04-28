@@ -158,19 +158,31 @@ const HomePage = () => {
 
               {/* Dark mode only: subtle green glow top-right */}
               <radialGradient id="glow-base" cx="96%" cy="2%" r="72%">
-                <stop offset="0%" stopColor="#22C55E" stopOpacity={isDark ? "0.08" : "0"} />
+                <stop
+                  offset="0%"
+                  stopColor="#22C55E"
+                  stopOpacity={isDark ? "0.08" : "0"}
+                />
                 <stop offset="100%" stopColor="#22C55E" stopOpacity="0" />
               </radialGradient>
 
               {/* Dark mode only: image area glow */}
               <radialGradient id="glow-image" cx="78%" cy="54%" r="36%">
-                <stop offset="0%" stopColor="#22C55E" stopOpacity={isDark ? "0.09" : "0"} />
+                <stop
+                  offset="0%"
+                  stopColor="#22C55E"
+                  stopOpacity={isDark ? "0.09" : "0"}
+                />
                 <stop offset="100%" stopColor="#22C55E" stopOpacity="0" />
               </radialGradient>
 
               {/* Dark mode only: corner depth */}
               <radialGradient id="glow-corner" cx="100%" cy="0%" r="28%">
-                <stop offset="0%" stopColor="#041808" stopOpacity={isDark ? "0.22" : "0"} />
+                <stop
+                  offset="0%"
+                  stopColor="#041808"
+                  stopOpacity={isDark ? "0.22" : "0"}
+                />
                 <stop offset="100%" stopColor="#000" stopOpacity="0" />
               </radialGradient>
 
@@ -264,13 +276,20 @@ const HomePage = () => {
                       src="/images/profile.jpg"
                       alt="Alger Makiputin"
                       className="hero-photo"
-                      width={600}
-                      height={750}
+                      width={481}
+                      height={368}
+                      loading="lazy"
                     />
                     <Box className="hero-photo-overlay" aria-hidden="true" />
                   </Box>
                   <Box className="aws-cert-card">
-                    <img src="/icons/AWS.png" alt="AWS" width={28} height={28} loading="lazy" />
+                    <img
+                      src="/icons/AWS.png"
+                      alt="AWS"
+                      width={28}
+                      height={28}
+                      loading="lazy"
+                    />
                     <Box>
                       <Typography className="aws-cert-title">
                         AWS Certified

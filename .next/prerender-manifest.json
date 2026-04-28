@@ -1,1 +1,11 @@
-{"version":4,"routes":{"/project/hunter-vault":{},"/project/poslite-inventory-software":{},"/project/hero-journals":{},"/project/filipino-alamat":{},"/project/stockapp":{},"/project/face-recognition-based-payroll-and-attendance-software":{},"/project/japanese-candlestick-patterns":{}},"dynamicRoutes":{"/project/[slug]":{"dataRoute":null,"dataRouteRegex":null,"fallback":null,"fallbackRevalidate":false,"fallbackSourceRoute":"/project/[slug]","routeRegex":"^\\/project\\/([^/]+?)(?:\\/)?$","allowHeader":[]}},"notFoundRoutes":[],"preview":{"previewModeId":"2236aaf4ef5c7c01d5ab432ef2df891c","previewModeSigningKey":"de6513582ac894eaa619c54243900266f5aa93b89fe6566ec461a3bdbbf3d135","previewModeEncryptionKey":"da1f339103c4c6d53f50a945925c0ac714682dadcbf23e5fcde628f364603fcf"}}
+{
+  "version": 4,
+  "routes": {},
+  "dynamicRoutes": {},
+  "notFoundRoutes": [],
+  "preview": {
+    "previewModeId": "82099462256ad551ffffc23f522ae90e",
+    "previewModeSigningKey": "0594175ece4a8666007ca7aaef3097880f775ebcec9b68ebdb83a2c4c535d03f",
+    "previewModeEncryptionKey": "b6688b8cd38b043bad13e44b10c48fc87f2bdedbb1d15aa069ea2e4c69a8edcf"
+  }
+}

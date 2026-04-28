@@ -1,1 +1,1 @@
-self.__REACT_LOADABLE_MANIFEST="{\"views/portfolio/PortfolioLayout.tsx -> isotope-layout\":{\"id\":\"views/portfolio/PortfolioLayout.tsx -> isotope-layout\",\"files\":[\"static/chunks/_app-pages-browser_node_modules_isotope-layout_js_isotope_js.js\"]}}"
+self.__REACT_LOADABLE_MANIFEST="{}"
