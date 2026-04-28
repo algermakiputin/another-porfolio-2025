@@ -378,7 +378,7 @@ const HomePage = () => {
       {/* ── POV ── */}
       <Box className="pov-section">
         <Box className="pov-inner">
-          <Typography className="pov-headline">
+          <Typography component="h2" className="pov-headline">
             Most applications work until they need to scale.{" "}
             <span className="pov-headline-accent">
               That&rsquo;s where things break.

@@ -148,12 +148,12 @@ const PortfolioSinglePage = () => {
 
             <Grid size={{ lg: 7, md: 7, xs: 12 }}>
               <Box className="project-meta-side">
-                <Typography className="meta-section-label">About This Project</Typography>
+                <Typography component="h3" className="meta-section-label">About This Project</Typography>
                 <Typography className="project-short-desc">{project?.shortDescription}</Typography>
 
                 <Box className="meta-divider" />
 
-                <Typography className="meta-section-label">Quick Info</Typography>
+                <Typography component="h3" className="meta-section-label">Quick Info</Typography>
                 <Box className="quick-info-grid">
                   {isWeb ? (
                     <>
@@ -233,7 +233,7 @@ const PortfolioSinglePage = () => {
 
                 <Box className="meta-divider" />
 
-                <Typography className="meta-section-label">Role & Contribution</Typography>
+                <Typography component="h3" className="meta-section-label">Role & Contribution</Typography>
                 {project?.role && (
                   <Box className="role-chip">{project.role}</Box>
                 )}
@@ -252,7 +252,7 @@ const PortfolioSinglePage = () => {
         {/* ── PSO ── */}
         {(project?.challenge || project?.approach || project?.conclusion) && (
           <Box className="pso-section">
-            <Typography className="cs-section-heading">Problem → Solution → Outcome</Typography>
+            <Typography component="h2" className="cs-section-heading">Problem → Solution → Outcome</Typography>
             <Grid container spacing={2}>
               {psoItems.map(({ key, label, text, accentColor, bgColor }) => (
                 <Grid size={{ lg: 4, md: 4, xs: 12 }} key={key}>
@@ -274,7 +274,7 @@ const PortfolioSinglePage = () => {
         {/* ── Tech Stack ── */}
         {project?.techStack?.length && (
           <Box className="tech-stack-section">
-            <Typography className="cs-section-heading">Tech Stack</Typography>
+            <Typography component="h2" className="cs-section-heading">Tech Stack</Typography>
             <Box className="tech-stack-row">
               {project.techStack.map((tech) => (
                 <Box key={tech} className="tech-pill">
@@ -291,7 +291,7 @@ const PortfolioSinglePage = () => {
         {/* ── Results ── */}
         {project?.results?.length && (
           <Box className="results-section">
-            <Typography className="cs-section-heading">Results</Typography>
+            <Typography component="h2" className="cs-section-heading">Results</Typography>
             <Grid container spacing={2} sx={{ mb: 1.5 }}>
               {project.results.map((result, i) => (
                 <Grid size={{ lg: 3, md: 6, sm: 6, xs: 12 }} key={i}>

@@ -323,7 +323,7 @@ const ContactPage = () => {
             <Box className="contact-info-panel">
               {/* What happens next */}
               <Box className="contact-info-block">
-                <Typography className="contact-info-heading">
+                <Typography component="h3" className="contact-info-heading">
                   What happens next?
                 </Typography>
                 <Box className="contact-steps">
@@ -340,7 +340,7 @@ const ContactPage = () => {
 
               {/* Why work with me */}
               <Box className="contact-info-block">
-                <Typography className="contact-info-heading">
+                <Typography component="h3" className="contact-info-heading">
                   Why work with me?
                 </Typography>
                 <Box className="contact-reasons">
@@ -357,7 +357,7 @@ const ContactPage = () => {
 
               {/* Direct email */}
               <Box className="contact-info-block contact-direct-email">
-                <Typography className="contact-info-heading">
+                <Typography component="h3" className="contact-info-heading">
                   Prefer email?
                 </Typography>
                 <Typography className="contact-direct-sub">
