@@ -13,7 +13,7 @@
 }
 
 .hero-content {
-  animation: fadeInUp 0.65s ease both;
+  animation: fadeInUp 0.5s ease forwards;
 }
 
 .hero-image-col {

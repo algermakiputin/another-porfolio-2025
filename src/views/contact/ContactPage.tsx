@@ -56,7 +56,7 @@ const ContactPage = () => {
     formData.append("message", data?.message);
     formData.append("service", data?.service);
     setLoading(true);
-    await fetch(process.env.REACT_APP_FORM_SPREE_URL ?? "", {
+    await fetch("https://formspree.io/f/xeokjklo", {
       method: "POST",
       headers: { Accept: "application/json" },
       body: formData,
