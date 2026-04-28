@@ -15,6 +15,7 @@ const jsonLd = {
   "@type": "Person",
   name: "Alger Makiputin",
   url: "https://algermakiputin.com",
+  image: "https://algermakiputin.com/images/profile.webp",
   jobTitle: "Full Stack Engineer",
   description:
     "Full Stack Engineer helping startups and businesses turn ideas into reliable, high-performance applications.",

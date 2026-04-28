@@ -29,6 +29,7 @@ const jsonLd = {
     "@type": "Person",
     name: "Alger Makiputin",
     url: BASE_URL,
+    image: `${BASE_URL}/images/profile.webp`,
     jobTitle: "Full Stack Engineer",
     sameAs: [
       "https://ph.linkedin.com/in/alger-makiputin",
