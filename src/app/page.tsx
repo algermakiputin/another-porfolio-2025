@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     "Full Stack Developer helping startups and businesses build scalable MVPs, web apps, and production-ready systems using React, Node.js, TypeScript, and AWS.",
   alternates: {
-    canonical: "https://algermakiputin.com",
+    canonical: "https://algermakiputin.com/",
   },
 };
 

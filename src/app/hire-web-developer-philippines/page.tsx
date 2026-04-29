@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import HireDevPhilippinesPage from "../../views/services/HireDevPhilippinesPage";
 
 const BASE_URL = "https://algermakiputin.com";
-const PAGE_URL = `${BASE_URL}/hire-web-developer-philippines`;
+const PAGE_URL = `${BASE_URL}/hire-web-developer-philippines/`;
 const OG_IMAGE = `${BASE_URL}/images/og-cover.jpg`;
 const TITLE = "Hire a Senior Web Developer in the Philippines | Alger Makiputin";
 const DESCRIPTION =

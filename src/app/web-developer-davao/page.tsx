@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import WebDeveloperDavaoPage from "../../views/services/WebDeveloperDavaoPage";
 
 const BASE_URL = "https://algermakiputin.com";
-const PAGE_URL = `${BASE_URL}/web-developer-davao`;
+const PAGE_URL = `${BASE_URL}/web-developer-davao/`;
 const OG_IMAGE = `${BASE_URL}/images/og-cover.jpg`;
 const TITLE = "Senior Web Developer in Davao City | Alger Makiputin";
 const DESCRIPTION =

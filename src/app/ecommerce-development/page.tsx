@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import EcommercePage from "../../views/services/EcommercePage";
 
 const BASE_URL = "https://algermakiputin.com";
-const PAGE_URL = `${BASE_URL}/ecommerce-development`;
+const PAGE_URL = `${BASE_URL}/ecommerce-development/`;
 const OG_IMAGE = `${BASE_URL}/images/og-cover.jpg`;
 const TITLE = "Custom E-commerce Development for Businesses | Alger Makiputin";
 const DESCRIPTION =

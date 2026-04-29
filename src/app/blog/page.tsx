@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     images: [{ url: "/images/og-cover.jpg", width: 1200, height: 630, alt: "Alger Makiputin — Blog" }],
   },
   alternates: {
-    canonical: `${BASE_URL}/blog`,
+    canonical: `${BASE_URL}/blog/`,
   },
 };
 

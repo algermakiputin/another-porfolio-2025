@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import WebDevelopmentPage from "../../views/services/WebDevelopmentPage";
 
 const BASE_URL = "https://algermakiputin.com";
-const PAGE_URL = `${BASE_URL}/web-development-services`;
+const PAGE_URL = `${BASE_URL}/web-development-services/`;
 const OG_IMAGE = `${BASE_URL}/images/og-cover.jpg`;
 const TITLE = "Web Development Services | Alger Makiputin";
 const DESCRIPTION =

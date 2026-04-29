@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import MobileAppPage from "../../views/services/MobileAppPage";
 
 const BASE_URL = "https://algermakiputin.com";
-const PAGE_URL = `${BASE_URL}/mobile-app-development`;
+const PAGE_URL = `${BASE_URL}/mobile-app-development/`;
 const OG_IMAGE = `${BASE_URL}/images/og-cover.jpg`;
 const TITLE = "Custom Mobile App Development (iOS & Android) | Alger Makiputin";
 const DESCRIPTION =

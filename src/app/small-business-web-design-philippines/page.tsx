@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import SmallBusinessWebDesignPage from "../../views/services/SmallBusinessWebDesignPage";
 
 const BASE_URL = "https://algermakiputin.com";
-const PAGE_URL = `${BASE_URL}/small-business-web-design-philippines`;
+const PAGE_URL = `${BASE_URL}/small-business-web-design-philippines/`;
 const OG_IMAGE = `${BASE_URL}/images/og-cover.jpg`;
 const TITLE = "Affordable Small Business Web Design Philippines | Alger Makiputin";
 const DESCRIPTION =

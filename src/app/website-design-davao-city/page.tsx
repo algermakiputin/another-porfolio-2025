@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import WebsiteDesignDavaoPage from "../../views/services/WebsiteDesignDavaoPage";
 
 const BASE_URL = "https://algermakiputin.com";
-const PAGE_URL = `${BASE_URL}/website-design-davao-city`;
+const PAGE_URL = `${BASE_URL}/website-design-davao-city/`;
 const OG_IMAGE = `${BASE_URL}/images/og-cover.jpg`;
 const TITLE = "Professional Website Design Davao City | Alger Makiputin";
 const DESCRIPTION =

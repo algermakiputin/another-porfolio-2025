@@ -69,7 +69,7 @@ export const metadata: Metadata = {
     creator: "@algermakiputin",
   },
   alternates: {
-    canonical: BASE_URL,
+    canonical: `${BASE_URL}/`,
   },
 };
 

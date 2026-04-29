@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import MobileAppDavaoPage from "../../views/services/MobileAppDavaoPage";
 
 const BASE_URL = "https://algermakiputin.com";
-const PAGE_URL = `${BASE_URL}/mobile-app-developer-davao`;
+const PAGE_URL = `${BASE_URL}/mobile-app-developer-davao/`;
 const OG_IMAGE = `${BASE_URL}/images/og-cover.jpg`;
 const TITLE = "Custom Mobile App Developer in Davao City | Alger Makiputin";
 const DESCRIPTION =
