@@ -10,7 +10,7 @@ import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { Button } from "@mui/material";
-import { useRouter } from "next/navigation";
+import { useRouter } from "nextjs-toploader/app";
 import "./services.css";
 
 const services = [

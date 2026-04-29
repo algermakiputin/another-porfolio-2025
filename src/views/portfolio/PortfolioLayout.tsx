@@ -12,10 +12,13 @@ const PortfolioLayout = () => {
   const [filterKey, setFilterKey] = React.useState("*");
 
   React.useEffect(() => {
+    if (!projects?.length) return;
     let destroyed = false;
     import("isotope-layout").then(({ default: Isotope }) => {
       if (destroyed) return;
-      isotopeRef.current = new Isotope(".grid", {
+      const gridEl = document.querySelector<HTMLElement>(".grid");
+      if (!gridEl) return;
+      isotopeRef.current = new Isotope(gridEl, {
         itemSelector: ".filter-item",
         percentPosition: true,
       });

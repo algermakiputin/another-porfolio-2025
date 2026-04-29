@@ -2,7 +2,7 @@
 
 import { Box, Button, Typography } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
-import { useRouter } from "next/navigation";
+import { useRouter } from "nextjs-toploader/app";
 import useGetTheme from "../../../hooks/useGetTheme";
 import Socials from "../../socials/Socials";
 

@@ -3,7 +3,7 @@
 import { Box } from "@mui/material";
 import SectionHeader from "../../../components/sectionHeader/SectionHeader";
 import MediumPosts from "../../../components/medium/MediumPosts";
-import { useRouter } from "next/navigation";
+import { useRouter } from "nextjs-toploader/app";
 
 const Blog = () => {
   const router = useRouter();

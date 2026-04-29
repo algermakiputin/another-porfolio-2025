@@ -14,7 +14,7 @@ import HireMeSection from "../../components/hireMeSection/HireMeSection";
 import RevealSection from "../../components/ui/RevealSection";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import "./homepage.css";
-import { useRouter } from "next/navigation";
+import { useRouter } from "nextjs-toploader/app";
 import useGetTheme from "../../hooks/useGetTheme";
 import useGetWindowsDimension from "../../hooks/useGetWindowsDimension";
 

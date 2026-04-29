@@ -5,7 +5,7 @@ import SectionHeader from "../../../components/sectionHeader/SectionHeader";
 import ProjectCard from "../../../components/cards/project/ProjectCard";
 import useGetProjects from "../../../hooks/useGetProjects";
 import "./projects.css";
-import { useRouter } from "next/navigation";
+import { useRouter } from "nextjs-toploader/app";
 
 const Projects = () => {
   const { projects } = useGetProjects("", 4);

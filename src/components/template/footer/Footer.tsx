@@ -2,7 +2,7 @@
 
 import { Box, Typography } from "@mui/material";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter } from "nextjs-toploader/app";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import YouTubeIcon from "@mui/icons-material/YouTube";
@@ -21,6 +21,17 @@ const resourceLinks = [
   { label: "Blog", route: "/blog" },
   { label: "Case Studies", route: "/portfolio" },
   { label: "FAQs", route: "/contact" },
+];
+
+const serviceLinks = [
+  { label: "Web Development", route: "/web-development-services" },
+  { label: "Mobile App Development", route: "/mobile-app-development" },
+  { label: "E-commerce Development", route: "/ecommerce-development" },
+  { label: "Hire Me (Philippines)", route: "/hire-web-developer-philippines" },
+  { label: "Web Developer – Davao", route: "/web-developer-davao" },
+  { label: "Website Design – Davao", route: "/website-design-davao-city" },
+  { label: "Small Business Web Design", route: "/small-business-web-design-philippines" },
+  { label: "Mobile App Developer – Davao", route: "/mobile-app-developer-davao" },
 ];
 
 const socials = [
@@ -88,12 +99,17 @@ const Footer = () => {
               <span className="footer-avail-dot" />
               Available for freelance &amp; full-time opportunities
             </Box>
+            <Typography className="footer-seo-line">
+              Affordable web design and app development services in Davao City
+              and across the Philippines — for small businesses, startups, and
+              global clients.
+            </Typography>
           </Box>
 
           {/* Explore */}
           <Box className="footer-col">
             <Typography className="footer-col-heading">Explore</Typography>
-            <Box className="footer-nav-grid">
+            <Box className="footer-link-list">
               {navLinks.map((link) => (
                 <button
                   key={link.label}
@@ -102,6 +118,18 @@ const Footer = () => {
                 >
                   {link.label}
                 </button>
+              ))}
+            </Box>
+          </Box>
+
+          {/* Services */}
+          <Box className="footer-col">
+            <Typography className="footer-col-heading">Services</Typography>
+            <Box className="footer-link-list">
+              {serviceLinks.map((link) => (
+                <Link key={link.label} href={link.route} className="footer-link">
+                  {link.label}
+                </Link>
               ))}
             </Box>
           </Box>

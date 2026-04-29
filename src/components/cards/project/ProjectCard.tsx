@@ -7,7 +7,7 @@ import Typography from "@mui/material/Typography";
 import { Box, Button } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import "./projectCard.css";
-import { useRouter } from "next/navigation";
+import { useRouter } from "nextjs-toploader/app";
 
 type Props = {
   description?: string;

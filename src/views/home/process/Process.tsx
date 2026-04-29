@@ -8,7 +8,7 @@ import CodeIcon from "@mui/icons-material/Code";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import useGetTheme from "../../../hooks/useGetTheme";
-import { useRouter } from "next/navigation";
+import { useRouter } from "nextjs-toploader/app";
 import "./process.css";
 
 const steps = [

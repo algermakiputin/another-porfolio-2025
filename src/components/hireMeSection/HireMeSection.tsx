@@ -5,7 +5,7 @@ import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import SmartToyOutlinedIcon from "@mui/icons-material/SmartToyOutlined";
 import "./hireMeSection.css";
-import { useRouter } from "next/navigation";
+import { useRouter } from "nextjs-toploader/app";
 import { loadAndOpenWebchat } from "../webchat/Webchat";
 
 const HireMeSection = () => {

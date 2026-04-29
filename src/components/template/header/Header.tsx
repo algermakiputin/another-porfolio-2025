@@ -1,13 +1,31 @@
 "use client";
 
-import { Box, Button, IconButton, useTheme } from "@mui/material";
+import { Box, Button, Divider, IconButton, Menu, MenuItem, useTheme } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useState, useEffect } from "react";
-import { useRouter, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
+import { useRouter } from "nextjs-toploader/app";
 import DarkModeToggle from "../../toggle/DarkModeToggle";
 import useGetWindowsDimension from "../../../hooks/useGetWindowsDimension";
 import "./header.css";
+
+const mainServiceItems = [
+  { label: "Web Development", route: "/web-development-services" },
+  { label: "Mobile App Development", route: "/mobile-app-development" },
+  { label: "E-commerce Development", route: "/ecommerce-development" },
+  { label: "Hire Me (Philippines)", route: "/hire-web-developer-philippines" },
+];
+
+const localServiceItems = [
+  { label: "Web Developer – Davao", route: "/web-developer-davao" },
+  { label: "Website Design – Davao", route: "/website-design-davao-city" },
+  { label: "Small Business Web Design", route: "/small-business-web-design-philippines" },
+  { label: "Mobile App Developer – Davao", route: "/mobile-app-developer-davao" },
+];
+
+const servicesItems = [...mainServiceItems, ...localServiceItems];
 
 const navGroups = [
   {
@@ -19,9 +37,17 @@ const navGroups = [
       { label: "Contact", route: "/contact", section: undefined },
     ],
   },
+  {
+    label: "Services",
+    items: mainServiceItems.map((s) => ({ ...s, section: undefined })),
+  },
+  {
+    label: "Local Services",
+    items: localServiceItems.map((s) => ({ ...s, section: undefined })),
+  },
 ];
 
-const navItems = navGroups.flatMap((g) => g.items);
+const navItems = navGroups[0].items;
 
 const Header = () => {
   const theme = useTheme();
@@ -29,6 +55,7 @@ const Header = () => {
   const [width] = useGetWindowsDimension();
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [servicesAnchor, setServicesAnchor] = useState<null | HTMLElement>(null);
   const router = useRouter();
   const pathname = usePathname();
   const isMobile = width > 0 && width <= 900;
@@ -37,6 +64,11 @@ const Header = () => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    [...navItems, ...servicesItems].forEach((item) => router.prefetch(item.route));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -101,6 +133,68 @@ const Header = () => {
                   {item.label}
                 </button>
               ))}
+              <button
+                className={`top-nav-item ${servicesItems.some((s) => isActive(s.route)) ? "active" : ""}`}
+                onClick={(e) => setServicesAnchor(e.currentTarget)}
+                aria-haspopup="true"
+                aria-expanded={Boolean(servicesAnchor)}
+              >
+                Services <KeyboardArrowDownIcon sx={{ fontSize: 15, ml: 0.25, verticalAlign: "middle", transition: "transform 0.2s", transform: servicesAnchor ? "rotate(180deg)" : "rotate(0deg)" }} />
+              </button>
+              <Menu
+                anchorEl={servicesAnchor}
+                open={Boolean(servicesAnchor)}
+                onClose={() => setServicesAnchor(null)}
+                slotProps={{
+                  paper: {
+                    sx: {
+                      mt: 1,
+                      minWidth: 220,
+                      borderRadius: "10px",
+                      boxShadow: "0 8px 32px rgba(0,0,0,0.12)",
+                      background: isDark ? "#1e293b" : "#fff",
+                      border: isDark ? "1px solid rgba(255,255,255,0.08)" : "1px solid #e2e8f0",
+                    },
+                  },
+                }}
+              >
+                {mainServiceItems.map((item) => (
+                  <MenuItem
+                    key={item.route}
+                    onClick={() => { linkHandler(item.route); setServicesAnchor(null); }}
+                    selected={isActive(item.route)}
+                    sx={{
+                      fontSize: "0.875rem",
+                      fontWeight: 500,
+                      color: isDark ? "rgba(255,255,255,0.85)" : "#0f172a",
+                      "&.Mui-selected": { color: "#16a34a", background: "rgba(22,163,74,0.06)" },
+                      "&:hover": { background: isDark ? "rgba(255,255,255,0.06)" : "rgba(22,163,74,0.05)" },
+                    }}
+                  >
+                    {item.label}
+                  </MenuItem>
+                ))}
+                <Divider sx={{ my: 0.5, borderColor: isDark ? "rgba(255,255,255,0.08)" : "#e2e8f0" }} />
+                <Box sx={{ px: 2, py: 0.25, fontSize: "0.68rem", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: isDark ? "rgba(255,255,255,0.35)" : "#94a3b8" }}>
+                  Davao City
+                </Box>
+                {localServiceItems.map((item) => (
+                  <MenuItem
+                    key={item.route}
+                    onClick={() => { linkHandler(item.route); setServicesAnchor(null); }}
+                    selected={isActive(item.route)}
+                    sx={{
+                      fontSize: "0.875rem",
+                      fontWeight: 500,
+                      color: isDark ? "rgba(255,255,255,0.85)" : "#0f172a",
+                      "&.Mui-selected": { color: "#16a34a", background: "rgba(22,163,74,0.06)" },
+                      "&:hover": { background: isDark ? "rgba(255,255,255,0.06)" : "rgba(22,163,74,0.05)" },
+                    }}
+                  >
+                    {item.label}
+                  </MenuItem>
+                ))}
+              </Menu>
             </nav>
           )}
 

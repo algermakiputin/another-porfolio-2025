@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Box } from "@mui/material";
+import NextTopLoader from "nextjs-toploader";
 import { ThemeContextProvider, useThemeContext } from "../context/ThemeContext";
 import { useGetDarkTheme } from "../theme/useGetDarkTheme";
 import useGetLightTheme from "../theme/useGetLightTheme";
@@ -29,6 +30,14 @@ function ThemedApp({ children }: { children: React.ReactNode }) {
   return (
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <CssBaseline />
+      <NextTopLoader
+        color="#16a34a"
+        height={3}
+        showSpinner={false}
+        easing="ease"
+        speed={200}
+        shadow="0 0 10px #16a34a, 0 0 5px #16a34a"
+      />
       <ScrollToTop />
       <ScrollProgress />
       <BackToTop />
