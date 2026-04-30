@@ -3,6 +3,7 @@
 import { Box, Typography } from "@mui/material";
 import Link from "next/link";
 import { useRouter } from "nextjs-toploader/app";
+import { trackEvent } from "../../../lib/analytics";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import YouTubeIcon from "@mui/icons-material/YouTube";
@@ -164,6 +165,7 @@ const Footer = () => {
                   rel="noreferrer"
                   className="footer-social-btn"
                   aria-label={s.label}
+                  onClick={() => trackEvent("social_click", { link_type: s.label.toLowerCase() })}
                 >
                   <span className="footer-social-icon">{s.icon}</span>
                   <span className="footer-social-label">{s.label}</span>

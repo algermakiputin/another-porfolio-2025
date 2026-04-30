@@ -7,6 +7,7 @@ import SmartToyOutlinedIcon from "@mui/icons-material/SmartToyOutlined";
 import "./hireMeSection.css";
 import { useRouter } from "nextjs-toploader/app";
 import { loadAndOpenWebchat } from "../webchat/Webchat";
+import { trackEvent } from "../../lib/analytics";
 
 const HireMeSection = () => {
   const router = useRouter();
@@ -34,7 +35,10 @@ const HireMeSection = () => {
 
             <Box className="hire-cta-actions">
               <Button
-                onClick={() => router.push("/contact")}
+                onClick={() => {
+                  trackEvent("cta_click", { cta_type: "get_in_touch" });
+                  router.push("/contact");
+                }}
                 className="hire-cta-btn-primary"
                 variant="contained"
                 endIcon={<ArrowForwardIcon />}
@@ -42,7 +46,10 @@ const HireMeSection = () => {
                 Get In Touch
               </Button>
               <Button
-                onClick={() => router.push("/portfolio")}
+                onClick={() => {
+                  trackEvent("cta_click", { cta_type: "view_my_work" });
+                  router.push("/portfolio");
+                }}
                 className="hire-cta-btn-secondary"
                 variant="outlined"
                 endIcon={<ArrowForwardIcon />}
@@ -50,7 +57,10 @@ const HireMeSection = () => {
                 View My Work
               </Button>
               <Button
-                onClick={() => loadAndOpenWebchat()}
+                onClick={() => {
+                  trackEvent("cta_click", { cta_type: "ai_chat" });
+                  loadAndOpenWebchat();
+                }}
                 className="hire-cta-btn-ai"
                 variant="outlined"
                 startIcon={<SmartToyOutlinedIcon />}

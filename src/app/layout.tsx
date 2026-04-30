@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
+import Script from "next/script";
 import ClientShell from "./ClientShell";
 import "../index.css";
 import "../App.css";
+
+const GA_ID = "G-XGKHB8ZDZJ";
 
 const BASE_URL = "https://algermakiputin.com";
 
@@ -81,6 +84,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="gtag-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_ID}');
+          `}
+        </Script>
         <AppRouterCacheProvider>
           <ClientShell>{children}</ClientShell>
         </AppRouterCacheProvider>

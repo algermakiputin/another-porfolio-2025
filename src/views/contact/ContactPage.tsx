@@ -21,6 +21,7 @@ import { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import ReCAPTCHA from "react-google-recaptcha";
 import useGetTheme from "../../hooks/useGetTheme";
+import { trackEvent } from "../../lib/analytics";
 import "./contact.css";
 
 const steps = [
@@ -65,6 +66,7 @@ const ContactPage = () => {
         if (response?.ok) {
           reset();
           setSuccess(true);
+          trackEvent("generate_lead", { service: data?.service ?? "unknown" });
         } else {
           response.json().then((data) => {
             if (Object.hasOwn(data, "errors")) {
