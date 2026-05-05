@@ -62,7 +62,7 @@
   border-radius: 8px;
   object-fit: contain;
   flex-shrink: 0;
-  background: #fff;
+  /* background: #fff; */
 }
 
 .top-header.light .logo-name { color: #0f172a; }

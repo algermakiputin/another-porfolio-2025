@@ -23,6 +23,8 @@ const jsonLd = {
     "https://ph.linkedin.com/in/alger-makiputin",
     "https://github.com/algermakiputin",
     "https://www.youtube.com/c/AlgerMakiputin",
+    "https://www.facebook.com/hitme321/",
+    "https://algerwrites.medium.com/",
   ],
   knowsAbout: [
     "Full Stack Web Development",
@@ -38,6 +40,8 @@ const jsonLd = {
     "REST API Development",
     "System Architecture",
     "Performance Optimization",
+    "Mobile App Development",
+    "Retail Inventory Systems",
   ],
   worksFor: {
     "@type": "Organization",
