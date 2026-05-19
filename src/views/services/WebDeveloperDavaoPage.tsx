@@ -119,9 +119,18 @@ const processSteps = [
 ];
 
 const stack = [
-  "React", "Next.js", "TypeScript", "Node.js",
-  "Laravel", "PostgreSQL", "AWS", "Docker",
-  "React Native", "REST APIs", "CI/CD", "MySQL",
+  "React",
+  "Next.js",
+  "TypeScript",
+  "Node.js",
+  "Laravel",
+  "PostgreSQL",
+  "AWS",
+  "Docker",
+  "React Native",
+  "REST APIs",
+  "CI/CD",
+  "MySQL",
 ];
 
 const faqs = [
@@ -162,32 +171,20 @@ const WebDeveloperDavaoPage = () => {
             : "#ffffff",
         }}
       >
-        <Box aria-hidden="true" className="sp-hero-bg">
-          <svg width="100%" height="100%" viewBox="0 0 1440 420" preserveAspectRatio="xMidYMid slice" fill="none">
-            <defs>
-              <pattern id="wdd-grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                <path d="M 40 0 L 0 0 0 40" fill="none" stroke={isDark ? "rgba(255,255,255,0.06)" : "#E2E8F0"} strokeWidth="1" />
-              </pattern>
-              <radialGradient id="wdd-glow" cx="85%" cy="35%" r="45%">
-                <stop offset="0%" stopColor="#22C55E" stopOpacity={isDark ? "0.14" : "0.18"} />
-                <stop offset="100%" stopColor="#22C55E" stopOpacity="0" />
-              </radialGradient>
-            </defs>
-            <rect width="1440" height="420" fill="url(#wdd-grid)" opacity="0.5" />
-            <circle cx="1200" cy="160" r="280" fill="url(#wdd-glow)" />
-          </svg>
-        </Box>
-
         <Box className="sp-hero-inner">
           <Box className="sp-badge">
             <span className="sp-badge-dot" />
             DAVAO CITY · PHILIPPINES · ON-SITE AVAILABLE
           </Box>
           <Typography variant="h1" className="sp-hero-title">
-            Senior Web Developer in Davao City – Custom Web Apps &amp; Business Systems
+            Senior Web Developer in Davao City – Custom Web Apps &amp; Business
+            Systems
           </Typography>
           <Typography className="sp-hero-sub">
-            The go-to freelance web developer in Davao for businesses that need reliable, scalable systems — not just a website. 8+ years building production software. Available for on-site meetings, local projects, and remote work worldwide.
+            The go-to freelance web developer in Davao for businesses that need
+            reliable, scalable systems — not just a website. 8+ years building
+            production software. Available for on-site meetings, local projects,
+            and remote work worldwide.
           </Typography>
           <Box className="sp-hero-ctas">
             <Button
@@ -241,7 +238,9 @@ const WebDeveloperDavaoPage = () => {
                 <Box className="sp-why-item" key={item.title}>
                   <Box className="sp-why-icon">{item.icon}</Box>
                   <Box>
-                    <Typography className="sp-why-title">{item.title}</Typography>
+                    <Typography className="sp-why-title">
+                      {item.title}
+                    </Typography>
                     <Typography className="sp-why-sub">{item.sub}</Typography>
                   </Box>
                 </Box>
@@ -281,7 +280,14 @@ const WebDeveloperDavaoPage = () => {
                 How Much Does Web Development Cost in Davao?
               </Typography>
               <Typography className="sp-prose-text">
-                Web development in Davao City is more affordable than hiring agencies in Manila or abroad — and you don&apos;t sacrifice quality. A business website starts from ₱30,000. Custom web applications and business systems are scoped per project after a free discovery session. There are no hidden fees, no surprise invoices, and no project manager markup — you pay for the development work, nothing else. Maintenance packages are available after launch for businesses that want ongoing support.
+                Web development in Davao City is more affordable than hiring
+                agencies in Manila or abroad — and you don&apos;t sacrifice
+                quality. A business website starts from ₱30,000. Custom web
+                applications and business systems are scoped per project after a
+                free discovery session. There are no hidden fees, no surprise
+                invoices, and no project manager markup — you pay for the
+                development work, nothing else. Maintenance packages are
+                available after launch for businesses that want ongoing support.
               </Typography>
             </Box>
           </Box>
@@ -301,7 +307,9 @@ const WebDeveloperDavaoPage = () => {
                 <Box className="sp-why-item" key={step.title}>
                   <Box className="sp-why-icon">{step.icon}</Box>
                   <Box>
-                    <Typography className="sp-why-title">{step.title}</Typography>
+                    <Typography className="sp-why-title">
+                      {step.title}
+                    </Typography>
                     <Typography className="sp-why-sub">{step.sub}</Typography>
                   </Box>
                 </Box>
@@ -328,17 +336,25 @@ const WebDeveloperDavaoPage = () => {
                     py: 0.75,
                     borderRadius: "100px",
                     border: "1px solid",
-                    borderColor: isDark ? "rgba(255,255,255,0.12)" : "var(--border)",
-                    background: isDark ? "rgba(255,255,255,0.04)" : "var(--bg-card)",
+                    borderColor: isDark
+                      ? "rgba(255,255,255,0.12)"
+                      : "var(--border)",
+                    background: isDark
+                      ? "rgba(255,255,255,0.04)"
+                      : "var(--bg-card)",
                     fontSize: "0.83rem",
                     fontWeight: 500,
-                    color: isDark ? "rgba(255,255,255,0.75)" : "var(--text-secondary)",
+                    color: isDark
+                      ? "rgba(255,255,255,0.75)"
+                      : "var(--text-secondary)",
                     display: "flex",
                     alignItems: "center",
                     gap: 0.75,
                   }}
                 >
-                  <CheckCircleOutlineIcon sx={{ fontSize: 14, color: "var(--green-600)" }} />
+                  <CheckCircleOutlineIcon
+                    sx={{ fontSize: 14, color: "var(--green-600)" }}
+                  />
                   {tech}
                 </Box>
               ))}
@@ -372,23 +388,42 @@ const WebDeveloperDavaoPage = () => {
         <Box className="page-section">
           <Box className="section-inner">
             <Box className="sp-local-callout">
-              <LocationOnIcon sx={{ fontSize: 18, color: "var(--green-600)", flexShrink: 0, mt: "2px" }} />
+              <LocationOnIcon
+                sx={{
+                  fontSize: 18,
+                  color: "var(--green-600)",
+                  flexShrink: 0,
+                  mt: "2px",
+                }}
+              />
               <Typography className="sp-local-text">
-                Also serving clients across the Philippines and worldwide.{" "}
-                Need to{" "}
-                <Link href="/hire-web-developer-philippines" className="sp-local-link">
+                Also serving clients across the Philippines and worldwide. Need
+                to{" "}
+                <Link
+                  href="/hire-web-developer-philippines"
+                  className="sp-local-link"
+                >
                   hire a web developer in the Philippines
                 </Link>
                 ? Looking for{" "}
-                <Link href="/website-design-davao-city" className="sp-local-link">
+                <Link
+                  href="/website-design-davao-city"
+                  className="sp-local-link"
+                >
                   website design in Davao City
                 </Link>
                 {", "}
-                <Link href="/mobile-app-developer-davao" className="sp-local-link">
+                <Link
+                  href="/mobile-app-developer-davao"
+                  className="sp-local-link"
+                >
                   mobile app development in Davao
                 </Link>
                 {", "}
-                <Link href="/small-business-web-design-philippines" className="sp-local-link">
+                <Link
+                  href="/small-business-web-design-philippines"
+                  className="sp-local-link"
+                >
                   small business web design across the Philippines
                 </Link>
                 {", or "}

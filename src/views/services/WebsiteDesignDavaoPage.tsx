@@ -154,32 +154,20 @@ const WebsiteDesignDavaoPage = () => {
             : "#ffffff",
         }}
       >
-        <Box aria-hidden="true" className="sp-hero-bg">
-          <svg width="100%" height="100%" viewBox="0 0 1440 420" preserveAspectRatio="xMidYMid slice" fill="none">
-            <defs>
-              <pattern id="wsd-grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                <path d="M 40 0 L 0 0 0 40" fill="none" stroke={isDark ? "rgba(255,255,255,0.06)" : "#E2E8F0"} strokeWidth="1" />
-              </pattern>
-              <radialGradient id="wsd-glow" cx="85%" cy="35%" r="45%">
-                <stop offset="0%" stopColor="#22C55E" stopOpacity={isDark ? "0.14" : "0.18"} />
-                <stop offset="100%" stopColor="#22C55E" stopOpacity="0" />
-              </radialGradient>
-            </defs>
-            <rect width="1440" height="420" fill="url(#wsd-grid)" opacity="0.5" />
-            <circle cx="1200" cy="160" r="280" fill="url(#wsd-glow)" />
-          </svg>
-        </Box>
-
         <Box className="sp-hero-inner">
           <Box className="sp-badge">
             <span className="sp-badge-dot" />
             WEBSITE DESIGN · DAVAO CITY · PHILIPPINES
           </Box>
           <Typography variant="h1" className="sp-hero-title">
-            Professional Website Design in Davao City for Businesses That Want More Customers
+            Professional Website Design in Davao City for Businesses That Want
+            More Customers
           </Typography>
           <Typography className="sp-hero-sub">
-            Affordable website design for Davao businesses — fast, mobile-friendly, and SEO-optimized to help you get found on Google. From simple landing pages to full business websites, I help local brands win online.
+            Affordable website design for Davao businesses — fast,
+            mobile-friendly, and SEO-optimized to help you get found on Google.
+            From simple landing pages to full business websites, I help local
+            brands win online.
           </Typography>
           <Box className="sp-hero-ctas">
             <Button
@@ -205,7 +193,7 @@ const WebsiteDesignDavaoPage = () => {
       <Box className="page-section">
         <Box className="section-inner">
           <SectionHeader
-            title="What&apos;s Included in Every Website"
+            title="What's Included in Every Website"
             subtitle="Every website I design for Davao businesses covers all the essentials — no add-ons required."
           />
           <Box className="sp-features-grid">
@@ -268,12 +256,22 @@ const WebsiteDesignDavaoPage = () => {
         <Box className="page-section">
           <Box className="section-inner">
             <Box className="sp-prose-section">
-              <Typography className="sp-prose-label">SEO-Optimized by Design</Typography>
+              <Typography className="sp-prose-label">
+                SEO-Optimized by Design
+              </Typography>
               <Typography className="sp-prose-headline">
                 Your Website Should Rank on Google from Day One
               </Typography>
               <Typography className="sp-prose-text">
-                Most Davao businesses have websites that Google can&apos;t read properly — no structured headings, missing meta descriptions, slow load times, and no mobile optimization. I build every website with on-page SEO as a foundation, not an afterthought: proper H1–H3 hierarchy, descriptive meta tags, schema markup for local businesses, optimized images, and fast load times that meet Google&apos;s Core Web Vitals. You get a website that looks great AND gets found — without needing to hire an SEO agency on top.
+                Most Davao businesses have websites that Google can&apos;t read
+                properly — no structured headings, missing meta descriptions,
+                slow load times, and no mobile optimization. I build every
+                website with on-page SEO as a foundation, not an afterthought:
+                proper H1–H3 hierarchy, descriptive meta tags, schema markup for
+                local businesses, optimized images, and fast load times that
+                meet Google&apos;s Core Web Vitals. You get a website that looks
+                great AND gets found — without needing to hire an SEO agency on
+                top.
               </Typography>
             </Box>
           </Box>
@@ -290,7 +288,14 @@ const WebsiteDesignDavaoPage = () => {
                 How Much Does Website Design Cost in Davao City?
               </Typography>
               <Typography className="sp-prose-text">
-                Website design in Davao is more affordable than hiring Manila agencies — and you get direct access to the developer, not a middleman. A simple informational website starts from ₱15,000. Business websites with multiple pages, CMS, and contact forms typically range from ₱40,000–₱100,000. Custom designs with e-commerce start from ₱80,000. All quotes are scoped upfront after a free consultation — you know the full cost before any work begins. Maintenance packages are available after launch.
+                Website design in Davao is more affordable than hiring Manila
+                agencies — and you get direct access to the developer, not a
+                middleman. A simple informational website starts from ₱15,000.
+                Business websites with multiple pages, CMS, and contact forms
+                typically range from ₱40,000–₱100,000. Custom designs with
+                e-commerce start from ₱80,000. All quotes are scoped upfront
+                after a free consultation — you know the full cost before any
+                work begins. Maintenance packages are available after launch.
               </Typography>
             </Box>
           </Box>
@@ -310,7 +315,9 @@ const WebsiteDesignDavaoPage = () => {
                 <Box className="sp-why-item" key={item.title}>
                   <Box className="sp-why-icon">{item.icon}</Box>
                   <Box>
-                    <Typography className="sp-why-title">{item.title}</Typography>
+                    <Typography className="sp-why-title">
+                      {item.title}
+                    </Typography>
                     <Typography className="sp-why-sub">{item.sub}</Typography>
                   </Box>
                 </Box>
@@ -345,10 +352,20 @@ const WebsiteDesignDavaoPage = () => {
         <Box className="page-section">
           <Box className="section-inner">
             <Box className="sp-local-callout">
-              <LocationOnIcon sx={{ fontSize: 18, color: "var(--green-600)", flexShrink: 0, mt: "2px" }} />
+              <LocationOnIcon
+                sx={{
+                  fontSize: 18,
+                  color: "var(--green-600)",
+                  flexShrink: 0,
+                  mt: "2px",
+                }}
+              />
               <Typography className="sp-local-text">
                 Need more than a website? I also offer{" "}
-                <Link href="/web-development-services" className="sp-local-link">
+                <Link
+                  href="/web-development-services"
+                  className="sp-local-link"
+                >
                   custom web application development
                 </Link>
                 {", "}
@@ -356,19 +373,28 @@ const WebsiteDesignDavaoPage = () => {
                   e-commerce development
                 </Link>
                 {", and "}
-                <Link href="/mobile-app-developer-davao" className="sp-local-link">
+                <Link
+                  href="/mobile-app-developer-davao"
+                  className="sp-local-link"
+                >
                   mobile app development in Davao
                 </Link>
                 . Or{" "}
                 <Link href="/web-developer-davao" className="sp-local-link">
                   view my full web developer profile
-                </Link>
-                {" "}to see everything I build. Also see{" "}
-                <Link href="/small-business-web-design-philippines" className="sp-local-link">
+                </Link>{" "}
+                to see everything I build. Also see{" "}
+                <Link
+                  href="/small-business-web-design-philippines"
+                  className="sp-local-link"
+                >
                   small business web design across the Philippines
-                </Link>
-                {" "}and need to{" "}
-                <Link href="/hire-web-developer-philippines" className="sp-local-link">
+                </Link>{" "}
+                and need to{" "}
+                <Link
+                  href="/hire-web-developer-philippines"
+                  className="sp-local-link"
+                >
                   hire a developer in the Philippines
                 </Link>
                 ?

@@ -151,22 +151,6 @@ const MobileAppPage = () => {
             : "#ffffff",
         }}
       >
-        <Box aria-hidden="true" className="sp-hero-bg">
-          <svg width="100%" height="100%" viewBox="0 0 1440 420" preserveAspectRatio="xMidYMid slice" fill="none">
-            <defs>
-              <pattern id="ma-grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                <path d="M 40 0 L 0 0 0 40" fill="none" stroke={isDark ? "rgba(255,255,255,0.06)" : "#E2E8F0"} strokeWidth="1" />
-              </pattern>
-              <radialGradient id="ma-glow" cx="85%" cy="35%" r="45%">
-                <stop offset="0%" stopColor="#22C55E" stopOpacity={isDark ? "0.14" : "0.18"} />
-                <stop offset="100%" stopColor="#22C55E" stopOpacity="0" />
-              </radialGradient>
-            </defs>
-            <rect width="1440" height="420" fill="url(#ma-grid)" opacity="0.5" />
-            <circle cx="1200" cy="160" r="280" fill="url(#ma-glow)" />
-          </svg>
-        </Box>
-
         <Box className="sp-hero-inner">
           <Box className="sp-badge">
             <span className="sp-badge-dot" />
@@ -176,7 +160,10 @@ const MobileAppPage = () => {
             Custom Mobile App Development for iOS &amp; Android
           </Typography>
           <Typography className="sp-hero-sub">
-            Help your business grow with a mobile app built for real users. Cross-platform iOS and Android development using React Native — one codebase, two platforms, native performance. From MVP to App Store in weeks.
+            Help your business grow with a mobile app built for real users.
+            Cross-platform iOS and Android development using React Native — one
+            codebase, two platforms, native performance. From MVP to App Store
+            in weeks.
           </Typography>
           <Box className="sp-hero-ctas">
             <Button
@@ -249,7 +236,9 @@ const MobileAppPage = () => {
               {audience.map((a) => (
                 <Box className="sp-audience-card" key={a.title}>
                   <Box className="sp-audience-icon">{a.icon}</Box>
-                  <Typography className="sp-audience-title">{a.title}</Typography>
+                  <Typography className="sp-audience-title">
+                    {a.title}
+                  </Typography>
                   <Typography className="sp-audience-desc">{a.desc}</Typography>
                 </Box>
               ))}
@@ -291,7 +280,14 @@ const MobileAppPage = () => {
                 I Help Businesses Launch Mobile Apps Faster and Grow With Them
               </Typography>
               <Typography className="sp-prose-text">
-                Most app projects fail because they try to build everything at once. I work differently — starting with a tight MVP that validates your core idea, then iterating based on real user feedback. With 8+ years building software across e-commerce, retail, and enterprise systems, I know which shortcuts lead to technical debt and which trade-offs actually matter for a v1. You get a production-ready app you can ship, not a prototype that needs rebuilding in six months.
+                Most app projects fail because they try to build everything at
+                once. I work differently — starting with a tight MVP that
+                validates your core idea, then iterating based on real user
+                feedback. With 8+ years building software across e-commerce,
+                retail, and enterprise systems, I know which shortcuts lead to
+                technical debt and which trade-offs actually matter for a v1.
+                You get a production-ready app you can ship, not a prototype
+                that needs rebuilding in six months.
               </Typography>
             </Box>
           </Box>
@@ -323,26 +319,46 @@ const MobileAppPage = () => {
         <Box className="page-section">
           <Box className="section-inner">
             <Box className="sp-local-callout">
-              <LocationOnIcon sx={{ fontSize: 18, color: "var(--green-600)", flexShrink: 0, mt: "2px" }} />
+              <LocationOnIcon
+                sx={{
+                  fontSize: 18,
+                  color: "var(--green-600)",
+                  flexShrink: 0,
+                  mt: "2px",
+                }}
+              />
               <Typography className="sp-local-text">
-                Based in Davao City, Philippines — available for local and remote projects worldwide.{" "}
-                <Link href="/mobile-app-developer-davao" className="sp-local-link">
+                Based in Davao City, Philippines — available for local and
+                remote projects worldwide.{" "}
+                <Link
+                  href="/mobile-app-developer-davao"
+                  className="sp-local-link"
+                >
                   Looking for a mobile app developer in Davao?
-                </Link>
-                {" "}Also offering{" "}
-                <Link href="/web-development-services" className="sp-local-link">
+                </Link>{" "}
+                Also offering{" "}
+                <Link
+                  href="/web-development-services"
+                  className="sp-local-link"
+                >
                   full stack web development services
-                </Link>
-                {" "}and{" "}
+                </Link>{" "}
+                and{" "}
                 <Link href="/ecommerce-development" className="sp-local-link">
                   e-commerce development
                 </Link>
                 . Need to{" "}
-                <Link href="/hire-web-developer-philippines" className="sp-local-link">
+                <Link
+                  href="/hire-web-developer-philippines"
+                  className="sp-local-link"
+                >
                   hire a developer in the Philippines
                 </Link>
                 ? Also see{" "}
-                <Link href="/small-business-web-design-philippines" className="sp-local-link">
+                <Link
+                  href="/small-business-web-design-philippines"
+                  className="sp-local-link"
+                >
                   website packages for small businesses
                 </Link>
                 .

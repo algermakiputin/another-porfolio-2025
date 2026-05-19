@@ -155,32 +155,19 @@ const MobileAppDavaoPage = () => {
             : "#ffffff",
         }}
       >
-        <Box aria-hidden="true" className="sp-hero-bg">
-          <svg width="100%" height="100%" viewBox="0 0 1440 420" preserveAspectRatio="xMidYMid slice" fill="none">
-            <defs>
-              <pattern id="mad-grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                <path d="M 40 0 L 0 0 0 40" fill="none" stroke={isDark ? "rgba(255,255,255,0.06)" : "#E2E8F0"} strokeWidth="1" />
-              </pattern>
-              <radialGradient id="mad-glow" cx="85%" cy="35%" r="45%">
-                <stop offset="0%" stopColor="#22C55E" stopOpacity={isDark ? "0.14" : "0.18"} />
-                <stop offset="100%" stopColor="#22C55E" stopOpacity="0" />
-              </radialGradient>
-            </defs>
-            <rect width="1440" height="420" fill="url(#mad-grid)" opacity="0.5" />
-            <circle cx="1200" cy="160" r="280" fill="url(#mad-glow)" />
-          </svg>
-        </Box>
-
         <Box className="sp-hero-inner">
           <Box className="sp-badge">
             <span className="sp-badge-dot" />
             DAVAO CITY · PHILIPPINES · ON-SITE AVAILABLE
           </Box>
           <Typography variant="h1" className="sp-hero-title">
-            Custom Mobile App Developer in Davao City – iOS &amp; Android Apps for Businesses
+            Custom Mobile App Developer in Davao City – iOS &amp; Android Apps
+            for Businesses
           </Typography>
           <Typography className="sp-hero-sub">
-            I help businesses in Davao build mobile apps that streamline operations, reach more customers, and grow revenue. React Native development — from concept to App Store, on time and on budget.
+            I help businesses in Davao build mobile apps that streamline
+            operations, reach more customers, and grow revenue. React Native
+            development — from concept to App Store, on time and on budget.
           </Typography>
           <Box className="sp-hero-ctas">
             <Button
@@ -254,7 +241,9 @@ const MobileAppDavaoPage = () => {
                 <Box className="sp-why-item" key={item.title}>
                   <Box className="sp-why-icon">{item.icon}</Box>
                   <Box>
-                    <Typography className="sp-why-title">{item.title}</Typography>
+                    <Typography className="sp-why-title">
+                      {item.title}
+                    </Typography>
                     <Typography className="sp-why-sub">{item.sub}</Typography>
                   </Box>
                 </Box>
@@ -274,7 +263,15 @@ const MobileAppDavaoPage = () => {
                 How Much Does Mobile App Development Cost in Davao?
               </Typography>
               <Typography className="sp-prose-text">
-                Mobile app development in Davao City is significantly more affordable than hiring developers in Manila or abroad — without any compromise on quality or communication. An MVP app starts from ₱50,000 depending on features and scope. Full-featured apps with custom backends, integrations, and e-commerce typically range from ₱120,000 to ₱300,000+. Every project is quoted after a free discovery session with a clear milestone breakdown — you know the full cost before we start. Post-launch maintenance packages are available for ongoing updates and support.
+                Mobile app development in Davao City is significantly more
+                affordable than hiring developers in Manila or abroad — without
+                any compromise on quality or communication. An MVP app starts
+                from ₱50,000 depending on features and scope. Full-featured apps
+                with custom backends, integrations, and e-commerce typically
+                range from ₱120,000 to ₱300,000+. Every project is quoted after
+                a free discovery session with a clear milestone breakdown — you
+                know the full cost before we start. Post-launch maintenance
+                packages are available for ongoing updates and support.
               </Typography>
             </Box>
           </Box>
@@ -294,7 +291,9 @@ const MobileAppDavaoPage = () => {
                 <Box className="sp-why-item" key={step.title}>
                   <Box className="sp-why-icon">{step.icon}</Box>
                   <Box>
-                    <Typography className="sp-why-title">{step.title}</Typography>
+                    <Typography className="sp-why-title">
+                      {step.title}
+                    </Typography>
                     <Typography className="sp-why-sub">{step.sub}</Typography>
                   </Box>
                 </Box>
@@ -329,27 +328,43 @@ const MobileAppDavaoPage = () => {
         <Box className="page-section">
           <Box className="section-inner">
             <Box className="sp-local-callout">
-              <LocationOnIcon sx={{ fontSize: 18, color: "var(--green-600)", flexShrink: 0, mt: "2px" }} />
+              <LocationOnIcon
+                sx={{
+                  fontSize: 18,
+                  color: "var(--green-600)",
+                  flexShrink: 0,
+                  mt: "2px",
+                }}
+              />
               <Typography className="sp-local-text">
-                Based in Davao City — available for local and remote projects across the Philippines and worldwide.{" "}
-                Also offering{" "}
+                Based in Davao City — available for local and remote projects
+                across the Philippines and worldwide. Also offering{" "}
                 <Link href="/mobile-app-development" className="sp-local-link">
                   mobile app development services
-                </Link>
-                {" "}for clients outside Davao,{" "}
+                </Link>{" "}
+                for clients outside Davao,{" "}
                 <Link href="/web-developer-davao" className="sp-local-link">
                   web development in Davao City
                 </Link>
                 {", and "}
-                <Link href="/hire-web-developer-philippines" className="sp-local-link">
+                <Link
+                  href="/hire-web-developer-philippines"
+                  className="sp-local-link"
+                >
                   developer hiring for teams across the Philippines
                 </Link>
                 . Also see{" "}
-                <Link href="/website-design-davao-city" className="sp-local-link">
+                <Link
+                  href="/website-design-davao-city"
+                  className="sp-local-link"
+                >
                   website design in Davao City
-                </Link>
-                {" "}and{" "}
-                <Link href="/small-business-web-design-philippines" className="sp-local-link">
+                </Link>{" "}
+                and{" "}
+                <Link
+                  href="/small-business-web-design-philippines"
+                  className="sp-local-link"
+                >
                   small business web design across the Philippines
                 </Link>
                 .

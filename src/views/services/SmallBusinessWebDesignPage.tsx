@@ -146,32 +146,20 @@ const SmallBusinessWebDesignPage = () => {
             : "#ffffff",
         }}
       >
-        <Box aria-hidden="true" className="sp-hero-bg">
-          <svg width="100%" height="100%" viewBox="0 0 1440 420" preserveAspectRatio="xMidYMid slice" fill="none">
-            <defs>
-              <pattern id="sb-grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                <path d="M 40 0 L 0 0 0 40" fill="none" stroke={isDark ? "rgba(255,255,255,0.06)" : "#E2E8F0"} strokeWidth="1" />
-              </pattern>
-              <radialGradient id="sb-glow" cx="85%" cy="35%" r="45%">
-                <stop offset="0%" stopColor="#22C55E" stopOpacity={isDark ? "0.14" : "0.18"} />
-                <stop offset="100%" stopColor="#22C55E" stopOpacity="0" />
-              </radialGradient>
-            </defs>
-            <rect width="1440" height="420" fill="url(#sb-grid)" opacity="0.5" />
-            <circle cx="1200" cy="160" r="280" fill="url(#sb-glow)" />
-          </svg>
-        </Box>
-
         <Box className="sp-hero-inner">
           <Box className="sp-badge">
             <span className="sp-badge-dot" />
             SMALL BUSINESS WEB DESIGN · PHILIPPINES
           </Box>
           <Typography variant="h1" className="sp-hero-title">
-            Affordable Small Business Web Design in the Philippines – Websites That Convert Visitors into Clients
+            Affordable Small Business Web Design in the Philippines – Websites
+            That Convert Visitors into Clients
           </Typography>
           <Typography className="sp-hero-sub">
-            I help small businesses across the Philippines get online with affordable, professional websites — fast, mobile-friendly, and built to bring in more customers from Google. No agency overhead. No template shortcuts.
+            I help small businesses across the Philippines get online with
+            affordable, professional websites — fast, mobile-friendly, and built
+            to bring in more customers from Google. No agency overhead. No
+            template shortcuts.
           </Typography>
           <Box className="sp-hero-ctas">
             <Button
@@ -263,10 +251,19 @@ const SmallBusinessWebDesignPage = () => {
             <Box className="sp-prose-section">
               <Typography className="sp-prose-label">Why It Matters</Typography>
               <Typography className="sp-prose-headline">
-                Why Every Small Business in the Philippines Needs a Website in 2026
+                Why Every Small Business in the Philippines Needs a Website in
+                2026
               </Typography>
               <Typography className="sp-prose-text">
-                Filipino consumers Google before they buy — whether they&apos;re looking for a plumber in Cebu, a restaurant in Davao, or a clothing shop in Manila. If your business isn&apos;t on Google, you&apos;re invisible to that search. A well-designed website doesn&apos;t just look professional — it works as a 24/7 salesperson, builds credibility before a customer ever calls, and captures leads from people actively looking for what you offer. For small businesses, it&apos;s not a luxury — it&apos;s the most cost-effective marketing investment you can make.
+                Filipino consumers Google before they buy — whether they&apos;re
+                looking for a plumber in Cebu, a restaurant in Davao, or a
+                clothing shop in Manila. If your business isn&apos;t on Google,
+                you&apos;re invisible to that search. A well-designed website
+                doesn&apos;t just look professional — it works as a 24/7
+                salesperson, builds credibility before a customer ever calls,
+                and captures leads from people actively looking for what you
+                offer. For small businesses, it&apos;s not a luxury — it&apos;s
+                the most cost-effective marketing investment you can make.
               </Typography>
             </Box>
           </Box>
@@ -303,7 +300,15 @@ const SmallBusinessWebDesignPage = () => {
                 How Much Does a Small Business Website Cost in the Philippines?
               </Typography>
               <Typography className="sp-prose-text">
-                Affordable web design doesn&apos;t mean cheap quality — it means no agency overhead. A starter website for a small business starts from ₱15,000. Business websites with multiple pages, CMS integration, and SEO setup range from ₱35,000 to ₱80,000. Custom builds with e-commerce or booking systems start from ₱80,000. Every project is quoted after a free consultation with a clear scope — no hidden fees, no surprise invoices. Maintenance packages are available for businesses that want ongoing support after launch.
+                Affordable web design doesn&apos;t mean cheap quality — it means
+                no agency overhead. A starter website for a small business
+                starts from ₱15,000. Business websites with multiple pages, CMS
+                integration, and SEO setup range from ₱35,000 to ₱80,000. Custom
+                builds with e-commerce or booking systems start from ₱80,000.
+                Every project is quoted after a free consultation with a clear
+                scope — no hidden fees, no surprise invoices. Maintenance
+                packages are available for businesses that want ongoing support
+                after launch.
               </Typography>
             </Box>
           </Box>
@@ -335,15 +340,29 @@ const SmallBusinessWebDesignPage = () => {
         <Box className="page-section">
           <Box className="section-inner">
             <Box className="sp-local-callout">
-              <LocationOnIcon sx={{ fontSize: 18, color: "var(--green-600)", flexShrink: 0, mt: "2px" }} />
+              <LocationOnIcon
+                sx={{
+                  fontSize: 18,
+                  color: "var(--green-600)",
+                  flexShrink: 0,
+                  mt: "2px",
+                }}
+              />
               <Typography className="sp-local-text">
-                Based in Davao City and serving clients nationwide.{" "}
-                If you&apos;re in Davao, check out my{" "}
-                <Link href="/website-design-davao-city" className="sp-local-link">
+                Based in Davao City and serving clients nationwide. If
+                you&apos;re in Davao, check out my{" "}
+                <Link
+                  href="/website-design-davao-city"
+                  className="sp-local-link"
+                >
                   website design services in Davao City
-                </Link>
-                {" "}for local pricing and on-site availability. Need something more advanced? See my{" "}
-                <Link href="/web-development-services" className="sp-local-link">
+                </Link>{" "}
+                for local pricing and on-site availability. Need something more
+                advanced? See my{" "}
+                <Link
+                  href="/web-development-services"
+                  className="sp-local-link"
+                >
                   custom web development services
                 </Link>
                 {", "}
@@ -355,11 +374,17 @@ const SmallBusinessWebDesignPage = () => {
                   mobile app development
                 </Link>
                 . Looking to{" "}
-                <Link href="/hire-web-developer-philippines" className="sp-local-link">
+                <Link
+                  href="/hire-web-developer-philippines"
+                  className="sp-local-link"
+                >
                   hire a developer in the Philippines
                 </Link>
                 ? Also see{" "}
-                <Link href="/mobile-app-developer-davao" className="sp-local-link">
+                <Link
+                  href="/mobile-app-developer-davao"
+                  className="sp-local-link"
+                >
                   mobile app development in Davao
                 </Link>
                 .

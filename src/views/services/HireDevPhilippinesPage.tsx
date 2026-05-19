@@ -92,9 +92,18 @@ const audience = [
 ];
 
 const stack = [
-  "React", "Next.js", "TypeScript", "Node.js",
-  "Laravel", "PostgreSQL", "MySQL", "AWS",
-  "Docker", "React Native", "REST APIs", "CI/CD",
+  "React",
+  "Next.js",
+  "TypeScript",
+  "Node.js",
+  "Laravel",
+  "PostgreSQL",
+  "MySQL",
+  "AWS",
+  "Docker",
+  "React Native",
+  "REST APIs",
+  "CI/CD",
 ];
 
 const faqs = [
@@ -135,22 +144,6 @@ const HireDevPhilippinesPage = () => {
             : "#ffffff",
         }}
       >
-        <Box aria-hidden="true" className="sp-hero-bg">
-          <svg width="100%" height="100%" viewBox="0 0 1440 420" preserveAspectRatio="xMidYMid slice" fill="none">
-            <defs>
-              <pattern id="ph-grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                <path d="M 40 0 L 0 0 0 40" fill="none" stroke={isDark ? "rgba(255,255,255,0.06)" : "#E2E8F0"} strokeWidth="1" />
-              </pattern>
-              <radialGradient id="ph-glow" cx="85%" cy="35%" r="45%">
-                <stop offset="0%" stopColor="#22C55E" stopOpacity={isDark ? "0.14" : "0.18"} />
-                <stop offset="100%" stopColor="#22C55E" stopOpacity="0" />
-              </radialGradient>
-            </defs>
-            <rect width="1440" height="420" fill="url(#ph-grid)" opacity="0.5" />
-            <circle cx="1200" cy="160" r="280" fill="url(#ph-glow)" />
-          </svg>
-        </Box>
-
         <Box className="sp-hero-inner">
           <Box className="sp-badge">
             <span className="sp-badge-dot" />
@@ -160,7 +153,10 @@ const HireDevPhilippinesPage = () => {
             Hire a Senior Web Developer in the Philippines (8+ Years Experience)
           </Typography>
           <Typography className="sp-hero-sub">
-            Hire a Filipino full stack developer who helps you ship faster, reduce costs, and scale confidently — without the overhead of an agency or a full-time hire. Available for remote freelance projects worldwide.
+            Hire a Filipino full stack developer who helps you ship faster,
+            reduce costs, and scale confidently — without the overhead of an
+            agency or a full-time hire. Available for remote freelance projects
+            worldwide.
           </Typography>
           <Box className="sp-hero-ctas">
             <Button
@@ -230,10 +226,18 @@ const HireDevPhilippinesPage = () => {
             <Box className="sp-prose-section">
               <Typography className="sp-prose-label">Pricing</Typography>
               <Typography className="sp-prose-headline">
-                How Much Does It Cost to Hire a Web Developer in the Philippines?
+                How Much Does It Cost to Hire a Web Developer in the
+                Philippines?
               </Typography>
               <Typography className="sp-prose-text">
-                Filipino web developers offer some of the best value in the global market. Project-based work starts from $2,000 depending on scope and complexity. Hourly consulting is available for ongoing engagements — at rates significantly below the US, AU, or EU market without any compromise on quality. Unlike agencies, you pay for the work — not the overhead, the account manager, or the brand name. Every quote is scoped transparently: you know what you&apos;re getting before we start.
+                Filipino web developers offer some of the best value in the
+                global market. Project-based work starts from $2,000 depending
+                on scope and complexity. Hourly consulting is available for
+                ongoing engagements — at rates significantly below the US, AU,
+                or EU market without any compromise on quality. Unlike agencies,
+                you pay for the work — not the overhead, the account manager, or
+                the brand name. Every quote is scoped transparently: you know
+                what you&apos;re getting before we start.
               </Typography>
             </Box>
           </Box>
@@ -252,7 +256,9 @@ const HireDevPhilippinesPage = () => {
               {audience.map((a) => (
                 <Box className="sp-audience-card" key={a.title}>
                   <Box className="sp-audience-icon">{a.icon}</Box>
-                  <Typography className="sp-audience-title">{a.title}</Typography>
+                  <Typography className="sp-audience-title">
+                    {a.title}
+                  </Typography>
                   <Typography className="sp-audience-desc">{a.desc}</Typography>
                 </Box>
               ))}
@@ -278,17 +284,25 @@ const HireDevPhilippinesPage = () => {
                     py: 0.75,
                     borderRadius: "100px",
                     border: "1px solid",
-                    borderColor: isDark ? "rgba(255,255,255,0.12)" : "var(--border)",
-                    background: isDark ? "rgba(255,255,255,0.04)" : "var(--bg-card)",
+                    borderColor: isDark
+                      ? "rgba(255,255,255,0.12)"
+                      : "var(--border)",
+                    background: isDark
+                      ? "rgba(255,255,255,0.04)"
+                      : "var(--bg-card)",
                     fontSize: "0.83rem",
                     fontWeight: 500,
-                    color: isDark ? "rgba(255,255,255,0.75)" : "var(--text-secondary)",
+                    color: isDark
+                      ? "rgba(255,255,255,0.75)"
+                      : "var(--text-secondary)",
                     display: "flex",
                     alignItems: "center",
                     gap: 0.75,
                   }}
                 >
-                  <CheckCircleOutlineIcon sx={{ fontSize: 14, color: "var(--green-600)" }} />
+                  <CheckCircleOutlineIcon
+                    sx={{ fontSize: 14, color: "var(--green-600)" }}
+                  />
                   {tech}
                 </Box>
               ))}
@@ -322,11 +336,21 @@ const HireDevPhilippinesPage = () => {
         <Box className="page-section">
           <Box className="section-inner">
             <Box className="sp-local-callout">
-              <LocationOnIcon sx={{ fontSize: 18, color: "var(--green-600)", flexShrink: 0, mt: "2px" }} />
+              <LocationOnIcon
+                sx={{
+                  fontSize: 18,
+                  color: "var(--green-600)",
+                  flexShrink: 0,
+                  mt: "2px",
+                }}
+              />
               <Typography className="sp-local-text">
-                Serving clients in Davao City, Manila, and worldwide — remote-first from day one.{" "}
-                Also available for{" "}
-                <Link href="/web-development-services" className="sp-local-link">
+                Serving clients in Davao City, Manila, and worldwide —
+                remote-first from day one. Also available for{" "}
+                <Link
+                  href="/web-development-services"
+                  className="sp-local-link"
+                >
                   custom web development
                 </Link>
                 {", "}
@@ -340,9 +364,12 @@ const HireDevPhilippinesPage = () => {
                 . Based in Davao?{" "}
                 <Link href="/web-developer-davao" className="sp-local-link">
                   View my local web developer page
-                </Link>
-                {" "}or see{" "}
-                <Link href="/small-business-web-design-philippines" className="sp-local-link">
+                </Link>{" "}
+                or see{" "}
+                <Link
+                  href="/small-business-web-design-philippines"
+                  className="sp-local-link"
+                >
                   affordable website options for small businesses
                 </Link>
                 .

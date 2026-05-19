@@ -105,22 +105,6 @@ const WebDevelopmentPage = () => {
             : "#ffffff",
         }}
       >
-        <Box aria-hidden="true" className="sp-hero-bg">
-          <svg width="100%" height="100%" viewBox="0 0 1440 420" preserveAspectRatio="xMidYMid slice" fill="none">
-            <defs>
-              <pattern id="wd-grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                <path d="M 40 0 L 0 0 0 40" fill="none" stroke={isDark ? "rgba(255,255,255,0.06)" : "#E2E8F0"} strokeWidth="1" />
-              </pattern>
-              <radialGradient id="wd-glow" cx="85%" cy="35%" r="45%">
-                <stop offset="0%" stopColor="#22C55E" stopOpacity={isDark ? "0.14" : "0.18"} />
-                <stop offset="100%" stopColor="#22C55E" stopOpacity="0" />
-              </radialGradient>
-            </defs>
-            <rect width="1440" height="420" fill="url(#wd-grid)" opacity="0.5" />
-            <circle cx="1200" cy="160" r="280" fill="url(#wd-glow)" />
-          </svg>
-        </Box>
-
         <Box className="sp-hero-inner">
           <Box className="sp-badge">
             <span className="sp-badge-dot" />
@@ -130,7 +114,9 @@ const WebDevelopmentPage = () => {
             Build Scalable Web Applications That Power Your Business
           </Typography>
           <Typography className="sp-hero-sub">
-            From SaaS platforms to custom business tools — production-ready systems built with React, Node.js, TypeScript, and AWS. 8+ years delivering software that scales.
+            From SaaS platforms to custom business tools — production-ready
+            systems built with React, Node.js, TypeScript, and AWS. 8+ years
+            delivering software that scales.
           </Typography>
           <Box className="sp-hero-ctas">
             <Button
@@ -203,7 +189,9 @@ const WebDevelopmentPage = () => {
               {audience.map((a) => (
                 <Box className="sp-audience-card" key={a.title}>
                   <Box className="sp-audience-icon">{a.icon}</Box>
-                  <Typography className="sp-audience-title">{a.title}</Typography>
+                  <Typography className="sp-audience-title">
+                    {a.title}
+                  </Typography>
                   <Typography className="sp-audience-desc">{a.desc}</Typography>
                 </Box>
               ))}
@@ -222,7 +210,14 @@ const WebDevelopmentPage = () => {
                 From Idea to Scalable Product
               </Typography>
               <Typography className="sp-prose-text">
-                Most web projects fail not because of bad code — but because of unclear architecture, missed requirements, and shortcuts that compound into technical debt. I start every engagement with a discovery phase: understanding your users, your growth goals, and the constraints that matter. Then I design systems meant to last — not just ship. With 8+ years across e-commerce, banking, and enterprise software, I bring the judgment to make the right call early, before it becomes expensive to change.
+                Most web projects fail not because of bad code — but because of
+                unclear architecture, missed requirements, and shortcuts that
+                compound into technical debt. I start every engagement with a
+                discovery phase: understanding your users, your growth goals,
+                and the constraints that matter. Then I design systems meant to
+                last — not just ship. With 8+ years across e-commerce, banking,
+                and enterprise software, I bring the judgment to make the right
+                call early, before it becomes expensive to change.
               </Typography>
             </Box>
           </Box>
@@ -236,7 +231,11 @@ const WebDevelopmentPage = () => {
             <Box className="sp-case-study">
               <Typography className="sp-case-label">Featured Work</Typography>
               <Typography className="sp-case-text">
-                Built a multi-tenant SaaS platform for a retail chain managing 50+ stores — real-time inventory sync, role-based access for store managers, and a reporting dashboard that replaced 3 spreadsheet workflows. Deployed on AWS with zero-downtime releases and 99.9% uptime.
+                Built a multi-tenant SaaS platform for a retail chain managing
+                50+ stores — real-time inventory sync, role-based access for
+                store managers, and a reporting dashboard that replaced 3
+                spreadsheet workflows. Deployed on AWS with zero-downtime
+                releases and 99.9% uptime.
               </Typography>
               <Link href="/portfolio" className="sp-case-link">
                 See full portfolio <ArrowForwardIcon sx={{ fontSize: 14 }} />
@@ -244,10 +243,17 @@ const WebDevelopmentPage = () => {
             </Box>
 
             <Box className="sp-local-callout">
-              <LocationOnIcon sx={{ fontSize: 18, color: "var(--green-600)", flexShrink: 0, mt: "2px" }} />
+              <LocationOnIcon
+                sx={{
+                  fontSize: 18,
+                  color: "var(--green-600)",
+                  flexShrink: 0,
+                  mt: "2px",
+                }}
+              />
               <Typography className="sp-local-text">
-                Based in Davao City, Philippines — available for local projects and remote engagements worldwide.{" "}
-                Also offering{" "}
+                Based in Davao City, Philippines — available for local projects
+                and remote engagements worldwide. Also offering{" "}
                 <Link href="/mobile-app-development" className="sp-local-link">
                   mobile app development
                 </Link>
@@ -256,14 +262,20 @@ const WebDevelopmentPage = () => {
                   e-commerce development
                 </Link>
                 {", and "}
-                <Link href="/small-business-web-design-philippines" className="sp-local-link">
+                <Link
+                  href="/small-business-web-design-philippines"
+                  className="sp-local-link"
+                >
                   website design for small businesses in the Philippines
                 </Link>
                 . Looking to{" "}
-                <Link href="/hire-web-developer-philippines" className="sp-local-link">
+                <Link
+                  href="/hire-web-developer-philippines"
+                  className="sp-local-link"
+                >
                   hire a developer in the Philippines
-                </Link>
-                {" "}or need a{" "}
+                </Link>{" "}
+                or need a{" "}
                 <Link href="/web-developer-davao" className="sp-local-link">
                   local web developer in Davao
                 </Link>

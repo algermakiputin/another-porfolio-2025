@@ -98,47 +98,6 @@ const ContactPage = () => {
             : "#ffffff",
         }}
       >
-        <Box aria-hidden="true" className="contact-hero-bg">
-          <svg
-            width="100%"
-            height="100%"
-            viewBox="0 0 1440 400"
-            preserveAspectRatio="xMidYMid slice"
-            fill="none"
-          >
-            <defs>
-              <pattern
-                id="contact-grid"
-                width="40"
-                height="40"
-                patternUnits="userSpaceOnUse"
-              >
-                <path
-                  d="M 40 0 L 0 0 0 40"
-                  fill="none"
-                  stroke={isDark ? "rgba(255,255,255,0.06)" : "#E2E8F0"}
-                  strokeWidth="1"
-                />
-              </pattern>
-              <radialGradient id="contact-glow" cx="80%" cy="40%" r="45%">
-                <stop
-                  offset="0%"
-                  stopColor="#22C55E"
-                  stopOpacity={isDark ? "0.14" : "0.18"}
-                />
-                <stop offset="100%" stopColor="#22C55E" stopOpacity="0" />
-              </radialGradient>
-            </defs>
-            <rect
-              width="1440"
-              height="400"
-              fill="url(#contact-grid)"
-              opacity="0.5"
-            />
-            <circle cx="1150" cy="180" r="260" fill="url(#contact-glow)" />
-          </svg>
-        </Box>
-
         <Box className="contact-hero-inner">
           <Box className="hero-badge">
             <span className="hero-badge-dot" />
@@ -366,10 +325,10 @@ const ContactPage = () => {
                   Reach me directly at:
                 </Typography>
                 <a
-                  href="mailto:algerapudmakiputin@gmail.com"
+                  href="mailto:hello@algermakiputin.com"
                   className="contact-email-link"
                 >
-                  algerapudmakiputin@gmail.com
+                  hello@algermakiputin.com
                 </a>
               </Box>
             </Box>

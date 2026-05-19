@@ -142,22 +142,6 @@ const EcommercePage = () => {
             : "#ffffff",
         }}
       >
-        <Box aria-hidden="true" className="sp-hero-bg">
-          <svg width="100%" height="100%" viewBox="0 0 1440 420" preserveAspectRatio="xMidYMid slice" fill="none">
-            <defs>
-              <pattern id="ec-grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                <path d="M 40 0 L 0 0 0 40" fill="none" stroke={isDark ? "rgba(255,255,255,0.06)" : "#E2E8F0"} strokeWidth="1" />
-              </pattern>
-              <radialGradient id="ec-glow" cx="85%" cy="35%" r="45%">
-                <stop offset="0%" stopColor="#22C55E" stopOpacity={isDark ? "0.14" : "0.18"} />
-                <stop offset="100%" stopColor="#22C55E" stopOpacity="0" />
-              </radialGradient>
-            </defs>
-            <rect width="1440" height="420" fill="url(#ec-grid)" opacity="0.5" />
-            <circle cx="1200" cy="160" r="280" fill="url(#ec-glow)" />
-          </svg>
-        </Box>
-
         <Box className="sp-hero-inner">
           <Box className="sp-badge">
             <span className="sp-badge-dot" />
@@ -167,7 +151,9 @@ const EcommercePage = () => {
             Custom E-commerce Development for Businesses &amp; Startups
           </Typography>
           <Typography className="sp-hero-sub">
-            Build an online store that doesn&apos;t just look good — it converts visitors into paying customers. Custom storefronts, Shopify, WooCommerce, and headless commerce built for performance and growth.
+            Build an online store that doesn&apos;t just look good — it converts
+            visitors into paying customers. Custom storefronts, Shopify,
+            WooCommerce, and headless commerce built for performance and growth.
           </Typography>
           <Box className="sp-hero-ctas">
             <Button
@@ -193,7 +179,7 @@ const EcommercePage = () => {
       <Box className="page-section">
         <Box className="section-inner">
           <SectionHeader
-            title="What&apos;s Included in Every Store"
+            title="What's Included in Every Store"
             subtitle="Everything your e-commerce business needs to launch, sell, and scale."
           />
           <Box className="sp-features-grid">
@@ -261,7 +247,9 @@ const EcommercePage = () => {
               {audience.map((a) => (
                 <Box className="sp-audience-card" key={a.title}>
                   <Box className="sp-audience-icon">{a.icon}</Box>
-                  <Typography className="sp-audience-title">{a.title}</Typography>
+                  <Typography className="sp-audience-title">
+                    {a.title}
+                  </Typography>
                   <Typography className="sp-audience-desc">{a.desc}</Typography>
                 </Box>
               ))}
@@ -280,7 +268,15 @@ const EcommercePage = () => {
                 How I Build High-Converting Online Stores
               </Typography>
               <Typography className="sp-prose-text">
-                Most e-commerce failures aren&apos;t about the product — they&apos;re about the store. Slow load times kill conversions before a customer even sees your catalog. Confusing checkout flows send buyers to your competitors. I build stores with performance and UX as first-class concerns: sub-2-second load times, frictionless checkout, and mobile-first design. With experience across retail, banking, and enterprise systems, I bring the technical depth to build stores that don&apos;t just launch — they grow.
+                Most e-commerce failures aren&apos;t about the product —
+                they&apos;re about the store. Slow load times kill conversions
+                before a customer even sees your catalog. Confusing checkout
+                flows send buyers to your competitors. I build stores with
+                performance and UX as first-class concerns: sub-2-second load
+                times, frictionless checkout, and mobile-first design. With
+                experience across retail, banking, and enterprise systems, I
+                bring the technical depth to build stores that don&apos;t just
+                launch — they grow.
               </Typography>
             </Box>
           </Box>
@@ -312,11 +308,21 @@ const EcommercePage = () => {
         <Box className="page-section">
           <Box className="section-inner">
             <Box className="sp-local-callout">
-              <LocationOnIcon sx={{ fontSize: 18, color: "var(--green-600)", flexShrink: 0, mt: "2px" }} />
+              <LocationOnIcon
+                sx={{
+                  fontSize: 18,
+                  color: "var(--green-600)",
+                  flexShrink: 0,
+                  mt: "2px",
+                }}
+              />
               <Typography className="sp-local-text">
-                Based in Davao City, Philippines — building e-commerce stores for local businesses and global brands.{" "}
-                Also offering{" "}
-                <Link href="/web-development-services" className="sp-local-link">
+                Based in Davao City, Philippines — building e-commerce stores
+                for local businesses and global brands. Also offering{" "}
+                <Link
+                  href="/web-development-services"
+                  className="sp-local-link"
+                >
                   custom web development
                 </Link>
                 {", "}
@@ -324,11 +330,17 @@ const EcommercePage = () => {
                   mobile app development
                 </Link>
                 {", and "}
-                <Link href="/small-business-web-design-philippines" className="sp-local-link">
+                <Link
+                  href="/small-business-web-design-philippines"
+                  className="sp-local-link"
+                >
                   affordable websites for small businesses in the Philippines
                 </Link>
                 . Looking to{" "}
-                <Link href="/hire-web-developer-philippines" className="sp-local-link">
+                <Link
+                  href="/hire-web-developer-philippines"
+                  className="sp-local-link"
+                >
                   hire a developer in the Philippines
                 </Link>
                 ?
