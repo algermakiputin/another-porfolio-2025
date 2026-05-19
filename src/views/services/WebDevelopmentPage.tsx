@@ -98,48 +98,79 @@ const WebDevelopmentPage = () => {
     <>
       {/* ── Hero ── */}
       <Box
-        className="sp-hero"
+        className="sp-hero sp-hero--web-development"
         sx={{
           background: isDark
             ? "linear-gradient(160deg, #0b1220 0%, #111827 100%)"
             : "#ffffff",
         }}
       >
+        <Box className="sp-hero-decor sp-hero-decor--left" aria-hidden="true" />
+        <Box
+          className="sp-hero-decor sp-hero-decor--right"
+          aria-hidden="true"
+        />
         <Box className="sp-hero-inner">
-          <Box className="sp-badge">
-            <span className="sp-badge-dot" />
-            FULL STACK WEB DEVELOPMENT
+          <Box className="sp-hero-copy">
+            <Box className="sp-badge">
+              <span className="sp-badge-dot" />
+              FULL STACK WEB DEVELOPMENT
+            </Box>
+            <Typography variant="h1" className="sp-hero-title">
+              <span className="sp-hero-title-line">
+                Build Scalable Web&nbsp;Applications
+              </span>
+              <span className="sp-hero-title-line">
+                That Power Your&nbsp;Business
+              </span>
+            </Typography>
+            <Typography className="sp-hero-sub">
+              From SaaS platforms to custom business tools — production-ready
+              systems built with React, Node.js, TypeScript, and AWS. 8+ years
+              delivering software that scales.
+            </Typography>
+            <Box className="sp-hero-ctas">
+              <Button
+                onClick={() => router.push("/contact")}
+                variant="contained"
+                className="sp-hero-cta-primary"
+                endIcon={<ArrowForwardIcon />}
+              >
+                Get a Free Quote
+              </Button>
+              <Button
+                onClick={() => router.push("/portfolio")}
+                variant="outlined"
+                className="sp-hero-cta-secondary"
+              >
+                View My Work
+              </Button>
+            </Box>
           </Box>
-          <Typography variant="h1" className="sp-hero-title">
-            Build Scalable Web Applications That Power Your Business
-          </Typography>
-          <Typography className="sp-hero-sub">
-            From SaaS platforms to custom business tools — production-ready
-            systems built with React, Node.js, TypeScript, and AWS. 8+ years
-            delivering software that scales.
-          </Typography>
-          <Box className="sp-hero-ctas">
-            <Button
-              onClick={() => router.push("/contact")}
-              variant="contained"
-              className="sp-hero-cta-primary"
-              endIcon={<ArrowForwardIcon />}
-            >
-              Get a Free Quote
-            </Button>
-            <Button
-              onClick={() => router.push("/portfolio")}
-              variant="outlined"
-              className="sp-hero-cta-secondary"
-            >
-              View My Work
-            </Button>
+
+          <Box
+            className="sp-hero-visual"
+            aria-label="Custom SaaS dashboard preview"
+          >
+            <Box className="sp-hero-visual-shell">
+              <Box className="sp-hero-window-bar" aria-hidden="true">
+                <span />
+                <span />
+                <span />
+              </Box>
+              <Box
+                component="img"
+                src="/images/scalable-web-applications.webp"
+                alt="SaaS admin dashboard mockup for scalable web applications"
+                className="sp-hero-dashboard-img"
+              />
+            </Box>
           </Box>
         </Box>
       </Box>
 
       {/* ── Solutions I Deliver ── */}
-      <Box className="page-section">
+      <Box className="page-section sp-solutions-section">
         <Box className="section-inner">
           <SectionHeader
             title="Solutions I Deliver"
