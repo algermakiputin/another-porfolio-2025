@@ -97,9 +97,9 @@
   position: relative;
   display: inline;
   /* Option A: glow behind the accent word */
-  text-shadow:
-    0 0 32px rgba(22, 163, 74, 0.45),
-    0 0 72px rgba(22, 163, 74, 0.18);
+  /* text-shadow:
+    0 0 32px rgba(22, 163, 74, 0.15),
+    0 0 72px rgba(22, 163, 74, 0.08); */
 }
 
 /* Subtext */
