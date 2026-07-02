@@ -13,6 +13,7 @@ import Process from "./process/Process";
 import HireMeSection from "../../components/hireMeSection/HireMeSection";
 import RevealSection from "../../components/ui/RevealSection";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import VerifiedIcon from "@mui/icons-material/Verified";
 import "./homepage.css";
 import { useRouter } from "nextjs-toploader/app";
 import useGetTheme from "../../hooks/useGetTheme";
@@ -217,7 +218,7 @@ const HomePage = () => {
             <Grid size={{ md: 6, sm: 12, xs: 12 }} className="hero-content">
               <Box className="hero-badge">
                 <span className="hero-badge-dot" />
-                8+ YEARS BUILDING SCALABLE SYSTEMS
+                SOFTWARE ENGINEERING TEAM LEAD • FULL STACK
               </Box>
 
               <Typography variant="h1" className="hero-headline">
@@ -299,6 +300,18 @@ const HomePage = () => {
                       </Typography>
                       <Typography className="aws-cert-valid">
                         Issued by Amazon
+                      </Typography>
+                    </Box>
+                  </Box>
+
+                  <Box className="floating-cert-card floating-cert-card--fullstack">
+                    <VerifiedIcon className="floating-cert-icon" />
+                    <Box>
+                      <Typography className="floating-cert-label">
+                        Certified
+                      </Typography>
+                      <Typography className="floating-cert-title">
+                        Full Stack Developer
                       </Typography>
                     </Box>
                   </Box>
