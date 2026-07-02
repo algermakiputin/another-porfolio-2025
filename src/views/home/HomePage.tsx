@@ -39,9 +39,9 @@ const trustLogos = [
   { label: "AWS", icon: "/icons/AWS.png" },
   { label: "Google Cloud", icon: "/icons/GoogleCloud.png" },
   { label: "Docker", icon: "/icons/Docker.png" },
-  { label: "MySQL", icon: null },
-  { label: "OpenAI", icon: null },
-  { label: "Stripe", icon: null },
+  { label: "React", icon: "/icons/react.png" },
+  { label: "Node.js", icon: "/icons/node.js.png" },
+  { label: "TypeScript", icon: "/icons/typeScript.png" },
 ];
 
 const stats = [
@@ -95,6 +95,7 @@ const HomePage = () => {
   const [width] = useGetWindowsDimension();
   const router = useRouter();
   const isMobile = width <= 640;
+  const isTablet = width > 640 && width <= 899;
 
   return (
     <Fragment>
@@ -216,6 +217,18 @@ const HomePage = () => {
         <Box className="hero-inner">
           <Grid container spacing={{ xs: 3, md: 4 }} alignItems="center">
             <Grid size={{ md: 6, sm: 12, xs: 12 }} className="hero-content">
+              {isMobile && (
+                <Box className="hero-mobile-avatar">
+                  <img
+                    src="/images/profile.jpg"
+                    alt="Alger Makiputin"
+                    className="hero-mobile-avatar-img"
+                    width={56}
+                    height={56}
+                    loading="eager"
+                  />
+                </Box>
+              )}
               <Box className="hero-badge">
                 <span className="hero-badge-dot" />
                 SOFTWARE ENGINEERING TEAM LEAD • FULL STACK
@@ -237,6 +250,7 @@ const HomePage = () => {
                   <span className="hero-stat-chip">{YEARS_EXP} yrs</span>
                   <span className="hero-stat-chip">{PROJECTS} projects</span>
                   <span className="hero-stat-chip">{CLIENTS} clients</span>
+                  <span className="hero-stat-chip">{PERFORMANCE} perf</span>
                 </Box>
               ) : (
                 <Typography className="hero-trust-line">
@@ -264,9 +278,11 @@ const HomePage = () => {
                 </Button>
               </Box>
 
-              <Box className="hero-tech-desktop">
-                <TechStrip />
-              </Box>
+              {!isTablet && (
+                <Box className="hero-tech-desktop">
+                  <TechStrip />
+                </Box>
+              )}
             </Grid>
 
             {!isMobile && (
@@ -319,8 +335,8 @@ const HomePage = () => {
               </Grid>
             )}
 
-            {!isMobile && (
-              <Grid size={{ xs: 12 }} className="hero-tech-tablet-row">
+            {isTablet && (
+              <Grid size={{ xs: 12 }}>
                 <TechStrip />
               </Grid>
             )}
@@ -346,18 +362,14 @@ const HomePage = () => {
           <Box className="trust-logos">
             {trustLogos.map((logo) => (
               <Box key={logo.label} className="trust-logo-item">
-                {logo.icon ? (
-                  <img
-                    src={logo.icon}
-                    alt={logo.label}
-                    className="trust-logo-img"
-                    width={32}
-                    height={21}
-                    loading="lazy"
-                  />
-                ) : (
-                  <span className="trust-logo-text">{logo.label}</span>
-                )}
+                <img
+                  src={logo.icon}
+                  alt={logo.label}
+                  className="trust-logo-img"
+                  width={21}
+                  height={21}
+                  loading="lazy"
+                />
               </Box>
             ))}
           </Box>
