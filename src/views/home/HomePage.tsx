@@ -329,9 +329,7 @@ const HomePage = () => {
         }}
       >
         <Box className="trust-bar-inner">
-          <Typography className="trust-bar-label">
-            TRUSTED BY BUSINESSES IN:
-          </Typography>
+          <Typography className="trust-bar-label">Built with:</Typography>
           <Box className="trust-logos">
             {trustLogos.map((logo) => (
               <Box key={logo.label} className="trust-logo-item">
