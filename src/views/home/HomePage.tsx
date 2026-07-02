@@ -231,7 +231,7 @@ const HomePage = () => {
               )}
               <Box className="hero-badge">
                 <span className="hero-badge-dot" />
-                SOFTWARE ENGINEERING TEAM LEAD • FULL STACK
+                SOFTWARE ENGINEER • FULL STACK
               </Box>
 
               <Typography variant="h1" className="hero-headline">
