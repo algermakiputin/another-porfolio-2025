@@ -1,6 +1,14 @@
 "use client";
 
-import { Box, Button, Divider, IconButton, Menu, MenuItem, useTheme } from "@mui/material";
+import {
+  Box,
+  Button,
+  Divider,
+  IconButton,
+  Menu,
+  MenuItem,
+  useTheme,
+} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
@@ -21,8 +29,14 @@ const mainServiceItems = [
 const localServiceItems = [
   { label: "Web Developer – Davao", route: "/web-developer-davao" },
   { label: "Website Design – Davao", route: "/website-design-davao-city" },
-  { label: "Small Business Web Design", route: "/small-business-web-design-philippines" },
-  { label: "Mobile App Developer – Davao", route: "/mobile-app-developer-davao" },
+  {
+    label: "Small Business Web Design",
+    route: "/small-business-web-design-philippines",
+  },
+  {
+    label: "Mobile App Developer – Davao",
+    route: "/mobile-app-developer-davao",
+  },
 ];
 
 const servicesItems = [...mainServiceItems, ...localServiceItems];
@@ -31,7 +45,7 @@ const navGroups = [
   {
     label: "Navigation",
     items: [
-      { label: "About", route: "/", section: undefined },
+      { label: "Home", route: "/", section: undefined },
       { label: "Projects", route: "/portfolio", section: undefined },
       { label: "Blog", route: "/blog", section: undefined },
       { label: "Contact", route: "/contact", section: undefined },
@@ -55,7 +69,9 @@ const Header = () => {
   const [width] = useGetWindowsDimension();
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [servicesAnchor, setServicesAnchor] = useState<null | HTMLElement>(null);
+  const [servicesAnchor, setServicesAnchor] = useState<null | HTMLElement>(
+    null,
+  );
   const router = useRouter();
   const pathname = usePathname();
   const isMobile = width > 0 && width <= 900;
@@ -67,8 +83,10 @@ const Header = () => {
   }, []);
 
   useEffect(() => {
-    [...navItems, ...servicesItems].forEach((item) => router.prefetch(item.route));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    [...navItems, ...servicesItems].forEach((item) =>
+      router.prefetch(item.route),
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -139,7 +157,18 @@ const Header = () => {
                 aria-haspopup="true"
                 aria-expanded={Boolean(servicesAnchor)}
               >
-                Services <KeyboardArrowDownIcon sx={{ fontSize: 15, ml: 0.25, verticalAlign: "middle", transition: "transform 0.2s", transform: servicesAnchor ? "rotate(180deg)" : "rotate(0deg)" }} />
+                Services{" "}
+                <KeyboardArrowDownIcon
+                  sx={{
+                    fontSize: 15,
+                    ml: 0.25,
+                    verticalAlign: "middle",
+                    transition: "transform 0.2s",
+                    transform: servicesAnchor
+                      ? "rotate(180deg)"
+                      : "rotate(0deg)",
+                  }}
+                />
               </button>
               <Menu
                 anchorEl={servicesAnchor}
@@ -153,7 +182,9 @@ const Header = () => {
                       borderRadius: "10px",
                       boxShadow: "0 8px 32px rgba(0,0,0,0.12)",
                       background: isDark ? "#1e293b" : "#fff",
-                      border: isDark ? "1px solid rgba(255,255,255,0.08)" : "1px solid #e2e8f0",
+                      border: isDark
+                        ? "1px solid rgba(255,255,255,0.08)"
+                        : "1px solid #e2e8f0",
                     },
                   },
                 }}
@@ -161,34 +192,69 @@ const Header = () => {
                 {mainServiceItems.map((item) => (
                   <MenuItem
                     key={item.route}
-                    onClick={() => { linkHandler(item.route); setServicesAnchor(null); }}
+                    onClick={() => {
+                      linkHandler(item.route);
+                      setServicesAnchor(null);
+                    }}
                     selected={isActive(item.route)}
                     sx={{
                       fontSize: "0.875rem",
                       fontWeight: 500,
                       color: isDark ? "rgba(255,255,255,0.85)" : "#0f172a",
-                      "&.Mui-selected": { color: "#16a34a", background: "rgba(22,163,74,0.06)" },
-                      "&:hover": { background: isDark ? "rgba(255,255,255,0.06)" : "rgba(22,163,74,0.05)" },
+                      "&.Mui-selected": {
+                        color: "#16a34a",
+                        background: "rgba(22,163,74,0.06)",
+                      },
+                      "&:hover": {
+                        background: isDark
+                          ? "rgba(255,255,255,0.06)"
+                          : "rgba(22,163,74,0.05)",
+                      },
                     }}
                   >
                     {item.label}
                   </MenuItem>
                 ))}
-                <Divider sx={{ my: 0.5, borderColor: isDark ? "rgba(255,255,255,0.08)" : "#e2e8f0" }} />
-                <Box sx={{ px: 2, py: 0.25, fontSize: "0.68rem", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: isDark ? "rgba(255,255,255,0.35)" : "#94a3b8" }}>
+                <Divider
+                  sx={{
+                    my: 0.5,
+                    borderColor: isDark ? "rgba(255,255,255,0.08)" : "#e2e8f0",
+                  }}
+                />
+                <Box
+                  sx={{
+                    px: 2,
+                    py: 0.25,
+                    fontSize: "0.68rem",
+                    fontWeight: 600,
+                    letterSpacing: "0.08em",
+                    textTransform: "uppercase",
+                    color: isDark ? "rgba(255,255,255,0.35)" : "#94a3b8",
+                  }}
+                >
                   Davao City
                 </Box>
                 {localServiceItems.map((item) => (
                   <MenuItem
                     key={item.route}
-                    onClick={() => { linkHandler(item.route); setServicesAnchor(null); }}
+                    onClick={() => {
+                      linkHandler(item.route);
+                      setServicesAnchor(null);
+                    }}
                     selected={isActive(item.route)}
                     sx={{
                       fontSize: "0.875rem",
                       fontWeight: 500,
                       color: isDark ? "rgba(255,255,255,0.85)" : "#0f172a",
-                      "&.Mui-selected": { color: "#16a34a", background: "rgba(22,163,74,0.06)" },
-                      "&:hover": { background: isDark ? "rgba(255,255,255,0.06)" : "rgba(22,163,74,0.05)" },
+                      "&.Mui-selected": {
+                        color: "#16a34a",
+                        background: "rgba(22,163,74,0.06)",
+                      },
+                      "&:hover": {
+                        background: isDark
+                          ? "rgba(255,255,255,0.06)"
+                          : "rgba(22,163,74,0.05)",
+                      },
                     }}
                   >
                     {item.label}

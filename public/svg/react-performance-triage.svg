@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 445" font-family="-apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#334155"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="760" height="445" fill="#ffffff"/>
+  <text x="380" y="30" text-anchor="middle" font-size="18" font-weight="700" fill="#0f172a">Performance triage: measure, then categorize</text>
+
+  <!-- Measure box -->
+  <rect x="200" y="64" width="360" height="54" rx="8" fill="#eef2ff" stroke="#4338ca" stroke-width="1.5"/>
+  <text x="380" y="90" text-anchor="middle" font-size="14" font-weight="700" fill="#312e81">Measure first</text>
+  <text x="380" y="107" text-anchor="middle" font-size="12" fill="#4338ca">Profiler · React performance tracks</text>
+
+  <!-- fan-out arrows -->
+  <line x1="380" y1="118" x2="145" y2="168" stroke="#334155" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="380" y1="118" x2="380" y2="168" stroke="#334155" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="380" y1="118" x2="615" y2="168" stroke="#334155" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Category: Rendering -->
+  <rect x="40" y="170" width="210" height="230" rx="10" fill="#f8fafc" stroke="#334155" stroke-width="1.5"/>
+  <text x="145" y="200" text-anchor="middle" font-size="14" font-weight="700" fill="#0f172a">Rendering</text>
+  <text x="56" y="234" font-size="12" fill="#334155">• over-subscribed state</text>
+  <text x="56" y="262" font-size="12" fill="#334155">• unstable references</text>
+  <text x="56" y="290" font-size="12" fill="#334155">• large lists / tables</text>
+  <text x="56" y="318" font-size="12" fill="#334155">• rendering hidden content</text>
+
+  <!-- Category: Data & computation -->
+  <rect x="275" y="170" width="210" height="230" rx="10" fill="#f8fafc" stroke="#334155" stroke-width="1.5"/>
+  <text x="380" y="200" text-anchor="middle" font-size="14" font-weight="700" fill="#0f172a">Data &amp; computation</text>
+  <text x="291" y="234" font-size="12" fill="#334155">• expensive work in render</text>
+  <text x="291" y="262" font-size="12" fill="#334155">• duplicate requests</text>
+  <text x="291" y="290" font-size="12" fill="#334155">• slow local / DB queries</text>
+
+  <!-- Category: Network & bundle -->
+  <rect x="510" y="170" width="210" height="230" rx="10" fill="#f8fafc" stroke="#334155" stroke-width="1.5"/>
+  <text x="615" y="200" text-anchor="middle" font-size="14" font-weight="700" fill="#0f172a">Network &amp; bundle</text>
+  <text x="526" y="234" font-size="12" fill="#334155">• heavy JS bundle</text>
+  <text x="526" y="262" font-size="12" fill="#334155">• unoptimized images</text>
+  <text x="526" y="290" font-size="12" fill="#334155">• request waterfalls</text>
+
+  <text x="380" y="428" text-anchor="middle" font-size="12" font-style="italic" fill="#64748b">Not every slowdown is a React re-render — measure before you optimize.</text>
+</svg>

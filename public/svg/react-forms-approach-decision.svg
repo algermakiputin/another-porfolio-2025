@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 415" font-family="-apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#334155"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="760" height="415" fill="#ffffff"/>
+  <text x="380" y="30" text-anchor="middle" font-size="18" font-weight="700" fill="#0f172a">Match the form to its approach</text>
+
+  <!-- central node -->
+  <rect x="280" y="58" width="200" height="48" rx="8" fill="#eef2ff" stroke="#4338ca" stroke-width="1.5"/>
+  <text x="380" y="87" text-anchor="middle" font-size="13" font-weight="700" fill="#312e81">What kind of form is it?</text>
+
+  <!-- fan-out arrows -->
+  <line x1="380" y1="106" x2="105" y2="298" stroke="#334155" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="380" y1="106" x2="290" y2="298" stroke="#334155" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="380" y1="106" x2="475" y2="298" stroke="#334155" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="380" y1="106" x2="660" y2="298" stroke="#334155" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Box 1: controlled state -->
+  <rect x="20" y="300" width="170" height="76" rx="8" fill="#dcfce7" stroke="#15803d" stroke-width="1.5"/>
+  <text x="105" y="326" text-anchor="middle" font-size="13" font-weight="700" fill="#065f46">Controlled state</text>
+  <text x="105" y="346" text-anchor="middle" font-size="11" fill="#15803d">custom, calculator-style,</text>
+  <text x="105" y="362" text-anchor="middle" font-size="11" fill="#15803d">live-derived forms</text>
+
+  <!-- Box 2: form library -->
+  <rect x="205" y="300" width="170" height="76" rx="8" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="290" y="326" text-anchor="middle" font-size="13" font-weight="700" fill="#1e3a8a">Form library</text>
+  <text x="290" y="346" text-anchor="middle" font-size="11" fill="#2563eb">large forms, many</text>
+  <text x="290" y="362" text-anchor="middle" font-size="11" fill="#2563eb">independent fields</text>
+
+  <!-- Box 3: schema validation -->
+  <rect x="390" y="300" width="170" height="76" rx="8" fill="#fef9c3" stroke="#b45309" stroke-width="1.5"/>
+  <text x="475" y="326" text-anchor="middle" font-size="13" font-weight="700" fill="#92400e">Schema validation</text>
+  <text x="475" y="346" text-anchor="middle" font-size="11" fill="#b45309">reusable</text>
+  <text x="475" y="362" text-anchor="middle" font-size="11" fill="#b45309">business rules</text>
+
+  <!-- Box 4: domain + server -->
+  <rect x="575" y="300" width="170" height="76" rx="8" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="660" y="326" text-anchor="middle" font-size="13" font-weight="700" fill="#991b1b">Domain + server</text>
+  <text x="660" y="346" text-anchor="middle" font-size="11" fill="#dc2626">correctness-critical</text>
+  <text x="660" y="362" text-anchor="middle" font-size="11" fill="#dc2626">(money, business)</text>
+
+  <text x="380" y="400" text-anchor="middle" font-size="12" font-style="italic" fill="#64748b">No single winner — the interaction decides the approach, and you often combine them.</text>
+</svg>

@@ -1,0 +1,105 @@
+---
+title: "React Context vs Zustand vs Server State: What I Actually Use"
+description: "React Context vs Zustand vs server state: where each one fails, and why in my apps most state belongs to neither—it lives in the database."
+publishedDate: "Jul 05, 2026"
+readTime: "9 min read"
+category: "React"
+tags: ["React", "State Management", "Zustand", "TypeScript", "Architecture"]
+image: "/images/blog/covers/react-context-vs-zustand-vs-server-state.png"
+---
+
+The most useful thing I can tell you about React Context vs Zustand is that it's usually the wrong question. Context, Zustand and a server-state layer aren't competing for the same job — they solve three different problems — and in the apps I build, the biggest owner of state is none of them. It's the database. Get the ownership right first, and choosing between Context and a store becomes a small, swappable detail for one narrow slice of your app.
+
+This is the deeper dive under [how to choose state management for a React app](/blog/react-state-management). I'll cover where each option fails, then show what I actually run in production — an offline-first finance app where a local database is the source of truth (Hunter Vault), and a Supabase-backed POS (Zendtri) — and why "which store wins?" is the least interesting decision I make.
+
+## Quick summary
+
+- **Context, a client store and a server-state layer own different problems** — they're not rivals.
+- **Context** passes low-frequency shared UI values (theme, session); it re-renders broadly, so it's poor for frequently-changing state.
+- **A client store** (Zustand) handles complex, changing shared client state with narrow selector subscriptions — but it's not a server cache.
+- **A server-state layer** (TanStack Query, SWR) owns remote data with caching and refetch — not pure UI state.
+- In my apps, **persistent domain data lives in the database** (Dexie locally, Supabase remotely), not in any of the three.
+- **Derived values are computed, not stored** in yet another place.
+
+## The verdict, up front
+
+<img src="/svg/react-context-zustand-server-comparison.svg" alt="React Context vs Zustand vs server state comparison" style="width:100%;border-radius:10px;margin:1.5rem 0;" />
+
+- **Context** is a way to pass state down without prop-drilling. It's not a performance tool, and it re-renders every consumer when its value changes.
+- **A client store** (Zustand as the common example) gives you shared client state with selectors, so components subscribe to just the slice they read.
+- **A server-state layer** (TanStack Query, SWR) treats your backend as the source of truth and manages caching, refetching and deduplication for you.
+
+They don't overlap much. The mistakes happen when you force one to do another's job — and the biggest one is treating any of them as the home for data that really belongs in a database.
+
+## Where Context fails
+
+Context is perfect for a handful of low-frequency, widely-needed values: theme, the current session, a locale. The failure mode is using it as general state management. Because every consumer re-renders when the context value changes — and because it's easy to hand it a fresh object each render — one broad provider can re-render an entire subtree on a change that only one component cared about. If the value updates often or is read all over the tree, Context is the wrong tool. Split it by concern, keep values stable, and for anything hot, reach for a store instead.
+
+## Where a client store (Zustand) fails
+
+A store like Zustand fixes Context's main weakness: with selectors, a component re-renders only when the exact slice it reads changes. That makes it a good home for complex, frequently-changing shared client state — an in-progress cart, a multi-step wizard, cross-screen UI coordination.
+
+Its failure mode is scope creep in two directions. First, putting server data in it: the moment backend records live in the store, you own a second copy that goes stale, and you inherit cache invalidation and "which one is right?" forever. Second, putting purely local state in it: a value only one component uses doesn't belong in a global store at all. A store should hold shared client state — no more, no less.
+
+## Where server state belongs — and where it doesn't
+
+Remote data has needs that neither Context nor a store meets well: caching, background refetching, deduplication, stale-while-revalidate. That's what a server-state layer is for, and using one saves you from hand-rolling loading and caching logic in every component. Its failure mode is the mirror image — reaching for it to manage pure UI state, where it's pure overhead.
+
+There's a nuance here that shapes my own stack: in an offline-first app, the local database is the source of truth, so a remote query cache is a much smaller player than it would be in a server-first app. Which is a good bridge to what I actually run.
+
+## What I actually run
+
+I don't treat every kind of state as one global-state problem. Here's the ownership, by app.
+
+**Hunter Vault** is offline-first, so its centre of gravity isn't a store at all — it's the local database. Accounts, transactions, budgets, debts, goals and recurring records live in Dexie/IndexedDB, which is the local source of truth; the UI shouldn't wait on the network to show them. Components read that data through Dexie-backed reactive hooks — in some areas the Dexie subscription is wrapped in feature-specific hooks so components don't need to understand the database implementation directly. Derived numbers like account balances or a savings-goal's progress are computed from those records rather than stored as separate state (I explain why in [the architecture write-up](/blog/react-application-architecture), where getting this wrong once made balances stop matching the user's bank). Supabase and Firebase handle remote concerns — synchronization, auth, analytics — behind the sync layer. Temporary interface state stays in `useState` and feature hooks. App-wide concerns are handled independently with no shared context layer: theme is backed by Dexie — a `useLiveQuery()` hook reads the equipped settings row from IndexedDB so every component calling `useTheme()` stays reactive without a provider; haptics preference lives in `localStorage` with a custom `window.dispatchEvent` event bus (`hv:haptic-changed`) so listeners stay in sync across components; session is plain `useState` inside `useAuth()`, seeded by `supabase.auth.getSession()` and kept fresh via `onAuthStateChange()`. Zustand appears exactly once: a `persist` store for subscription state in `useRevenueCat.tsx`.
+
+**Zendtri** is server-first, so it sits differently. Supabase (Postgres with Row Level Security) is the source of truth for POS, inventory, purchasing, receiving, branches and reporting. Data fetching is mid-migration: around 13 hooks — `useBranches`, `useAlerts`, `useSubscription`, `useSales`, and others — use TanStack Query's `useQuery`/`useMutation`; around 10 more — `useItems`, `usePurchaseOrders`, `useTransfers`, `useReports`, `usePromotions` and others — still use the classic `useState` + `useEffect` pattern. Both reach Supabase through the same `api-client.ts` Edge Function wrapper; there are no direct `supabase.from()` calls in the hooks layer. React owns temporary screen and form state. There's no TanStack Query equivalent in Hunter Vault; when Dexie is your source of truth, `useLiveQuery()` handles the reactive reads and a query cache adds nothing.
+
+Here's the same thing as a map — note it's keyed by *owner*, not by library, because that's the part that's actually decided:
+
+| State | Hunter Vault | Zendtri |
+|---|---|---|
+| Persistent domain data | Dexie / IndexedDB (local source of truth) | Supabase / Postgres (source of truth) |
+| Derived values (balances, totals) | computed from records, not stored | computed / queried, not duplicated |
+| Temporary UI state | `useState` / feature hooks | `useState` / feature hooks |
+| Shared UI concerns (theme, session, …) | Dexie for theme; `localStorage` + event bus for haptics; plain `useState` for session; Zustand `persist` for subscriptions | app-level shared state |
+| Remote data fetching | — (`useLiveQuery` replaces a query cache) | TanStack Query (mid-migration) + `useState`/`useEffect` |
+| Remote sync / auth / analytics | Supabase / Firebase | Supabase |
+
+## The real lesson
+
+The reason "Context vs Zustand" feels hard is that people are trying to make one tool own all their state. Once you assign ownership by category — the database owns persistent domain data, React owns temporary UI state, shared client state owns cross-cutting UI concerns, the server-state layer owns remote data, and derived values stay derived — each tool has an obvious, narrow job. At that point the choice between Context and a store is a small implementation detail for one slice, not the architectural decision your whole app rests on.
+
+## Tradeoffs
+
+Every one of these carries a cost. Context over-used causes broad re-renders; a store adds structure you have to maintain; a server-state layer is a dependency to learn and configure. The offline-first choice that makes Dexie the source of truth in Hunter Vault has real tradeoffs of its own — synchronization, conflicts, migrations — which I dig into in [building an offline-first React app with Dexie](/blog/offline-first-react-dexie-indexeddb). Matching each tool to its category is what keeps you from adopting all of them by reflex.
+
+## My recommendation
+
+Decide by state category before you decide by library. Use Context for low-frequency shared UI values, a client store for complex shared client state, a server-state layer for remote data, and your database as the source of truth for persistent domain data — computing derived values instead of copying them. Don't crown a winner between Context and Zustand; they're for different slices, and the largest slice usually belongs to neither.
+
+## FAQs
+
+### Context or Zustand — which should I use?
+
+It depends on the state, not on the app. For low-frequency shared UI like theme or session, Context is fine. For complex or frequently-changing shared client state, a store with selectors re-renders less and scales better. For server data, use neither — it belongs in a server-state layer.
+
+### Should server data go in Zustand or Context?
+
+No. Server data belongs in a server-state layer that caches it and treats the backend as the source of truth. Putting it in a client store or Context creates a second copy that drifts stale and drags cache invalidation into your UI.
+
+### Do I even need a state library in an offline-first app?
+
+Less than you'd expect. When a local database like Dexie is your source of truth, most of your "state" is really queries against it. In Hunter Vault, even theme is a `useLiveQuery()` read from IndexedDB — no context provider needed. Session is plain `useState`. Zustand earns its place exactly once: a `persist` store for subscription state from RevenueCat. That's the whole store footprint.
+
+### Isn't "use all three" just avoiding the decision?
+
+It's the opposite. The decision is *which category a piece of state is in*; once you know that, the tool follows. Using each for its job — and recognizing most state belongs in the database — is more disciplined than routing everything through one store.
+
+---
+
+*Written by Alger Makiputin — a software engineering team lead and React developer from the Philippines who builds production web and mobile apps with React, TypeScript, Capacitor and modern backend technologies. Based on lessons from building and maintaining Hunter Vault, a React and Capacitor personal-finance application, and Zendtri POS, a multi-tenant React and Supabase business platform.*
+
+**Not sure where your app's state should live?** [See how I help teams design and build production React applications →](/#)
+
+*Related: [how to choose state management for a React app](/blog/react-state-management) · [building an offline-first React app with Dexie](/blog/offline-first-react-dexie-indexeddb) · [the React hub](/react/)*

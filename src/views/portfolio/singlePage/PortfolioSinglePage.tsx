@@ -9,6 +9,7 @@ import AndroidIcon from "@mui/icons-material/Android";
 import CategoryIcon from "@mui/icons-material/Category";
 import PeopleIcon from "@mui/icons-material/People";
 import LinkIcon from "@mui/icons-material/Link";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { useCallback, useEffect, useState } from "react";
@@ -27,6 +28,7 @@ const techIconMap: Record<string, string> = {
   "AWS": "/icons/AWS.png",
   "Docker": "/icons/Docker.png",
   "TypeScript": "/icons/typeScript.png",
+  "Supabase": "/icons/supabase.png",
 };
 
 const firstTwo = (text?: string): string => {
@@ -186,6 +188,13 @@ const PortfolioSinglePage = () => {
                           <Link href={project.meta.link ?? ""} target="_blank" className="quick-info-link">
                             {project.meta.website}
                           </Link>
+                        </Box>
+                      )}
+                      {project?.meta?.timeline && (
+                        <Box className="quick-info-row">
+                          <CalendarMonthIcon className="quick-info-icon" />
+                          <span className="quick-info-label">Timeline</span>
+                          <span className="quick-info-value">{project.meta.timeline}</span>
                         </Box>
                       )}
                     </>

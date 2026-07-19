@@ -11,11 +11,10 @@ import EmailIcon from "@mui/icons-material/Email";
 import "./footer.css";
 
 const navLinks = [
-  { label: "About", route: "/", section: "about" },
-  { label: "Projects", route: "/", section: "projects" },
-  { label: "Industries", route: "/", section: "industries" },
-  { label: "Blog", route: "/", section: "blog" },
-  { label: "Contact", route: "/", section: "contact" },
+  { label: "Home", route: "/", section: "about" },
+  { label: "Projects", route: "/portfolio/", section: "projects" },
+  { label: "Blog", route: "/blog/", section: "blog" },
+  { label: "Contact", route: "/contact/", section: "contact" },
 ];
 
 const resourceLinks = [
@@ -31,8 +30,14 @@ const serviceLinks = [
   { label: "Hire Me (Philippines)", route: "/hire-web-developer-philippines" },
   { label: "Web Developer – Davao", route: "/web-developer-davao" },
   { label: "Website Design – Davao", route: "/website-design-davao-city" },
-  { label: "Small Business Web Design", route: "/small-business-web-design-philippines" },
-  { label: "Mobile App Developer – Davao", route: "/mobile-app-developer-davao" },
+  {
+    label: "Small Business Web Design",
+    route: "/small-business-web-design-philippines",
+  },
+  {
+    label: "Mobile App Developer – Davao",
+    route: "/mobile-app-developer-davao",
+  },
 ];
 
 const socials = [
@@ -128,7 +133,11 @@ const Footer = () => {
             <Typography className="footer-col-heading">Services</Typography>
             <Box className="footer-link-list">
               {serviceLinks.map((link) => (
-                <Link key={link.label} href={link.route} className="footer-link">
+                <Link
+                  key={link.label}
+                  href={link.route}
+                  className="footer-link"
+                >
                   {link.label}
                 </Link>
               ))}
@@ -165,7 +174,11 @@ const Footer = () => {
                   rel="noreferrer"
                   className="footer-social-btn"
                   aria-label={s.label}
-                  onClick={() => trackEvent("social_click", { link_type: s.label.toLowerCase() })}
+                  onClick={() =>
+                    trackEvent("social_click", {
+                      link_type: s.label.toLowerCase(),
+                    })
+                  }
                 >
                   <span className="footer-social-icon">{s.icon}</span>
                   <span className="footer-social-label">{s.label}</span>

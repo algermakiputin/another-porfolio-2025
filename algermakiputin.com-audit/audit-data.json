@@ -1,0 +1,383 @@
+{
+  "summary": {
+    "health_score": 52,
+    "business_type": "Personal Portfolio / Freelance Developer — Full Stack (Davao City, Philippines + Global)",
+    "audit_date": "2026-07-11",
+    "url": "https://algermakiputin.com",
+    "top_findings": [
+      "Only 3 of 23 sitemap pages are indexed by Google — all key service pages invisible to search",
+      "4 pages have valid schema in compiled out/ but not served live — stale deployment",
+      "All 5 service/regional pages have duplicate brand suffix in title tags (Next.js metadata template bug)",
+      "Crypto/DePIN airdrop blog post is active QRG trust liability on portfolio domain",
+      "/about/ and /projects/ pages return 404 — nav links and portfolio CTAs lead to dead ends"
+    ],
+    "quick_wins": [
+      "Request indexing via Google Search Console for top 5 service pages (30 min)",
+      "Redeploy build to restore schema on 4 missing pages (10 min, zero code)",
+      "Fix title.template in layout.tsx to remove duplicate brand suffix (1 hour)",
+      "Add HTTP security headers via Cloudflare _headers file (30 min)",
+      "Filter blog feed to remove crypto/off-topic posts (30 min)",
+      "Create /llms.txt with 143-word identity paragraph (1–2 hours)"
+    ]
+  },
+  "categories": [
+    {
+      "name": "Technical SEO",
+      "score": 62,
+      "what_works": [
+        "HTTPS enforced with HTTP→HTTPS 301 redirect",
+        "www→non-www canonical redirect in place",
+        "Trailing slash consistency on all URLs",
+        "All 19 sitemap URLs return HTTP 200",
+        "meta robots: index, follow on all audited pages",
+        "Self-referencing canonical tags on all pages",
+        "Exactly 1 H1 per page",
+        "Viewport meta tag present",
+        "0 images missing alt text",
+        "Open Graph tags present",
+        "HTML lang='en' on all pages",
+        "No redirect chains (all resolve in 1 hop)",
+        "Clean hyphenated URL structure"
+      ],
+      "findings": [
+        {
+          "title": "Duplicate Brand Suffix in Title Tags",
+          "severity": "High",
+          "description": "All 5 service/regional pages render '| Alger Makiputin | Alger Makiputin' due to Next.js metadata template concatenation bug. 3 pages exceed 60 chars even without the duplicate.",
+          "recommendation": "In layout.tsx title.template, remove brand suffix from individual page metadata.title fields so the template appends it only once."
+        },
+        {
+          "title": "Zero HTTP Security Headers",
+          "severity": "High",
+          "description": "No HSTS, X-Content-Type-Options, X-Frame-Options, CSP, Referrer-Policy, or Permissions-Policy present despite Cloudflare CDN usage.",
+          "recommendation": "Add headers to Cloudflare _headers file or via Transform Rules."
+        },
+        {
+          "title": "13-15 Render-Blocking Scripts in <head>",
+          "severity": "High",
+          "description": "All pages have 13-15 synchronous script tags in <head> with no defer or async. Direct LCP/FCP contributor, estimated 300-600ms penalty on 4G mobile.",
+          "recommendation": "Use next/script with strategy='afterInteractive' for all non-critical scripts."
+        },
+        {
+          "title": "Blog Page Returns No Article Links",
+          "severity": "High",
+          "description": "Blog index renders with 0 crawlable article links. Blog articles are orphaned — Googlebot cannot discover them.",
+          "recommendation": "Convert blog listing to SSR/SSG or add individual article URLs to sitemap."
+        },
+        {
+          "title": "Sitemap lastmod Bulk-Stamped",
+          "severity": "Medium",
+          "description": "All 19 URLs share identical timestamp 2026-07-02T18:38:07.243Z. Google ignores bulk-generated lastmod values.",
+          "recommendation": "Generate lastmod from actual file Last-Modified headers in next-sitemap.config.js."
+        },
+        {
+          "title": "No BreadcrumbList Schema",
+          "severity": "Medium",
+          "description": "No BreadcrumbList structured data on any page. Missed free SERP enhancement.",
+          "recommendation": "Add BreadcrumbList JSON-LD to all service and regional pages."
+        },
+        {
+          "title": "Blog Listing Images Missing Dimensions",
+          "severity": "Medium",
+          "description": "9 of 11 blog listing images have no width/height attributes. CLS contributor.",
+          "recommendation": "Use Next.js <Image> component which enforces dimensions automatically."
+        }
+      ]
+    },
+    {
+      "name": "Content Quality",
+      "score": 56,
+      "what_works": [
+        "Concrete, specific statistics (8+ years, 40+ projects, 25+ clients, 40%+ perf improvement)",
+        "Industry specificity is strong (POS/barcode retail, Stripe/PayPal ecommerce, role-based banking)",
+        "Technical vocabulary is accurate and appropriately deep",
+        "Pricing transparency on landing pages (₱30,000 start / $2,000 start)",
+        "Unique local vs. offshore differentiation between Davao and Philippines pages",
+        "/web-developer-davao/ is the best-structured page on the site (72/100)"
+      ],
+      "findings": [
+        {
+          "title": "Crypto/DePIN Airdrop Post in Blog Index",
+          "severity": "Critical",
+          "description": "'Don't Miss the Next Big DePIN Airdrop: How to Earn Free $3DOS Tokens Today!' is surfaced on the professional portfolio domain. Active QRG trust liability.",
+          "recommendation": "Filter Medium RSS feed to technical content only. Remove all finance/crypto/collectibles category posts from blog index immediately."
+        },
+        {
+          "title": "/about/ Page Returns 404",
+          "severity": "Critical",
+          "description": "Nav 'About' link points to non-existent URL. Most important missing E-E-A-T page on the site.",
+          "recommendation": "Create src/app/about/page.tsx with professional bio, career timeline, credentials, and social links."
+        },
+        {
+          "title": "/projects/ Returns 404",
+          "severity": "Critical",
+          "description": "All 'View My Work' CTAs across the site link to a non-existent URL. Portfolio evidence unavailable.",
+          "recommendation": "Build /projects/ or /case-studies/ with at minimum 3 detailed case studies with measurable outcomes."
+        },
+        {
+          "title": "/web-development-services/ Thin Content",
+          "severity": "High",
+          "description": "645 words — below 800-word minimum for a primary service page. No pricing, FAQ, or process section. One unnamed case study in 3 sentences.",
+          "recommendation": "Expand to 800+ words. Add pricing section, 4-step process, 5-question FAQ, one named case study."
+        },
+        {
+          "title": "Blog Topical Scatter",
+          "severity": "High",
+          "description": "Blog describes 'full stack development insights' but 2026 posts include pickleball, One Piece collectibles, RPG apps, and crypto airdrops.",
+          "recommendation": "Filter feed to technical posts only, or relabel blog as 'Personal Writing' and de-emphasize in portfolio nav."
+        },
+        {
+          "title": "No Privacy Policy",
+          "severity": "Medium",
+          "description": "No privacy policy linked anywhere despite contact forms collecting data. QRG baseline trust requirement.",
+          "recommendation": "Create /privacy-policy/ and link from footer."
+        },
+        {
+          "title": "Testimonials Unverifiable",
+          "severity": "Medium",
+          "description": "Carlos R., Ian A., Arnel S. — first name + initial only, no company name, no website.",
+          "recommendation": "Add business names (with permission) and at least one LinkedIn/website link."
+        }
+      ]
+    },
+    {
+      "name": "Schema / Structured Data",
+      "score": 42,
+      "what_works": [
+        "All schema uses JSON-LD (correct format)",
+        "Person schema on homepage with 5-platform sameAs array",
+        "Service schema on 3 core service pages with provider linkback",
+        "/web-developer-davao/ Person schema has PostalAddress and Wikidata areaServed reference",
+        "Blog, ContactPage, CollectionPage, WebApplication schema types implemented"
+      ],
+      "findings": [
+        {
+          "title": "Stale Deployment — 4 Pages Schema Not Live",
+          "severity": "Critical",
+          "description": "hire-web-developer-philippines, website-design-davao-city, small-business-web-design-philippines, mobile-app-developer-davao all have valid JSON-LD in compiled out/ but are not served by the live site.",
+          "recommendation": "Trigger a fresh production deploy. Zero code changes needed."
+        },
+        {
+          "title": "Missing WebSite, ProfessionalService, and AggregateRating Schema",
+          "severity": "High",
+          "description": "No WebSite entity (Knowledge Panel), no ProfessionalService/LocalBusiness (local pack), no AggregateRating (star ratings in SERPs).",
+          "recommendation": "Replace homepage Person schema with 3-entity graph. See findings/schema.md for complete JSON-LD."
+        },
+        {
+          "title": "jobTitle Inconsistency Across 4 Pages",
+          "severity": "Medium",
+          "description": "4 different jobTitle values: 'Full Stack Developer', 'Senior Full Stack Developer', 'Senior Full Stack Web Developer', 'Full Stack Engineer'. Weakens entity confidence.",
+          "recommendation": "Standardize to 'Full Stack Developer' across all page.tsx schema definitions."
+        },
+        {
+          "title": "Homepage Person Missing @id and address",
+          "severity": "Medium",
+          "description": "No @id prevents Knowledge Graph entity anchoring. No address misses key local intent signal on highest-traffic page.",
+          "recommendation": "Add @id: 'https://algermakiputin.com#person' and PostalAddress for Davao City."
+        }
+      ]
+    },
+    {
+      "name": "Performance (CWV)",
+      "score": 40,
+      "what_works": [
+        "Next.js static export provides good TTFB baseline",
+        "Cloudflare CDN provides edge caching",
+        "Review images already in WebP format"
+      ],
+      "findings": [
+        {
+          "title": "13-15 Render-Blocking Scripts",
+          "severity": "High",
+          "description": "Estimated 300-600ms LCP/FCP penalty on 4G mobile. All non-critical scripts are synchronous in <head>.",
+          "recommendation": "Use next/script strategy='afterInteractive' for analytics. Add defer to remaining scripts."
+        },
+        {
+          "title": "Hero Image Served as JPEG (LCP Candidate)",
+          "severity": "High",
+          "description": "/images/profile.jpg is the likely LCP element. JPEG format with no preload or fetchpriority.",
+          "recommendation": "Use next/image <Image priority={true}> — auto-converts to WebP, adds fetchpriority=high."
+        },
+        {
+          "title": "6 Icon Images in PNG Format",
+          "severity": "Medium",
+          "description": "All technology icon images (/icons/*.png) are unoptimized PNG. Should be WebP or SVG.",
+          "recommendation": "Convert to WebP via next/image, or replace with inline SVG for icons."
+        },
+        {
+          "title": "Blog Images Missing Dimensions — CLS Risk",
+          "severity": "Medium",
+          "description": "9 of 11 blog listing images have no width/height. Layout shifts as images load, worsening CLS.",
+          "recommendation": "Use Next.js <Image> component on blog listing thumbnails."
+        }
+      ]
+    },
+    {
+      "name": "AI Search Readiness (GEO)",
+      "score": 51,
+      "what_works": [
+        "Next.js SSR — AI crawlers read all content without JavaScript",
+        "Strong sameAs array with 5 platforms including YouTube (0.737 citation correlation)",
+        "Name 'Alger Makiputin' is unique — zero disambiguation risk",
+        "Sitemap present and well-structured",
+        "Wikidata Davao City @id reference in /web-developer-davao/ areaServed"
+      ],
+      "findings": [
+        {
+          "title": "/llms.txt Does Not Exist",
+          "severity": "High",
+          "description": "HTTP 404. Highest-leverage single missing file for AI search visibility. Tells AI systems exactly how to describe the site.",
+          "recommendation": "Create public/llms.txt with 143-word identity paragraph. Template in findings/geo.md."
+        },
+        {
+          "title": "No FAQPage Schema",
+          "severity": "High",
+          "description": "FAQ content exists on 2 pages but zero FAQPage JSON-LD. Primary mechanism for AI Overviews and Perplexity to extract direct answers. Note: no longer generates Google rich results since May 2026.",
+          "recommendation": "Add FAQPage schema to /web-developer-davao/ and /hire-web-developer-philippines/."
+        },
+        {
+          "title": "No Bio Paragraph on Homepage",
+          "severity": "High",
+          "description": "Homepage H1 is a marketing tagline. AI models cannot extract identity or location from it. Stats appear as UI widgets, not citable prose.",
+          "recommendation": "Add 150-word bio paragraph to homepage. Template in ACTION-PLAN.md Phase 2.4."
+        },
+        {
+          "title": "All Passages Below 134-Word AI Citation Threshold",
+          "severity": "Medium",
+          "description": "FAQ answers are 25-38 words each. Optimal range is 134-167 words for AI citation likelihood.",
+          "recommendation": "Expand each FAQ answer to 3-4 sentences with context. Priority: pricing question ('₱30,000-₱80,000')."
+        },
+        {
+          "title": "No Wikidata Entity",
+          "severity": "Medium",
+          "description": "No Wikidata person stub for Alger Makiputin. Wikidata has no notability requirements.",
+          "recommendation": "Create at wikidata.org: P31=human, P106=software developer, P27=Philippines, P937=Davao City, P856=algermakiputin.com."
+        }
+      ]
+    },
+    {
+      "name": "SXO / Search Experience",
+      "score": 39,
+      "what_works": [
+        "Correct multi-tier page architecture (local/national/global landing pages)",
+        "Local signals on Davao page are strong (PHP pricing, on-site availability, local industries)",
+        "Service pages have correct intent alignment for target keywords",
+        "Clear CTAs and measurable trust signals on indexed pages"
+      ],
+      "findings": [
+        {
+          "title": "Indexation Crisis — 20 of 23 Pages Not in Google's Index",
+          "severity": "Critical",
+          "description": "site:algermakiputin.com returns only 3 results. All targeted service pages are invisible to Google. Correct page types exist but cannot rank because Google does not know they exist.",
+          "recommendation": "Use Google Search Console URL Inspection to request indexing for 5 priority pages. Verify server-rendered HTML contains content via view-source:."
+        },
+        {
+          "title": "No Dedicated React Native Page",
+          "severity": "High",
+          "description": "No dedicated page for 'react native developer philippines freelance' — a high-value specific keyword. Mobile app page buries React Native in body copy. Intent match score: 0/10.",
+          "recommendation": "Create /react-native-developer-philippines/ as standalone page."
+        },
+        {
+          "title": "No Google Business Profile",
+          "severity": "High",
+          "description": "Most impactful local trust signal completely absent. Competitors with GBP (address, phone, hours, reviews) consistently outrank for local Davao queries.",
+          "recommendation": "Claim and verify Google Business Profile for Davao City. Takes ~1 week for postcard verification."
+        },
+        {
+          "title": "Not Listed on Key Local Directories",
+          "severity": "Medium",
+          "description": "TechBehemoths (ranks #9) and Konigle (ranks #5) for 'web development services davao' do not list the site.",
+          "recommendation": "Submit free listings to both directories."
+        },
+        {
+          "title": "GitHub Pages Old Portfolio Diluting Brand",
+          "severity": "Medium",
+          "description": "algermakiputin.github.io/portfolio/ still appears in branded searches, splitting authority consolidation.",
+          "recommendation": "Add prominent redirect banner to old portfolio pointing to algermakiputin.com."
+        }
+      ]
+    },
+    {
+      "name": "Images",
+      "score": 60,
+      "what_works": [
+        "0 images missing alt text across all audited pages",
+        "Review images already in WebP format"
+      ],
+      "findings": [
+        {
+          "title": "Hero and Icon Images in JPEG/PNG Format",
+          "severity": "High",
+          "description": "/images/profile.jpg (JPEG LCP candidate) and 6 icon PNGs not converted to WebP.",
+          "recommendation": "Use next/image <Image> component — auto-converts to WebP and enforces dimensions."
+        },
+        {
+          "title": "Blog Listing Images Missing Dimensions",
+          "severity": "Medium",
+          "description": "9 of 11 blog thumbnail images have no width/height attributes, causing CLS.",
+          "recommendation": "Use next/image on blog listing component."
+        }
+      ]
+    }
+  ],
+  "action_plan": {
+    "phases": [
+      {
+        "name": "Phase 1: Critical Fixes",
+        "timeframe": "Week 1",
+        "items": [
+          "Request indexing for 5 service pages in Google Search Console",
+          "Fix title tag duplicate brand suffix in Next.js metadata template",
+          "Redeploy build to restore schema on 4 unserved pages",
+          "Add HTTP security headers to Cloudflare _headers file",
+          "Filter blog feed to remove crypto/off-topic posts",
+          "Create /about/ page with professional bio and credentials",
+          "Create /projects/ or /case-studies/ page with 3+ case studies"
+        ]
+      },
+      {
+        "name": "Phase 2: High-Impact Improvements",
+        "timeframe": "Weeks 2-3",
+        "items": [
+          "Replace homepage schema with 3-entity graph (Person + WebSite + ProfessionalService + AggregateRating)",
+          "Standardize jobTitle to 'Full Stack Developer' across all pages",
+          "Create /llms.txt with 143-word identity paragraph",
+          "Add 150-word bio paragraph to homepage",
+          "Fix render-blocking scripts using next/script afterInteractive strategy",
+          "Expand /web-development-services/ to 800+ words with pricing, FAQ, case study",
+          "Add FAQPage schema to Davao and Philippines landing pages",
+          "Add fetchpriority='high' and convert profile image to WebP via next/image"
+        ]
+      },
+      {
+        "name": "Phase 3: Content & Authority",
+        "timeframe": "Month 2",
+        "items": [
+          "Claim Google Business Profile for Davao City",
+          "Create arc.dev developer profile with link back to personal site",
+          "Submit free listings to TechBehemoths and Konigle",
+          "Create /react-native-developer-philippines/ standalone page",
+          "Create Wikidata person entity for Alger Makiputin",
+          "Add privacy policy page and footer link",
+          "Add BreadcrumbList schema to all service pages",
+          "Add redirect banner to old GitHub Pages portfolio"
+        ]
+      },
+      {
+        "name": "Phase 4: Monitoring & Iteration",
+        "timeframe": "Ongoing",
+        "items": [
+          "Monitor Google Search Console Coverage report for indexation progress",
+          "Track keyword positions monthly for 5 target queries",
+          "Publish 4+ technical blog posts as on-site content",
+          "Implement IndexNow for Bing/Yandex ping on deploy",
+          "Update stats in schema/copy as projects/clients grow"
+        ]
+      }
+    ]
+  },
+  "artifacts": {
+    "findings_dir": "findings/",
+    "screenshots_dir": "screenshots/"
+  }
+}

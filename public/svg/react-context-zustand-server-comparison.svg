@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 380" font-family="-apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="760" height="380" fill="#ffffff"/>
+  <text x="380" y="30" text-anchor="middle" font-size="18" font-weight="700" fill="#0f172a">Context vs a client store vs server state</text>
+
+  <!-- Card 1: Context -->
+  <rect x="20" y="70" width="230" height="290" rx="10" fill="#f8fafc" stroke="#334155" stroke-width="1.5"/>
+  <text x="135" y="100" text-anchor="middle" font-size="15" font-weight="700" fill="#0f172a">Context</text>
+  <line x1="36" y1="112" x2="234" y2="112" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="36" y="138" font-size="12" font-weight="700" fill="#15803d">Good for</text>
+  <text x="36" y="158" font-size="12" fill="#334155">Low-frequency shared</text>
+  <text x="36" y="176" font-size="12" fill="#334155">UI (theme, session)</text>
+  <text x="36" y="198" font-size="11" fill="#64748b">(built into React)</text>
+  <text x="36" y="230" font-size="12" font-weight="700" fill="#b91c1c">Breaks when</text>
+  <text x="36" y="250" font-size="12" fill="#334155">changes often / read</text>
+  <text x="36" y="268" font-size="12" fill="#334155">widely → broad</text>
+  <text x="36" y="286" font-size="12" fill="#334155">re-renders</text>
+
+  <!-- Card 2: Client store -->
+  <rect x="265" y="70" width="230" height="290" rx="10" fill="#f8fafc" stroke="#334155" stroke-width="1.5"/>
+  <text x="380" y="100" text-anchor="middle" font-size="15" font-weight="700" fill="#0f172a">Client store</text>
+  <line x1="281" y1="112" x2="479" y2="112" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="281" y="138" font-size="12" font-weight="700" fill="#15803d">Good for</text>
+  <text x="281" y="158" font-size="12" fill="#334155">Complex, changing</text>
+  <text x="281" y="176" font-size="12" fill="#334155">shared client state</text>
+  <text x="281" y="198" font-size="11" fill="#64748b">(e.g. Zustand, Jotai)</text>
+  <text x="281" y="230" font-size="12" font-weight="700" fill="#b91c1c">Breaks when</text>
+  <text x="281" y="250" font-size="12" fill="#334155">holding server data</text>
+  <text x="281" y="268" font-size="12" fill="#334155">→ stale copies</text>
+
+  <!-- Card 3: Server state -->
+  <rect x="510" y="70" width="230" height="290" rx="10" fill="#f8fafc" stroke="#334155" stroke-width="1.5"/>
+  <text x="625" y="100" text-anchor="middle" font-size="15" font-weight="700" fill="#0f172a">Server-state layer</text>
+  <line x1="526" y1="112" x2="724" y2="112" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="526" y="138" font-size="12" font-weight="700" fill="#15803d">Good for</text>
+  <text x="526" y="158" font-size="12" fill="#334155">Remote data:</text>
+  <text x="526" y="176" font-size="12" fill="#334155">caching, refetch, dedupe</text>
+  <text x="526" y="198" font-size="11" fill="#64748b">(TanStack Query, SWR)</text>
+  <text x="526" y="230" font-size="12" font-weight="700" fill="#b91c1c">Breaks when</text>
+  <text x="526" y="250" font-size="12" fill="#334155">used for pure UI</text>
+  <text x="526" y="268" font-size="12" fill="#334155">state → overkill</text>
+</svg>

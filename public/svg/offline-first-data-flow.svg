@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 530" font-family="-apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#334155"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="760" height="530" fill="#ffffff"/>
+  <text x="380" y="30" text-anchor="middle" font-size="18" font-weight="700" fill="#0f172a">Offline-first data flow (Hunter Vault)</text>
+
+  <!-- A: user action -->
+  <rect x="290" y="58" width="180" height="48" rx="8" fill="#f1f5f9" stroke="#334155" stroke-width="1.5"/>
+  <text x="380" y="87" text-anchor="middle" font-size="13" fill="#0f172a">User action</text>
+  <line x1="380" y1="106" x2="380" y2="146" stroke="#334155" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- B: Dexie -->
+  <rect x="250" y="146" width="260" height="56" rx="8" fill="#ecfeff" stroke="#0e7490" stroke-width="1.5"/>
+  <text x="380" y="171" text-anchor="middle" font-size="13" fill="#0f172a">Write to Dexie / IndexedDB</text>
+  <text x="380" y="189" text-anchor="middle" font-size="11" fill="#0e7490">local source of truth</text>
+
+  <!-- UI instant -->
+  <rect x="560" y="148" width="180" height="54" rx="8" fill="#ecfdf5" stroke="#15803d" stroke-width="1.5"/>
+  <text x="650" y="170" text-anchor="middle" font-size="13" fill="#065f46">UI updates instantly</text>
+  <text x="650" y="188" text-anchor="middle" font-size="11" fill="#15803d">reactive query</text>
+  <line x1="510" y1="174" x2="560" y2="174" stroke="#334155" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- B -> queue -->
+  <line x1="380" y1="202" x2="380" y2="242" stroke="#334155" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- C: sync queue -->
+  <rect x="290" y="242" width="180" height="48" rx="8" fill="#f1f5f9" stroke="#334155" stroke-width="1.5"/>
+  <text x="380" y="271" text-anchor="middle" font-size="13" fill="#0f172a">Sync queue</text>
+
+  <!-- C -> D -->
+  <line x1="380" y1="290" x2="380" y2="330" stroke="#334155" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="392" y="313" font-size="11" fill="#64748b">when online</text>
+
+  <!-- D: sync engine -->
+  <rect x="290" y="330" width="180" height="48" rx="8" fill="#f1f5f9" stroke="#334155" stroke-width="1.5"/>
+  <text x="380" y="359" text-anchor="middle" font-size="13" fill="#0f172a">Sync engine</text>
+
+  <!-- D <-> E -->
+  <line x1="380" y1="378" x2="380" y2="418" stroke="#334155" stroke-width="1.5" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+
+  <!-- E: cloud -->
+  <rect x="250" y="418" width="260" height="56" rx="8" fill="#eef2ff" stroke="#4338ca" stroke-width="1.5"/>
+  <text x="380" y="443" text-anchor="middle" font-size="13" fill="#0f172a">Supabase / Firebase</text>
+  <text x="380" y="461" text-anchor="middle" font-size="11" fill="#4338ca">cloud</text>
+
+  <text x="380" y="506" text-anchor="middle" font-size="12" font-style="italic" fill="#64748b">Local writes update the UI instantly; syncing and merging remote changes happen in the background.</text>
+</svg>

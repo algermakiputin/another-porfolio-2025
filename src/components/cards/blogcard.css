@@ -34,7 +34,8 @@
 }
 
 .blog-card-image {
-  height: 185px;
+  aspect-ratio: 1200 / 630;
+  height: auto;
   width: 100%;
   object-fit: cover;
   display: block;
@@ -147,9 +148,9 @@
 
 /* ─── Mobile: featured stays full, others go compact horizontal ─── */
 @media (max-width: 640px) {
-  /* Featured: keep full card, just trim image height */
+  /* Featured: keep full card; image keeps its 1200:630 aspect ratio */
   .blog-card--featured .blog-card-image {
-    height: 165px;
+    height: auto;
   }
 
   /* Compact: horizontal row layout */

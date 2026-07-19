@@ -1,6 +1,63 @@
 {
     "projects": [
         {
+            "platform": "web",
+            "category": "web-app",
+            "image": "https://placehold.co/800x450/0f172a/16a34a?text=Zendtri+POS",
+            "slug": "zendtri-pos",
+            "title": "Zendtri POS - Multi-Tenant Point-of-Sale & Inventory Platform",
+            "metaDescription": "A full-stack, multi-tenant SaaS POS and inventory system built for Philippine small businesses — from the retail counter to native mobile, with server-authoritative inventory math and a self-serve subscription billing engine.",
+            "role": "{{MY_ROLE — e.g. \"Full-stack Engineer / Solo Developer\"}}",
+            "responsibilities": [
+                "Multi-tenant architecture enforced with PostgreSQL Row-Level Security",
+                "Server-authoritative inventory math via SQL RPC functions",
+                "Data-driven subscription billing & plan-gating engine",
+                "MVVM architecture across separate desktop and mobile views",
+                "Cross-platform delivery to web, iOS, and Android via Capacitor",
+                "PayMongo checkout integration"
+            ],
+            "techStack": ["React", "TypeScript", "Vite", "Tailwind CSS", "Supabase", "PostgreSQL", "TanStack Query", "Capacitor", "PayMongo", "Deno"],
+            "shortDescription": "Zendtri POS is a subscription SaaS that gives small and medium Filipino businesses — retail shops, cafés, food stalls — a single system to run sales, track inventory across branches, manage staff, and handle billing. It runs as a responsive web app and as native iOS/Android apps from one codebase. Every row of data is scoped to an organization and branch, inventory quantities are computed authoritatively on the server, and access is gated by both role permissions and subscription plan tier.",
+            "meta": {
+                "industry": "Retail / Point-of-Sale SaaS",
+                "client": "Filipino SMEs — retail shops, cafés, and food stalls",
+                "timeline": "{{TIMELINE — e.g. \"2026\"}}"
+            },
+            "requirements": [
+                "Selling: POS terminal (desktop, tablet-landscape, and mobile layouts), promotions, transactions and receipts",
+                "Inventory: items, categories, stock levels, purchase orders, branch-to-branch stock transfers, low-stock alerts, barcode and label printing",
+                "Management: multi-branch, users and roles, customers, suppliers, cash management, activity and audit log",
+                "Reporting: sales reports, dashboards, PDF and Excel export",
+                "Billing: subscription plans, PayMongo checkout, plan-gated feature limits"
+            ],
+            "overview": "Zendtri POS is a subscription SaaS POS and inventory platform for small and medium Filipino businesses, delivered as a responsive web app and as native iOS and Android apps from a single React and TypeScript codebase. It is built around three systems that had to be correct rather than merely functional: true multi-tenancy, server-authoritative inventory math, and data-driven, plan-based feature gating. Roughly 20 route-level features span selling, inventory, management, reporting, and billing, all scoped by organization and branch.",
+            "challenge": "Off-the-shelf POS tools are usually either too expensive and enterprise-heavy for a neighborhood café, or too simplistic to handle real inventory — unit conversions, recipe-based deduction, multi-branch stock transfers. Filipino SMEs needed something that handles multiple branches under one business without data bleeding between them, gets inventory math right (buying flour by the sack but selling bread by the piece), supports local payment rails and peso pricing, scales cost via self-serve subscription tiers, and works on any device.",
+            "approach": "A single React and TypeScript application, backed by Supabase, shipped to web and to app stores via Capacitor. The core engineering focus was on three systems that had to be correct, not just functional: multi-tenancy, server-authoritative inventory, and plan-based feature gating. True multi-tenancy is enforced at the database with PostgreSQL Row-Level Security, so the database refuses to return another tenant's data even if a client tried. Every quantity-affecting transform — unit conversion, recipe deduction, sale creation — runs inside SQL functions on the server, keeping the sale, sale_items, payments, and inventory-movement chain consistent. Subscription plans store capabilities as JSONB feature flags and numeric limits, and the server re-validates every limit and returns HTTP 402 if a request slips past the client gates — so re-tiering a feature is a data change rather than a code deploy.",
+            "results": [
+                {
+                    "title": "Codebase",
+                    "metric": "75K+",
+                    "description": "~75,000 lines of TypeScript across 264 files"
+                },
+                {
+                    "title": "Feature Areas",
+                    "metric": "~20",
+                    "description": "Route-level features across selling, inventory, management, reporting, and billing"
+                },
+                {
+                    "title": "Tenant Isolation",
+                    "metric": "RLS",
+                    "description": "Multi-tenancy enforced at the database with PostgreSQL Row-Level Security"
+                },
+                {
+                    "title": "Platforms",
+                    "metric": "Web · iOS · Android",
+                    "description": "One codebase shipping to web, iOS, and Android via Capacitor"
+                }
+            ],
+            "conclusion": "Zendtri POS ships as one React and TypeScript codebase to web, iOS, and Android, with tenant isolation enforced in PostgreSQL, all inventory math computed server-side in SQL, and subscription features gated by data-driven JSONB plan flags rather than code deploys. The result is a POS and inventory platform where correctness lives at the database layer — a single source of truth that stays consistent across every client and form factor."
+        },
+        {
             "platform": "mobile",
             "category": "mobile-app",
             "image": "/images/projects/hunter-vault.webp",

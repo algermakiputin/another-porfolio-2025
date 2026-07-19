@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 440" font-family="-apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="760" height="440" fill="#ffffff"/>
+  <text x="380" y="30" text-anchor="middle" font-size="18" font-weight="700" fill="#0f172a">Test by risk, not by coverage</text>
+
+  <!-- pyramid bands (bottom = widest = most tests) -->
+  <polygon points="300,70 338,132 262,132" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
+  <polygon points="262,132 338,132 376,194 224,194" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <polygon points="224,194 376,194 414,256 186,256" fill="#e0e7ff" stroke="#4338ca" stroke-width="1.5"/>
+  <polygon points="186,256 414,256 452,318 148,318" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+  <polygon points="148,318 452,318 490,380 110,380" fill="#dcfce7" stroke="#15803d" stroke-width="1.5"/>
+
+  <!-- leaders -->
+  <line x1="319" y1="101" x2="500" y2="101" stroke="#94a3b8" stroke-width="1"/>
+  <line x1="357" y1="163" x2="500" y2="163" stroke="#94a3b8" stroke-width="1"/>
+  <line x1="395" y1="225" x2="500" y2="225" stroke="#94a3b8" stroke-width="1"/>
+  <line x1="433" y1="287" x2="500" y2="287" stroke="#94a3b8" stroke-width="1"/>
+  <line x1="471" y1="349" x2="500" y2="349" stroke="#94a3b8" stroke-width="1"/>
+
+  <!-- annotations -->
+  <text x="505" y="97" font-size="13" font-weight="700" fill="#0f172a">Manual</text>
+  <text x="505" y="113" font-size="11" fill="#64748b">device-specific, exploratory</text>
+
+  <text x="505" y="159" font-size="13" font-weight="700" fill="#0f172a">End-to-end</text>
+  <text x="505" y="175" font-size="11" fill="#64748b">a few critical paths only</text>
+
+  <text x="505" y="221" font-size="13" font-weight="700" fill="#0f172a">Integration</text>
+  <text x="505" y="237" font-size="11" fill="#64748b">feature workflows</text>
+
+  <text x="505" y="283" font-size="13" font-weight="700" fill="#0f172a">Component</text>
+  <text x="505" y="299" font-size="11" fill="#64748b">behavior on interaction</text>
+
+  <text x="505" y="345" font-size="13" font-weight="700" fill="#0f172a">Unit</text>
+  <text x="505" y="361" font-size="11" fill="#64748b">calculations, validators — many, fast</text>
+
+  <text x="300" y="418" text-anchor="middle" font-size="12" font-style="italic" fill="#64748b">More tests where a bug would hurt most; fewer where the cost outweighs the risk.</text>
+</svg>

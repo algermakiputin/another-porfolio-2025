@@ -3,7 +3,15 @@
 import { Grid, Skeleton, Box } from "@mui/material";
 import { useEffect, useState } from "react";
 import BlogCard from "../cards/BlogCard";
-import type { BlogPost } from "../../app/blog/page";
+
+type MediumPost = {
+  title: string;
+  description: string;
+  image: string;
+  publishedDate: string;
+  link: string;
+  category: string;
+};
 
 function urlify(text: string) {
   const match = text?.match(/https?:\/\/[^"]+/);
@@ -30,11 +38,11 @@ function formatReadableDate(raw: string) {
 type Props = {
   limit?: number;
   columns?: number;
-  initialPosts?: BlogPost[];
+  initialPosts?: MediumPost[];
 };
 
 const MediumPosts = ({ limit = 4, columns = 3, initialPosts }: Props) => {
-  const [posts, setPosts] = useState<BlogPost[]>(initialPosts ?? []);
+  const [posts, setPosts] = useState<MediumPost[]>(initialPosts ?? []);
   const [loading, setLoading] = useState(!initialPosts);
   const [fetchFailed, setFetchFailed] = useState(false);
 
@@ -51,7 +59,7 @@ const MediumPosts = ({ limit = 4, columns = 3, initialPosts }: Props) => {
         setPosts(
           items
             .filter((p) => p?.title && p?.pubDate && p?.link)
-            .map((post, _i) => {
+            .map((post) => {
               const tags = getContentTags(post);
               const figureValue = tags?.[0]?.tagName === "figure" ? tags?.[0]?.value : tags?.[1]?.value;
               const descTag = tags?.[1]?.tagName === "p" ? tags?.[1]?.value : tags?.[2]?.value;

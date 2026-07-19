@@ -14,14 +14,16 @@ type Props = {
   description: string;
   image: string;
   publishedDate: string;
+  readTime?: string;
   link: string;
   category?: string;
   index?: number;
 };
 
-const BlogCard = ({ title, description, image, publishedDate, link, category, index = 0 }: Props) => {
+const BlogCard = ({ title, description, image, publishedDate, readTime, link, category, index = 0 }: Props) => {
   const { isDark } = useGetTheme();
   const isCompact = index > 0;
+  const isExternal = link.startsWith("http");
 
   return (
     <Card elevation={0} className={`blog-card ${isDark ? "dark" : "light"}${isCompact ? " blog-card--compact" : " blog-card--featured"}`}>
@@ -40,13 +42,19 @@ const BlogCard = ({ title, description, image, publishedDate, link, category, in
           {title}
         </Typography>
 
-        <Typography className="blog-date-text">{publishedDate}</Typography>
+        <Typography className="blog-date-text">
+          {publishedDate}{readTime ? ` · ${readTime}` : ""}
+        </Typography>
 
         <Typography variant="body2" className="blog-description">
           {description}
         </Typography>
 
-        <Link href={link} target="_blank" className="blog-read-more">
+        <Link
+          href={link}
+          {...(isExternal ? { target: "_blank", rel: "noreferrer" } : {})}
+          className="blog-read-more"
+        >
           <span>Read more</span>
           <ArrowForwardIcon className="read-more-arrow" />
         </Link>

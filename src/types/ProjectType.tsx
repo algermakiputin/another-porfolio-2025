@@ -20,6 +20,7 @@ export type Project = {
         link?: string;
         linkLabel?: string;
         client?: string;
+        timeline?: string;
     },
     requirements?: string[];
     overview?: string;

@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import HomePage from "../views/home/HomePage";
+import { getBlogs } from "../lib/blog";
+import type { BlogMeta } from "../types/BlogType";
 
 export const metadata: Metadata = {
   title: "Alger Makiputin | Full Stack Developer for Startups & MVPs",
@@ -50,13 +52,15 @@ const jsonLd = {
 };
 
 export default function Page() {
+  const recentPosts: BlogMeta[] = getBlogs().slice(0, 4);
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <HomePage />
+      <HomePage recentPosts={recentPosts} />
     </>
   );
 }

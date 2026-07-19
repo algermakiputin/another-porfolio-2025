@@ -1,18 +1,17 @@
 "use client";
 
-import { Box, Typography } from "@mui/material";
-import MediumPosts from "../../components/medium/MediumPosts";
+import { Box, Grid, Typography } from "@mui/material";
+import BlogCard from "../../components/cards/BlogCard";
 import useGetTheme from "../../hooks/useGetTheme";
-import type { BlogPost } from "../../app/blog/page";
+import type { BlogMeta } from "../../types/BlogType";
 import "./blog.css";
 
-type Props = { posts?: BlogPost[] };
+type Props = { posts: BlogMeta[] };
 
 const BlogPage = ({ posts }: Props) => {
   const { isDark } = useGetTheme();
   return (
     <>
-      {/* Page header */}
       <Box
         className="blog-hero"
         sx={{
@@ -24,7 +23,7 @@ const BlogPage = ({ posts }: Props) => {
         <Box className="blog-hero-inner">
           <Box className="hero-badge">
             <span className="hero-badge-dot" />
-            LIVE FROM MEDIUM
+            WRITING
           </Box>
           <Typography variant="h1" className="blog-hero-title">
             From My Blog
@@ -41,9 +40,23 @@ const BlogPage = ({ posts }: Props) => {
         </Box>
       </Box>
 
-      {/* Articles grid */}
       <Box className="blog-grid-wrap">
-        <MediumPosts limit={9} columns={4} initialPosts={posts} />
+        <Grid container spacing={2.5} sx={{ flexGrow: 1, alignItems: "stretch" }}>
+          {posts.map((post, i) => (
+            <Grid size={{ lg: 4, md: 6, sm: 6, xs: 12 }} key={post.slug} sx={{ display: "flex" }}>
+              <BlogCard
+                title={post.title}
+                description={post.description}
+                image={post.image}
+                publishedDate={post.publishedDate}
+                readTime={post.readTime}
+                link={`/blog/${post.slug}`}
+                category={post.category}
+                index={i}
+              />
+            </Grid>
+          ))}
+        </Grid>
       </Box>
     </>
   );

@@ -1,6 +1,7 @@
 import { readFileSync } from "fs";
 import { join } from "path";
 import type { MetadataRoute } from "next";
+import { getBlogs } from "../lib/blog";
 
 export const dynamic = "force-static";
 
@@ -14,6 +15,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const { projects } = JSON.parse(file) as {
     projects: Array<{ slug: string }>;
   };
+
+  const blogs = getBlogs();
 
   const staticRoutes: MetadataRoute.Sitemap = [
     {
@@ -97,5 +100,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  return [...staticRoutes, ...projectRoutes];
+  const blogRoutes: MetadataRoute.Sitemap = blogs
+    .filter((b) => !b.noIndex)
+    .map((b) => ({
+      url: `${BASE_URL}/blog/${b.slug}/`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    }));
+
+  return [...staticRoutes, ...projectRoutes, ...blogRoutes];
 }

@@ -4,6 +4,7 @@ import { Fragment } from "react";
 import { Box, Grid, Button, Typography } from "@mui/material";
 import Reviews from "./reviews/Reviews";
 import Blog from "./blog/Blog";
+import type { BlogMeta } from "../../types/BlogType";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import Projects from "./projects/Projects";
@@ -90,7 +91,9 @@ const TechStrip = () => (
   </Box>
 );
 
-const HomePage = () => {
+type HomePageProps = { recentPosts: BlogMeta[] };
+
+const HomePage = ({ recentPosts }: HomePageProps) => {
   const { isDark } = useGetTheme();
   const [width] = useGetWindowsDimension();
   const router = useRouter();
@@ -445,7 +448,7 @@ const HomePage = () => {
       </RevealSection>
       <RevealSection delay={80}>
         <div id="blog">
-          <Blog />
+          <Blog posts={recentPosts} />
         </div>
       </RevealSection>
       <Box id="contact" sx={{ mt: { xs: 2, md: 4 } }}>
