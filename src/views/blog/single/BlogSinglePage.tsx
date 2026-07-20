@@ -7,6 +7,7 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import useGetTheme from "../../../hooks/useGetTheme";
 import type { BlogPost } from "../../../types/BlogType";
+import WrittenBy from "../../../components/blog/WrittenBy";
 import "./blog-single.css";
 
 type Props = { post: BlogPost | null };
@@ -81,6 +82,9 @@ const BlogSinglePage = ({ post }: Props) => {
         className={`blog-single-content ${isDark ? "dark" : "light"}`}
         dangerouslySetInnerHTML={{ __html: post.content }}
       />
+
+      {/* Author */}
+      <WrittenBy />
 
       {/* Footer nav */}
       <Box className="blog-single-footer">

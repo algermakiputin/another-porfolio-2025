@@ -266,6 +266,59 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
+/* ─── Written by ─── */
+.written-by-wrap {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 2rem 80px;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  border-top: 1px solid rgba(128, 128, 128, 0.12);
+  border-bottom: 1px solid rgba(128, 128, 128, 0.12);
+}
+
+.written-by-avatar {
+  border-radius: 50%;
+  flex-shrink: 0;
+  object-fit: cover;
+}
+
+.written-by-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.written-by-name {
+  font-size: 0.85rem !important;
+  font-weight: 700 !important;
+  font-family: 'Inter', sans-serif !important;
+  letter-spacing: 0.01em !important;
+}
+
+.written-by-bio {
+  font-size: 0.82rem !important;
+  line-height: 1.65 !important;
+  font-family: 'Inter', sans-serif !important;
+}
+
+.written-by-wrap.light .written-by-name {
+  color: #0f172a;
+}
+
+.written-by-wrap.light .written-by-bio {
+  color: #475569;
+}
+
+.written-by-wrap.dark .written-by-name {
+  color: #f1f5f9;
+}
+
+.written-by-wrap.dark .written-by-bio {
+  color: #94a3b8;
+}
+
 /* ─── Footer ─── */
 .blog-single-footer {
   max-width: 760px;
@@ -281,6 +334,7 @@
   .blog-single-header,
   .blog-single-image-wrap,
   .blog-single-content,
+  .written-by-wrap,
   .blog-single-footer {
     padding-left: 32px;
     padding-right: 32px;
@@ -292,6 +346,7 @@
   .blog-single-header,
   .blog-single-image-wrap,
   .blog-single-content,
+  .written-by-wrap,
   .blog-single-footer {
     padding-left: 24px;
     padding-right: 24px;
@@ -311,6 +366,7 @@
   .blog-single-header,
   .blog-single-image-wrap,
   .blog-single-content,
+  .written-by-wrap,
   .blog-single-footer {
     padding-left: 20px;
     padding-right: 20px;
