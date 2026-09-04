@@ -987,19 +987,6 @@ body {
   }
 }
 
-/* Progressive disclosure 1200–1439px: at this width both component tree and
-   compass cannot share the upper art area without crowding the copy column.
-   Component tree returns at ≥1440px when the viewport provides enough room. */
-@media (min-width: 1200px) and (max-width: 1439px) {
-  .pf-panel--components {
-    display: none;
-  }
-
-  .pf-hero__compass {
-    display: none;
-  }
-}
-
 /* ============================================================================
    WIDE STAGE — ≥1600px
    Header and hero expand to --pf-stage-max (1920px) so copy and logo align
