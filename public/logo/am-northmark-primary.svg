@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 196 96" role="img" aria-labelledby="title desc">
+  <title id="title">Alger Makiputin Northmark logo</title>
+  <desc id="desc">A geometric AM monogram followed by a four-point north marker.</desc>
+  <g fill="#F3EBDD">
+    <path fill-rule="evenodd" d="M8 80 34 16h16l26 64H59l-5.6-14H30.6L25 80H8Zm28.1-28h11.8L42 36.8 36.1 52Z"/>
+    <path d="M82 80V16h17l14 33.6L127 16h17v64h-16V45.4l-9.2 23.4h-11.6L98 45.4V80H82Z"/>
+  </g>
+  <path fill="#B7F43B" d="m148 48 20-6 20 6-20 6-20-6Z"/>
+  <path fill="#F2642C" d="m168 24 6 24-6 24-6-24 6-24Z"/>
+  <circle cx="168" cy="48" r="4.5" fill="#081522" stroke="#F3EBDD" stroke-width="2"/>
+</svg>

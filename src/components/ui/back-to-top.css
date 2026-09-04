@@ -1,0 +1,53 @@
+/* ── Scroll-to-top control ──────────────────────────────────────────────
+   Navy technical frame button, 44×44 px tap target.
+   Z-index 40 sits beneath the sticky nav (50+) and reading progress (60).
+   ─────────────────────────────────────────────────────────────────────── */
+.back-to-top {
+  position: fixed;
+  z-index: 40;
+  right: clamp(16px, 2vw, 32px);
+  bottom: max(clamp(16px, 2vw, 32px), env(safe-area-inset-bottom, 0px));
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  color: var(--portfolio-bone, #f2ebdd);
+  background: var(--portfolio-ink, #09131f);
+  border: 1px solid rgba(231, 101, 45, 0.72);
+  border-radius: 4px;
+  box-shadow: 0 8px 24px rgba(5, 15, 26, 0.16);
+  cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  /* Remove default button appearance */
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.back-to-top:hover {
+  border-color: var(--portfolio-orange, #e7652d);
+  box-shadow: 0 8px 24px rgba(5, 15, 26, 0.28);
+}
+
+.back-to-top:focus-visible {
+  outline: 2px solid var(--portfolio-orange, #e7652d);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Lift above the footer when it enters the viewport */
+.back-to-top--lifted {
+  bottom: max(72px, calc(env(safe-area-inset-bottom, 0px) + 72px));
+}
+
+/* Hide on tablet and mobile — fixed elements should not overlay hero or content */
+@media (max-width: 1099px) {
+  .back-to-top {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .back-to-top {
+    transition: none;
+  }
+}

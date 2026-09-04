@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
-import WebDeveloperDavaoPage from "../../views/services/WebDeveloperDavaoPage";
+import ServicePage from "../../views/services/ServicePage";
+import { SERVICES } from "../../data/services";
 
 const BASE_URL = "https://algermakiputin.com";
 const PAGE_URL = `${BASE_URL}/web-developer-davao/`;
 const OG_IMAGE = `${BASE_URL}/images/og-cover.jpg`;
-const TITLE = "Senior Web Developer in Davao City | Alger Makiputin";
+const TITLE = "Web Developer in Davao City | Alger Makiputin";
 const DESCRIPTION =
-  "Senior freelance web developer in Davao City — custom web apps, business systems & websites. On-site available. 8+ years experience. Free quote.";
+  "Freelance web developer in Davao City — custom web apps, business systems & websites. On-site available. 8+ years experience. Free quote.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -31,7 +32,7 @@ export const metadata: Metadata = {
     title: TITLE,
     description: DESCRIPTION,
     url: PAGE_URL,
-    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Senior Web Developer Davao City Philippines" }],
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Web Developer in Davao City, Philippines" }],
   },
   twitter: {
     card: "summary_large_image",
@@ -49,7 +50,7 @@ const jsonLd = {
   name: "Alger Makiputin",
   url: BASE_URL,
   image: `${BASE_URL}/images/profile.webp`,
-  jobTitle: "Senior Full Stack Web Developer",
+  jobTitle: "Product Engineer",
   description: DESCRIPTION,
   address: {
     "@type": "PostalAddress",
@@ -88,7 +89,7 @@ export default function Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <WebDeveloperDavaoPage />
+      <ServicePage content={SERVICES["web-developer-davao"]} />
     </>
   );
 }

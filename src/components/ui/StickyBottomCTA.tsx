@@ -22,7 +22,8 @@ const StickyBottomCTA = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  if (!visible || pathname === "/contact") return null;
+  // Hidden on the homepage (its editorial hero + contact strip already carry the CTAs)
+  if (!visible || pathname === "/contact" || pathname === "/") return null;
 
   return (
     <button

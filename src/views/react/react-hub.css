@@ -185,7 +185,7 @@
 }
 
 .rh-article:not(.rh-article--soon):hover {
-  background: rgba(22, 163, 74, 0.04);
+  background: rgba(36, 87, 230, 0.04);
 }
 
 .rh-article:not(.rh-article--soon):hover .rh-article-title {

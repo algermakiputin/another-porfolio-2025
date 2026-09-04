@@ -2,24 +2,20 @@ import { readFileSync } from "fs";
 import { join } from "path";
 import type { Metadata } from "next";
 import PortfolioSinglePage from "../../../views/portfolio/singlePage/PortfolioSinglePage";
+import type { Project } from "../../../types/ProjectType";
 
 const BASE_URL = "https://algermakiputin.com";
 
-type ProjectEntry = {
-  slug: string;
-  title: string;
-  metaDescription: string;
-  image?: string;
-  platform?: string;
-  techStack?: string[];
-};
+/** Placeholder images (e.g. placehold.co) must never reach OG/JSON-LD metadata. */
+const realImage = (img?: string): string | undefined =>
+  img && !img.includes("placehold.co") && !img.includes("placeholder") ? img : undefined;
 
-function getProjects(): ProjectEntry[] {
+function getProjects(): Project[] {
   const file = readFileSync(
     join(process.cwd(), "public/contents/projects.json"),
     "utf-8"
   );
-  return JSON.parse(file).projects;
+  return JSON.parse(file).projects as Project[];
 }
 
 export async function generateStaticParams() {
@@ -37,8 +33,9 @@ export async function generateMetadata({
   if (!project) return {};
 
   const url = `${BASE_URL}/project/${slug}/`;
-  const ogImage = project.image
-    ? { url: project.image, width: 1200, height: 630, alt: project.title }
+  const img = realImage(project.image);
+  const ogImage = img
+    ? { url: img, width: 1200, height: 630, alt: project.title }
     : { url: "/images/og-cover.jpg", width: 1200, height: 630, alt: project.title };
 
   return {
@@ -67,7 +64,8 @@ export default async function Page({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const project = getProjects().find((p) => p.slug === slug);
+  const projects = getProjects();
+  const project = projects.find((p) => p.slug === slug);
 
   const jsonLd = project
     ? {
@@ -84,7 +82,7 @@ export default async function Page({
           url: BASE_URL,
         },
         ...(project.techStack && { keywords: project.techStack.join(", ") }),
-        ...(project.image && { image: project.image }),
+        ...(realImage(project.image) && { image: realImage(project.image) }),
       }
     : null;
 
@@ -96,7 +94,7 @@ export default async function Page({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       )}
-      <PortfolioSinglePage />
+      <PortfolioSinglePage project={project} projects={projects} />
     </>
   );
 }

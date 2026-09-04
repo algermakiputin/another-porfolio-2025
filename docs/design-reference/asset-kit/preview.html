@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Faceless Portfolio Asset Preview</title>
+    <link rel="stylesheet" href="./tokens.css" />
+    <style>
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--portfolio-ink); font-family: Inter, Arial, sans-serif; }
+      .hero { position: relative; isolation: isolate; min-height: 900px; overflow: hidden; color: var(--portfolio-bone); background: var(--portfolio-ink); }
+      .grid { position: absolute; z-index: -5; inset: 0; background: url("./motifs/blueprint-grid.svg") repeat; background-size: 240px; opacity: .3; }
+      .grain { position: absolute; z-index: 20; inset: 0; background: url("./textures/paper-grain.svg") repeat; background-size: 256px; mix-blend-mode: soft-light; opacity: .22; pointer-events: none; }
+      .shards { position: absolute; z-index: -4; top: -100px; right: -90px; width: 820px; }
+      .compass { position: absolute; z-index: -2; top: 80px; left: 42%; width: 270px; opacity: .75; }
+      .copy { position: relative; z-index: 10; width: 560px; padding: 120px 0 0 48px; }
+      .copy small { color: var(--portfolio-orange); font-weight: 900; letter-spacing: .1em; }
+      .copy h1 { margin: 18px 0 20px; font: 112px/.84 Impact, "Arial Narrow", sans-serif; letter-spacing: -.035em; text-transform: uppercase; }
+      .copy h2 { margin: 0; color: var(--portfolio-orange); font-size: 27px; }
+      .copy p { width: 430px; color: rgba(242,235,221,.8); font-size: 17px; line-height: 1.6; }
+      .workstation { position: absolute; z-index: 5; right: -68px; bottom: -10px; width: 930px; }
+      .panel { position: absolute; z-index: 4; filter: drop-shadow(0 12px 18px rgba(0,0,0,.25)); }
+      .system { top: 62px; right: 320px; width: 390px; }
+      .components { top: 70px; right: 24px; width: 310px; }
+      .database { top: 226px; right: 698px; width: 128px; }
+      .status { top: 426px; right: 720px; width: 136px; }
+      .about { display: grid; grid-template-columns: .75fr 1.25fr; min-height: 620px; padding: 70px 5vw; background: var(--portfolio-bone); color: var(--portfolio-charcoal); }
+      .about h2 { margin: 0 0 14px; font: 74px/.9 Impact, "Arial Narrow", sans-serif; text-transform: uppercase; }
+      .about h3 { color: var(--portfolio-orange); }
+      .about p { max-width: 430px; line-height: 1.65; }
+      .about img { width: 100%; max-height: 500px; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section class="hero">
+        <div class="grid"></div><div class="grain"></div>
+        <img class="shards" src="./motifs/accent-shards.svg" alt="" />
+        <img class="compass" src="./motifs/compass-star.svg" alt="" />
+        <div class="copy"><small>✦ PORTFOLIO 2026</small><h1>Alger<br />Makiputin</h1><h2>Senior Frontend Engineer</h2><p>I build reliable web and mobile products that turn complex systems into clear experiences.</p></div>
+        <img class="panel system" src="./panels/system-architecture.svg" alt="" />
+        <img class="panel components" src="./panels/component-tree.svg" alt="" />
+        <img class="panel database" src="./panels/database.svg" alt="" />
+        <img class="panel status" src="./panels/status.svg" alt="" />
+        <img class="workstation" src="./characters/faceless-workstation.webp" alt="Illustrated developer working at a software engineering workstation" />
+      </section>
+      <section class="about"><div><h2>About Me</h2><h3>Builder. Lead. Problem solver.</h3><p>Eight-plus years building scalable web and mobile products, leading teams and turning complex systems into clear user experiences.</p></div><img src="./panels/about-system-map.svg" alt="Product, frontend, architecture and mobile system map" /></section>
+    </main>
+  </body>
+</html>

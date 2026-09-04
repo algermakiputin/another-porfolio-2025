@@ -4,9 +4,9 @@ import { getBlogs } from "../lib/blog";
 import type { BlogMeta } from "../types/BlogType";
 
 export const metadata: Metadata = {
-  title: "Alger Makiputin | Full Stack Developer for Startups & MVPs",
+  title: "Alger Makiputin — Product Engineer | React, React Native & TypeScript",
   description:
-    "Full Stack Developer helping startups and businesses build scalable MVPs, web apps, and production-ready systems using React, Node.js, TypeScript, and AWS.",
+    "Product Engineer with 8+ years of experience shipping production software across web, iOS, Android, APIs, and data using React, React Native, TypeScript, and Node.js.",
   alternates: {
     canonical: "https://algermakiputin.com/",
   },
@@ -18,9 +18,9 @@ const jsonLd = {
   name: "Alger Makiputin",
   url: "https://algermakiputin.com",
   image: "https://algermakiputin.com/images/profile.webp",
-  jobTitle: "Full Stack Developer",
+  jobTitle: "Product Engineer",
   description:
-    "Full Stack Developer helping startups and businesses build scalable MVPs, web apps, and production-ready systems using React, Node.js, TypeScript, and AWS.",
+    "Product Engineer with 8+ years of experience shipping production software across web, iOS, Android, APIs, and data using React, React Native, TypeScript, and Node.js.",
   sameAs: [
     "https://ph.linkedin.com/in/alger-makiputin",
     "https://github.com/algermakiputin",
@@ -29,21 +29,20 @@ const jsonLd = {
     "https://algerwrites.medium.com/",
   ],
   knowsAbout: [
-    "Full Stack Web Development",
-    "MVP Development for Startups",
-    "SaaS Application Development",
-    "E-commerce Development",
     "React",
-    "Node.js",
+    "React Native",
     "TypeScript",
-    "AWS Cloud Infrastructure",
-    "Laravel",
-    "Docker",
-    "REST API Development",
-    "System Architecture",
-    "Performance Optimization",
-    "Mobile App Development",
-    "Retail Inventory Systems",
+    "Node.js",
+    "Next.js",
+    "Mobile Application Development",
+    "Product Engineering",
+    "API Development",
+    "PostgreSQL",
+    "Software Architecture",
+    "Engineering Leadership",
+    "Multi-Tenant Systems",
+    "Offline-First Applications",
+    "Cross-Platform Delivery",
   ],
   worksFor: {
     "@type": "Organization",
@@ -52,7 +51,14 @@ const jsonLd = {
 };
 
 export default function Page() {
-  const recentPosts: BlogMeta[] = getBlogs().slice(0, 4);
+  // Homepage "Field Notes" is curated independently of the blog archive order:
+  // explicitly-flagged posts (by homepageOrder) win; otherwise fall back to the
+  // real newest three so the section is never empty.
+  const allPosts = getBlogs();
+  const curated = allPosts
+    .filter((p) => p.featuredOnHomepage)
+    .sort((a, b) => (a.homepageOrder ?? 99) - (b.homepageOrder ?? 99));
+  const recentPosts: BlogMeta[] = (curated.length ? curated : allPosts).slice(0, 3);
 
   return (
     <>

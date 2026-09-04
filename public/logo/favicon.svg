@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">Alger Makiputin north marker</title>
+  <desc id="desc">A compact four-point north marker on a dark square.</desc>
+  <rect width="64" height="64" fill="#081522"/>
+  <path fill="#B7F43B" d="m10 32 22-7 22 7-22 7-22-7Z"/>
+  <path fill="#F2642C" d="m32 6 7 26-7 26-7-26 7-26Z"/>
+  <circle cx="32" cy="32" r="5" fill="#081522" stroke="#F3EBDD" stroke-width="2.5"/>
+</svg>

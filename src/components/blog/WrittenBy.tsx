@@ -17,11 +17,11 @@ const WrittenBy = () => {
       <Box className="written-by-text">
         <Typography className="written-by-name">Alger Makiputin</Typography>
         <Typography className="written-by-bio">
-          Full Stack Software Engineer and React Developer from the Philippines.
-          Builds production web and mobile apps with React, TypeScript,
-          Capacitor, and modern backend technologies. Based on lessons from
-          Hunter Vault (React + Capacitor personal-finance app) and Zendtri POS
-          (multi-tenant React + Supabase platform).
+          Product engineer from the Philippines. Builds production web and
+          mobile apps with React, React Native, TypeScript, Capacitor, and
+          modern backend technologies. Based on lessons from Hunter Vault
+          (React + Capacitor personal-finance app) and Zendtri POS (multi-tenant
+          React + Supabase platform).
         </Typography>
       </Box>
     </Box>

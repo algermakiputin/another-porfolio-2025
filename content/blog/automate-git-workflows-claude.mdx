@@ -1,0 +1,273 @@
+---
+title: "How to Automate Git Workflows and Refactor Legacy Codebases with Claude"
+description: "Practical patterns for using Claude to automate git operations, write commit messages, run large-scale refactors safely, and navigate codebases you didn't write."
+publishedDate: "Aug 31, 2026"
+readTime: "11 min read"
+category: "AI"
+tags: ["Claude", "Git", "Refactoring", "Developer Tools", "Automation", "Anthropic"]
+image: "/images/blog/covers/automate-git-workflows-claude.webp"
+---
+
+Git workflow overhead is one of those costs that nobody tracks but everyone pays. Writing commit messages, drafting pull request descriptions, reviewing diffs before merging, figuring out what changed in a dependency update — these are the mechanical parts of software development that take real time without producing real output.
+
+Claude handles most of these well, and some of them remarkably well. The same is true for legacy code: understanding a codebase you didn't write, identifying what's safe to change, and running large refactors without breaking things. This guide covers both, with the patterns that hold up in practice rather than demos.
+
+## Quick summary
+
+- Git commit messages from diffs are the quickest win — one shell alias away.
+- Pull request descriptions from `git log` + `git diff` are more reliable when you include the actual diff, not just the title list.
+- Large refactors work best as a loop: Claude proposes a change, you review it, you commit it, repeat.
+- For legacy code, "explain this module" is the most useful prompt — more useful than "refactor this module."
+- Never run a large automated refactor without a clean git working tree first.
+
+## Git commit messages: the five-minute setup
+
+This is the highest-return use of Claude in a git workflow. You've staged your changes, you need a commit message, and writing one accurately requires you to re-read the diff you just wrote. Instead, pipe the diff to Claude.
+
+Shell function (add to `.zshrc` or `.bashrc`):
+
+```bash
+gcommit() {
+  local diff
+  diff=$(git diff --staged)
+
+  if [ -z "$diff" ]; then
+    echo "No staged changes."
+    return 1
+  fi
+
+  local message
+  message=$(echo "$diff" | curl -s https://api.anthropic.com/v1/messages \
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01" \
+    -H "content-type: application/json" \
+    -d "$(jq -n --arg diff "$diff" '{
+      model: "claude-haiku-4-5-20251001",
+      max_tokens: 200,
+      messages: [{
+        role: "user",
+        content: ("Write a concise git commit message for this diff. Use the imperative mood. One line, under 72 characters. No explanation, just the message.\n\n" + $diff)
+      }]
+    }')" | python3 -c "import sys,json; print(json.load(sys.stdin)['content'][0]['text'])")
+
+  echo "Proposed message: $message"
+  echo -n "Commit with this message? [Y/n] "
+  read confirm
+  if [[ "$confirm" != "n" && "$confirm" != "N" ]]; then
+    git commit -m "$message"
+  fi
+}
+```
+
+Run `gcommit` after staging. It generates a message, asks for confirmation, commits. You can edit the message before confirming by pressing `n` and running `git commit -m "..."` manually.
+
+The `jq` call handles JSON escaping for the diff — critical for diffs that contain quotes, backslashes, or multi-line strings. Without it, the JSON payload breaks on common diff content.
+
+## Pull request descriptions that actually describe the PR
+
+Generating a PR description from `git log` alone produces a glorified commit list. Useful PR descriptions explain *why* the change was made and what the reviewer should focus on. Claude produces these well when you give it the actual diff alongside the log.
+
+```bash
+gpr-desc() {
+  local base=${1:-main}
+  local log
+  local diff
+
+  log=$(git log "$base"...HEAD --oneline)
+  diff=$(git diff "$base"...HEAD -- ':!package-lock.json' ':!*.lock')
+
+  # Truncate diffs larger than 8KB to stay within a reasonable API payload
+  if [ ${#diff} -gt 8000 ]; then
+    diff="${diff:0:8000}
+[diff truncated — showing first 8,000 chars]"
+  fi
+
+  curl -s https://api.anthropic.com/v1/messages \
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01" \
+    -H "content-type: application/json" \
+    -d "$(jq -n --arg log "$log" --arg diff "$diff" '{
+      model: "claude-sonnet-5-20260101",
+      max_tokens: 600,
+      messages: [{
+        role: "user",
+        content: ("Write a pull request description for these changes. Include: a one-sentence summary, what changed and why (2-3 bullets), and what the reviewer should focus on. Be specific about the files and behavior affected.\n\nCommit log:\n" + $log + "\n\nDiff:\n" + $diff)
+      }]
+    }')" | python3 -c "import sys,json; print(json.load(sys.stdin)['content'][0]['text'])"
+}
+```
+
+Run `gpr-desc main` to generate against main, or `gpr-desc dev` for a dev branch. The exclusion of lockfiles (`':!package-lock.json' ':!*.lock'`) keeps the diff focused on code rather than dependency churn that Claude doesn't need to explain.
+
+## Understanding a legacy codebase
+
+The most valuable thing Claude can do with code you didn't write is explain it accurately, based on the actual source. The prompts that work:
+
+**Module orientation:**
+```bash
+cat src/payments/processor.ts | claude-ask "Explain what this module does, what its main dependencies are, and what I'd need to understand before modifying it."
+```
+
+**Data flow:**
+```bash
+cat src/db/queries.ts src/api/routes.ts | claude-ask "Trace the data flow from an incoming HTTP request to a database query in this code."
+```
+
+**Before touching something:**
+```bash
+cat src/auth/session.ts | claude-ask "What are the side effects of the createSession function? What breaks if I change its signature?"
+```
+
+**Identifying dead code:**
+```bash
+claude "List any functions or exports in src/utils/ that appear to be unused. Check imports across the src/ directory."
+```
+
+That last one uses Claude Code CLI (the `claude` command) rather than a shell alias, because it needs filesystem access to search across the codebase. The two complement each other: shell aliases for single-file or diff-based questions, Claude Code CLI for cross-file analysis.
+
+## Running large refactors safely
+
+Large refactors — renaming a function used in 40 places, migrating from one library to another, updating TypeScript types throughout a module — have a consistent failure mode: you make the change in one place, it breaks five others, and now you have a half-migrated codebase in your working tree.
+
+The pattern that works:
+
+**Step 1: Start from a clean working tree.**
+```bash
+git status  # Must be clean before starting
+git stash   # If there are unrelated changes
+```
+
+**Step 2: Ask Claude to identify the full scope first.**
+```bash
+claude "Find every place in src/ that calls the getUserById function. List the files and line numbers."
+```
+
+Read the output. If it's more files than you expected, decide whether to proceed.
+
+**Step 3: Make the change in small, reviewable chunks.**
+Instead of "refactor everything," run:
+```bash
+claude "Update the getUserById calls in src/api/users.ts to use the new findUserById signature: findUserById(id: string, options?: { includeDeleted?: boolean }). Read the file first, then make the minimum change."
+```
+
+After each chunk: review the diff, run tests if they exist, commit.
+
+**Step 4: Verify the codebase is consistent before the final commit.**
+```bash
+npx tsc --noEmit  # TypeScript errors catch most signature mismatches
+npm test          # Or whatever your test runner is
+```
+
+The chunk-by-chunk approach is slower than asking Claude to do the whole thing at once, but it's more reliable. Claude makes fewer mistakes on focused, well-scoped changes, and you catch problems before they compound.
+
+## Automated refactor: a working example
+
+Here's a Claude Code-based script for a common refactor: migrating from a deprecated function to its replacement across a codebase.
+
+```typescript
+import Anthropic from "@anthropic-ai/sdk";
+import { execSync } from "child_process";
+import fs from "fs/promises";
+import { globSync } from "glob";
+
+const client = new Anthropic();
+
+async function runMigration(
+  oldName: string,
+  newName: string,
+  sourceGlob: string
+) {
+  // Find files that contain the old function name
+  const files = globSync(sourceGlob).filter((f) => {
+    try {
+      return fs.readFile(f, "utf-8").toString().includes(oldName);
+    } catch {
+      return false;
+    }
+  });
+
+  console.log(`Found ${files.length} files to update`);
+
+  for (const file of files) {
+    console.log(`Processing ${file}...`);
+
+    const messages: Anthropic.MessageParam[] = [
+      {
+        role: "user",
+        content: `In ${file}, replace all calls to ${oldName} with ${newName}. The function signature may be different — check what ${oldName} receives and what ${newName} expects, then adapt the call sites accordingly. Read the file first. Make only the minimum changes needed for this migration.`,
+      },
+    ];
+
+    // Run the agent on this file
+    let done = false;
+    let iterations = 0;
+    while (!done && iterations++ < 10) {
+      const response = await client.messages.create({
+        model: "claude-sonnet-5-20260101",
+        max_tokens: 4096,
+        system: "You are a coding agent performing a migration. Read files before editing. Make minimal changes. After editing, verify the file compiles if possible.",
+        tools: [/* read_file, edit_file, run_command tools */],
+        messages,
+      });
+
+      messages.push({ role: "assistant", content: response.content });
+
+      if (response.stop_reason === "end_turn") {
+        done = true;
+      } else {
+        // ... handle tool calls
+      }
+    }
+
+    // After each file, check it compiles
+    try {
+      execSync(`npx tsc --noEmit ${file}`, { stdio: "pipe" });
+      console.log(`  ✓ ${file} compiles`);
+    } catch (error) {
+      console.error(`  ✗ ${file} has compile errors — review manually`);
+    }
+  }
+
+  // Final check
+  try {
+    execSync("npx tsc --noEmit", { stdio: "pipe" });
+    console.log("\nAll files compile. Migration complete.");
+  } catch {
+    console.error("\nCompile errors remain. Review the flagged files.");
+  }
+}
+
+runMigration("getUserById", "findUserById", "src/**/*.ts");
+```
+
+The per-file compile check after each edit surfaces problems immediately, before you've accumulated three files of broken code. The final full compile check is a sanity check.
+
+## Reviewing a diff you didn't write
+
+Dependency updates, teammate PRs, auto-generated migrations — sometimes you need to understand a diff that you didn't produce. Claude is good at this.
+
+```bash
+# Review a dependency update
+git diff HEAD package-lock.json | head -200 | claude-ask "Summarize what changed in this dependency update and flag anything that might be a breaking change or security concern."
+
+# Understand a teammate's PR before merging
+gh pr diff 142 | claude-ask "Explain what this PR changes, why the approach makes sense, and flag anything that looks risky or worth discussing before merging."
+
+# Understand an auto-generated migration
+cat migrations/20260831_add_user_roles.sql | claude-ask "Explain what this database migration does, whether it's reversible, and what the application impact will be during deployment."
+```
+
+The `gh pr diff` command requires the GitHub CLI (`brew install gh`). The output is the same format as `git diff` — Claude handles it the same way.
+
+## What to watch for
+
+**Don't skip the clean working tree check.** If you run an automated refactor on a working tree with unrelated changes, you'll have a harder time reviewing what Claude changed versus what was already there. `git stash` first.
+
+**Lockfiles in diffs.** Package lockfiles make diffs unreadable and don't provide useful signal to Claude. Always exclude them: `git diff ':!*.lock' ':!package-lock.json'`.
+
+**Large diffs losing signal.** Diffs over a few thousand lines are hard for Claude to reason about accurately. If you're making a large cross-file change, break it into smaller commits that Claude can review one at a time.
+
+**Confusing Claude about the goal.** "Refactor this" without a goal produces random changes. "Eliminate the duplicated validation logic between the create and update endpoints" produces focused, useful changes. Be specific about what problem you're solving.
+
+[INTERNAL-LINK: agentic coding setup → Claude agent that writes, edits and executes code]
+[INTERNAL-LINK: VS Code integration → integrating Claude into your VS Code and terminal workflow]

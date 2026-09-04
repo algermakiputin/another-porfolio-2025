@@ -9,11 +9,11 @@ export const useGetDarkTheme = () => {
       palette: {
         mode: 'dark',
         primary: {
-          main: '#16a34a',
-          dark: '#15803d',
+          main: '#2457e6',
+          dark: '#1c46bd',
         },
         secondary: {
-          main: '#334155',
+          main: '#e7652d',
         },
         background: {
           default: '#0b1220',

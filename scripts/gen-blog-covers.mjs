@@ -3,7 +3,7 @@
  *
  * Draws each cover as an SVG in one shared design system (dark gradient,
  * accent glow, grid texture, category pill, wrapped title, brand mark, and a
- * topic-specific geometric motif), then rasterizes to PNG at 1200x630 via sharp.
+ * topic-specific geometric motif), then rasterizes to WebP at 1200x630 via sharp.
  *
  *   node scripts/gen-blog-covers.mjs           # generate all
  *   node scripts/gen-blog-covers.mjs <slug>    # generate one
@@ -24,6 +24,8 @@ const PAD = 84;
 const ACCENTS = {
   React: { key: "#22c55e", soft: "#4ade80", glow: "#16a34a" },
   SEO: { key: "#38bdf8", soft: "#7dd3fc", glow: "#0ea5e9" },
+  // AI covers use the archive's "AI & Agents" orange so the set reads as one system.
+  AI: { key: "#e7652d", soft: "#f6a06a", glow: "#c2410c" },
   default: { key: "#22c55e", soft: "#4ade80", glow: "#16a34a" },
 };
 
@@ -40,6 +42,14 @@ const CONFIG = {
   "offline-first-react-dexie-indexeddb": { motif: "database", coverTitle: "Offline-First React with Dexie & IndexedDB" },
   "react-web-app-to-ios-android-capacitor": { motif: "devices", coverTitle: "React Web App to iOS & Android" },
   "seo-new-website-30-day-results": { motif: "seo", coverTitle: "30 Days of SEO on a New Site" },
+  // AI & Agents — left-anchored titles + right-side motif, same template as above
+  // so they crop cleanly in the featured panel and archive-row thumbnails.
+  "agentic-coding-claude-write-edit-execute": { motif: "terminal", coverTitle: "Agentic Coding with Claude" },
+  "automate-git-workflows-claude": { motif: "graph", coverTitle: "Automate Git Workflows with Claude" },
+  "building-ai-agent-agentic-loops-claude": { motif: "rerenders", coverTitle: "Building AI Agents & Agentic Loops" },
+  "claude-agent-persistent-memory": { motif: "database", coverTitle: "Claude Agents with Persistent Memory" },
+  "claude-computer-use-screen-reading-clicks": { motif: "devices", coverTitle: "Claude Computer Use: Screen to Clicks" },
+  "integrate-claude-vscode-terminal": { motif: "architecture", coverTitle: "Claude in VS Code & Terminal" },
 };
 
 /* ---------- text wrapping ---------- */
@@ -188,6 +198,18 @@ function motifs(name, a) {
       const glass = `<circle cx="150" cy="140" r="46" fill="none" stroke="${k}" stroke-width="5"/><line x1="184" y1="174" x2="220" y2="210" stroke="${k}" stroke-width="7" stroke-linecap="round"/>`;
       return motifGroup(`${baseline}${bars}${trend}${glass}`);
     }
+    case "terminal": {
+      const win = `<rect x="24" y="54" width="312" height="212" rx="16" fill="${dark}" stroke="${slate}" stroke-width="2.5"/>`;
+      const barLine = `<path d="M24 92 h312" stroke="${slate}" stroke-width="2"/>`;
+      const dots = `<circle cx="48" cy="73" r="5" fill="${s}"/><circle cx="68" cy="73" r="5" fill="${slate2}"/><circle cx="88" cy="73" r="5" fill="${slate2}"/>`;
+      const row = (y, w, hl) =>
+        `<path d="M48 ${y} l11 9 l-11 9" fill="none" stroke="${hl ? k : slate2}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+         <rect x="76" y="${y + 4}" width="${w}" height="9" rx="4.5" fill="${hl ? k : slate2}"/>`;
+      const cursor = `<rect x="76" y="221" width="18" height="14" rx="2" fill="${k}"/>`;
+      return motifGroup(
+        `${win}${barLine}${dots}${row(120, 150, false)}${row(156, 200, true)}${row(192, 120, false)}${cursor}`
+      );
+    }
     default:
       return "";
   }
@@ -265,7 +287,9 @@ for (const file of files) {
   const coverTitle = cfg.coverTitle || data.title;
 
   const svg = buildSVG({ category, coverTitle, motif: cfg.motif });
-  const out = path.join(OUT_DIR, `${slug}.png`);
-  await sharp(Buffer.from(svg)).png().toFile(out);
-  console.log(`✓ ${slug}.png  (${category} / ${cfg.motif})`);
+  // Output WebP (quality 80) — covers are optimized for web; MDX frontmatter
+  // references .webp. Matches the on-disk cover format.
+  const out = path.join(OUT_DIR, `${slug}.webp`);
+  await sharp(Buffer.from(svg)).webp({ quality: 80 }).toFile(out);
+  console.log(`✓ ${slug}.webp  (${category} / ${cfg.motif})`);
 }

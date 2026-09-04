@@ -1,0 +1,336 @@
+---
+title: "Building Your First AI Agent: A Guide to Agentic Loops (Observe-Think-Act) with Claude"
+description: "A practical guide to building AI agents that actually work—covering the observe-think-act loop, tool use, and the real failure modes that trip up first-time agent builders."
+publishedDate: "Aug 31, 2026"
+readTime: "11 min read"
+category: "AI"
+tags: ["Claude", "AI Agents", "Agentic Loops", "LLM", "Developer Tools", "Anthropic"]
+image: "/images/blog/covers/building-ai-agent-agentic-loops-claude.webp"
+---
+
+Most tutorials on AI agents skip the part that actually matters: the loop. They show you how to call an API, maybe how to pass a tool definition, and then hand-wave the rest. What you're left with is a single-turn call dressed up with extra steps — not an agent.
+
+An agent is a system that runs in a loop. It observes state, reasons about what to do, takes an action, observes the result, and repeats. That's it. Everything else — memory, tools, planning — is built on top of that cycle. If you understand the loop, the rest follows naturally. If you skip it, you'll build something fragile that works in demos and breaks on anything real.
+
+This guide uses Claude as the model, but the pattern is model-agnostic. The Anthropic API makes some of the wiring especially clean.
+
+## Quick summary
+
+- An agent is a loop: observe → think → act → repeat until done.
+- Tools are how the agent acts; the model reasons about which tool to use and with what arguments.
+- The loop runs until the model returns a `stop_reason` of `end_turn`, not until your code decides it's done.
+- Most failures come from bad tool design, missing stop conditions, or tool errors that aren't fed back into context.
+- Start with one or two simple tools before adding complexity.
+
+## What the loop actually looks like
+
+The observe-think-act pattern (also called the ReAct loop, after the 2022 Google paper) is the backbone of every agent worth building. Here's the concrete version with Claude:
+
+1. **Observe** — Assemble the current state into a messages array. This includes the system prompt, conversation history, and any tool results from the previous iteration.
+2. **Think** — Send that context to the model. Claude returns either a final answer (`end_turn`) or a request to use a tool (`tool_use`).
+3. **Act** — If it's a tool call, execute the tool, capture the result, and append both the tool use block and the result to the messages array.
+4. Repeat from step 1.
+
+The loop ends when Claude returns `stop_reason: "end_turn"` instead of `stop_reason: "tool_use"`. Your code's job is to drive this cycle, not to decide when the agent is done.
+
+Here's the minimal TypeScript implementation:
+
+```typescript
+import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic();
+
+async function runAgent(userMessage: string, tools: Anthropic.Tool[]) {
+  const messages: Anthropic.MessageParam[] = [
+    { role: "user", content: userMessage },
+  ];
+
+  while (true) {
+    const response = await client.messages.create({
+      model: "claude-opus-5-20260101",
+      max_tokens: 4096,
+      tools,
+      messages,
+    });
+
+    // Push assistant response into history
+    messages.push({ role: "assistant", content: response.content });
+
+    if (response.stop_reason === "end_turn") {
+      // Extract the final text response
+      const text = response.content.find((b) => b.type === "text");
+      return text?.text ?? "";
+    }
+
+    // Process tool calls and push results back
+    const toolResults: Anthropic.ToolResultBlockParam[] = [];
+    for (const block of response.content) {
+      if (block.type === "tool_use") {
+        const result = await executeTool(block.name, block.input);
+        toolResults.push({
+          type: "tool_result",
+          tool_use_id: block.id,
+          content: JSON.stringify(result),
+        });
+      }
+    }
+
+    messages.push({ role: "user", content: toolResults });
+  }
+}
+```
+
+The `executeTool` function is where your actual logic lives. The agent loop doesn't care what the tool does — it just passes results back to the model and lets Claude decide what to do next.
+
+## Defining tools Claude can actually use
+
+Claude reasons about tools using their JSON Schema definitions. A vague or overly broad tool definition is like giving someone a hammer with no handle — technically a tool, but not useful. Tool design is where most first agents go wrong.
+
+Good tool definitions have three properties:
+
+**A name that reads like a verb phrase.** `search_web`, `read_file`, `create_issue`, `send_email`. Not `search`, `file`, `issue`.
+
+**A description that tells Claude when to use it, not just what it does.** "Use this to read the content of a local file when you need to inspect code, configuration, or data. Returns the file content as a string." That's more useful than "Reads a file."
+
+**Precise parameters with descriptions.** Every parameter Claude might get wrong needs context in its description.
+
+```typescript
+const tools: Anthropic.Tool[] = [
+  {
+    name: "read_file",
+    description:
+      "Read the contents of a file on the local filesystem. Use this when you need to inspect existing code, configuration, or data files. Returns the full file content as a string.",
+    input_schema: {
+      type: "object",
+      properties: {
+        path: {
+          type: "string",
+          description:
+            "Absolute or relative path to the file. Use absolute paths when possible to avoid ambiguity.",
+        },
+      },
+      required: ["path"],
+    },
+  },
+  {
+    name: "write_file",
+    description:
+      "Write content to a file on the local filesystem. Creates the file if it doesn't exist; overwrites if it does. Use this to create new files or update existing ones with Claude's output.",
+    input_schema: {
+      type: "object",
+      properties: {
+        path: {
+          type: "string",
+          description: "Path to the file to write.",
+        },
+        content: {
+          type: "string",
+          description: "Full content to write to the file.",
+        },
+      },
+      required: ["path", "content"],
+    },
+  },
+];
+```
+
+## The real failure modes
+
+Once you have the loop running, you'll hit a predictable set of problems. Knowing them in advance saves a lot of debugging.
+
+**Tool errors that aren't fed back to the model.** When a tool throws, the most common mistake is catching the error in your code and stopping the loop. Claude never learns the tool failed, can't reason about why, and can't retry with corrected arguments. Instead, catch errors inside `executeTool` and return a structured error object. Feed it back as a `tool_result` with `is_error: true`. Claude will adjust.
+
+```typescript
+async function executeTool(name: string, input: unknown) {
+  try {
+    // ... actual execution
+  } catch (error) {
+    return {
+      error: true,
+      message: error instanceof Error ? error.message : "Unknown error",
+    };
+  }
+}
+```
+
+And in the loop, pass `is_error: true` when the result indicates failure:
+
+```typescript
+toolResults.push({
+  type: "tool_result",
+  tool_use_id: block.id,
+  is_error: resultData.error === true,
+  content: JSON.stringify(resultData),
+});
+```
+
+**No stop condition for runaway loops.** Without a max iterations guard, a confused model can spin indefinitely. Add one:
+
+```typescript
+const MAX_ITERATIONS = 20;
+let iterations = 0;
+
+while (iterations < MAX_ITERATIONS) {
+  iterations++;
+  // ... loop body
+}
+
+throw new Error(`Agent exceeded ${MAX_ITERATIONS} iterations`);
+```
+
+**Ballooning context from verbose tool results.** If a tool returns 50KB of data and the loop runs 10 times, you've burned your context window before Claude can finish the task. Truncate tool outputs aggressively. Return summaries or excerpts when the full result isn't necessary.
+
+**Giving Claude too many tools at once.** Ten tools that overlap in purpose is worse than three tools that are clearly distinct. Claude has to reason about which tool to use — more options means more chance of a wrong choice. Start with the minimum set and add tools only when you hit a concrete gap.
+
+## A working example: a file-aware code reviewer
+
+Here's a concrete agent that takes a repository path, reads relevant files, and produces a code review. It's simple but real — the kind of thing you'd actually use.
+
+```typescript
+import Anthropic from "@anthropic-ai/sdk";
+import fs from "fs/promises";
+import path from "path";
+
+const client = new Anthropic();
+
+const tools: Anthropic.Tool[] = [
+  {
+    name: "list_directory",
+    description:
+      "List files and subdirectories at the given path. Use this to explore the repository structure before reading individual files.",
+    input_schema: {
+      type: "object",
+      properties: {
+        directory: { type: "string", description: "Directory path to list." },
+      },
+      required: ["directory"],
+    },
+  },
+  {
+    name: "read_file",
+    description:
+      "Read the content of a single file. Use after list_directory to inspect specific files.",
+    input_schema: {
+      type: "object",
+      properties: {
+        path: { type: "string", description: "File path to read." },
+      },
+      required: ["path"],
+    },
+  },
+];
+
+async function executeReviewerTool(name: string, input: Record<string, string>) {
+  if (name === "list_directory") {
+    const entries = await fs.readdir(input.directory, { withFileTypes: true });
+    return entries.map((e) => ({
+      name: e.name,
+      type: e.isDirectory() ? "directory" : "file",
+    }));
+  }
+
+  if (name === "read_file") {
+    const content = await fs.readFile(input.path, "utf-8");
+    // Truncate large files to protect context
+    return content.length > 8000 ? content.slice(0, 8000) + "\n... [truncated]" : content;
+  }
+
+  throw new Error(`Unknown tool: ${name}`);
+}
+
+async function reviewRepository(repoPath: string) {
+  const messages: Anthropic.MessageParam[] = [
+    {
+      role: "user",
+      content: `Review the code in ${repoPath}. Start by listing the directory, then read the key files. Focus on correctness, naming, and obvious improvements. Be concise.`,
+    },
+  ];
+
+  const MAX_ITERATIONS = 15;
+  let i = 0;
+
+  while (i++ < MAX_ITERATIONS) {
+    const response = await client.messages.create({
+      model: "claude-opus-5-20260101",
+      max_tokens: 4096,
+      system: "You are a thorough code reviewer. Use tools to read the actual files before giving feedback. Never review code you haven't read.",
+      tools,
+      messages,
+    });
+
+    messages.push({ role: "assistant", content: response.content });
+
+    if (response.stop_reason === "end_turn") {
+      const text = response.content.find((b) => b.type === "text");
+      return text?.text ?? "";
+    }
+
+    const results: Anthropic.ToolResultBlockParam[] = [];
+    for (const block of response.content) {
+      if (block.type === "tool_use") {
+        let result: unknown;
+        let isError = false;
+        try {
+          result = await executeReviewerTool(block.name, block.input as Record<string, string>);
+        } catch (err) {
+          result = { error: err instanceof Error ? err.message : "Unknown error" };
+          isError = true;
+        }
+        results.push({
+          type: "tool_result",
+          tool_use_id: block.id,
+          is_error: isError,
+          content: JSON.stringify(result),
+        });
+      }
+    }
+
+    messages.push({ role: "user", content: results });
+  }
+
+  throw new Error("Agent did not finish within iteration limit");
+}
+```
+
+Run it with `reviewRepository("./src")` and you get a real review of real files, not a hallucinated one.
+
+## When to use the Anthropic Tool Runner
+
+If you're using the Anthropic TypeScript SDK, there's a higher-level option: `client.beta.messages.tool_runner`. It runs the agentic loop for you — you pass tools with their execute functions attached, and it handles the cycle.
+
+```typescript
+import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic();
+
+const runner = client.beta.messages.tool_runner({
+  model: "claude-opus-5-20260101",
+  max_tokens: 4096,
+  tools: [
+    {
+      name: "read_file",
+      description: "Read a file from disk.",
+      input_schema: { /* ... */ },
+      execute: async ({ path }) => fs.readFile(path, "utf-8"),
+    },
+  ],
+  messages: [{ role: "user", content: "Review src/index.ts" }],
+});
+
+const result = await runner.finalMessage();
+```
+
+The runner handles message history, tool result plumbing, and stop condition detection. Use it when you don't need custom loop behavior. Roll the loop yourself when you need to inject state mid-run, truncate outputs conditionally, or add monitoring between iterations.
+
+## What to build next
+
+Once you have the basic loop, the useful extensions are:
+
+- **Parallel tool calls.** Claude can request multiple tool calls in a single turn. If your tools are independent, run them concurrently and pass all results back together. This cuts multi-step tasks from minutes to seconds.
+- **Memory.** Tools that read and write to a persistent store (a file, a vector DB, a simple key-value cache) give the agent a working memory that survives across loop iterations. Covered in more depth in the persistent memory post.
+- **Sub-agents.** A coordinator agent that spawns specialized agents for subtasks, then collects their results. Works well when the problem naturally decomposes into parallel workstreams.
+
+The pattern scales. The fundamentals don't change. Master the loop first, and everything else is just configuration.
+
+[INTERNAL-LINK: persistent memory for agents → how to give your Claude agent persistent memory]
+[INTERNAL-LINK: agentic coding → using Claude to write, edit and execute code autonomously]

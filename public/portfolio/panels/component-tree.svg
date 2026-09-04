@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 250" role="img" aria-labelledby="title desc">
+  <title id="title">Component tree panel</title>
+  <desc id="desc">A frontend component hierarchy diagram.</desc>
+  <path d="M10 2h348l20 20v216l-10 10H10L2 240V10z" fill="#09131F" stroke="#F2EBDD" stroke-opacity=".58" stroke-width="2"/>
+  <path d="M10 42h358" stroke="#F2EBDD" stroke-opacity=".22"/>
+  <text x="18" y="27" fill="#F2EBDD" font-family="Inter,Arial,sans-serif" font-size="12" font-weight="700" letter-spacing="1.6">COMPONENT TREE</text>
+  <g fill="none" stroke="#E7652D" stroke-width="1.8">
+    <path d="M190 76v28M86 104h208M86 104v28M190 104v28M294 104v28"/>
+    <path d="M86 158v20M48 178h76M48 178v24M86 178v24M124 178v24"/>
+    <path d="M190 158v44M294 158v20M256 178h76M256 178v24M294 178v24M332 178v24"/>
+  </g>
+  <g fill="#111827" stroke="#F2EBDD" stroke-opacity=".8" stroke-width="1.5">
+    <rect x="154" y="56" width="72" height="28" rx="3"/>
+    <rect x="52" y="132" width="68" height="26" rx="3"/><rect x="156" y="132" width="68" height="26" rx="3"/><rect x="260" y="132" width="68" height="26" rx="3"/>
+    <rect x="28" y="202" width="40" height="24" rx="3"/><rect x="66" y="202" width="40" height="24" rx="3"/><rect x="104" y="202" width="40" height="24" rx="3"/>
+    <rect x="170" y="202" width="40" height="24" rx="3"/>
+    <rect x="236" y="202" width="40" height="24" rx="3"/><rect x="274" y="202" width="40" height="24" rx="3"/><rect x="312" y="202" width="40" height="24" rx="3"/>
+  </g>
+  <g fill="#F2EBDD" font-family="Inter,Arial,sans-serif" font-size="9" font-weight="650" text-anchor="middle">
+    <text x="190" y="74">App</text><text x="86" y="149">Layout</text><text x="190" y="149">Page</text><text x="294" y="149">Feature</text>
+    <text x="48" y="218">Nav</text><text x="86" y="218">Main</text><text x="124" y="218">Footer</text><text x="190" y="218">View</text>
+    <text x="256" y="218">UI</text><text x="294" y="218">Hook</text><text x="332" y="218">Data</text>
+  </g>
+</svg>

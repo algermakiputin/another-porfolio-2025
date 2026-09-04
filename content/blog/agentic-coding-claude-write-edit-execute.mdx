@@ -1,0 +1,325 @@
+---
+title: "Agentic Coding with Claude: How to Write, Edit, and Execute Code Independently"
+shortTitle: "Agentic Coding with Claude"
+featuredOnHomepage: true
+homepageOrder: 1
+description: "How to build a Claude-powered coding agent that reads real files, writes correct code, and runs it—plus the design choices that separate useful agents from demos."
+publishedDate: "Aug 31, 2026"
+readTime: "12 min read"
+category: "AI"
+tags: ["Claude", "AI Agents", "Agentic Coding", "Developer Tools", "Anthropic", "Automation"]
+image: "/images/blog/covers/agentic-coding-claude-write-edit-execute.webp"
+---
+
+There's a wide gap between an LLM that can write code in a chat window and an agent that can actually modify a codebase. The difference is tool use. A chat response is read-only — you copy the code, paste it, run it, copy the error back. An agentic coder skips all of that. It reads the actual file, writes the fix, runs the test, reads the output, and iterates — without you in the loop for each step.
+
+Building that agent is not complicated. The tricky part is getting the tool design right so that Claude makes good decisions about what to read, what to write, and when to run things. Get that wrong and you end up with an agent that confidently writes code against files it never read, or one that runs commands without checking their output.
+
+This guide covers the full set of tools a coding agent needs, how to implement a safe execution environment, and the prompting decisions that determine whether the agent actually fixes the problem or just moves it around.
+
+## Quick summary
+
+- A coding agent needs four tool categories: read, write, execute, and search.
+- Never give the agent a write tool without a read tool — you want Claude to inspect before modifying.
+- Execution is the highest-risk tool. Sandbox it, timeout it, and return both stdout and stderr.
+- Claude uses the system prompt to decide *how* to approach the task, not just *what* to do. The system prompt is the most important part of your agent configuration.
+- For most coding tasks, restrict the agent's write scope to a specific directory. Don't give it write access to your entire filesystem.
+
+## The tool set a coding agent needs
+
+A useful coding agent needs four categories of tools. Too few and it can't do the job. Too many and it makes worse decisions.
+
+**Read tools**: Let Claude inspect the actual state of the codebase before modifying anything.
+
+- `read_file` — Read a single file's content
+- `list_directory` — List files and subdirectories at a path
+- `search_in_files` — Grep-style search across the codebase for a function name, pattern, or string
+
+**Write tools**: Let Claude make changes.
+
+- `write_file` — Create or overwrite a file entirely
+- `edit_file` — Replace a specific string or range within a file (safer for small changes)
+
+**Execute tools**: Let Claude run code and observe the result.
+
+- `run_command` — Execute a shell command and return stdout + stderr
+
+**State tools** (optional but useful for longer sessions):
+
+- `read_notes` / `write_notes` — Let Claude track its plan and progress across iterations
+
+Start with read + write + execute. Add search when you hit a real use case (navigating a large codebase). Add state tools when sessions exceed 10-15 turns.
+
+## Implementing read and write tools
+
+```typescript
+import fs from "fs/promises";
+import path from "path";
+
+const ROOT_DIR = process.cwd(); // or a specific project directory
+
+function resolveSafePath(filePath: string): string {
+  const resolved = path.resolve(ROOT_DIR, filePath);
+  if (!resolved.startsWith(ROOT_DIR)) {
+    throw new Error(`Path traversal attempt blocked: ${filePath}`);
+  }
+  return resolved;
+}
+
+async function readFileTool(input: { path: string }) {
+  const safePath = resolveSafePath(input.path);
+  const content = await fs.readFile(safePath, "utf-8");
+  // Truncate to protect context
+  if (content.length > 10000) {
+    return content.slice(0, 10000) + "\n\n[File truncated at 10,000 chars]";
+  }
+  return content;
+}
+
+async function writeFileTool(input: { path: string; content: string }) {
+  const safePath = resolveSafePath(input.path);
+  await fs.mkdir(path.dirname(safePath), { recursive: true });
+  await fs.writeFile(safePath, input.content, "utf-8");
+  return { success: true, path: safePath };
+}
+
+async function editFileTool(input: {
+  path: string;
+  oldString: string;
+  newString: string;
+}) {
+  const safePath = resolveSafePath(input.path);
+  let content = await fs.readFile(safePath, "utf-8");
+  if (!content.includes(input.oldString)) {
+    throw new Error(
+      `String not found in file. The file content may have changed. Read the file again before retrying.`
+    );
+  }
+  content = content.replace(input.oldString, input.newString);
+  await fs.writeFile(safePath, content, "utf-8");
+  return { success: true };
+}
+```
+
+The path resolution check is critical. Without it, you're one `../../../etc/passwd` away from a bad day. Always resolve paths relative to a known root and reject anything that escapes it.
+
+The `editFileTool` error message is intentional — it tells Claude exactly what went wrong and what to do next (read the file again). Specific error messages produce better agent behavior than generic ones.
+
+## Implementing the execute tool
+
+This is the most important tool to get right. An execute tool that doesn't sandbox properly, doesn't timeout, or doesn't capture stderr will create problems that are hard to debug.
+
+```typescript
+import { execFile } from "child_process";
+import { promisify } from "util";
+
+const execFileAsync = promisify(execFile);
+
+const ALLOWED_COMMANDS = new Set(["npm", "node", "npx", "tsc", "jest", "vitest", "python3", "python", "go", "cargo"]);
+
+async function runCommandTool(input: { command: string; args: string[]; cwd?: string }) {
+  const { command, args, cwd } = input;
+
+  if (!ALLOWED_COMMANDS.has(command)) {
+    throw new Error(
+      `Command '${command}' is not allowed. Allowed commands: ${[...ALLOWED_COMMANDS].join(", ")}`
+    );
+  }
+
+  const workingDir = cwd
+    ? resolveSafePath(cwd)
+    : ROOT_DIR;
+
+  try {
+    const { stdout, stderr } = await execFileAsync(command, args, {
+      cwd: workingDir,
+      timeout: 30_000, // 30 second timeout
+      maxBuffer: 1024 * 1024, // 1MB output cap
+    });
+
+    return {
+      exitCode: 0,
+      stdout: stdout.slice(0, 5000), // Truncate large outputs
+      stderr: stderr.slice(0, 2000),
+    };
+  } catch (error: unknown) {
+    const execError = error as { code?: number; stdout?: string; stderr?: string; message?: string };
+    return {
+      exitCode: execError.code ?? 1,
+      stdout: (execError.stdout ?? "").slice(0, 5000),
+      stderr: (execError.stderr ?? execError.message ?? "Unknown error").slice(0, 2000),
+    };
+  }
+}
+```
+
+A few important choices here:
+
+**Allowlist, not denylist.** Blocking `rm` while allowing everything else is a losing game. An allowlist of commands the agent legitimately needs is simpler and safer.
+
+**Use `execFile`, not `exec`.** `exec` runs a shell, which means shell injection is possible if any argument contains `; rm -rf /`. `execFile` bypasses the shell entirely.
+
+**Return non-zero exit codes without throwing.** If you throw on non-zero exits, the error propagation might strip information Claude needs. Returning the exit code, stdout, and stderr as a structured object lets Claude reason about what went wrong.
+
+**Capture stderr always.** Test failures, compiler errors, and runtime exceptions often go to stderr. If you only return stdout, Claude sees an empty output and has no idea why the command failed.
+
+## The system prompt is doing most of the work
+
+How you write the system prompt determines how the agent approaches every task. It's the difference between an agent that reads before writing and one that writes blindly.
+
+Here's a system prompt that produces good results for a coding agent:
+
+```
+You are a coding agent with access to the filesystem and a command runner. Your job is to read, understand, and modify code to solve the task given.
+
+Working rules:
+1. Always read a file before modifying it. Never write code based on assumptions about file content.
+2. After making a change, run the relevant test or compilation command to verify it worked.
+3. If a command fails, read the error carefully and fix the root cause. Do not retry the same command without changing something.
+4. Make the smallest change that fixes the problem. Don't refactor surrounding code unless asked.
+5. If you're unsure which file to edit, use list_directory and search_in_files to locate the right place before changing anything.
+6. Report what you did and what the test output showed after completing the task.
+
+You operate inside the project root. All file paths should be relative to that root.
+```
+
+The "always read before writing" rule is the most important. Without it, Claude will sometimes write code based on its training data about how a file *probably* looks, which is wrong often enough to be a problem. The system prompt makes it a hard rule.
+
+## A working example: fix-failing-test agent
+
+Here's a complete agent that takes a failing test name, finds the relevant source code, identifies the bug, and fixes it.
+
+```typescript
+import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic();
+
+const tools: Anthropic.Tool[] = [
+  {
+    name: "list_directory",
+    description: "List files and directories at the given path. Use to explore the project structure.",
+    input_schema: {
+      type: "object",
+      properties: { directory: { type: "string" } },
+      required: ["directory"],
+    },
+  },
+  {
+    name: "read_file",
+    description: "Read a file's content. Always do this before editing a file.",
+    input_schema: {
+      type: "object",
+      properties: { path: { type: "string" } },
+      required: ["path"],
+    },
+  },
+  {
+    name: "edit_file",
+    description: "Replace a specific string in a file with new content. Read the file first. Use exact strings that exist in the file.",
+    input_schema: {
+      type: "object",
+      properties: {
+        path: { type: "string" },
+        oldString: { type: "string", description: "Exact string to replace. Must exist verbatim in the file." },
+        newString: { type: "string", description: "String to replace it with." },
+      },
+      required: ["path", "oldString", "newString"],
+    },
+  },
+  {
+    name: "run_command",
+    description: "Run a shell command and return stdout and stderr. Use to run tests or compile code.",
+    input_schema: {
+      type: "object",
+      properties: {
+        command: { type: "string", description: "Command name (e.g., npm, npx, tsc)." },
+        args: { type: "array", items: { type: "string" }, description: "Arguments to pass." },
+        cwd: { type: "string", description: "Working directory. Optional." },
+      },
+      required: ["command", "args"],
+    },
+  },
+];
+
+async function executeAgentTool(name: string, input: Record<string, unknown>) {
+  switch (name) {
+    case "list_directory":
+      return await listDirectoryTool(input as { directory: string });
+    case "read_file":
+      return await readFileTool(input as { path: string });
+    case "edit_file":
+      return await editFileTool(input as { path: string; oldString: string; newString: string });
+    case "run_command":
+      return await runCommandTool(input as { command: string; args: string[]; cwd?: string });
+    default:
+      throw new Error(`Unknown tool: ${name}`);
+  }
+}
+
+async function fixFailingTest(testPattern: string) {
+  const messages: Anthropic.MessageParam[] = [
+    {
+      role: "user",
+      content: `Run the tests matching "${testPattern}" to see the failure, then fix the underlying bug in the source code. Verify the fix by running the tests again.`,
+    },
+  ];
+
+  const MAX_ITERATIONS = 20;
+  let i = 0;
+
+  while (i++ < MAX_ITERATIONS) {
+    const response = await client.messages.create({
+      model: "claude-opus-5-20260101",
+      max_tokens: 8192,
+      system: `You are a coding agent...`, // full system prompt from above
+      tools,
+      messages,
+    });
+
+    messages.push({ role: "assistant", content: response.content });
+
+    if (response.stop_reason === "end_turn") {
+      return response.content.find((b) => b.type === "text")?.text ?? "";
+    }
+
+    const results: Anthropic.ToolResultBlockParam[] = [];
+    for (const block of response.content) {
+      if (block.type === "tool_use") {
+        let result: unknown;
+        let isError = false;
+        try {
+          result = await executeAgentTool(block.name, block.input as Record<string, unknown>);
+        } catch (err) {
+          result = { error: err instanceof Error ? err.message : "Unknown error" };
+          isError = true;
+        }
+        results.push({
+          type: "tool_result",
+          tool_use_id: block.id,
+          is_error: isError,
+          content: JSON.stringify(result),
+        });
+      }
+    }
+
+    messages.push({ role: "user", content: results });
+  }
+
+  throw new Error("Agent did not complete within iteration limit");
+}
+```
+
+Run `fixFailingTest("auth")` and the agent will: run the matching tests, read the test file to understand what it expects, locate the source file being tested, identify the discrepancy, make the fix, and run the tests again to verify.
+
+## What to watch for
+
+**The agent writing code it hasn't verified compiles.** Claude will sometimes write syntactically broken code, especially for languages with strict types. After any write operation, the agent should run `tsc --noEmit` (for TypeScript) or the equivalent before running tests.
+
+**Partial edits that break other things.** A small change to a shared utility can break five other call sites. Give the agent a `search_in_files` tool so it can find all usages before changing signatures.
+
+**Long files overwhelming context.** Files over a few hundred lines start consuming a lot of context. If you're working with large files, consider a `read_file_range` tool that reads specific line ranges, or a tool that extracts just the function or class the agent is interested in.
+
+**The agent spinning after a persistent error.** If the same test keeps failing after three attempts, something structural is wrong and the agent is unlikely to find it without more context. Cap retries and surface the failure to the user with the diagnostic information.
+
+[INTERNAL-LINK: agentic loop basics → building your first AI agent with agentic loops]
+[INTERNAL-LINK: git workflow automation → automating git workflows and refactoring with Claude]

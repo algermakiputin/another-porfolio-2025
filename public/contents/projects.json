@@ -3,13 +3,19 @@
         {
             "platform": "web",
             "category": "web-app",
-            "image": "https://placehold.co/800x450/0f172a/16a34a?text=Zendtri+POS",
+            "image": "/images/projects/zendtri-architecture.webp",
+            "imageAlt": "Zendtri architecture diagram — one React and TypeScript codebase delivering web, iOS, and Android clients over a Supabase and PostgreSQL backend",
             "slug": "zendtri-pos",
-            "title": "Zendtri POS - Multi-Tenant Point-of-Sale & Inventory Platform",
-            "metaDescription": "A full-stack, multi-tenant SaaS POS and inventory system built for Philippine small businesses — from the retail counter to native mobile, with server-authoritative inventory math and a self-serve subscription billing engine.",
-            "role": "{{MY_ROLE — e.g. \"Full-stack Engineer / Solo Developer\"}}",
+            "accentColor": "#2457e6",
+            "title": "Zendtri - Multi-Tenant Retail Operations Platform",
+            "shortTitle": "Zendtri POS",
+            "platforms": ["Web", "iOS", "Android"],
+            "featuredOnArchive": true,
+            "archCaption": "React + TypeScript · Supabase + PostgreSQL · Capacitor",
+            "metaDescription": "A multi-tenant retail operations platform for Philippine SMEs — covering point of sale, inventory, purchasing, workforce, expenses, customer programs, online ordering, and subscription billing across web, iOS, and Android.",
+            "role": "Solo Product Engineer",
             "responsibilities": [
-                "Multi-tenant architecture enforced with PostgreSQL Row-Level Security",
+                "Organization-scoped access controls via PostgreSQL row-level policies",
                 "Server-authoritative inventory math via SQL RPC functions",
                 "Data-driven subscription billing & plan-gating engine",
                 "MVVM architecture across separate desktop and mobile views",
@@ -17,11 +23,13 @@
                 "PayMongo checkout integration"
             ],
             "techStack": ["React", "TypeScript", "Vite", "Tailwind CSS", "Supabase", "PostgreSQL", "TanStack Query", "Capacitor", "PayMongo", "Deno"],
-            "shortDescription": "Zendtri POS is a subscription SaaS that gives small and medium Filipino businesses — retail shops, cafés, food stalls — a single system to run sales, track inventory across branches, manage staff, and handle billing. It runs as a responsive web app and as native iOS/Android apps from one codebase. Every row of data is scoped to an organization and branch, inventory quantities are computed authoritatively on the server, and access is gated by both role permissions and subscription plan tier.",
+            "shortDescription": "Zendtri is a multi-tenant retail operations platform for Philippine SMEs. I designed and built the product across point of sale, inventory, purchasing, workforce, expenses, customer programs, online ordering, and subscription billing—delivered across web, iOS, and Android.",
             "meta": {
                 "industry": "Retail / Point-of-Sale SaaS",
-                "client": "Filipino SMEs — retail shops, cafés, and food stalls",
-                "timeline": "{{TIMELINE — e.g. \"2026\"}}"
+                "scope": "Product · UX · Web · Mobile · Backend · Data",
+                "builtFor": "Philippine SMEs — retail shops, cafés, and food stalls",
+                "link": "https://zendtri.com",
+                "linkLabel": "Visit Website"
             },
             "requirements": [
                 "Selling: POS terminal (desktop, tablet-landscape, and mobile layouts), promotions, transactions and receipts",
@@ -30,39 +38,42 @@
                 "Reporting: sales reports, dashboards, PDF and Excel export",
                 "Billing: subscription plans, PayMongo checkout, plan-gated feature limits"
             ],
-            "overview": "Zendtri POS is a subscription SaaS POS and inventory platform for small and medium Filipino businesses, delivered as a responsive web app and as native iOS and Android apps from a single React and TypeScript codebase. It is built around three systems that had to be correct rather than merely functional: true multi-tenancy, server-authoritative inventory math, and data-driven, plan-based feature gating. Roughly 20 route-level features span selling, inventory, management, reporting, and billing, all scoped by organization and branch.",
+            "overview": "Zendtri is a multi-tenant retail operations platform for Philippine SMEs. I designed and built the product across point of sale, inventory, purchasing, workforce, expenses, customer programs, online ordering, and subscription billing—delivered across web, iOS, and Android.",
             "challenge": "Off-the-shelf POS tools are usually either too expensive and enterprise-heavy for a neighborhood café, or too simplistic to handle real inventory — unit conversions, recipe-based deduction, multi-branch stock transfers. Filipino SMEs needed something that handles multiple branches under one business without data bleeding between them, gets inventory math right (buying flour by the sack but selling bread by the piece), supports local payment rails and peso pricing, scales cost via self-serve subscription tiers, and works on any device.",
-            "approach": "A single React and TypeScript application, backed by Supabase, shipped to web and to app stores via Capacitor. The core engineering focus was on three systems that had to be correct, not just functional: multi-tenancy, server-authoritative inventory, and plan-based feature gating. True multi-tenancy is enforced at the database with PostgreSQL Row-Level Security, so the database refuses to return another tenant's data even if a client tried. Every quantity-affecting transform — unit conversion, recipe deduction, sale creation — runs inside SQL functions on the server, keeping the sale, sale_items, payments, and inventory-movement chain consistent. Subscription plans store capabilities as JSONB feature flags and numeric limits, and the server re-validates every limit and returns HTTP 402 if a request slips past the client gates — so re-tiering a feature is a data change rather than a code deploy.",
+            "approach": "A single React and TypeScript application, backed by Supabase, shipped to web and to app stores via Capacitor. The core engineering focus was on three systems that had to be correct, not just functional: organization-scoped access controls, server-authoritative inventory, and plan-based feature gating. Organization-scoped access is enforced through PostgreSQL row-level policies, keeping each tenant's data isolated at the database. Every quantity-affecting transform — unit conversion, recipe deduction, sale creation — runs inside SQL functions on the server, keeping the sale, sale_items, payments, and inventory-movement chain consistent. Subscription plans store capabilities as JSONB feature flags and numeric limits, and the server re-validates every limit and returns HTTP 402 if a request slips past the client gates — so re-tiering a feature is a data change rather than a code deploy.",
             "results": [
                 {
-                    "title": "Codebase",
-                    "metric": "75K+",
-                    "description": "~75,000 lines of TypeScript across 264 files"
+                    "title": "Multi-Store Operations",
+                    "metric": "Multi-Store Operations",
+                    "description": "Branches, staff roles, permissions, and organization-scoped workflows."
                 },
                 {
-                    "title": "Feature Areas",
-                    "metric": "~20",
-                    "description": "Route-level features across selling, inventory, management, reporting, and billing"
+                    "title": "Inventory Engine",
+                    "metric": "Inventory Engine",
+                    "description": "Weighted-average costing, recipes, stock counts, transfers, wastage, and inventory controls."
                 },
                 {
-                    "title": "Tenant Isolation",
-                    "metric": "RLS",
-                    "description": "Multi-tenancy enforced at the database with PostgreSQL Row-Level Security"
+                    "title": "End-to-End Commerce",
+                    "metric": "End-to-End Commerce",
+                    "description": "Point of sale, purchasing, customers, payments, reporting, and online ordering."
                 },
                 {
-                    "title": "Platforms",
+                    "title": "Web · iOS · Android",
                     "metric": "Web · iOS · Android",
-                    "description": "One codebase shipping to web, iOS, and Android via Capacitor"
+                    "description": "One product experience delivered across web and mobile platforms."
                 }
             ],
-            "conclusion": "Zendtri POS ships as one React and TypeScript codebase to web, iOS, and Android, with tenant isolation enforced in PostgreSQL, all inventory math computed server-side in SQL, and subscription features gated by data-driven JSONB plan flags rather than code deploys. The result is a POS and inventory platform where correctness lives at the database layer — a single source of truth that stays consistent across every client and form factor."
+            "conclusion": "Zendtri ships as one React and TypeScript codebase to web, iOS, and Android, with organization-scoped access enforced in PostgreSQL, all inventory math computed server-side in SQL, and subscription features gated by data-driven JSONB plan flags rather than code deploys. The result is a retail operations platform where correctness lives at the database layer — a single source of truth that stays consistent across every client and form factor."
         },
         {
             "platform": "mobile",
             "category": "mobile-app",
             "image": "/images/projects/hunter-vault.webp",
             "slug": "hunter-vault",
+            "accentColor": "#b7f34a",
             "title": "Hunter Vault - Level Up Finance",
+            "shortTitle": "Hunter Vault",
+            "platforms": ["iOS", "Android"],
             "metaDescription": "Hunter Vault is a gamified personal finance app for iOS and Android inspired by Solo Leveling RPG aesthetics. It transforms budgeting, debt tracking, and savings into an epic adventure with quests, ranks, and rewards — all 100% offline with zero data collection.",
             "role": "Full Stack Developer",
             "responsibilities": [
@@ -121,7 +132,10 @@
             "category": "web-app",
             "image": "/images/projects/inventory-software.webp",
             "slug": "poslite-inventory-software",
+            "accentColor": "#38bdf8",
             "title": "POSLite Inventory Softwares",
+            "shortTitle": "POSLite",
+            "platforms": ["Web"],
             "metaDescription": "POSLite is a web-based Inventory Software built using Codeigniter PHP framework. This solution allows businesses to track, organize, and manage their inventory, including items, orders, sales, and deliveries.",
             "role": "Full Stack Developer",
             "responsibilities": [
@@ -181,7 +195,10 @@
             "category": "web-app",
             "image": "/images/projects/trading-journal.webp",
             "slug": "hero-journals",
+            "accentColor": "#e7652d",
             "title": "Stocks Trading Journal - Hero Journal",
+            "shortTitle": "Hero Journals",
+            "platforms": ["Web"],
             "metaDescription": "Web-based software designed to help retail traders manage their trades, progress and improve overall trading activities.",
             "role": "Full Stack Developer",
             "responsibilities": [
@@ -240,7 +257,11 @@
             "platform": "mobile",
             "category": "mobile-app",
             "slug": "filipino-alamat",
+            "accentColor": "#6fe3f2",
             "title": "Filipino Alamat",
+            "shortTitle": "Filipino Alamat",
+            "platforms": ["Android"],
+            "evidence": { "value": "50,000+", "label": "Play Store installs", "kind": "scale", "source": "Google Play" },
             "image": "/images/projects/filipino-alamat.webp",
             "metaDescription": "Mobile application available in Google play store, built using react native",
             "role": "Mobile Developer",
@@ -298,9 +319,12 @@
         {
             "platform": "mobile",
             "slug": "stockapp",
+            "accentColor": "#7ea2ff",
             "category": "mobile-app",
             "image": "/images/projects/posmobile.webp",
             "title": "StockApp Inventory",
+            "shortTitle": "StockApp",
+            "platforms": ["Android"],
             "metaDescription": "StockApp Inventory is a mobile inventory management solution designed specifically for small businesses that need a simple, reliable, and affordable way to track and control their stock. With an intuitive interface and powerful features, the app makes it easy to manage products, monitor stock levels, and keep your business organized all from your smartphone.",
             "role": "Mobile Developer",
             "responsibilities": [
@@ -358,7 +382,10 @@
             "category": "web-app",
             "image": "/images/projects/payroll.webp",
             "slug": "face-recognition-based-payroll-and-attendance-software",
+            "accentColor": "#f59e0b",
             "title": "Transforming Workforce Management with Face Recognition-Based Payroll and Attendance Software",
+            "shortTitle": "Face-Recognition Payroll",
+            "platforms": ["Web"],
             "metaDescription": "This solution is a web based application built using ReactJS and Laravel for the backend. It is also mobile friendly so users can access the attendance face recognition using mobile device.",
             "role": "Full Stack Developer",
             "responsibilities": [
@@ -413,11 +440,198 @@
             "conclusion": "By implementing a face recognition-based payroll and attendance software, 7Th Grocery streamlined its HR operations, reduced fraud, and increased employee trust. This solution demonstrates how AI and automation can modernize workforce management for small business owners."
         },
         {
+            "platform": "web",
+            "category": "web-template",
+            "image": "/images/projects/fashion-ecommerce.webp",
+            "imageAlt": "Fashion e-commerce website template built with Next.js and Tailwind CSS — editorial layout, product listings, and modern storefront design",
+            "slug": "fashion-ecommerce-template",
+            "accentColor": "#f43f5e",
+            "title": "Fashion E-commerce Website Template",
+            "shortTitle": "Fashion E-commerce",
+            "platforms": ["Web"],
+            "metaDescription": "A modern fashion e-commerce website template built with Next.js and Tailwind CSS, featuring editorial layouts, product listings, and a clean storefront design.",
+            "role": "Frontend Developer & UI Designer",
+            "responsibilities": [
+                "UI/UX design — editorial fashion layout and visual hierarchy",
+                "Next.js project setup with App Router",
+                "Responsive Tailwind CSS component system",
+                "Product listing and detail page layouts",
+                "Deployment to custom subdomain"
+            ],
+            "techStack": ["Next.js", "Tailwind CSS", "TypeScript", "React"],
+            "shortDescription": "A fashion-forward e-commerce website template built with Next.js and Tailwind CSS. Features a clean editorial layout, product catalog pages, and a modern storefront design ready to be customized for any fashion or lifestyle brand.",
+            "meta": {
+                "industry": "Fashion / E-commerce",
+                "type": "Website Template",
+                "link": "https://fashion-ecommerce.algermakiputin.com",
+                "linkLabel": "Live Demo"
+            },
+            "requirements": [
+                "Editorial hero and brand storytelling sections",
+                "Product listing grid with category filtering",
+                "Product detail page with image gallery",
+                "Responsive layout for mobile and desktop",
+                "Clean, minimal design system built with Tailwind CSS"
+            ],
+            "overview": "A modern fashion e-commerce website template designed for clothing brands, boutiques, and lifestyle labels. Built with Next.js and Tailwind CSS, it delivers a polished editorial aesthetic paired with practical e-commerce layouts — product listings, category pages, and clean product detail views — ready for a real storefront.",
+            "challenge": "Fashion brands need websites that feel aspirational, not generic. The challenge was building a template that balances editorial design (strong typography, whitespace, visual mood) with practical e-commerce structure — product grids that load fast, detail pages that convert, and layouts that hold up on any screen size without a heavy framework or plugin.",
+            "approach": "Built on Next.js App Router for fast server-rendered pages and clean routing, styled entirely with Tailwind CSS for a consistent and maintainable design system. The layout prioritizes visual hierarchy — large hero imagery, editorial typography, and a restrained color palette — while keeping the component structure simple enough to customize quickly. Deployed to a live subdomain for real-world preview.",
+            "results": [
+                {
+                    "title": "Live Demo",
+                    "metric": "Deployed",
+                    "description": "Live at fashion-ecommerce.algermakiputin.com"
+                },
+                {
+                    "title": "Responsive",
+                    "metric": "Mobile-first",
+                    "description": "Fully responsive across mobile, tablet, and desktop"
+                },
+                {
+                    "title": "Stack",
+                    "metric": "Next.js",
+                    "description": "Built with Next.js App Router and Tailwind CSS"
+                },
+                {
+                    "title": "Design",
+                    "metric": "Editorial",
+                    "description": "Clean editorial layout suited for fashion and lifestyle brands"
+                }
+            ],
+            "conclusion": "This fashion e-commerce template demonstrates how a modern Next.js and Tailwind CSS stack can produce a visually strong, production-ready storefront without heavyweight tooling. It serves as a starting point for any fashion or lifestyle brand looking to launch a custom website quickly."
+        },
+        {
+            "platform": "web",
+            "category": "web-template",
+            "image": "/images/projects/lunara-bay.webp",
+            "imageAlt": "Lunara Bay resort and hospitality website template — booking sections, amenities, and coastal aesthetic built with Next.js and Tailwind CSS",
+            "slug": "lunara-bay",
+            "accentColor": "#0ea5e9",
+            "title": "Lunara Bay - Resort & Hospitality Website Template",
+            "shortTitle": "Lunara Bay",
+            "platforms": ["Web"],
+            "metaDescription": "Lunara Bay is a resort and hospitality website template built with Next.js and Tailwind CSS, featuring a coastal aesthetic, amenity showcases, and booking-ready layout.",
+            "role": "Frontend Developer & UI Designer",
+            "responsibilities": [
+                "UI/UX design — coastal resort aesthetic and visual identity",
+                "Next.js project setup with App Router",
+                "Responsive Tailwind CSS component system",
+                "Rooms, amenities, and booking section layouts",
+                "Deployment to custom subdomain"
+            ],
+            "techStack": ["Next.js", "Tailwind CSS", "TypeScript", "React"],
+            "shortDescription": "Lunara Bay is a resort and hospitality website template built with Next.js and Tailwind CSS. It features a refined coastal aesthetic with sections for rooms, amenities, gallery, and a booking call-to-action — ideal for hotels, resorts, and travel businesses.",
+            "meta": {
+                "industry": "Hospitality / Travel",
+                "type": "Website Template",
+                "link": "https://lunara-bay.algermakiputin.com",
+                "linkLabel": "Live Demo"
+            },
+            "requirements": [
+                "Hero with full-width coastal imagery and booking CTA",
+                "Rooms and suite showcase with pricing or inquiry layout",
+                "Amenities section with icons and descriptions",
+                "Photo gallery and location/map section",
+                "Responsive design for mobile and desktop"
+            ],
+            "overview": "Lunara Bay is a hospitality website template tailored for resorts, boutique hotels, and coastal travel businesses. Built with Next.js and Tailwind CSS, it captures the feel of a premium destination — clean layouts, generous whitespace, and a visual identity that puts the property front and center while guiding visitors toward a booking or inquiry.",
+            "challenge": "Hospitality websites live or die by first impression. The challenge was creating a template that communicates luxury and place without being heavy — fast-loading pages, high-impact imagery sections, and a clear information architecture that moves a visitor from arrival to inquiry without friction.",
+            "approach": "Designed with a coastal color palette and open typography to evoke a relaxed, premium atmosphere. Built on Next.js App Router for clean routing between rooms, gallery, and about pages. Tailwind CSS powers the layout system — flexible enough to adapt to any property's branding with minimal changes. Deployed to a live subdomain so the template can be evaluated in a real browser environment.",
+            "results": [
+                {
+                    "title": "Live Demo",
+                    "metric": "Deployed",
+                    "description": "Live at lunara-bay.algermakiputin.com"
+                },
+                {
+                    "title": "Responsive",
+                    "metric": "Mobile-first",
+                    "description": "Fully responsive across mobile, tablet, and desktop"
+                },
+                {
+                    "title": "Stack",
+                    "metric": "Next.js",
+                    "description": "Built with Next.js App Router and Tailwind CSS"
+                },
+                {
+                    "title": "Niche",
+                    "metric": "Hospitality",
+                    "description": "Purpose-built layout for resorts and hotels"
+                }
+            ],
+            "conclusion": "Lunara Bay demonstrates how a well-crafted Next.js template can serve the hospitality industry — combining a strong visual identity with fast performance and a layout that turns website visitors into booking inquiries."
+        },
+        {
+            "platform": "web",
+            "category": "web-template",
+            "image": "/images/projects/multipurpose-ecommerce.webp",
+            "imageAlt": "Multipurpose marketplace website template — category browsing, vendor listings, and product pages built with Next.js and Tailwind CSS",
+            "slug": "multipurpose-marketplace-template",
+            "accentColor": "#8b5cf6",
+            "title": "Multipurpose Marketplace Website Template",
+            "shortTitle": "Multipurpose Marketplace",
+            "platforms": ["Web"],
+            "metaDescription": "A multipurpose marketplace website template built with Next.js and Tailwind CSS, featuring category browsing, product listings, vendor pages, and a flexible layout adaptable to any niche.",
+            "role": "Frontend Developer & UI Designer",
+            "responsibilities": [
+                "UI/UX design — marketplace layout and navigation architecture",
+                "Next.js project setup with App Router",
+                "Responsive Tailwind CSS component system",
+                "Category, product listing, and vendor page layouts",
+                "Deployment to custom subdomain"
+            ],
+            "techStack": ["Next.js", "Tailwind CSS", "TypeScript", "React"],
+            "shortDescription": "A multipurpose marketplace website template built with Next.js and Tailwind CSS. Includes category browsing, product listing grids, vendor profile pages, and a flexible layout designed to work across any marketplace niche — from digital goods to local services.",
+            "meta": {
+                "industry": "E-commerce / Marketplace",
+                "type": "Website Template",
+                "link": "https://multipurpose-marketplace.algermakiputin.com",
+                "linkLabel": "Live Demo"
+            },
+            "requirements": [
+                "Homepage with featured categories and top listings",
+                "Product/listing grid with search and filter layout",
+                "Individual listing and vendor profile pages",
+                "Flexible design system adaptable to any marketplace niche",
+                "Responsive layout for mobile and desktop"
+            ],
+            "overview": "A multipurpose marketplace website template built for flexibility — designed to work as a foundation for any platform connecting buyers and sellers, whether that's physical goods, digital products, freelance services, or local listings. Built with Next.js and Tailwind CSS for fast rendering and a maintainable codebase.",
+            "challenge": "Marketplace templates need to solve a structural problem: they must be generic enough to adapt to different niches but specific enough to feel purpose-built. The challenge was designing a layout and component set flexible enough to serve multiple use cases — services, goods, digital products — without looking like a blank boilerplate.",
+            "approach": "Designed a category-first information architecture: the homepage surfaces categories prominently, listings are filterable by type, and individual pages follow a consistent pattern adaptable to any product or service type. Built on Next.js App Router with Tailwind CSS utility classes — every layout region is easy to restyle or extend. Deployed live for hands-on evaluation.",
+            "results": [
+                {
+                    "title": "Live Demo",
+                    "metric": "Deployed",
+                    "description": "Live at multipurpose-marketplace.algermakiputin.com"
+                },
+                {
+                    "title": "Responsive",
+                    "metric": "Mobile-first",
+                    "description": "Fully responsive across mobile, tablet, and desktop"
+                },
+                {
+                    "title": "Stack",
+                    "metric": "Next.js",
+                    "description": "Built with Next.js App Router and Tailwind CSS"
+                },
+                {
+                    "title": "Flexibility",
+                    "metric": "Any Niche",
+                    "description": "Layout adapts to services, goods, digital products, or local listings"
+                }
+            ],
+            "conclusion": "The Multipurpose Marketplace template shows how a well-structured Next.js codebase and Tailwind design system can produce a marketplace-ready website that's fast to deploy and easy to adapt — giving any team a solid foundation without starting from scratch."
+        },
+        {
             "platform": "mobile",
             "slug": "japanese-candlestick-patterns",
+            "accentColor": "#b7f34a",
             "category": "mobile-app",
             "image": "/images/projects/candlestick.webp",
             "title": "Empowering Retail Traders with a Candlestick Pattern Learning App",
+            "shortTitle": "Candlestick Patterns",
+            "platforms": ["Android"],
+            "evidence": { "value": "5,000+", "label": "Play Store installs", "kind": "scale", "source": "Google Play" },
             "metaDescription": "Japanese Candlestick Patterns is an android app that helps beginner traders who wants to get familiar with Japanese Candlestick Patterns.",
             "role": "Mobile Developer",
             "responsibilities": [
