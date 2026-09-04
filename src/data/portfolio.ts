@@ -32,7 +32,7 @@ export const hero = {
   role: "Product Engineer — Web & Mobile",
   stack: "React · React Native · TypeScript · Node.js",
   intro:
-    "I lead and ship production software across web, iOS, Android, APIs, and data—turning complex business workflows into reliable products used by real customers.",
+    "I design and ship web and mobile products end to end—from interfaces and APIs to data, integrations, and release. I turn complex business workflows into clear, reliable systems.",
   primaryCta: { label: "View case studies", href: "#builds" },
   secondaryCta: { label: "Discuss an opportunity", href: "/contact" },
   workstation: {
