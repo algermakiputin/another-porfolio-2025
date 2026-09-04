@@ -2,6 +2,8 @@ import { readFileSync } from "fs";
 import { join } from "path";
 import type { Metadata } from "next";
 import PortfolioPage from "../../views/portfolio/PortfolioPage";
+import { toProjectSummary } from "../../lib/projects";
+import type { Project } from "../../types/ProjectType";
 
 const BASE_URL = "https://algermakiputin.com";
 
@@ -22,22 +24,23 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  const file = readFileSync(join(process.cwd(), "public/contents/projects.json"), "utf-8");
-  const projects = JSON.parse(file).projects as Array<{
-    slug: string;
-    title: string;
-    metaDescription: string;
-  }>;
+  const file = readFileSync(
+    join(process.cwd(), "public/contents/projects.json"),
+    "utf-8"
+  );
+  const raw = JSON.parse(file).projects as Project[];
+  const projects = raw.map(toProjectSummary);
 
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     name: "Portfolio | Alger Makiputin",
-    description: "Case studies and projects across retail, e-commerce, and banking.",
+    description:
+      "Case studies and projects across retail, e-commerce, and banking.",
     url: `${BASE_URL}/portfolio`,
     mainEntity: {
       "@type": "ItemList",
-      itemListElement: projects.map((p, i) => ({
+      itemListElement: raw.map((p, i) => ({
         "@type": "ListItem",
         position: i + 1,
         name: p.title,
@@ -53,7 +56,7 @@ export default function Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <PortfolioPage />
+      <PortfolioPage projects={projects} />
     </>
   );
 }

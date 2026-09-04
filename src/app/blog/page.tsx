@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import BlogPage from "../../views/blog/BlogPage";
 import { getBlogs } from "../../lib/blog";
@@ -8,11 +9,11 @@ const BASE_URL = "https://algermakiputin.com";
 export const metadata: Metadata = {
   title: "Blog",
   description:
-    "Insights on full stack development, system architecture, performance optimization, and building scalable applications for real businesses.",
+    "Practical notes on product engineering, React, mobile architecture, AI-assisted development, and the lessons behind shipping real software.",
   openGraph: {
     title: "Blog | Alger Makiputin",
     description:
-      "Insights on full stack development, system architecture, performance optimization, and building scalable applications for real businesses.",
+      "Practical notes on product engineering, React, mobile architecture, AI-assisted development, and the lessons behind shipping real software.",
     url: `${BASE_URL}/blog`,
     images: [{ url: "/images/og-cover.jpg", width: 1200, height: 630, alt: "Alger Makiputin — Blog" }],
   },
@@ -26,7 +27,7 @@ const jsonLd = {
   "@type": "Blog",
   name: "Alger Makiputin — Blog",
   description:
-    "Insights on full stack development, system architecture, performance optimization, and building scalable applications.",
+    "Practical notes on product engineering, React, mobile architecture, AI-assisted development, and shipping real software.",
   url: `${BASE_URL}/blog`,
   author: {
     "@type": "Person",
@@ -44,7 +45,9 @@ export default function Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <BlogPage posts={posts} />
+      <Suspense fallback={null}>
+        <BlogPage posts={posts} />
+      </Suspense>
     </>
   );
 }

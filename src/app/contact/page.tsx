@@ -30,7 +30,7 @@ const jsonLd = {
     name: "Alger Makiputin",
     url: BASE_URL,
     image: `${BASE_URL}/images/profile.webp`,
-    jobTitle: "Full Stack Engineer",
+    jobTitle: "Product Engineer",
     sameAs: [
       "https://ph.linkedin.com/in/alger-makiputin",
       "https://github.com/algermakiputin",

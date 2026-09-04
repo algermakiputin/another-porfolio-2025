@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 170 176" role="img" aria-labelledby="title desc">
+  <title id="title">Database panel</title>
+  <desc id="desc">A PostgreSQL database symbol.</desc>
+  <path d="M10 2h140l18 18v144l-10 10H10L2 166V10z" fill="#09131F" stroke="#F2EBDD" stroke-opacity=".55" stroke-width="2"/>
+  <text x="16" y="24" fill="#F2EBDD" font-family="Inter,Arial,sans-serif" font-size="10" font-weight="700" letter-spacing="1.2">DATABASE</text>
+  <g fill="#111827" stroke="#B7F34A" stroke-width="2">
+    <ellipse cx="85" cy="67" rx="34" ry="13"/><path d="M51 67v54c0 8 15 14 34 14s34-6 34-14V67"/>
+    <path d="M51 85c0 8 15 14 34 14s34-6 34-14M51 103c0 8 15 14 34 14s34-6 34-14"/>
+  </g>
+  <text x="85" y="157" fill="#B7F34A" font-family="Inter,Arial,sans-serif" font-size="11" font-weight="700" text-anchor="middle">PostgreSQL</text>
+</svg>

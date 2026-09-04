@@ -1,0 +1,36 @@
+:root {
+  --portfolio-charcoal: #111827;
+  --portfolio-ink: #09131f;
+  --portfolio-bone: #f2ebdd;
+  --portfolio-cobalt: #2457e6;
+  --portfolio-orange: #e7652d;
+  --portfolio-lime: #b7f34a;
+}
+
+.portfolio-grain {
+  position: absolute;
+  inset: 0;
+  background: url("./textures/paper-grain.svg") repeat;
+  background-size: 256px 256px;
+  mix-blend-mode: soft-light;
+  opacity: 0.18;
+  pointer-events: none;
+}
+
+.portfolio-grid {
+  background-image: url("./motifs/blueprint-grid.svg");
+  background-repeat: repeat;
+  background-size: 240px 240px;
+}
+
+.portfolio-decoration {
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+}
+
+.portfolio-workstation {
+  width: clamp(720px, 62vw, 1080px);
+  height: auto;
+  object-fit: contain;
+}

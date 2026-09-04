@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import WebDevelopmentPage from "../../views/services/WebDevelopmentPage";
+import ServicePage from "../../views/services/ServicePage";
+import { SERVICES } from "../../data/services";
 
 const BASE_URL = "https://algermakiputin.com";
 const PAGE_URL = `${BASE_URL}/web-development-services/`;
@@ -54,7 +55,7 @@ const jsonLd = {
     name: "Alger Makiputin",
     url: BASE_URL,
     image: `${BASE_URL}/images/profile.webp`,
-    jobTitle: "Full Stack Developer",
+    jobTitle: "Product Engineer",
     sameAs: [
       "https://ph.linkedin.com/in/alger-makiputin",
       "https://github.com/algermakiputin",
@@ -69,7 +70,7 @@ export default function Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <WebDevelopmentPage />
+      <ServicePage content={SERVICES["web-development-services"]} />
     </>
   );
 }

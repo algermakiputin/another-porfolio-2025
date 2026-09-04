@@ -1,0 +1,3879 @@
+/* ============================================================================
+   Portfolio — Faceless Retro-Tech Editorial Design System
+   Centralized tokens + shared primitives. Section styles live in this file too.
+   No raw color values should appear in the portfolio components.
+   ========================================================================== */
+
+:root {
+  /* ---- Core palette (approved brief) ---- */
+  --portfolio-ink: #09131f;
+  --portfolio-charcoal: #111827;
+  --portfolio-bone: #f2ebdd;
+  --portfolio-cobalt: #2457e6;
+  --portfolio-orange: #e7652d;
+  --portfolio-lime: #b7f34a;
+
+  /* ---- Derived shades ---- */
+  --pf-ink-900: #060d16;
+  --pf-ink-800: #0b1826;
+  --pf-ink-700: #102138;
+  --pf-cobalt-700: #1c46bd;
+  --pf-cobalt-300: #7ea2ff;
+  --pf-bone-200: #e7dcc6;
+  --pf-bone-muted: #cdbfa6;
+  --pf-orange-600: #cf5320;
+
+  /* ---- Semantic tokens (defaults; sections override locally) ---- */
+  --pf-bg: var(--portfolio-ink);
+  --pf-surface: rgba(242, 235, 221, 0.04);
+  --pf-surface-raised: #0d1b2c;
+  --pf-text: var(--portfolio-bone);
+  --pf-text-muted: rgba(242, 235, 221, 0.66);
+  --pf-text-faint: rgba(242, 235, 221, 0.42);
+  --pf-accent: var(--portfolio-orange);
+  --pf-accent-2: var(--portfolio-lime);
+  --pf-border: rgba(242, 235, 221, 0.16);
+  --pf-border-strong: rgba(242, 235, 221, 0.3);
+  --pf-focus-ring: var(--portfolio-lime);
+
+  /* ---- Typography ---- */
+  --pf-font-display: var(--font-bebas), "Bebas Neue", "Arial Narrow", sans-serif;
+  --pf-font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --pf-tracking-display: 0.01em;
+  --pf-tracking-label: 0.14em;
+
+  /* ---- Spacing & layout ----
+     Two intentional container roles:
+       --pf-content-width-wide  : standard reading/section container (1280px)
+       --pf-stage-max           : full-bleed visual stages — header, homepage hero (1920px)
+     Regular sections use --pf-content-width-wide. The header and hero intentionally
+     use --pf-stage-max at ≥1600px so copy and logo align at the wide viewport edge. */
+  --pf-content-width: 1200px; /* legacy alias, no longer used for alignment */
+  --pf-content-width-wide: 1280px; /* canonical content max-width */
+  --pf-stage-max: 1920px; /* wide stage: header + hero only */
+  --pf-stage-gutter: clamp(32px, 4vw, 96px); /* stage outer gutter — matches --pf-gutter up to 64px then continues wider */
+  --reading-max: 720px; /* long-prose max (e.g. blog article body) */
+  --pf-gutter: clamp(16px, 4vw, 64px); /* shared page gutter: 16px mobile → 64px desktop */
+  --pf-section-py: clamp(4rem, 8vw, 7.5rem);
+  --pf-header-height: 76px;
+  --pf-font-mono: "JetBrains Mono", "Courier New", monospace;
+
+  /* ---- Radii & shadows ---- */
+  --pf-radius-sm: 8px;
+  --pf-radius: 14px;
+  --pf-radius-lg: 20px;
+  --pf-shadow-panel: 0 18px 44px -20px rgba(0, 0, 0, 0.7);
+  --pf-shadow-card: 0 24px 60px -28px rgba(0, 0, 0, 0.55);
+
+  /* ---- Z-index layers ---- */
+  --pf-z-bg: 0;
+  --pf-z-grid: 1;
+  --pf-z-grain: 2;
+  --pf-z-shards: 3;
+  --pf-z-compass: 4;
+  --pf-z-panels: 5;
+  --pf-z-workstation: 6;
+  --pf-z-content: 10;
+  --pf-z-header: 100;
+  --pf-z-overlay: 200;
+
+  /* ---- Motion ---- */
+  --pf-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* ============================================================================
+   Dark root — prevents white scrollbar gutter on Windows classic scrollbars
+   ========================================================================== */
+
+html {
+  background-color: var(--portfolio-ink);
+  color-scheme: dark;
+  scrollbar-color: rgba(242, 235, 221, 0.32) var(--portfolio-ink);
+}
+
+html::-webkit-scrollbar {
+  width: 12px;
+}
+
+html::-webkit-scrollbar-track {
+  background: var(--portfolio-ink);
+}
+
+html::-webkit-scrollbar-thumb {
+  background: rgba(242, 235, 221, 0.28);
+  border: 3px solid var(--portfolio-ink);
+  border-radius: 999px;
+}
+
+html::-webkit-scrollbar-thumb:hover {
+  background: rgba(242, 235, 221, 0.42);
+}
+
+body {
+  background-color: var(--portfolio-ink);
+}
+
+/* ============================================================================
+   Root wrapper & shared primitives
+   ========================================================================== */
+
+.portfolio-root {
+  font-family: var(--pf-font-body);
+  color: var(--pf-text);
+  background: var(--pf-bg);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+.portfolio-root *,
+.portfolio-root *::before,
+.portfolio-root *::after {
+  box-sizing: border-box;
+}
+
+.pf-section {
+  position: relative;
+  isolation: isolate;
+  padding-block: var(--pf-section-py);
+  padding-inline: var(--pf-gutter);
+  background: var(--pf-bg);
+  color: var(--pf-text);
+  overflow: hidden;
+}
+
+/* Canonical shared content container (reused across About, Selected Builds,
+   Field Notes and Contact). Header, hero, experience and footer resolve to the
+   same axis via equivalent single-gutter rules. */
+.pf-container {
+  position: relative;
+  z-index: var(--pf-z-content);
+  width: 100%;
+  max-width: var(--pf-content-width-wide);
+  margin-inline: auto;
+}
+
+.pf-container--wide {
+  max-width: var(--pf-content-width-wide);
+}
+
+/* Decorative texture overlays -------------------------------------------- */
+.pf-grain {
+  position: absolute;
+  inset: 0;
+  z-index: var(--pf-z-grain);
+  background: url("/portfolio/textures/paper-grain.svg") repeat;
+  background-size: 256px 256px;
+  mix-blend-mode: soft-light;
+  opacity: 0.16;
+  pointer-events: none;
+}
+
+.pf-grid-bg {
+  position: absolute;
+  inset: 0;
+  z-index: var(--pf-z-grid);
+  background: url("/portfolio/motifs/blueprint-grid.svg") repeat;
+  background-size: 240px 240px;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.pf-decoration {
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+  z-index: var(--pf-z-shards);
+}
+
+/* Section marker ( ">" ) + eyebrow --------------------------------------- */
+.pf-marker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--pf-accent);
+}
+
+.pf-marker__chevron {
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  line-height: 1;
+  font-weight: 800;
+  color: var(--pf-accent);
+}
+
+/* Display headings -------------------------------------------------------- */
+.pf-display {
+  font-family: var(--pf-font-display);
+  font-weight: 400;
+  letter-spacing: var(--pf-tracking-display);
+  line-height: 0.9;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.pf-section-title {
+  font-family: var(--pf-font-display);
+  font-weight: 400;
+  font-size: clamp(2.4rem, 5.5vw, 4rem);
+  line-height: 0.92;
+  letter-spacing: 0.015em;
+  text-transform: uppercase;
+  margin: 0;
+  color: var(--pf-text);
+}
+
+/* Buttons ----------------------------------------------------------------- */
+.pf-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 48px;
+  padding: 0.85rem 1.5rem;
+  border-radius: var(--pf-radius-sm);
+  font-family: var(--pf-font-body);
+  font-weight: 600;
+  font-size: 0.98rem;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: transform 0.18s var(--pf-ease), background 0.18s var(--pf-ease),
+    border-color 0.18s var(--pf-ease), color 0.18s var(--pf-ease);
+}
+
+.pf-btn--primary {
+  background: var(--pf-accent);
+  color: #fff;
+  border-color: var(--pf-accent);
+}
+
+.pf-btn--primary:hover {
+  background: var(--pf-orange-600);
+  border-color: var(--pf-orange-600);
+  transform: translateY(-2px);
+}
+
+.pf-btn--ghost {
+  background: transparent;
+  color: var(--pf-text);
+  border-color: var(--pf-border-strong);
+}
+
+.pf-btn--ghost:hover {
+  border-color: var(--pf-accent-2);
+  color: var(--pf-accent-2);
+  transform: translateY(-2px);
+}
+
+.pf-btn__dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+}
+
+/* Links, focus, a11y ------------------------------------------------------ */
+.portfolio-root a {
+  color: inherit;
+}
+
+.portfolio-root :focus-visible,
+.pf-skip-link:focus-visible {
+  outline: 3px solid var(--pf-focus-ring);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.pf-skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -3rem;
+  z-index: var(--pf-z-overlay);
+  padding: 0.6rem 1rem;
+  background: var(--portfolio-lime);
+  color: var(--portfolio-ink);
+  font-weight: 700;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: top 0.2s var(--pf-ease);
+}
+
+.pf-skip-link:focus {
+  top: 1rem;
+}
+
+.pf-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Entrance animation (CSS-only, no scroll JS) ----------------------------- */
+@keyframes pf-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.pf-rise {
+  animation: pf-rise 0.7s var(--pf-ease) both;
+}
+
+.pf-rise-1 { animation-delay: 0.05s; }
+.pf-rise-2 { animation-delay: 0.15s; }
+.pf-rise-3 { animation-delay: 0.25s; }
+.pf-rise-4 { animation-delay: 0.35s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-root *,
+  .portfolio-root *::before,
+  .portfolio-root *::after {
+    animation-duration: 0.001ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  /* Also cover header elements outside .portfolio-root */
+  .pf-header *,
+  .pf-header *::before,
+  .pf-header *::after {
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* Hide brand descriptor at narrow viewports to keep the header uncluttered */
+@media (max-width: 1100px) {
+  .pf-brand__rule,
+  .pf-brand__descriptor {
+    display: none;
+  }
+}
+
+/* ============================================================================
+   Header
+   ========================================================================== */
+
+/* Pull the homepage up behind the sticky header so the hero image fills that band */
+.portfolio-root {
+  margin-top: calc(-1 * var(--pf-header-height));
+}
+
+.pf-header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--pf-z-header);
+  height: var(--pf-header-height);
+  color: var(--portfolio-bone);
+  background: rgba(6, 16, 28, 0.96);
+  border-bottom: 1px solid rgba(243, 236, 221, 0.12);
+  transition: background 0.25s var(--pf-ease), border-color 0.25s var(--pf-ease);
+}
+
+.pf-header[data-variant="overlay"] {
+  background: rgba(6, 16, 28, 0.78);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.pf-header[data-variant="overlay"].is-scrolled {
+  background: rgba(6, 16, 28, 0.96);
+}
+
+.pf-header[data-variant="solid"],
+.pf-header[data-variant="article"] {
+  background: rgba(6, 16, 28, 0.97);
+}
+
+.pf-header__inner {
+  position: relative;
+  height: 100%;
+  /* Matches .pf-container so AM * aligns with hero copy, section headings, and footer */
+  width: min(calc(100% - 2 * var(--pf-gutter)), var(--pf-content-width-wide));
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+/* Orange registration tick at the lower-left container boundary */
+.pf-header__inner::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 20px;
+  height: 2px;
+  background: var(--portfolio-orange);
+  pointer-events: none;
+}
+
+/* ── Brand ─────────────────────────────────────────────────────────────────── */
+
+.pf-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  text-decoration: none;
+  color: var(--portfolio-bone);
+  flex-shrink: 0;
+}
+
+/* AM Northmark logo (shared across header + footer). Explicit height:auto with
+   the img's intrinsic 196×96 ratio keeps space reserved — no layout shift. */
+.site-logo {
+  display: block;
+  width: clamp(84px, 6vw, 98px);
+  height: auto;
+  flex: none;
+  transition: opacity 0.18s var(--pf-ease);
+}
+.pf-brand:hover .site-logo,
+.pf-logo:hover .site-logo {
+  opacity: 0.82;
+}
+
+.pf-brand__rule {
+  display: block;
+  width: 1px;
+  height: 18px;
+  background: rgba(243, 236, 221, 0.2);
+  margin-inline: 0.75rem;
+}
+
+.pf-brand__descriptor {
+  font-family: var(--pf-font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  color: rgba(243, 236, 221, 0.38);
+  white-space: nowrap;
+}
+
+/* ── Desktop navigation ─────────────────────────────────────────────────────── */
+
+.pf-nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.1rem, 2.4vw, 2.25rem);
+}
+
+.pf-nav__link {
+  position: relative;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 7px;
+  min-height: 44px;
+  padding-block: 0.3rem;
+  color: rgba(243, 236, 221, 0.66);
+  text-decoration: none;
+  transition: color 0.18s var(--pf-ease);
+}
+
+.pf-nav__link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: var(--portfolio-orange);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.2s var(--pf-ease);
+}
+
+.pf-nav__link:hover {
+  color: var(--portfolio-bone);
+}
+
+.pf-nav__link:hover .pf-nav__index {
+  color: var(--portfolio-orange);
+}
+
+.pf-nav__link:hover::after {
+  transform: scaleX(1);
+}
+
+.pf-nav__link:focus-visible {
+  outline: 2px solid var(--portfolio-lime);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+.pf-nav__link.is-active {
+  color: var(--portfolio-bone);
+}
+
+.pf-nav__link.is-active .pf-nav__index {
+  color: var(--portfolio-orange);
+}
+
+.pf-nav__link.is-active::after {
+  transform: scaleX(1);
+}
+
+.pf-nav__index {
+  color: rgba(243, 236, 221, 0.3);
+  font-family: var(--pf-font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.08em;
+}
+
+.pf-nav__label {
+  font-size: 0.9375rem;
+  font-weight: 550;
+}
+
+/* Contact link — thin border + arrow, no active underline */
+.pf-nav__contact {
+  align-items: center;
+  min-height: 42px;
+  padding-inline: 16px;
+  border: 1px solid rgba(243, 236, 221, 0.28);
+  border-radius: 3px;
+  transition: color 0.18s var(--pf-ease), border-color 0.18s var(--pf-ease);
+}
+
+.pf-nav__contact::after {
+  display: none;
+}
+
+.pf-nav__contact:hover {
+  border-color: var(--portfolio-orange);
+  color: var(--portfolio-bone);
+}
+
+.pf-nav__contact:hover .pf-nav__index {
+  color: var(--portfolio-orange);
+}
+
+.pf-nav__contact.is-active {
+  border-color: var(--portfolio-orange);
+}
+
+.pf-nav__arrow {
+  font-size: 0.9rem;
+  transition: transform 0.18s var(--pf-ease);
+}
+
+.pf-nav__contact:hover .pf-nav__arrow {
+  transform: translate(2px, -2px);
+}
+
+/* ── Mobile menu toggle ─────────────────────────────────────────────────────── */
+
+.pf-burger {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  height: 44px;
+  padding: 0 12px;
+  background: transparent;
+  border: 1px solid rgba(243, 236, 221, 0.22);
+  border-radius: 3px;
+  cursor: pointer;
+  color: rgba(243, 236, 221, 0.8);
+  transition: border-color 0.18s var(--pf-ease), color 0.18s var(--pf-ease);
+}
+
+.pf-burger:hover {
+  border-color: rgba(243, 236, 221, 0.5);
+  color: var(--portfolio-bone);
+}
+
+.pf-burger:focus-visible {
+  outline: 2px solid var(--portfolio-lime);
+  outline-offset: 4px;
+}
+
+.pf-burger__text {
+  font-family: var(--pf-font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+}
+
+.pf-burger__icon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  width: 16px;
+  height: 16px;
+}
+
+.pf-burger__icon span {
+  display: block;
+  height: 1.5px;
+  width: 100%;
+  background: currentColor;
+  border-radius: 1px;
+}
+
+/* ── Mobile backdrop ────────────────────────────────────────────────────────── */
+
+.pf-mobile-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--pf-z-header) - 1);
+  background: rgba(3, 8, 14, 0.78);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s var(--pf-ease), visibility 0.25s var(--pf-ease);
+}
+
+.pf-mobile-backdrop.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ── Mobile menu drawer ─────────────────────────────────────────────────────── */
+
+.pf-mobile-menu {
+  position: fixed;
+  top: var(--pf-header-height);
+  left: 0;
+  right: 0;
+  z-index: var(--pf-z-header);
+  background: rgba(6, 13, 22, 0.98);
+  border-bottom: 1px solid rgba(243, 236, 221, 0.1);
+  transform: translateY(-8px);
+  opacity: 0;
+  transition: transform 0.25s var(--pf-ease), opacity 0.25s var(--pf-ease);
+}
+
+.pf-mobile-menu.is-open {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.pf-mobile-nav {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem var(--pf-gutter) 1.5rem;
+}
+
+.pf-mobile-nav__link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 1rem 0.25rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: rgba(243, 236, 221, 0.8);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(243, 236, 221, 0.08);
+  transition: color 0.18s var(--pf-ease);
+}
+
+.pf-mobile-nav__link:last-child {
+  border-bottom: none;
+}
+
+.pf-mobile-nav__link:hover {
+  color: var(--portfolio-bone);
+}
+
+.pf-mobile-nav__link:focus-visible {
+  outline: 2px solid var(--portfolio-lime);
+  outline-offset: 2px;
+}
+
+.pf-mobile-nav__index {
+  font-family: var(--pf-font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.08em;
+  color: rgba(243, 236, 221, 0.3);
+}
+
+.pf-mobile-nav__link.is-active {
+  color: var(--portfolio-bone);
+}
+
+.pf-mobile-nav__link.is-active .pf-mobile-nav__index {
+  color: var(--portfolio-orange);
+}
+
+/* ============================================================================
+   Section heading (chevron + display title)
+   ========================================================================== */
+
+.pf-section-head {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: clamp(1.75rem, 3.5vw, 2.75rem);
+}
+
+.pf-section-head .pf-marker__chevron {
+  transform: translateY(-2px);
+}
+
+/* ============================================================================
+   HERO
+   ========================================================================== */
+
+.pf-hero {
+  padding-block: 0;
+  padding-inline: var(--pf-gutter);
+  min-height: clamp(760px, 100svh, 1020px);
+  display: flex;
+  align-items: stretch;
+  background: var(--portfolio-ink);
+  color: var(--portfolio-bone);
+  position: relative;
+  isolation: isolate;
+}
+
+.pf-hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: var(--pf-z-bg);
+  overflow: hidden;
+}
+
+/* Hero grid removed */
+
+.pf-hero__grain {
+  position: absolute;
+  inset: 0;
+  background: url("/portfolio/textures/paper-grain.svg") repeat;
+  background-size: 256px 256px;
+  mix-blend-mode: soft-light;
+  opacity: 0.15;
+}
+
+/* shards + compass now live inside the artboard (see below) */
+
+/* Copy container stays centered; the visual is a separate full-width layer */
+.pf-hero__inner {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: var(--pf-content-width-wide);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: center;
+}
+
+.pf-hero__copy {
+  align-self: center;
+  min-width: 0;
+  padding-top: calc(var(--pf-header-height) + clamp(0.75rem, 3vh, 1.75rem));
+  padding-bottom: clamp(2rem, 5vh, 3.5rem);
+  max-width: 34rem;
+}
+
+.pf-hero__name {
+  font-family: var(--pf-font-display);
+  /* clamp keeps the name impressive but never overflows the ~43% copy column
+     on 1280–1440 laptops or wraps awkwardly on smaller screens */
+  font-size: clamp(3.1rem, 8.4vw, 7.5rem);
+  line-height: 0.84;
+  color: var(--portfolio-bone);
+  margin: 0 0 0.85rem;
+  overflow-wrap: break-word;
+}
+
+.pf-hero__name-line {
+  display: block;
+}
+
+.pf-hero__role {
+  font-weight: 700;
+  font-size: clamp(1.05rem, 2vw, 1.5rem);
+  color: var(--portfolio-orange);
+  margin: 0 0 0.4rem;
+}
+
+.pf-hero__stack {
+  font-weight: 600;
+  font-size: clamp(0.86rem, 1.25vw, 1rem);
+  letter-spacing: 0.04em;
+  color: rgba(242, 235, 221, 0.72);
+  margin: 0 0 1.35rem;
+}
+
+.pf-hero__intro {
+  font-size: clamp(1rem, 1.45vw, 1.14rem);
+  line-height: 1.62;
+  color: var(--pf-text-muted);
+  max-width: 42ch;
+  margin: 0 0 1.85rem;
+}
+
+.pf-hero__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+}
+
+/* ---- Bounded art viewport — coordinate system starts below the header -------
+   At ≥1100px the inner is position:static so this absolute element resolves to
+   .pf-hero. top is overridden to var(--pf-header-height) in the ≥1100px block
+   so the art region never overlaps the navigation bar.
+   container-type:size enables cqw/cqh units inside the stage. */
+.pf-hero__art-viewport {
+  position: absolute;
+  z-index: 1;
+  inset: 0 0 0 auto;
+  width: clamp(920px, 68vw, 1280px);
+  isolation: isolate;
+  container-type: size;
+  pointer-events: none;
+}
+
+/* Geometric polygon background — positioned relative to the full hero section
+   so it always reaches the right viewport edge. At ≥1100px desktop the width
+   matches the art-viewport width; narrower breakpoints override below. */
+.pf-hero__art-background {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: auto;
+  width: clamp(920px, 68vw, 1280px);
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.pf-hero__art-background .pf-hero__art-shards {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: right top;
+  opacity: 0.6;
+}
+
+/* Art stage — aspect-ratio preserves the existing panel % positions so all
+   assets stay at the same absolute viewport coordinates as before. */
+.pf-hero__art-stage {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  aspect-ratio: 900 / 620;
+  isolation: isolate;
+}
+
+.pf-hero__art-stage > img {
+  /* position:absolute already yields block-level layout; no `display` here so
+     the responsive `.pf-panel--* { display:none }` rules are not out-specified */
+  position: absolute;
+  height: auto;
+  max-width: none;
+}
+
+/* All positions/sizes are % of the artboard, so they move together */
+.pf-hero__compass {
+  z-index: 1;
+  width: 19%;
+  left: 1%;
+  top: 3%;
+  opacity: 0.85;
+}
+
+.pf-panel {
+  opacity: 0.92;
+}
+
+.pf-panel--database {
+  z-index: 3;
+  width: 13.5%;
+  left: 11%;
+  top: 27%;
+}
+
+.pf-panel--status {
+  z-index: 3;
+  width: 15%;
+  left: 16%;
+  top: 51%;
+}
+
+.pf-panel--system {
+  z-index: 2;
+  width: 34%;
+  left: 30%;
+  top: 3%;
+}
+
+.pf-panel--components {
+  z-index: 2;
+  width: 27%;
+  right: 1%;
+  top: 5%;
+}
+
+/* Wrapper carries position, sizing, and the contact shadow.
+   bottom: 0 lets the asset's 24px transparent padding provide natural clearance
+   so the visible desk edge sits ~24px above the hero baseline. */
+.pf-hero__workstation-wrap {
+  position: absolute;
+  z-index: 5;
+  width: 88%;
+  right: -1%;
+  bottom: 0;
+}
+
+/* Subtle contact shadow — placed just under the visible desk platform */
+.pf-hero__workstation-wrap::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 8%;
+  right: 3%;
+  bottom: 26px;
+  height: 28px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(2, 8, 20, 0.52) 0%,
+    rgba(2, 8, 20, 0.22) 48%,
+    transparent 76%
+  );
+  filter: blur(8px);
+  pointer-events: none;
+}
+
+/* The img fills the wrapper naturally; aspect ratio is maintained by height:auto */
+.pf-hero__workstation {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---- Hero: mobile-only elements (hidden at tablet + desktop) ---- */
+.pf-hero__ctas--mobile,
+.pf-hero__availability,
+.pf-hero__status-rail,
+.pf-hero__art-viewport-grid {
+  display: none;
+}
+
+/* Desktop stage-width tiers (wider stage on larger screens, still capped) */
+@media (min-width: 1500px) {
+  .pf-hero__art-viewport {
+    width: min(68vw, 1280px);
+  }
+  .pf-hero__art-background {
+    width: min(68vw, 1280px);
+  }
+}
+
+@media (min-width: 1200px) and (max-width: 1499px) {
+  /* Slightly narrower than the ultra-wide stage so the whole scene shifts right
+     and the compass clears the name text (keeps the internal map unchanged) */
+  .pf-hero__art-viewport {
+    width: min(68vw, 1000px);
+  }
+  .pf-hero__art-background {
+    width: min(68vw, 1000px);
+  }
+}
+
+/* Progressive disclosure 1200–1439px: at this width both component tree and
+   compass cannot share the upper art area without crowding the copy column.
+   Component tree returns at ≥1440px when the viewport provides enough room. */
+@media (min-width: 1200px) and (max-width: 1439px) {
+  .pf-panel--components {
+    display: none;
+  }
+
+  .pf-hero__compass {
+    display: none;
+  }
+}
+
+/* ============================================================================
+   WIDE STAGE — ≥1600px
+   Header and hero expand to --pf-stage-max (1920px) so copy and logo align
+   near the viewport edge at 2K. All other sections stay at --pf-content-width-wide.
+   ========================================================================== */
+@media (min-width: 1600px) {
+
+  /* ── Header: use stage alignment so logo matches the hero left boundary ── */
+  .pf-header__inner {
+    width: min(
+      calc(100% - 2 * var(--pf-stage-gutter)),
+      var(--pf-stage-max)
+    );
+    max-width: none;
+  }
+
+  /* ── Hero: remove hero padding; the inner formula provides the stage gutter */
+  .pf-hero {
+    padding-inline: 0;
+  }
+
+  .pf-hero__inner {
+    width: min(
+      calc(100% - 2 * var(--pf-stage-gutter)),
+      var(--pf-stage-max)
+    );
+    max-width: none;
+  }
+
+  /* ── Visual grows with the wider stage (1380px keeps artboard inside hero) */
+  .pf-hero__art-viewport {
+    width: clamp(980px, 68vw, 1380px);
+  }
+  .pf-hero__art-background {
+    width: clamp(980px, 68vw, 1380px);
+  }
+
+  /* ── Copy container: release the 34rem cap so the name can grow.
+     The intro keeps its own max-width so paragraph lines remain readable. */
+  .pf-hero__copy {
+    max-width: none;
+  }
+
+  /* ── Typography: fluid growth from the 1280px desktop cap ─────────────── */
+  .pf-hero__name {
+    /* floor = current desktop max so no jump at 1600px; grows to 10rem at ~2133px */
+    font-size: clamp(7.5rem, 7.5vw, 10rem);
+    line-height: 0.88;
+  }
+
+  .pf-hero__role {
+    font-size: clamp(1.5rem, 1.6vw, 2.25rem);
+  }
+
+  .pf-hero__stack {
+    font-size: clamp(1rem, 1.1vw, 1.4rem);
+  }
+
+  .pf-hero__intro {
+    font-size: clamp(1.14rem, 1.1vw, 1.4rem);
+    line-height: 1.55;
+    max-width: 34rem; /* preserve readable line length even on wide displays */
+  }
+}
+
+/* ── Hero height: cap tall landscape displays at 960px to prevent the artboard
+   from growing taller than the hero (artboard aspect-ratio 900/620 means a
+   1380px-wide artboard is ~950px tall — tight within the 960px cap). ──── */
+@media (min-width: 1600px) and (orientation: landscape) {
+  .pf-hero {
+    height: min(calc(100svh - var(--pf-header-height)), 960px);
+    min-height: 720px;
+    overflow: hidden;
+  }
+
+  /* Hero height already subtracts the header at this breakpoint — do not
+     subtract it again on the art viewport or the stage would clip at the top. */
+  .pf-hero__art-viewport {
+    top: 0;
+  }
+}
+
+/* ============================================================================
+   CREDIBILITY STRIP (dark, integrated with the bottom of the hero)
+   Four structured proof points on the SAME container axis as the hero copy and
+   the Selected Builds section: outer gutter + inner .pf-container (1280px), so
+   all three share identical left/right edges. Root cause of the old misalignment
+   was applying --pf-gutter INSIDE a 1280px inner (double-counting the gutter),
+   which pushed the content one gutter further right than the hero/projects.
+   ========================================================================== */
+
+.pf-credstrip {
+  background: var(--portfolio-ink);
+  /* Neutral 1px rules integrate the strip with the hero above and provide the
+     divider into the (charcoal) projects section below. No orange hairline. */
+  border-top: 1px solid var(--pf-border);
+  border-bottom: 1px solid var(--pf-border);
+  /* ~20–24px vertical rhythm → ~96–104px total strip height on desktop. */
+  padding-block: clamp(20px, 2vw, 24px);
+  /* Same OUTER gutter as .pf-section — the inner .pf-container then resolves to
+     the exact same edges as the hero copy and the projects container. */
+  padding-inline: var(--pf-gutter);
+}
+
+.pf-credstrip__grid {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+/* Single restrained orange start-marker. It spans the top grid row (flush to the
+   container's left edge) so the accent stays off the individual words and never
+   insets the first value. */
+.pf-credstrip__grid::before {
+  content: "";
+  grid-column: 1 / -1;
+  width: 26px;
+  height: 2px;
+  margin-bottom: clamp(10px, 1.2vw, 12px);
+  background: var(--portfolio-orange);
+}
+
+.pf-cred {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  min-width: 0;
+  /* Divider gutter on the inner sides only. The first cell is flush-left and the
+     last cell flush-right, so the row lines up with the container edges. */
+  padding-inline: clamp(16px, 2vw, 32px);
+  border-left: 1px solid var(--pf-border);
+}
+.pf-cred:first-child {
+  border-left: none;
+  padding-left: 0;
+}
+.pf-cred:last-child {
+  padding-right: 0;
+}
+
+.pf-cred__value {
+  margin: 0;
+  font-size: clamp(0.9rem, 1.05vw, 1.05rem);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  color: var(--portfolio-bone); /* prominent — the value leads */
+  overflow-wrap: break-word;
+}
+.pf-cred__label {
+  margin: 0;
+  font-size: clamp(0.6rem, 0.68vw, 0.68rem);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  line-height: 1.3;
+  text-transform: uppercase;
+  color: var(--pf-text-faint); /* secondary — quieter than the value + hero */
+}
+
+/* Tablet + mobile: two columns with proper internal grid borders (no doubled or
+   outer edges). Left column is flush-left, right column flush-right, and the
+   second row gains a horizontal rule. */
+@media (max-width: 1024px) {
+  .pf-credstrip__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .pf-cred {
+    padding-block: clamp(10px, 1.4vw, 14px);
+    padding-inline: clamp(14px, 2.4vw, 24px);
+    border-left: 1px solid var(--pf-border);
+  }
+  .pf-cred:nth-child(odd) {
+    border-left: none;
+    padding-left: 0;
+  }
+  .pf-cred:nth-child(even) {
+    padding-right: 0;
+  }
+  .pf-cred:nth-child(n + 3) {
+    border-top: 1px solid var(--pf-border);
+  }
+}
+
+/* Very narrow: ease type + marker down rather than clipping content. */
+@media (max-width: 480px) {
+  .pf-cred__value {
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+  }
+  .pf-cred__label {
+    font-size: 0.56rem;
+    letter-spacing: 0.1em;
+  }
+  .pf-credstrip__grid::before {
+    width: 22px;
+  }
+}
+
+/* ============================================================================
+   ABOUT (bone)
+   ========================================================================== */
+
+.pf-about {
+  background: var(--portfolio-bone);
+  --pf-text: var(--portfolio-ink);
+  --pf-text-muted: #4a463c;
+  --pf-border: rgba(9, 19, 31, 0.16);
+  --pf-border-strong: rgba(9, 19, 31, 0.32);
+  --pf-focus-ring: var(--portfolio-cobalt);
+  color: var(--pf-text);
+}
+
+.pf-about__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 38fr) minmax(0, 62fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: center;
+}
+
+.pf-about__tagline {
+  font-weight: 700;
+  font-size: clamp(1.15rem, 2.4vw, 1.6rem);
+  color: var(--portfolio-orange);
+  margin: 0 0 1.25rem;
+}
+
+.pf-about__para {
+  font-size: 1.02rem;
+  line-height: 1.65;
+  color: var(--pf-text);
+  max-width: 46ch;
+  margin: 0 0 1rem;
+}
+
+.pf-about__stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-top: 1.75rem;
+}
+
+.pf-stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.7rem 1rem;
+  border: 1.5px solid var(--pf-border-strong);
+  border-radius: var(--pf-radius-sm);
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.pf-stat__icon {
+  display: inline-flex;
+  color: var(--portfolio-ink);
+}
+
+.pf-stat__text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.pf-stat__value {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--portfolio-ink);
+}
+
+.pf-stat__label {
+  font-size: 0.9rem;
+  color: var(--pf-text-muted);
+}
+
+.pf-about__map {
+  width: 100%;
+  max-width: 640px;
+  height: auto;
+  margin-inline: auto;
+  display: block;
+}
+
+/* ============================================================================
+   EXPERIENCE (cobalt)
+   ========================================================================== */
+
+/* ============================================================================
+   EXPERIENCE & STACK — blueprint poster (content aligned to the site container)
+   ========================================================================== */
+.pf-exp {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background: #0d49c8;
+  color: var(--portfolio-bone);
+  --exp-line: rgba(244, 237, 222, 0.42);
+}
+
+/* ---- Full-bleed decoration (does not control content alignment) ---- */
+.pf-exp__decoration {
+  position: absolute;
+  inset: clamp(16px, 1.5vw, 32px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.pf-exp__grid-lines {
+  position: absolute;
+  inset: 0;
+  background: url("/portfolio/motifs/blueprint-grid.svg") repeat;
+  background-size: 180px 180px;
+  opacity: 0.42;
+  -webkit-mask-image: radial-gradient(115% 120% at 50% 50%, rgba(0, 0, 0, 0.42) 38%, #000 100%);
+  mask-image: radial-gradient(115% 120% at 50% 50%, rgba(0, 0, 0, 0.42) 38%, #000 100%);
+}
+
+.pf-exp__frame-line {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(244, 237, 222, 0.3);
+}
+
+.pf-exp__grain {
+  position: absolute;
+  inset: 0;
+  background: url("/portfolio/textures/paper-grain.svg") repeat;
+  background-size: 240px 240px;
+  mix-blend-mode: soft-light;
+  opacity: 0.12;
+}
+
+.pf-exp__vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(120% 105% at 50% 42%, transparent 55%, rgba(3, 18, 68, 0.45) 100%);
+}
+
+.pf-exp__cross {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  border: 1px solid rgba(244, 237, 222, 0.45);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+.pf-exp__cross::before,
+.pf-exp__cross::after {
+  content: "";
+  position: absolute;
+  background: rgba(244, 237, 222, 0.45);
+}
+.pf-exp__cross::before { left: 50%; top: -7px; width: 1px; height: 29px; transform: translateX(-50%); }
+.pf-exp__cross::after { top: 50%; left: -7px; height: 1px; width: 29px; transform: translateY(-50%); }
+.pf-exp__cross--tl { top: 0; left: 0; }
+.pf-exp__cross--tr { top: 0; left: 100%; }
+.pf-exp__cross--bl { top: 100%; left: 0; }
+.pf-exp__cross--br { top: 100%; left: 100%; }
+
+.pf-exp__coord {
+  position: absolute;
+  font-family: var(--pf-font-body);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: rgba(244, 237, 222, 0.4);
+}
+.pf-exp__coord--1 { top: 14px; left: 20px; }
+.pf-exp__coord--2 { bottom: 12px; right: 22px; }
+
+/* ---- Content container = hero / nav container ---- */
+.pf-exp__inner {
+  position: relative;
+  z-index: 2;
+  width: min(calc(100% - 2 * var(--pf-gutter)), var(--pf-content-width-wide));
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 46%) minmax(0, 54%);
+  align-items: start;
+  padding-block: clamp(64px, 6vw, 104px);
+}
+
+.pf-exp__column {
+  min-width: 0;
+  padding-right: clamp(24px, 3vw, 56px);
+}
+
+.pf-exp__heading {
+  position: relative;
+  margin: 0 0 clamp(1.75rem, 3vw, 2.75rem);
+  font-family: var(--pf-font-display);
+  font-weight: 400;
+  font-size: clamp(3.2rem, 4vw, 4.6rem);
+  line-height: 0.94;
+  letter-spacing: 0.005em;
+  text-transform: uppercase;
+  color: var(--portfolio-bone);
+}
+
+.pf-exp__chevron {
+  position: absolute;
+  left: -38px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: clamp(20px, 1.8vw, 28px);
+  height: auto;
+  color: var(--portfolio-orange);
+  display: inline-flex;
+}
+.pf-exp__chevron svg { width: 100%; height: auto; display: block; }
+
+.pf-timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pf-timeline__item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  gap: clamp(24px, 2.5vw, 44px);
+  padding-bottom: clamp(52px, 4vw, 64px);
+}
+.pf-timeline__item:last-child { padding-bottom: 0; }
+
+.pf-timeline__item::before {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 5px;
+  bottom: 0;
+  border-left: 1.5px dotted rgba(244, 237, 222, 0.45);
+}
+.pf-timeline__item:last-child::before { bottom: auto; height: 26px; }
+
+.pf-timeline__meta {
+  position: relative;
+  padding-left: 30px;
+}
+
+.pf-timeline__marker {
+  position: absolute;
+  left: 0;
+  top: 3px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: var(--portfolio-lime);
+  border: 3px solid #0d49c8;
+  box-shadow: 0 0 0 1.5px rgba(244, 237, 222, 0.85);
+}
+
+.pf-timeline__period {
+  display: block;
+  padding-top: 1px;
+  white-space: nowrap;
+  font-weight: 700;
+  font-size: clamp(0.8rem, 0.9vw, 1rem);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--portfolio-lime);
+}
+
+.pf-timeline__content { min-width: 0; }
+
+.pf-timeline__role {
+  font-size: clamp(1.12rem, 1.5vw, 1.45rem);
+  font-weight: 700;
+  line-height: 1.12;
+  color: var(--portfolio-bone);
+  margin: 0;
+}
+
+.pf-timeline__points {
+  margin: 12px 0 0;
+  padding-left: 1.1em;
+  max-width: 560px;
+  list-style: disc;
+  display: flex;
+  flex-direction: column;
+  gap: 0.28rem;
+}
+.pf-timeline__points li {
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: rgba(244, 237, 222, 0.8);
+}
+.pf-timeline__points li::marker { color: rgba(244, 237, 222, 0.5); }
+
+.pf-timeline__divider {
+  display: block;
+  width: 64px;
+  height: 1px;
+  margin-top: 18px;
+  background: rgba(244, 237, 222, 0.5);
+}
+
+.pf-exp__stack {
+  min-width: 0;
+  padding-left: clamp(36px, 4vw, 64px);
+  border-left: 1px solid var(--exp-line);
+}
+
+.pf-exp__stack-heading {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 22px;
+}
+.pf-exp__stack-heading > span:first-child {
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(244, 237, 222, 0.88);
+}
+.pf-exp__stack-line {
+  height: 1px;
+  background: rgba(244, 237, 222, 0.35);
+}
+
+.pf-core-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(12px, 1.2vw, 18px);
+}
+
+.pf-core-card {
+  min-height: 112px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 18px;
+  border: 1px solid rgba(244, 237, 222, 0.58);
+  border-radius: 4px;
+  background: rgba(4, 30, 92, 0.2);
+  box-shadow: none;
+  transition: border-color 0.18s var(--pf-ease), background 0.18s var(--pf-ease);
+}
+.pf-core-card:hover {
+  border-color: rgba(244, 237, 222, 0.9);
+  background: rgba(4, 30, 92, 0.36);
+}
+.pf-core-card__icon { display: inline-flex; flex-shrink: 0; }
+.pf-core-card__name {
+  font-weight: 600;
+  font-size: clamp(1rem, 1vw, 1.12rem);
+  color: var(--portfolio-bone);
+}
+
+.pf-additional {
+  margin-top: 28px;
+  border-top: 1px solid var(--exp-line);
+}
+.pf-additional__title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(244, 237, 222, 0.85);
+  margin: 22px 0 4px;
+}
+
+.pf-ledger-row {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  gap: 24px;
+  padding-block: 14px;
+  border-bottom: 1px solid rgba(244, 237, 222, 0.24);
+}
+
+.pf-ledger-row__cat {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: rgba(244, 237, 222, 0.68);
+}
+
+.pf-ledger-row__items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.pf-ledger-row__items li {
+  position: relative;
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--portfolio-bone);
+}
+.pf-ledger-row__items li:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: -12px;
+  top: 50%;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(244, 237, 222, 0.42);
+  transform: translateY(-50%);
+}
+
+/* ============================================================================
+   SELECTED BUILDS (charcoal)
+   ========================================================================== */
+
+.pf-builds {
+  background: var(--portfolio-charcoal);
+  color: var(--portfolio-bone);
+  /* Credibility-strip → heading spacing: ~96–112px on desktop, capped so 2K /
+     ultrawide screens don't open a cavern. Bottom stays trimmed so the builds →
+     field-notes boundary isn't two large stacked paddings. */
+  padding-block: clamp(96px, 8vw, 112px) clamp(56px, 5vw, 84px);
+  /* local lines/surface — restrained, technical, no shadows or gradients */
+  --build-line: rgba(244, 237, 222, 0.16);
+  --build-surface: rgba(8, 24, 40, 0.74);
+}
+
+.pf-builds__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  /* Heading → first project card: ~56–64px on desktop. */
+  margin-bottom: clamp(56px, 4.5vw, 64px);
+}
+
+.pf-builds__head .pf-section-head {
+  margin-bottom: 0;
+}
+
+.pf-builds__note {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: var(--pf-tracking-label);
+  text-transform: uppercase;
+  color: var(--pf-text-faint);
+  max-width: 18rem;
+  text-align: right;
+  text-wrap: balance;
+}
+
+/* ---- Featured (flagship) — media beside content, height-capped ---- */
+.pf-featured {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(360px, 0.85fr);
+  min-height: 380px;
+  overflow: hidden;
+  border: 1px solid var(--build-line);
+  border-radius: 8px;
+  background: var(--build-surface);
+  transition: border-color 0.18s var(--pf-ease);
+}
+
+.pf-featured:hover {
+  border-color: rgba(244, 237, 222, 0.34);
+}
+
+.pf-featured__media {
+  position: relative;
+  min-width: 0;
+  background: #060d16;
+  overflow: hidden;
+}
+
+.pf-featured__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  transition: transform 0.2s var(--pf-ease);
+}
+
+.pf-featured:hover .pf-featured__media img {
+  transform: scale(1.02);
+}
+
+.pf-featured__ribbon {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 2;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--portfolio-orange);
+  padding: 0.25rem 0.6rem;
+  border-radius: 3px;
+}
+
+.pf-featured__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: clamp(28px, 3vw, 48px);
+  min-width: 0;
+}
+
+.pf-featured__name {
+  font-family: var(--pf-font-display);
+  font-size: clamp(1.9rem, 3vw, 2.75rem);
+  line-height: 1;
+  color: var(--portfolio-bone);
+  margin: 0;
+}
+
+.pf-featured__summary {
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--pf-text-muted);
+  margin: 0;
+  max-width: 42ch;
+}
+
+/* ---- Supporting cards (3-up) ---- */
+.pf-builds__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(18px, 2vw, 28px);
+  margin-top: clamp(24px, 2.5vw, 36px);
+}
+
+.pf-build {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--build-line);
+  border-radius: 8px;
+  background: var(--build-surface);
+  transition: border-color 0.18s var(--pf-ease);
+}
+
+.pf-build:hover {
+  border-color: rgba(244, 237, 222, 0.34);
+}
+
+.pf-build__media {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: #060d16;
+  overflow: hidden;
+}
+
+.pf-build__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.2s var(--pf-ease);
+}
+
+.pf-build:hover .pf-build__img {
+  transform: scale(1.02);
+}
+
+.pf-build__body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding: clamp(20px, 2vw, 28px);
+}
+
+.pf-build__tag {
+  align-self: flex-start;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.22rem 0.55rem;
+  border-radius: 3px;
+}
+
+.pf-build__tag--product {
+  color: var(--portfolio-orange);
+  background: rgba(231, 101, 45, 0.14);
+}
+
+.pf-build__tag--mobile {
+  color: var(--pf-cobalt-300);
+  background: rgba(126, 162, 255, 0.14);
+}
+
+.pf-build__tag--web {
+  color: var(--portfolio-lime);
+  background: rgba(183, 243, 74, 0.14);
+}
+
+.pf-build__name {
+  font-family: var(--pf-font-display);
+  font-size: clamp(1.35rem, 2vw, 1.7rem);
+  line-height: 1;
+  color: var(--portfolio-bone);
+  margin: 0;
+}
+
+.pf-build__summary {
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: var(--pf-text-muted);
+  margin: 0;
+}
+
+.pf-build__tech {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 0.15rem 0 0;
+  padding: 0;
+}
+
+/* compact outlined labels — supporting metadata, not pills */
+.pf-build__chip {
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: var(--pf-text-muted);
+  padding: 0.16rem 0.45rem;
+  border: 1px solid var(--build-line);
+  border-radius: 3px;
+}
+
+.pf-build__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: auto;
+  padding-top: 0.65rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--portfolio-orange);
+  text-decoration: none;
+}
+
+.pf-build__link span {
+  display: inline-block;
+  transition: transform 0.18s var(--pf-ease);
+}
+
+.pf-build__link:hover {
+  color: var(--pf-orange-600);
+}
+
+.pf-build__link:hover span {
+  transform: translateX(4px);
+}
+
+.pf-build__link--more {
+  font-size: 0.95rem;
+}
+
+/* Abstract device frame (no shippable screenshot) */
+.pf-device {
+  position: absolute;
+  inset: 0;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  background: radial-gradient(120% 120% at 70% 10%, #12233a 0%, #081019 70%);
+}
+
+.pf-device__bar {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.pf-device__bar span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(242, 235, 221, 0.25);
+}
+
+.pf-device__body {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 46px 1fr;
+  gap: 0.75rem;
+  min-height: 0;
+}
+
+.pf-device__sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding-top: 0.4rem;
+}
+
+.pf-device__sidebar i {
+  height: 8px;
+  border-radius: 3px;
+  background: rgba(242, 235, 221, 0.14);
+}
+
+.pf-device__main {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  position: relative;
+}
+
+.pf-device__row {
+  height: 10px;
+  border-radius: 3px;
+  background: rgba(242, 235, 221, 0.12);
+}
+
+.pf-device__row--wide {
+  width: 60%;
+  background: rgba(183, 243, 74, 0.4);
+}
+
+.pf-device__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+
+.pf-device__grid span {
+  height: 34px;
+  border-radius: 6px;
+  background: rgba(242, 235, 221, 0.08);
+  border: 1px solid rgba(242, 235, 221, 0.1);
+}
+
+.pf-device__chart {
+  flex: 1;
+  min-height: 60px;
+  border-radius: 8px;
+  background: repeating-linear-gradient(
+      90deg,
+      rgba(36, 87, 230, 0.35) 0 6px,
+      transparent 6px 22px
+    ),
+    rgba(6, 13, 22, 0.5);
+  border: 1px solid rgba(242, 235, 221, 0.1);
+}
+
+.pf-device__mark {
+  position: absolute;
+  right: 4px;
+  bottom: 2px;
+  font-family: var(--pf-font-display);
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  color: rgba(242, 235, 221, 0.35);
+  text-transform: uppercase;
+}
+
+.pf-builds__more {
+  margin-top: clamp(28px, 3vw, 40px);
+  display: flex;
+  justify-content: center;
+}
+
+/* ============================================================================
+   FIELD NOTES (writing)
+   ========================================================================== */
+
+.pf-writing {
+  background: var(--pf-ink-800);
+  /* Controlled band; the trimmed top pairs with the builds bottom for a
+     ~150–180px boundary rather than two stacked large paddings. Bottom padding
+     is kept tight (~80–96px) so the list doesn't float in empty space. */
+  padding-block: clamp(60px, 5vw, 88px) clamp(80px, 6vw, 96px);
+}
+
+/* ─── Header ─── */
+.field-notes__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.25rem 2rem;
+  flex-wrap: wrap;
+  padding-bottom: clamp(18px, 2vw, 26px);
+  border-bottom: 1px solid rgba(242, 235, 221, 0.16);
+}
+.field-notes__heading .pf-section-head {
+  margin-bottom: 0;
+}
+.field-notes__eyebrow {
+  margin: 0 0 0.7rem;
+  font-family: var(--pf-font-mono, "JetBrains Mono", monospace);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--portfolio-orange);
+}
+.field-notes__all {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--portfolio-bone);
+  text-decoration: none;
+  transition: color 0.18s var(--pf-ease);
+}
+.field-notes__all span {
+  color: var(--portfolio-orange);
+  transition: transform 0.18s var(--pf-ease);
+}
+.field-notes__all:hover {
+  color: var(--portfolio-orange);
+}
+.field-notes__all:hover span {
+  transform: translateX(4px);
+}
+.field-notes__all:focus-visible {
+  outline: 2px solid var(--portfolio-lime);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ─── List / rows ─── */
+.field-notes__list {
+  margin: 0;
+}
+.field-note-row {
+  position: relative;
+  display: grid;
+  /* ONE shared column grid for every row — lead and regular alike — so the
+     number, category, title, date, and arrow land on identical column anchors.
+     The lead row must never add horizontal padding (that caused the shift). */
+  grid-template-columns: 72px 220px minmax(0, 1fr) 170px 24px;
+  align-items: start;
+  column-gap: clamp(24px, 2.5vw, 48px);
+  min-height: 124px;
+  padding-block: 22px;
+  border-bottom: 1px solid rgba(242, 235, 221, 0.16);
+  --cat: var(--portfolio-lime);
+  transition: background 0.18s var(--pf-ease);
+}
+.field-note-row.cat-ai { --cat: var(--portfolio-orange); }
+.field-note-row.cat-react { --cat: var(--portfolio-lime); }
+.field-note-row.cat-seo { --cat: #38bdf8; }
+.field-note-row.cat-default { --cat: var(--pf-cobalt-300, #7ea2ff); }
+
+.field-note-row:hover,
+.field-note-row:focus-within {
+  background: rgba(242, 235, 221, 0.03);
+}
+
+.field-note-row__index {
+  font-family: var(--pf-font-display, "Bebas Neue", sans-serif);
+  font-size: 1.7rem;
+  line-height: 1;
+  /* Slightly more present than before, but still quieter than the titles. */
+  color: rgba(242, 235, 221, 0.42);
+  padding-left: 0.5em;
+}
+.field-note-row__category {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.field-note-row__leadlabel {
+  font-family: var(--pf-font-mono, "JetBrains Mono", monospace);
+  font-size: 0.58rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(242, 235, 221, 0.45);
+}
+.field-note-row__cat {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cat);
+}
+.field-note-row__content {
+  min-width: 0;
+}
+.field-note-row__content h3 {
+  margin: 0;
+  font-size: clamp(1.05rem, 1.4vw, 1.28rem);
+  font-weight: 600;
+  line-height: 1.3;
+}
+.field-note-row__link {
+  color: var(--portfolio-bone);
+  text-decoration: none;
+  transition: color 0.18s var(--pf-ease);
+}
+/* Stretched link: whole row is clickable without nesting links. */
+.field-note-row__link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+.field-note-row:hover .field-note-row__link,
+.field-note-row__link:focus-visible {
+  color: var(--portfolio-orange);
+}
+.field-note-row__link:focus-visible {
+  outline: 2px solid var(--portfolio-lime);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+.field-note-row__summary {
+  /* Sits directly below the headline with a 10–12px gap. min-width:0 on the
+     content column keeps it from bleeding under the metadata column. */
+  margin: 11px 0 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: rgba(242, 235, 221, 0.6);
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+/* Only the lead note shows a summary on desktop; rows 2–3 stay compact. */
+.field-note-row:not(.field-note-row--lead) .field-note-row__summary {
+  display: none;
+}
+.field-note-row__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 0.8rem;
+  color: var(--pf-text-faint, rgba(242, 235, 221, 0.42));
+  white-space: nowrap;
+}
+.field-note-row__meta time {
+  color: rgba(242, 235, 221, 0.72);
+}
+.field-note-row__arrow {
+  justify-self: end;
+  font-size: 1.05rem;
+  color: rgba(242, 235, 221, 0.5);
+  transition: transform 0.18s var(--pf-ease), color 0.18s var(--pf-ease);
+}
+.field-note-row:hover .field-note-row__arrow {
+  transform: translateX(4px);
+  color: var(--portfolio-orange);
+}
+
+/* ─── Lead note: restrained emphasis (no image, no panel) ─── */
+.field-note-row--lead {
+  /* Background is a paint-only layer and the orange rule below is an absolutely
+     positioned ::before — neither changes the grid box, so the lead row keeps
+     the exact same column anchors as the regular rows. NO horizontal padding
+     here; that was the source of the horizontal shift. Slightly taller to hold
+     the headline + excerpt comfortably. */
+  background: rgba(11, 26, 48, 0.55);
+  min-height: 166px;
+}
+.field-note-row--lead::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--portfolio-orange);
+}
+.field-note-row--lead .field-note-row__content h3 {
+  font-size: clamp(1.2rem, 1.7vw, 1.5rem);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .field-note-row,
+  .field-note-row__link,
+  .field-note-row__arrow,
+  .field-notes__all,
+  .field-notes__all span {
+    transition: none;
+  }
+}
+
+/* ─── Tablet: fluidly shrink the number, category, and meta columns while
+   keeping all five columns and handing most of the width to the title.
+   Column widths flex from the grid track sizing — no absolute offsets. ─── */
+@media (max-width: 1024px) and (min-width: 601px) {
+  .field-note-row {
+    grid-template-columns:
+      clamp(48px, 6vw, 72px)
+      clamp(116px, 18vw, 220px)
+      minmax(0, 1fr)
+      clamp(112px, 15vw, 170px)
+      24px;
+    column-gap: clamp(18px, 2vw, 32px);
+  }
+}
+
+/* ============================================================================
+   CONTACT strip (bone)
+   ========================================================================== */
+
+/* Homepage closing CTA — one cream conversion surface. */
+.pf-contact {
+  position: relative;
+  overflow: hidden;
+  background: var(--portfolio-bone);
+  --pf-focus-ring: var(--portfolio-cobalt);
+  color: #081522;
+  padding-block: 0;
+}
+
+/* Restrained cropped compass arc near the right edge (decorative). */
+.pf-contact__arc {
+  position: absolute;
+  top: 50%;
+  right: clamp(-180px, -8vw, -100px);
+  width: min(42vw, 420px);
+  aspect-ratio: 1;
+  transform: translateY(-50%);
+  border: 1px solid rgba(8, 21, 34, 0.14);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.pf-contact__arc::before {
+  content: "";
+  position: absolute;
+  inset: 22%;
+  border: 1px solid rgba(8, 21, 34, 0.1);
+  border-radius: 50%;
+}
+/* Small orange registration mark, top-left construction detail. */
+.pf-contact__mark {
+  position: absolute;
+  top: clamp(24px, 4vw, 40px);
+  left: clamp(16px, 4vw, 64px);
+  width: 13px;
+  height: 13px;
+  pointer-events: none;
+}
+.pf-contact__mark::before,
+.pf-contact__mark::after {
+  content: "";
+  position: absolute;
+  background: var(--portfolio-orange);
+}
+.pf-contact__mark::before { left: 50%; top: 0; width: 1px; height: 100%; transform: translateX(-50%); }
+.pf-contact__mark::after { top: 50%; left: 0; height: 1px; width: 100%; transform: translateY(-50%); }
+
+.pf-contact__inner {
+  position: relative;
+  z-index: 1;
+  min-height: clamp(300px, 24vw, 380px);
+  padding-block: clamp(72px, 7vw, 112px);
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(340px, 0.8fr);
+  align-items: center;
+  gap: clamp(64px, 9vw, 160px);
+}
+
+.pf-contact__eyebrow {
+  margin: 0 0 20px;
+  color: var(--portfolio-orange);
+  font-family: var(--pf-font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.pf-contact__title {
+  max-width: 780px;
+  margin: 0;
+  font-family: var(--pf-font-display);
+  font-weight: 400;
+  font-size: clamp(3rem, 5.6vw, 6.5rem);
+  line-height: 0.9;
+  letter-spacing: 0.005em;
+  text-transform: uppercase;
+  color: #081522;
+}
+
+.pf-contact__lead {
+  max-width: 500px;
+  margin: 0 0 28px;
+  font-size: clamp(1rem, 1.3vw, 1.2rem);
+  line-height: 1.6;
+  color: rgba(8, 21, 34, 0.72);
+}
+
+/* Primary action — full-width rule-framed link, unmistakable. */
+.pf-contact__link {
+  width: 100%;
+  min-height: 72px;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 2px solid #081522;
+  border-bottom: 2px solid #081522;
+  color: #081522;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  transition: background 0.18s var(--pf-ease), color 0.18s var(--pf-ease);
+}
+.pf-contact__arrow {
+  transition: transform 0.18s var(--pf-ease), color 0.18s var(--pf-ease);
+}
+.pf-contact__link:hover {
+  background: #081522;
+  color: var(--portfolio-bone);
+}
+.pf-contact__link:hover .pf-contact__arrow {
+  color: var(--portfolio-orange);
+  transform: translateX(4px);
+}
+.pf-contact__link:focus-visible {
+  outline: 2px solid var(--portfolio-cobalt);
+  outline-offset: 3px;
+}
+
+/* Quiet email fallback beneath the primary action. */
+.pf-contact__email {
+  display: inline-block;
+  margin-top: 18px;
+  color: rgba(8, 21, 34, 0.66);
+  font-size: 0.95rem;
+  text-decoration: none;
+}
+.pf-contact__email:hover {
+  color: #081522;
+  text-decoration: underline;
+}
+
+/* CTA — tablet: keep two columns but tighten. */
+@media (max-width: 1024px) {
+  .pf-contact__inner {
+    grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+    gap: clamp(32px, 5vw, 64px);
+  }
+  .pf-contact__title {
+    font-size: clamp(2.6rem, 6vw, 4rem);
+  }
+}
+
+/* CTA — mobile: stack copy above the action. */
+@media (max-width: 767px) {
+  .pf-contact__inner {
+    grid-template-columns: 1fr;
+    gap: 48px;
+    min-height: auto;
+    padding-block: 72px;
+  }
+  .pf-contact__title {
+    font-size: clamp(3rem, 14vw, 4.75rem);
+  }
+  .pf-contact__arc {
+    display: none;
+  }
+  .pf-contact__lead {
+    max-width: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pf-contact__link,
+  .pf-contact__arrow,
+  .pf-footer__link,
+  .pf-footer__link::before {
+    transition: none;
+  }
+}
+
+/* ============================================================================
+   FOOTER
+   ========================================================================== */
+
+.pf-footer {
+  background: #050d17;
+  color: var(--portfolio-bone);
+  border-top: 1px solid var(--pf-border);
+  padding: clamp(72px, 7vw, 104px) var(--pf-gutter) 40px;
+  font-family: var(--pf-font-body);
+}
+
+.pf-footer__inner {
+  max-width: var(--pf-content-width-wide);
+  margin-inline: auto;
+}
+
+.pf-footer__grid {
+  display: grid;
+  grid-template-columns:
+    minmax(280px, 1.3fr)
+    minmax(140px, 0.7fr)
+    minmax(220px, 1fr)
+    minmax(140px, 0.65fr);
+  gap: clamp(48px, 7vw, 120px);
+}
+
+.pf-logo--footer {
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+.pf-footer .site-logo {
+  width: 108px;
+}
+
+.pf-footer__role {
+  font-weight: 600;
+  color: var(--portfolio-bone);
+  margin: 0 0 0.6rem;
+}
+
+.pf-footer__tagline {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--pf-text-muted);
+  max-width: 34ch;
+  margin: 0 0 1rem;
+}
+
+.pf-footer__meta {
+  font-size: 0.8rem;
+  line-height: 1.7;
+  color: var(--pf-text-faint);
+  margin: 0;
+}
+
+.pf-footer__col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.pf-footer__heading {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--pf-text-faint);
+  margin: 0 0 1rem;
+}
+
+.pf-footer__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.9rem;
+  color: var(--pf-text-muted);
+  text-decoration: none;
+  padding: 6px 0;
+  transition: color 0.16s var(--pf-ease);
+}
+.pf-footer__link::before {
+  content: "";
+  width: 0;
+  height: 1px;
+  background: var(--portfolio-orange);
+  transition: width 0.16s var(--pf-ease);
+}
+.pf-footer__link:hover {
+  color: var(--portfolio-bone);
+}
+.pf-footer__link:hover::before {
+  width: 12px;
+}
+.pf-footer__link:focus-visible {
+  outline: 2px solid var(--pf-focus-ring, var(--portfolio-lime));
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+.pf-footer__ext {
+  color: var(--portfolio-orange);
+  font-size: 0.8em;
+}
+.pf-footer__link--ext::before {
+  display: none;
+}
+
+.pf-footer__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: clamp(48px, 5vw, 72px);
+  padding-top: 20px;
+  border-top: 1px solid var(--pf-border);
+}
+
+.pf-footer__copy,
+.pf-footer__note {
+  font-size: 0.8rem;
+  color: var(--pf-text-faint);
+  margin: 0;
+}
+
+.pf-footer__note {
+  max-width: 46ch;
+  text-align: right;
+}
+
+/* ============================================================================
+   RESPONSIVE
+   ========================================================================== */
+
+/* Tablet: thin the hero panels, shrink the workstation */
+@media (max-width: 1199px) {
+  /* Tablet: keep a contained right-side stage (don't force the desktop width);
+     drop the small left column (database, status) and component tree — all three
+     become unreadable below ~200px; only System Architecture remains as the
+     primary supporting diagram alongside the workstation. */
+  .pf-hero__art-viewport {
+    width: min(60vw, 720px);
+  }
+  .pf-panel--database,
+  .pf-panel--status,
+  .pf-panel--components {
+    display: none;
+  }
+  /* Builds: supporting grid → two columns; the third card spans both and turns
+     horizontal so its image is not stretched into a wide banner */
+  .pf-builds__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .pf-builds__grid > :nth-child(3) {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    align-items: stretch;
+  }
+  .pf-builds__grid > :nth-child(3) .pf-build__media {
+    aspect-ratio: auto;
+    flex: 0 0 42%;
+  }
+  .pf-builds__grid > :nth-child(3) .pf-build__body {
+    justify-content: center;
+  }
+
+  /* Builds header: stack the subtitle beneath the title (left-aligned) rather
+     than letting it float on the far right once horizontal room tightens. */
+  .pf-builds {
+    padding-block: clamp(72px, 9vw, 88px) clamp(56px, 5vw, 84px);
+  }
+  .pf-builds__head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .pf-builds__note {
+    max-width: 40ch;
+    text-align: left;
+    text-wrap: pretty;
+  }
+
+  /* Experience: keep two primary columns; the timeline stacks the date above the
+     title so descriptions stay readable (a 112px date column overlaps the nowrap
+     date), Core Stack drops to two cards */
+  .pf-timeline__item {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 6px;
+  }
+  .pf-timeline__content {
+    padding-left: 30px;
+  }
+  .pf-core-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  /* ── Experience section: consistent 20px gutter, no decoration interference ── */
+
+  /* Ensure anchor navigation snaps cleanly below the sticky header */
+  .pf-exp {
+    scroll-margin-top: var(--pf-header-height, 64px);
+  }
+
+  /* Decoration pulled to 12px inset → 8px inside content area on each side.
+     Reduced opacity so it never competes with functional content. */
+  .pf-exp__decoration {
+    inset: 12px;
+  }
+  .pf-exp__grid-lines {
+    opacity: 0.18;
+  }
+  .pf-exp__frame-line {
+    border-color: rgba(244, 237, 222, 0.14);
+  }
+
+  /* Inner container: explicit padding-inline replaces the calc-width centering.
+     This gives a guaranteed 20px gutter independent of the frame position. */
+  .pf-exp__inner {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 56px;
+    width: 100%;
+    max-width: none;
+    margin-inline: 0;
+    padding: 56px 20px 72px;
+  }
+  .pf-exp__column {
+    padding-right: 0;
+  }
+
+  /* Heading: grid puts chevron in flow — eliminates the negative left offset
+     that caused it to clip against the frame at small widths. */
+  .pf-exp__heading {
+    display: grid;
+    grid-template-columns: 14px minmax(0, 1fr);
+    align-items: start;
+    gap: 12px;
+    font-size: clamp(2.75rem, 12vw, 4rem);
+    line-height: 0.92;
+    margin: 0 0 40px;
+  }
+  .pf-exp__chevron {
+    position: static;
+    left: auto;
+    top: auto;
+    transform: none;
+    width: 14px;
+    margin-top: 0.14em; /* optical alignment with first text line */
+  }
+
+  /* Timeline: single-column with consistent indentation.
+     Marker stays at left:0 / line at left:7px — both within the 30px text indent. */
+  .pf-timeline__item {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 8px;
+    padding-bottom: 0;
+  }
+  .pf-timeline__item + .pf-timeline__item {
+    margin-top: 56px;
+  }
+  .pf-timeline__item:last-child {
+    padding-bottom: 0;
+  }
+  .pf-timeline__meta {
+    padding-left: 30px;
+  }
+  .pf-timeline__period {
+    font-size: 0.82rem;
+    margin-bottom: 2px;
+  }
+  .pf-timeline__content {
+    padding-left: 30px;
+  }
+  .pf-timeline__role {
+    font-size: clamp(1.05rem, 4vw, 1.25rem);
+    line-height: 1.2;
+    margin: 0 0 14px;
+  }
+  .pf-timeline__points {
+    gap: 10px;
+    margin-top: 0;
+    padding-left: 1.1em;
+  }
+  .pf-timeline__points li {
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+  .pf-timeline__divider {
+    margin-top: 20px;
+  }
+
+  /* Core Stack: deliberate horizontal divider separates it from the timeline.
+     row-gap on the parent already provides 56px above this element's border. */
+  .pf-exp__stack {
+    margin-top: 0; /* spacing comes from pf-exp__inner row-gap */
+    padding: 40px 0 0;
+    border-left: none;
+    border-top: 1px solid rgba(239, 231, 215, 0.25);
+  }
+  .pf-exp__stack-heading {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+  .pf-core-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .pf-core-card {
+    min-width: 0;
+    min-height: 138px;
+    padding: 22px 12px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    text-align: center;
+  }
+  .pf-core-card__name {
+    font-size: clamp(0.9rem, 3.5vw, 1rem);
+  }
+
+  /* Additional experience: compact ledger, category above items */
+  .pf-additional {
+    margin-top: 32px;
+  }
+  .pf-ledger-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 6px;
+  }
+  .pf-ledger-row__cat {
+    font-size: 0.75rem;
+    color: rgba(244, 237, 222, 0.55);
+  }
+
+  /* Hide nonessential blueprint decorations */
+  .pf-exp__coord,
+  .pf-exp__cross--tr,
+  .pf-exp__cross--bl {
+    display: none;
+  }
+
+  /* Builds: single column; header stacks; the third card returns to vertical */
+  .pf-builds {
+    /* Mobile section top ~56–64px; heading → first card ~36–40px. */
+    padding-block: clamp(56px, 15vw, 64px) clamp(48px, 12vw, 72px);
+  }
+  .pf-builds__head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: clamp(36px, 9vw, 40px);
+  }
+  .pf-builds__note {
+    text-align: left;
+  }
+  .pf-builds__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .pf-builds__grid > :nth-child(3) {
+    grid-column: auto;
+    flex-direction: column;
+  }
+  .pf-builds__grid > :nth-child(3) .pf-build__media {
+    aspect-ratio: 16 / 9;
+    flex: none;
+  }
+}
+
+/* Mobile: header 64px, stack hero, workstation into flow, panels hidden */
+/* Footer: 4-column grid overflows at 900–1099px (780px cols + 191px gaps > 840px available).
+   Switch to 2-column before the grid needs more width than the viewport provides. */
+@media (max-width: 1099px) {
+  .pf-footer__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(32px, 5vw, 64px);
+  }
+  .pf-footer__brand {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 900px) {
+  :root {
+    --pf-header-height: 64px;
+  }
+
+  /* Compact header: shrink the mark to clear the menu trigger and keep the
+     64px header height. Footer logo keeps its larger size. */
+  .pf-header .site-logo {
+    width: 82px;
+  }
+
+  .pf-nav {
+    display: none;
+  }
+  .pf-burger {
+    display: flex;
+  }
+
+  .pf-hero {
+    display: block;
+    min-height: 0;
+  }
+  .pf-hero__inner {
+    display: block;
+    max-width: 100%;
+  }
+  .pf-hero__copy {
+    max-width: 100%;
+  }
+  .pf-hero__copy {
+    padding-top: calc(var(--pf-header-height) + clamp(1.5rem, 8vh, 2.5rem));
+    padding-bottom: 1.5rem;
+    max-width: none;
+  }
+  .pf-hero__intro {
+    max-width: 46ch;
+  }
+  /* Stage returns to normal document flow, below the copy */
+  .pf-hero__art-viewport {
+    position: static;
+    inset: auto;
+    width: 100%;
+    min-height: 0;
+  }
+  /* Artboard drops into normal flow with a reserved aspect ratio */
+  .pf-hero__art-stage {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    width: 100%;
+    max-width: 480px;
+    margin: 1.5rem auto 0;
+  }
+  /* Mobile: workstation is the primary art; keep at most ONE supporting panel */
+  .pf-panel--components,
+  .pf-panel--database,
+  .pf-panel--status {
+    display: none;
+  }
+  .pf-panel--system {
+    opacity: 0.68;
+  }
+  /* Polygon background: short band pinned to the bottom, behind the workstation
+     only (never behind the copy/CTAs) */
+  .pf-hero__art-background {
+    top: auto;
+    bottom: 0;
+    height: clamp(220px, 32vh, 340px);
+    width: min(74vw, 440px);
+  }
+  .pf-hero__art-background .pf-hero__art-shards {
+    object-position: right bottom;
+    opacity: 0.4;
+  }
+  .pf-hero__compass {
+    opacity: 0.38;
+    width: 14%;
+  }
+
+  .pf-about__inner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .pf-about__visual {
+    order: 2;
+    min-width: 0;
+  }
+
+  /* Featured stacks: media above content, same structure as a supporting card */
+  .pf-featured {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+  }
+  .pf-featured__media {
+    aspect-ratio: 16 / 9;
+  }
+
+  .pf-footer__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .pf-footer__brand {
+    grid-column: 1 / -1;
+  }
+  .pf-footer__note {
+    text-align: left;
+  }
+}
+
+@media (max-width: 600px) {
+  /* Full-width, comfortable CTA tap targets stacked on small screens */
+  .pf-hero__ctas {
+    width: 100%;
+  }
+  .pf-hero__ctas .pf-btn {
+    flex: 1 1 100%;
+    min-height: 52px;
+  }
+  /* Narrow phones: tighten Core Stack cards — keep 2-col but reduce height */
+  .pf-core-card {
+    min-height: clamp(110px, 30vw, 138px);
+    padding: 16px 10px;
+  }
+  .pf-writing {
+    padding-block: 72px;
+  }
+  .field-notes__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .field-note-row {
+    grid-template-columns: 36px minmax(0, 1fr) 20px;
+    grid-template-areas:
+      "index category arrow"
+      "index content  arrow"
+      "index meta     arrow";
+    align-items: start;
+    column-gap: 14px;
+    row-gap: 6px;
+    min-height: 0;
+    padding-block: 26px;
+  }
+  /* The lead row keeps its background + orange rule but drops the desktop
+     min-height so mobile rows size to their content. */
+  .field-note-row--lead {
+    min-height: 0;
+  }
+  .field-note-row__index { grid-area: index; }
+  .field-note-row__category {
+    grid-area: category;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 8px;
+  }
+  .field-note-row__content { grid-area: content; margin-top: 2px; }
+  .field-note-row__meta {
+    grid-area: meta;
+    flex-direction: row;
+    gap: 12px;
+    margin-top: 8px;
+  }
+  .field-note-row__arrow {
+    grid-area: arrow;
+    display: block;
+    align-self: center;
+  }
+  /* Show a 2-line summary on all rows on mobile — vertical room is available.
+     The second selector matches the desktop hide rule's specificity so it
+     actually overrides it for the non-lead rows. */
+  .field-note-row .field-note-row__summary,
+  .field-note-row:not(.field-note-row--lead) .field-note-row__summary {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+  }
+  .pf-footer__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 380px) {
+  .pf-about__stats {
+    gap: 0.5rem;
+  }
+  .pf-stat {
+    padding: 0.55rem 0.7rem;
+  }
+}
+
+/* Narrow phones (< 359px): tighten experience gutter */
+@media (max-width: 359px) {
+  .pf-exp__inner {
+    padding-inline: 16px;
+  }
+}
+
+/* Very narrow (< 330px): single-column tech cards to preserve readability */
+@media (max-width: 330px) {
+  .pf-core-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ============================================================================
+   TABLET PORTRAIT — two-zone hero art direction
+   901px–1199px wide, portrait orientation.
+   This is the iPad Pro 12.9" portrait viewport (1024px wide).
+   At ≤900px the mobile stacking already works; ≥1200px is desktop.
+   ========================================================================== */
+@media (min-width: 1100px) and (max-width: 1199px) and (orientation: portrait) {
+
+  /* ── Section: content-driven height, not 100svh ─────────────────── */
+  .pf-hero {
+    display: block;
+    min-height: clamp(880px, 72vw + 320px, 1020px);
+    height: auto;
+    align-items: unset;
+  }
+
+  /* ── Inner: single full-width column, copy left-aligned ─────────── */
+  .pf-hero__inner {
+    display: block;
+    max-width: 100%;
+  }
+
+  /* ── Copy zone ────────────────────────────────────────────────────── */
+  .pf-hero__copy {
+    position: relative;
+    z-index: var(--pf-z-content);
+    max-width: none;
+    width: min(100%, 650px);
+    padding-top: clamp(72px, 7.5vw, 96px);
+    padding-bottom: 1.5rem;
+  }
+
+  /* ── Typography ───────────────────────────────────────────────────── */
+  .pf-hero__name {
+    font-size: clamp(4.5rem, 9vw, 6.5rem);
+    line-height: 0.86;
+  }
+
+  .pf-hero__role {
+    font-size: clamp(1.15rem, 2.4vw, 1.5rem);
+  }
+
+  .pf-hero__stack {
+    font-size: 0.95rem;
+  }
+
+  .pf-hero__intro {
+    max-width: 560px;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  /* ── Visual stage: in document flow below copy ───────────────────── */
+  .pf-hero__art-viewport {
+    position: static;
+    inset: auto;
+    width: 100%;
+    overflow: visible; /* art-stage uses margin-top:-40px to overlap copy; don't clip */
+    pointer-events: none;
+  }
+
+  /* ── Artboard: centred stage — all foreground art moves as one unit ─ */
+  .pf-hero__art-stage {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    width: min(calc(100% - 48px), 900px);
+    height: clamp(500px, 57vw, 590px);
+    aspect-ratio: unset;
+    margin-inline: auto;
+    margin-top: clamp(-40px, -3vw, -20px);
+    /* 2% optical bias: desk scene is visually heavier on the right */
+    transform: translateX(2%);
+  }
+
+  /* Re-show all panels (the max-width:1199px rule hides three of them) */
+  .pf-panel--database,
+  .pf-panel--status,
+  .pf-panel--components {
+    display: block;
+    opacity: 0.92;
+  }
+
+  /* ── Panel positions relative to the centred artboard ───────────── */
+  .pf-panel--system {
+    z-index: 2;
+    width: clamp(280px, 35vw, 370px);
+    left: 28%;
+    top: 3%;
+  }
+
+  .pf-panel--components {
+    z-index: 2;
+    width: clamp(220px, 28vw, 300px);
+    right: 1%;
+    top: 12%;
+  }
+
+  .pf-panel--database {
+    z-index: 3;
+    width: clamp(150px, 19vw, 200px);
+    left: 4%;
+    top: 28%;
+  }
+
+  .pf-panel--status {
+    z-index: 3;
+    width: clamp(160px, 19vw, 210px);
+    left: 11%;
+    top: 57%;
+  }
+
+  /* ── Workstation: right+bottom of the centred artboard, no bleed ── */
+  .pf-hero__workstation-wrap {
+    z-index: 5;
+    width: min(82vw, 790px);
+    max-width: none;
+    right: 0;
+    bottom: 0;
+  }
+
+  /* ── Compass: upper artboard, secondary to the name ─────────────── */
+  .pf-hero__compass {
+    width: clamp(92px, 12vw, 130px);
+    left: 11%;
+    top: 4%;
+    opacity: 0.85;
+  }
+
+  /* ── Geometry: cover the visual stage area, not the copy zone ───── */
+  .pf-hero__art-background {
+    top: 32%;
+    right: 0;
+    bottom: 0;
+    height: auto;
+    width: min(82vw, 1000px);
+  }
+
+  .pf-hero__art-background .pf-hero__art-shards {
+    object-position: right top;
+    opacity: 0.6;
+  }
+}
+
+/* ── Tablet landscape (901–1199px landscape): balanced two-column ──── */
+@media (min-width: 1100px) and (max-width: 1199px) and (orientation: landscape) {
+  /* Narrower visual stage so the copy column gets ≥380px without overlap */
+  .pf-hero__art-viewport {
+    width: min(54vw, 640px);
+  }
+
+  /* All panels at this stage are still readable */
+  .pf-panel--database,
+  .pf-panel--status,
+  .pf-panel--components {
+    display: block;
+    opacity: 0.88;
+  }
+}
+
+
+/* ============================================================================
+   DESKTOP POSITIONING-CONTEXT OVERRIDE
+   pf-hero__art-viewport moved inside pf-hero__inner in the JSX.
+   On desktop (≥1100px) the inner must NOT be a positioning context so the
+   visual's position:absolute resolves to pf-hero (full viewport width).
+   z-index still works because flex items participate in stacking order.
+   ========================================================================== */
+@media (min-width: 1100px) {
+  .pf-hero__inner {
+    position: static;
+    isolation: isolate;
+  }
+
+  /* Art viewport starts below the sticky header — the hero pulls up by
+     --pf-header-height via .portfolio-root margin-top, so top:0 would put the
+     art behind the nav. Setting top:var(--pf-header-height) on the viewport
+     (not the stage) keeps all panel % positions unchanged because the stage
+     remains bottom-anchored with the same aspect-ratio. */
+  .pf-hero__art-viewport {
+    top: var(--pf-header-height);
+    overflow: hidden;
+  }
+}
+
+/* ============================================================================
+   TABLET HERO — corrected editorial compositions
+   768–899px : two-row stacking (copy above, art below)
+   900–1099px: true two-column grid (inner is the grid container)
+   Desktop (>=1100px) and mobile (<=767px) untouched.
+   ========================================================================== */
+
+/* -- Shared tablet type scale (768–1099px) ----------------------------------- */
+@media (min-width: 768px) and (max-width: 1099px) {
+  .pf-hero__name {
+    font-size: clamp(4.5rem, 8vw, 6.25rem);
+    line-height: 0.86;
+    letter-spacing: -0.025em;
+    margin: 0 0 20px;
+  }
+  .pf-hero__role {
+    font-size: clamp(1.05rem, 2.2vw, 1.35rem);
+    margin-bottom: 14px;
+  }
+  .pf-hero__stack {
+    margin-bottom: 26px;
+  }
+  .pf-hero__intro {
+    font-size: clamp(1rem, 1.8vw, 1.15rem);
+    line-height: 1.6;
+    max-width: 430px;
+    margin: 0;
+  }
+  .pf-hero__ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    max-width: 430px;
+    margin-top: 30px;
+  }
+}
+
+/* -- Narrow tablet 768-899px: copy above, art below (two rows) --------------- */
+@media (min-width: 768px) and (max-width: 899px) {
+  /* Override the max-width:900px stacked rule */
+  .pf-hero {
+    display: block;
+    min-height: calc(100svh - var(--pf-header-height));
+    overflow: hidden;
+  }
+
+  .pf-hero__inner {
+    display: block;
+    max-width: 100%;
+  }
+
+  /* Copy: left-aligned, limited width so the art zone is right-biased */
+  .pf-hero__copy {
+    position: relative;
+    z-index: var(--pf-z-content);
+    width: min(70%, 520px);
+    max-width: 520px;
+    padding-top: calc(var(--pf-header-height) + 48px);
+    padding-bottom: 2rem;
+  }
+
+  /* Visual: in-flow block, right-justified, begins below copy */
+  .pf-hero__art-viewport {
+    position: relative;
+    inset: auto;
+    display: block;
+    z-index: 2;
+    width: min(84vw, 660px);
+    min-height: 420px;
+    margin-top: 20px;
+    margin-left: auto;
+    pointer-events: none;
+    overflow: visible;
+  }
+
+  /* Artboard fills the visual block */
+  .pf-hero__art-stage {
+    position: absolute;
+    inset: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: auto;
+    max-width: none;
+    aspect-ratio: unset;
+    margin: 0;
+    transform: none;
+  }
+
+  /* Workstation: anchored bottom-right of the art zone */
+  .pf-hero__workstation-wrap {
+    z-index: 4;
+    width: min(100%, 610px);
+    max-width: 100%;
+    right: 0;
+    left: auto;
+    bottom: 0;
+    transform: none;
+  }
+
+  /* System Architecture: sole supporting panel */
+  .pf-panel--system {
+    display: block;
+    width: clamp(200px, 40vw, 320px);
+    top: 4%;
+    left: 4%;
+    right: auto;
+    opacity: 0.58;
+  }
+
+  /* Compass: upper-right so it doesn't crowd the panel */
+  .pf-hero__compass {
+    width: clamp(56px, 8vw, 72px);
+    top: 8%;
+    right: 8%;
+    left: auto;
+    opacity: 0.58;
+  }
+
+  /* Hide unreadable small panels */
+  .pf-panel--database,
+  .pf-panel--status,
+  .pf-panel--components {
+    display: none;
+  }
+
+  /* Background: bottom-anchored band behind the art zone, reaching the right edge */
+  .pf-hero__art-background {
+    top: auto;
+    bottom: 0;
+    right: 0;
+    left: auto;
+    height: clamp(420px, 55svh, 580px);
+    width: min(80vw, 680px);
+  }
+
+  .pf-hero__art-background .pf-hero__art-shards {
+    object-position: right bottom;
+    opacity: 0.48;
+    -webkit-mask-image: linear-gradient(to top, #000 60%, transparent 100%);
+    mask-image: linear-gradient(to top, #000 60%, transparent 100%);
+  }
+}
+
+/* -- Wide tablet 900-1099px: inner is the two-column grid container --------- */
+@media (min-width: 900px) and (max-width: 1099px) {
+  /* Hero: fixed-height container; overflow clips art-column bleed.
+     NOT the grid container — pf-hero__inner holds the two columns. */
+  .pf-hero {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    padding-inline: 0;
+    min-height: 0;
+    height: clamp(820px, calc(100svh - var(--pf-header-height)), 1040px);
+  }
+
+  /* Inner: the true two-column grid.
+     Copy (44%) and visual (56%) are direct grid children of the same parent. */
+  .pf-hero__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 44%) minmax(0, 56%);
+    grid-template-areas: "copy artwork";
+    align-items: stretch;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    margin: 0;
+    padding-inline: 28px;
+  }
+
+  /* Copy: left column — starts below header, does not extend under artwork */
+  .pf-hero__copy {
+    grid-area: copy;
+    position: relative;
+    z-index: var(--pf-z-content);
+    align-self: start;
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    padding-top: calc(var(--pf-header-height) + 40px);
+    padding-right: 24px;
+    padding-bottom: 40px;
+    padding-left: 0;
+  }
+
+  /* Art: right column — fills full hero height as a positioning context */
+  .pf-hero__art-viewport {
+    grid-area: artwork;
+    position: relative;
+    inset: auto;
+    z-index: 1;
+    align-self: stretch;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+    margin: 0;
+    transform: none;
+    pointer-events: none;
+    overflow: visible;
+  }
+
+  /* Artboard fills the entire art column from top to bottom */
+  .pf-hero__art-stage {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: auto;
+    max-width: none;
+    aspect-ratio: unset;
+    margin: 0;
+    transform: none;
+  }
+
+  /* Developer + workstation: lower-right anchor */
+  .pf-hero__workstation-wrap {
+    z-index: 5;
+    width: min(100%, 620px);
+    max-width: calc(100% - 12px);
+    right: clamp(12px, 2vw, 24px);
+    left: auto;
+    bottom: 0;
+    transform: none;
+  }
+
+  /* System Architecture panel: upper-right, centred in the art column */
+  .pf-panel--system {
+    display: block;
+    z-index: 2;
+    width: min(88%, 440px);
+    max-width: calc(100% - 24px);
+    height: auto;
+    top: 10%;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    opacity: 0.72;
+  }
+
+  /* Compass: mid-right, between the panel and the workstation */
+  .pf-hero__compass {
+    z-index: 3;
+    width: clamp(68px, 9vw, 92px);
+    height: auto;
+    top: 45%;
+    right: 5%;
+    left: auto;
+    transform: none;
+    opacity: 0.78;
+  }
+
+  /* Secondary panels are too small to read at this viewport width */
+  .pf-panel--database,
+  .pf-panel--status,
+  .pf-panel--components {
+    display: none;
+  }
+
+  /* Blue geometry: anchored to the hero right edge (background is a sibling of
+     inner, not inside the grid column, so right:0 reaches the viewport edge). */
+  .pf-hero__art-background {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: auto;
+    height: auto;
+    width: min(60vw, 660px);
+  }
+
+  .pf-hero__art-background .pf-hero__art-shards {
+    object-position: right top;
+    opacity: 0.52;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+}
+
+/* Landscape: cap height so the hero isn't taller than the viewport */
+@media (min-width: 900px) and (max-width: 1099px) and (orientation: landscape) {
+  .pf-hero__inner {
+    height: calc(100svh - var(--pf-header-height));
+    min-height: 680px;
+    max-height: 820px;
+  }
+
+  .pf-panel--system {
+    top: 18%;
+    width: min(76%, 390px);
+  }
+
+  .pf-hero__workstation-wrap {
+    width: min(92%, 560px);
+    bottom: 0;
+  }
+}
+
+/* Compact landscape: short viewport (≤760px tall) at 900–1279px wide ──────── */
+/* accent-shards.svg has preserveAspectRatio="none" so the polygons stretch to  */
+/* fill any container shape instead of being cropped by object-fit: cover.      */
+@media (min-width: 900px) and (max-width: 1279px) and (orientation: landscape) and (max-height: 760px) {
+  .pf-hero__art-background .pf-hero__art-shards {
+    object-fit: fill;
+    object-position: center;
+    opacity: 0.62;
+  }
+}
+
+/* Portrait-tablet header: compact menu replaces desktop nav at 960–1099px ── */
+@media (min-width: 960px) and (max-width: 1099px) and (orientation: portrait) {
+  .pf-nav {
+    display: none;
+  }
+  .pf-burger {
+    display: flex;
+  }
+}
+
+/* Portrait tablet 900–1099px: content-driven height that scales with width.
+   At 912px wide → ~748px; 1024px → ~840px; 1032px → ~846px; max 860px.
+   height:auto lets the copy column drive layout; min-height prevents the hero
+   from collapsing below the artwork's natural footprint. The base 900-1099px
+   block sets height: clamp(..., 1040px) for landscape — this overrides for
+   portrait only. min-height:800px guard prevents the rule from firing on
+   tablets held in landscape with a tall physical screen. */
+@media (min-width: 900px) and (max-width: 1099px) and (orientation: portrait) and (min-height: 800px) {
+  .pf-hero {
+    height: auto;
+    min-height: min(
+      clamp(720px, 82vw, 860px),
+      calc(100svh - var(--pf-header-height))
+    );
+  }
+
+  .pf-hero__inner {
+    min-height: inherit;
+  }
+
+  /* Copy: constrain width so lines don't sprawl into the art column gap */
+  .pf-hero__copy {
+    max-width: 440px;
+    padding-bottom: 48px;
+  }
+
+  /* Architecture panel: wider (86%), centred in the art column */
+  .pf-panel--system {
+    top: 9%;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    width: min(86%, 460px);
+    max-width: calc(100% - 24px);
+    opacity: 0.84;
+  }
+
+  /* Workstation: wider to fill the shorter art column without cropping the desk */
+  .pf-hero__workstation-wrap {
+    right: 0;
+    left: auto;
+    bottom: 0;
+    width: min(118%, 640px);
+    max-width: none;
+  }
+
+  /* Compass: negative space between panel and workstation */
+  .pf-hero__compass {
+    top: 47%;
+    right: 7%;
+    left: auto;
+    width: clamp(80px, 9vw, 100px);
+    opacity: 0.75;
+  }
+
+  /* Background: cover the full hero height without gaps at any width */
+  .pf-hero__art-background {
+    bottom: 0;
+    width: min(62vw, 680px);
+  }
+}
+
+/* ============================================================================
+   Shared inner-page editorial primitives (blog, portfolio, project heroes)
+   ========================================================================== */
+
+.pf-page-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--pf-font-body);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--portfolio-orange);
+  margin-bottom: 1.15rem;
+}
+
+.pf-page-eyebrow__star {
+  color: var(--portfolio-orange);
+}
+
+/* Editorial hero grid overlay (used inside ink page heroes) */
+.pf-inner-grid {
+  position: absolute;
+  inset: 0;
+  background: url("/portfolio/motifs/blueprint-grid.svg") repeat;
+  background-size: 240px 240px;
+  opacity: 0.4;
+  -webkit-mask-image: radial-gradient(120% 90% at 50% 0%, #000 30%, transparent 78%);
+  mask-image: radial-gradient(120% 90% at 50% 0%, #000 30%, transparent 78%);
+  pointer-events: none;
+}
+
+.portfolio-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.32rem 0.85rem;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  border-radius: 999px;
+  border: 1px solid rgba(242, 235, 221, 0.24);
+  color: rgba(242, 235, 221, 0.82);
+  background: rgba(242, 235, 221, 0.05);
+}
+
+/* ============================================================================
+   MOBILE HERO — refined editorial composition
+   max-width: 767px. Positioned after the 900px block for correct cascade.
+   Desktop (≥768px) and tablet are visually unchanged.
+   ========================================================================== */
+
+@keyframes pf-pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.45; transform: scale(0.72); }
+}
+
+@media (max-width: 767px) {
+
+  /* ── Hero: block layout, height driven by content + art zone ─────────── */
+  .pf-hero {
+    display: block;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .pf-hero__inner {
+    display: block;
+    max-width: 100%;
+  }
+
+  /* ── Content zone ────────────────────────────────────────────────────── */
+  .pf-hero__copy {
+    position: relative;
+    padding-top: calc(var(--pf-header-height) + 44px);
+    padding-bottom: 30px;
+    max-width: none;
+  }
+
+  /* Gradient beneath the content dissolves into the art zone background —
+     eliminates the hard seam without extra DOM elements. */
+  .pf-hero__copy::after {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    right: calc(-1 * var(--pf-gutter));
+    bottom: -52px;
+    left: calc(-1 * var(--pf-gutter));
+    height: 104px;
+    background: linear-gradient(
+      to bottom,
+      var(--portfolio-ink) 0%,
+      rgba(9, 19, 31, 0.76) 40%,
+      transparent 100%
+    );
+    pointer-events: none;
+  }
+
+  /* ── Name: dominant display, safe at 320px ───────────────────────────── */
+  .pf-hero__name {
+    font-size: clamp(3.75rem, 17vw, 5.25rem);
+    line-height: 0.86;
+    letter-spacing: -0.025em;
+    margin: 0 0 20px;
+  }
+
+  /* ── Role ─────────────────────────────────────────────────────────────── */
+  .pf-hero__role {
+    font-size: clamp(1rem, 4.5vw, 1.2rem);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--portfolio-orange);
+    margin: 0 0 14px;
+  }
+
+  .pf-hero__stack {
+    display: none;
+  }
+
+  /* ── Intro ────────────────────────────────────────────────────────────── */
+  .pf-hero__intro {
+    font-size: clamp(1rem, 4.5vw, 1.15rem);
+    line-height: 1.65;
+    max-width: 34ch;
+    margin: 0;
+    color: rgba(242, 235, 221, 0.72);
+  }
+
+  /* ── Desktop CTAs hidden ──────────────────────────────────────────────── */
+  .pf-hero__ctas--desktop {
+    display: none !important;
+  }
+
+  /* ── Mobile CTAs: row at >= 360px ────────────────────────────────────── */
+  .pf-hero__ctas--mobile {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 18px;
+    margin-top: 30px;
+    margin-bottom: 0;
+  }
+
+  /* Primary: orange, 56px minimum height */
+  .pf-hero__cta-mob-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    min-height: 56px;
+    padding: 0 24px;
+    background: var(--portfolio-orange);
+    color: #fff;
+    font-family: var(--pf-font-body);
+    font-size: 0.88rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    border-radius: var(--pf-radius-sm);
+    border: 2px solid var(--portfolio-orange);
+    white-space: nowrap;
+    transition: background 0.18s var(--pf-ease), transform 0.18s var(--pf-ease),
+      border-color 0.18s var(--pf-ease);
+  }
+
+  .pf-hero__cta-mob-primary:hover {
+    background: var(--pf-orange-600);
+    border-color: var(--pf-orange-600);
+    transform: translateY(-1px);
+  }
+
+  .pf-hero__cta-mob-primary:focus-visible {
+    outline: 3px solid var(--pf-focus-ring);
+    outline-offset: 3px;
+  }
+
+  /* Secondary: readable text link, not a small mono chip */
+  .pf-hero__cta-mob-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    min-height: 44px;
+    padding: 0.25rem 0;
+    font-family: var(--pf-font-body);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: rgba(242, 235, 221, 0.7);
+    text-decoration: none;
+    white-space: nowrap;
+    border-bottom: 1px solid rgba(242, 235, 221, 0.25);
+    transition: color 0.18s var(--pf-ease), border-bottom-color 0.18s var(--pf-ease);
+  }
+
+  .pf-hero__cta-mob-secondary:hover {
+    color: var(--portfolio-bone);
+    border-bottom-color: var(--portfolio-orange);
+  }
+
+  .pf-hero__cta-mob-secondary:focus-visible {
+    outline: 3px solid var(--pf-focus-ring);
+    outline-offset: 3px;
+  }
+
+  /* ── Availability: compact inline — no separate footer strip ─────────── */
+  .pf-hero__availability {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 18px;
+  }
+
+  .pf-hero__avail-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--portfolio-orange);
+    flex-shrink: 0;
+    animation: pf-pulse-dot 2.5s ease-in-out infinite;
+  }
+
+  .pf-hero__avail-text {
+    font-family: var(--pf-font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(242, 235, 221, 0.45);
+  }
+
+  /* Status rail removed — replaced by inline availability above */
+  .pf-hero__status-rail {
+    display: none !important;
+  }
+
+  /* ── Art zone: deliberate height, seamlessly connects to content ──────── */
+  .pf-hero__art-viewport {
+    position: relative !important;
+    top: 0 !important;  /* cancel the ≥1100px header-safe offset in flow context */
+    display: block;
+    flex: none;
+    width: 100%;
+    min-height: clamp(350px, 96vw, 440px);
+    margin-top: -2px;
+    overflow: hidden;
+  }
+
+  /* Shards: bottom-anchored band matching the mobile art zone height */
+  .pf-hero__art-background {
+    position: absolute;
+    top: auto;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: auto;
+    height: clamp(350px, 96vw, 440px);
+  }
+
+  .pf-hero__art-background .pf-hero__art-shards {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 60% center;
+    opacity: 0.52;
+    /* Fade the top edge — polygon emerges gradually from the content zone */
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 28%, #000 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 28%, #000 100%);
+  }
+
+  /* Artboard: fills art zone */
+  .pf-hero__art-stage {
+    position: absolute !important;
+    inset: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    aspect-ratio: unset !important;
+  }
+
+  /* System architecture: centered, upper portion — sits behind workstation */
+  .pf-panel--system {
+    display: block !important;
+    position: absolute;
+    z-index: 2 !important;
+    width: min(82%, 360px) !important;
+    top: 28px !important;
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%);
+    opacity: 0.6 !important;
+  }
+
+  /* Compass: upper-left accent element */
+  .pf-hero__compass {
+    position: absolute;
+    z-index: 3;
+    width: clamp(68px, 18vw, 88px);
+    top: 40px;
+    left: 20px;
+    opacity: 0.72;
+  }
+
+  /* Workstation: centered at bottom — complete silhouette must stay visible */
+  .pf-hero__workstation-wrap {
+    position: absolute !important;
+    z-index: 4 !important;
+    width: min(110%, 500px) !important;
+    max-width: none !important;
+    bottom: 0 !important;
+    right: auto !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+  }
+
+  /* Non-essential panels: hidden */
+  .pf-panel--components,
+  .pf-panel--database,
+  .pf-panel--status {
+    display: none !important;
+  }
+
+  /* No visual grid */
+  .pf-hero__art-viewport-grid {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pf-hero__avail-dot {
+      animation: none;
+    }
+  }
+}
+
+/* Very narrow phones (< 360px): stack CTAs vertically */
+@media (max-width: 359px) {
+  .pf-hero__copy {
+    padding-inline: 18px;
+  }
+
+  .pf-hero__ctas--mobile {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .pf-hero__cta-mob-primary {
+    width: 100%;
+    justify-content: center;
+  }
+}

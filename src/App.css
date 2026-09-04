@@ -1,13 +1,21 @@
 /* ─── Design Tokens ─── */
+/* NOTE: the historical --green-* names now carry the editorial COBALT accent
+   so every existing usage harmonizes with the redesign in one place. */
 :root {
-  --green-600: #16a34a;
-  --green-700: #15803d;
-  --green-400: #22c55e;
-  --green-50:  rgba(22, 163, 74, 0.06);
-  --green-100: rgba(22, 163, 74, 0.1);
-  --green-200: rgba(22, 163, 74, 0.18);
-  --green-300: rgba(22, 163, 74, 0.28);
-  --green-shadow: rgba(22, 163, 74, 0.28);
+  --green-600: #2457e6;
+  --green-700: #1c46bd;
+  --green-400: #4f74ea;
+  --green-50:  rgba(36, 87, 230, 0.06);
+  --green-100: rgba(36, 87, 230, 0.1);
+  --green-200: rgba(36, 87, 230, 0.18);
+  --green-300: rgba(36, 87, 230, 0.28);
+  --green-shadow: rgba(36, 87, 230, 0.28);
+
+  /* Editorial accents available to all inner pages */
+  --pf-cobalt: #2457e6;
+  --pf-cobalt-dark: #1c46bd;
+  --pf-orange: #e7652d;
+  --pf-orange-dark: #cf5320;
 
   --bg-light:    #f8fafc;
   --bg-card:     #ffffff;
@@ -46,15 +54,9 @@ body {
 }
 
 /* ─── Page layout ─── */
-.content-wrapper {
-  padding-top: 68px;
-}
-
-@media only screen and (max-width: 900px) {
-  .content-wrapper {
-    padding-top: 60px;
-  }
-}
+/* No padding-top needed: the header is position:sticky and sits in the document
+   flow above .content-wrapper. The homepage applies a negative margin-top on
+   .portfolio-root to pull the hero background behind the sticky header. */
 
 /* ─── Page section container ─── */
 .page-section {

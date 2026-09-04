@@ -4,16 +4,13 @@ import { useEffect } from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Box } from "@mui/material";
-import NextTopLoader from "nextjs-toploader";
 import { ThemeContextProvider, useThemeContext } from "../context/ThemeContext";
 import { useGetDarkTheme } from "../theme/useGetDarkTheme";
 import useGetLightTheme from "../theme/useGetLightTheme";
-import Header from "../components/template/header/Header";
-import Footer from "../components/template/footer/Footer";
+import PortfolioHeader from "../components/portfolio/layout/PortfolioHeader";
+import PortfolioFooter from "../components/portfolio/layout/PortfolioFooter";
 import ScrollToTop from "../components/scroll/ScrollToTop";
-import ScrollProgress from "../components/ui/ScrollProgress";
 import BackToTop from "../components/ui/BackToTop";
-import StickyBottomCTA from "../components/ui/StickyBottomCTA";
 
 function ThemedApp({ children }: { children: React.ReactNode }) {
   const { darkMode } = useThemeContext();
@@ -30,25 +27,19 @@ function ThemedApp({ children }: { children: React.ReactNode }) {
   return (
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <CssBaseline />
-      <NextTopLoader
-        color="#16a34a"
-        height={3}
-        showSpinner={false}
-        easing="ease"
-        speed={200}
-        shadow="0 0 10px #16a34a, 0 0 5px #16a34a"
-      />
+      {/* NextTopLoader is mounted once in app/layout.tsx (root <body>). */}
       <ScrollToTop />
-      <ScrollProgress />
       <BackToTop />
-      <StickyBottomCTA />
-      <Header />
+      <a href="#main-content" className="pf-skip-link">
+        Skip to content
+      </a>
+      <PortfolioHeader />
       <Box sx={{ background: "--mui-palette-background-default" }}>
         <div className="content-wrapper">
-          <div className="page-transition">
+          <main id="main-content" className="page-transition">
             {children}
-          </div>
-          <Footer />
+          </main>
+          <PortfolioFooter />
         </div>
       </Box>
     </ThemeProvider>

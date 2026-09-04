@@ -8,6 +8,10 @@ export type BlogPost = {
   tags: string[];
   image: string;
   content: string;
+  featured?: boolean;
+  shortTitle?: string;
+  featuredOnHomepage?: boolean;
+  homepageOrder?: number;
   noIndex?: boolean;
 };
 
