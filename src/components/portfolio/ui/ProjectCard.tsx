@@ -2,6 +2,13 @@ import Link from "next/link";
 import type { Build } from "../../../data/portfolio";
 import DeviceFrame from "./DeviceFrame";
 
+function buildSrcSet(src: string, widths: number[]): string {
+  const dot = src.lastIndexOf(".");
+  const base = src.slice(0, dot);
+  const ext = src.slice(dot);
+  return widths.map((w) => `${base}-${w}${ext} ${w}w`).join(", ");
+}
+
 /** Supporting build card: 16/9 media on top, compact body below.
  *  The flagship build is rendered separately by FeaturedProject. */
 export default function ProjectCard({ build }: { build: Build }) {
@@ -12,6 +19,8 @@ export default function ProjectCard({ build }: { build: Build }) {
         {build.frame === "screenshot" && build.image ? (
           <img
             src={build.image}
+            srcSet={buildSrcSet(build.image, [480])}
+            sizes="(max-width: 767px) 100vw, 50vw"
             alt={build.imageAlt ?? `${build.name} screenshot`}
             className="pf-build__img"
             width={800}

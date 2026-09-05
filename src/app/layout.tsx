@@ -117,6 +117,20 @@ export default function RootLayout({
     // attributes (e.g. data-mdv-preview-bridge) onto <html> before React
     // hydrates. This is one-level only and does not mask app-level mismatches.
     <html lang="en" className={bebas.variable} suppressHydrationWarning>
+      <head>
+        {/* Explicit preload: with unoptimized:true static export, next/image
+            priority prop doesn't reliably emit a preload tag. imagesrcset+
+            imagesizes let the browser preload the right responsive variant. */}
+        <link
+          rel="preload"
+          as="image"
+          href="/portfolio/characters/faceless-workstation.webp"
+          // @ts-ignore — imageSrcSet/imageSizes/fetchPriority on <link> valid in HTML5 but TS lags
+          imageSrcSet="/portfolio/characters/faceless-workstation-480.webp 480w, /portfolio/characters/faceless-workstation-800.webp 800w, /portfolio/characters/faceless-workstation-1200.webp 1200w, /portfolio/characters/faceless-workstation.webp 1640w"
+          imageSizes="(max-width: 900px) 92vw, (max-width: 1099px) 56vw, 68vw"
+          fetchPriority="high"
+        />
+      </head>
       <body>
         {/* Single global route-change progress bar. z-index sits above the fixed
             header (--pf-z-header: 100) and overlays (200) so the thin orange line

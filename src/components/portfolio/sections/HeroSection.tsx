@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { hero } from "../../../data/portfolio";
 import PortfolioButton from "../ui/PortfolioButton";
@@ -98,14 +97,21 @@ export default function HeroSection() {
               height={250}
             />
             <div className="pf-hero__workstation-wrap">
-              <Image
+              <img
                 className="pf-hero__workstation"
                 src={hero.workstation.src}
+                srcSet={[
+                  "/portfolio/characters/faceless-workstation-480.webp 480w",
+                  "/portfolio/characters/faceless-workstation-800.webp 800w",
+                  "/portfolio/characters/faceless-workstation-1200.webp 1200w",
+                  `${hero.workstation.src} 1640w`,
+                ].join(", ")}
+                sizes="(max-width: 900px) 92vw, (max-width: 1099px) 56vw, 68vw"
                 alt=""
                 width={hero.workstation.width}
                 height={hero.workstation.height}
-                priority
-                sizes="(max-width: 900px) 92vw, (max-width: 1099px) 56vw, 68vw"
+                fetchPriority="high"
+                decoding="async"
               />
             </div>
           </div>
