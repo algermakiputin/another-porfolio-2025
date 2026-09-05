@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import Script from "next/script";
-import { Bebas_Neue } from "next/font/google";
+import { Bebas_Neue, Inter } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import ClientShell from "./ClientShell";
 import "../index.css";
@@ -13,6 +13,13 @@ const bebas = Bebas_Neue({
   subsets: ["latin"],
   variable: "--font-bebas",
   display: "swap",
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+  weight: ["300", "400", "500", "600", "700", "800"],
 });
 
 const GA_ID = "G-XGKHB8ZDZJ";
@@ -116,7 +123,7 @@ export default function RootLayout({
     // suppressHydrationWarning: browser extensions / preview tools inject
     // attributes (e.g. data-mdv-preview-bridge) onto <html> before React
     // hydrates. This is one-level only and does not mask app-level mismatches.
-    <html lang="en" className={bebas.variable} suppressHydrationWarning>
+    <html lang="en" className={`${bebas.variable} ${inter.variable}`} suppressHydrationWarning>
       <head>
         {/* Explicit preload: with unoptimized:true static export, next/image
             priority prop doesn't reliably emit a preload tag. imagesrcset+
