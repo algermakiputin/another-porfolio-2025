@@ -26,6 +26,8 @@ const ACCENTS = {
   SEO: { key: "#38bdf8", soft: "#7dd3fc", glow: "#0ea5e9" },
   // AI covers use the archive's "AI & Agents" orange so the set reads as one system.
   AI: { key: "#e7652d", soft: "#f6a06a", glow: "#c2410c" },
+  // Shipping / App Store stories get a violet accent to sit apart from React/SEO/AI.
+  Shipping: { key: "#8b5cf6", soft: "#a78bfa", glow: "#7c3aed" },
   default: { key: "#22c55e", soft: "#4ade80", glow: "#16a34a" },
 };
 
@@ -50,6 +52,8 @@ const CONFIG = {
   "claude-agent-persistent-memory": { motif: "database", coverTitle: "Claude Agents with Persistent Memory" },
   "claude-computer-use-screen-reading-clicks": { motif: "devices", coverTitle: "Claude Computer Use: Screen to Clicks" },
   "integrate-claude-vscode-terminal": { motif: "architecture", coverTitle: "Claude in VS Code & Terminal" },
+  // Shipping — App Store review war story; shield+check motif reads as "approved".
+  "apple-rejected-app-cant-find-in-app-purchases": { motif: "testing", coverTitle: "Rejected 3 Times, Then Approved" },
 };
 
 /* ---------- text wrapping ---------- */
