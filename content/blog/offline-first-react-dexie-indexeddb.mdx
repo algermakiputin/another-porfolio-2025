@@ -8,7 +8,7 @@ tags: ["React", "Dexie", "IndexedDB", "Offline-First", "TypeScript", "Hunter Vau
 image: "/images/blog/covers/offline-first-react-dexie-indexeddb.webp"
 ---
 
-An offline-first React app treats the device as the source of truth: every read and write hits a local database first, the UI updates immediately, and the network is something that happens in the background — not something the user waits on. I built Hunter Vault, a personal finance app that runs on the web and ships to iOS and Android, exactly this way, with Dexie over IndexedDB as the local store and the cloud handling sync behind it.
+An offline-first React app treats the device as the source of truth: every read and write hits a local database first, the UI updates immediately, and the network is something that happens in the background — not something the user waits on. I built [Hunter Vault](https://huntervault.app), a personal finance app that runs on the web and ships to iOS and Android, exactly this way, with Dexie over IndexedDB as the local store and the cloud handling sync behind it.
 
 This article covers how that's put together — the schema, migrations, reactive queries, and why derived values like balances are computed rather than stored — and where offline-first stops being worth the complexity. The genuinely hard part, syncing local data to the cloud, gets its own deep-dive; here I'll cover the shape of it and link out to the details.
 
@@ -23,7 +23,7 @@ This article covers how that's put together — the schema, migrations, reactive
 
 ## Why offline-first mattered here
 
-Hunter Vault is something people check on the go — often on a phone, sometimes with no signal. Making someone wait on a network round-trip to see their own account balance is a bad experience, and losing the ability to log a transaction because the subway has no reception is worse. Offline-first fixes both: the app is fully usable with no connection, interactions feel instant because they never touch the network on the critical path, and flaky connectivity degrades gracefully instead of breaking the app.
+Hunter Vault is something people check on the go — often on a phone, sometimes with no signal. Making someone wait on a network round-trip to see their own account balance is a bad experience, and losing the ability to log a transaction because the subway has no reception is worse. Offline-first fixes both: the app is [fully usable with no connection](https://huntervault.app/features/private-offline-budgeting/), interactions feel instant because they never touch the network on the critical path, and flaky connectivity degrades gracefully instead of breaking the app.
 
 The cloud still matters — for syncing across devices, backup, and auth — but it sits *behind* the app rather than in front of it. That single decision, local-first with the network in the background, shapes everything else.
 
@@ -102,7 +102,7 @@ export function useAccountBalance(accountId: string) {
 }
 ```
 
-That comment is the important part. A balance is derived from transactions, so it's computed on read rather than stored as a separate value. I learned why this matters the hard way: an early version of savings goals stored a balance and moved money into it like a real transaction, which meant the same money could be counted twice and balances stopped matching the user's bank. Deriving the value from the records fixed it. I tell the full story in [the architecture write-up](/blog/react-application-architecture); the principle is the same one behind [not duplicating server state](/blog/react-context-vs-zustand-vs-server-state) — if a value can be computed from data you already hold, don't store a second copy that can drift.
+That comment is the important part. A balance is derived from transactions, so it's computed on read rather than stored as a separate value. I learned why this matters the hard way: an early version of [savings goals](https://huntervault.app/features/savings-goals/) stored a balance and moved money into it like a real transaction, which meant the same money could be counted twice and balances stopped matching the user's bank. Deriving the value from the records fixed it. I tell the full story in [the architecture write-up](/blog/react-application-architecture); the principle is the same one behind [not duplicating server state](/blog/react-context-vs-zustand-vs-server-state) — if a value can be computed from data you already hold, don't store a second copy that can drift.
 
 ## The data flow
 
@@ -118,7 +118,7 @@ Syncing a local-first database to the cloud is the part that earns its own artic
 
 ## Backup and recovery
 
-A useful side effect of syncing to the cloud is that the cloud copy doubles as a backup. A user can reinstall the app or move to a new device and restore their data rather than starting over — which, for a finance app holding months of records, is not optional. The tension to be aware of is that the on-device copy and the cloud copy have to reconcile cleanly, which loops back to the same synchronization problem above.
+A useful side effect of [syncing to the cloud](https://huntervault.app/features/cloud-sync/) is that the cloud copy doubles as a backup. A user can reinstall the app or move to a new device and restore their data rather than starting over — which, for a finance app holding months of records, is not optional. The tension to be aware of is that the on-device copy and the cloud copy have to reconcile cleanly, which loops back to the same synchronization problem above.
 
 ## Testing offline scenarios
 

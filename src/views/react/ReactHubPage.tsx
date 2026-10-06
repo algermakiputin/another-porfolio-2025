@@ -26,7 +26,7 @@ const projects = [
   {
     name: "Hunter Vault",
     type: "Personal Finance App",
-    desc: "An offline-first personal finance app shipped to web, iOS and Android from a single React codebase. Local-first on Dexie and IndexedDB, syncing to Supabase and Firebase, packaged with Capacitor, and subscriptions via RevenueCat. Launched on both app stores in April 2026.",
+    desc: "An offline-first personal finance app shipped to web, iOS and Android from a single React codebase. Local-first on Dexie and IndexedDB, syncing to Supabase and Firebase, packaged with Capacitor, and subscriptions via RevenueCat, with an AI assistant and Smart Import on Supabase Edge Functions. Launched on both app stores in April 2026 and now has 2,500+ users.",
     href: "/project/hunter-vault/",
   },
   {

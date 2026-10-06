@@ -145,14 +145,14 @@ export const selectedBuilds: Build[] = [
     category: "Product",
     categoryTone: "product",
     summary:
-      "A gamified personal-finance app that turns budgeting, debt, and savings into an RPG progression loop — 100% offline, zero data collection.",
-    tech: ["React Native", "TypeScript", "SQLite", "Expo"],
+      "A gamified personal-finance app with 2,500+ users that turns budgeting, debt, and savings into an RPG progression loop — offline-first, with an AI money assistant and Smart Import.",
+    tech: ["React", "TypeScript", "Dexie", "Capacitor"],
     featured: true,
     featuredOnHomepage: true,
     homepageOrder: 1,
     frame: "screenshot",
     image: "/images/projects/hunter-vault.webp",
-    imageAlt: "Hunter Vault app showing a portfolio value dashboard and daily quests",
+    imageAlt: "Hunter Vault app dashboard showing the Hunter rank, power level, Mana Pool budget, Power Vault savings and daily quests",
   },
   {
     slug: "zendtri-pos",

@@ -74,58 +74,66 @@
             "title": "Hunter Vault - Level Up Finance",
             "shortTitle": "Hunter Vault",
             "platforms": ["iOS", "Android"],
-            "metaDescription": "Hunter Vault is a gamified personal finance app for iOS and Android inspired by Solo Leveling RPG aesthetics. It transforms budgeting, debt tracking, and savings into an epic adventure with quests, ranks, and rewards — all 100% offline with zero data collection.",
+            "imageAlt": "Hunter Vault app dashboard showing the Hunter rank, power level, Mana Pool budget, Power Vault savings and daily quests",
+            "evidence": { "value": "2,500+", "label": "Users", "kind": "scale" },
+            "archCaption": "React + TypeScript · Dexie (IndexedDB) · Supabase + Gemini API · Capacitor",
+            "metaDescription": "Hunter Vault is a gamified personal finance app for iOS and Android with 2,500+ users: offline-first budgeting, debt and savings with quests, ranks, an AI assistant and Smart Import.",
             "role": "Full Stack Developer",
             "responsibilities": [
-                "Product design & RPG-themed UI/UX system",
-                "React Native cross-platform development",
-                "Offline-first architecture & local data storage",
-                "Gamification engine (quests, ranks, rewards)",
-                "App Store & Google Play deployment"
+                "Offline-first data layer on Dexie and IndexedDB: 34 tables, schema migrated in place on users' devices up to version 38",
+                "Optional cloud sync and backup with UUID record identity, tombstoned deletes and last-write-wins conflict resolution",
+                "Gamification engine: XP, E-to-S ranks, daily and weekly quests, achievements, titles and streak multipliers",
+                "Huntee AI assistant and Smart Import transaction extraction on Supabase Edge Functions with the Gemini API",
+                "RevenueCat monetization: free-tier limits, a one-time Elite unlock, the Hunter Pass subscription and AI credits",
+                "One React codebase shipped to iOS and Android through Capacitor, localized into 11 languages",
+                "Product design, RPG-themed UI system, App Store and Google Play releases"
             ],
-            "techStack": ["React Native", "TypeScript", "SQLite", "Expo", "iOS", "Android"],
-            "shortDescription": "Hunter Vault is a gamified budgeting app for iOS and Android that transforms personal finance into an RPG adventure. Inspired by Solo Leveling, users track income, conquer debt, complete daily quests, and rise through ranks — all while keeping their data 100% private and offline.",
+            "techStack": ["React", "TypeScript", "Vite", "Tailwind CSS", "Dexie", "IndexedDB", "Supabase", "Deno", "Firebase", "Gemini API", "RevenueCat", "Capacitor", "iOS", "Android"],
+            "shortDescription": "Hunter Vault is a gamified budgeting app for iOS and Android with 2,500+ users. It turns expenses, budgets, debt and savings into an RPG progression loop of XP, ranks, quests and achievements, on an offline-first core with optional cloud sync, an AI money assistant and Smart Import for bank statements.",
             "meta": {
                 "platform": "iOS & Android",
                 "category": "Finance / Productivity",
+                "scope": "Product · UX · Mobile · Backend · AI · Monetization",
+                "timeline": "Launched April 2026 · actively developed",
                 "targetAudience": "Gamers, millennials, and people who struggle with traditional budgeting",
                 "linkLabel": "Visit Website",
                 "link": "https://huntervault.app"
             },
             "requirements": [
-                "Budget Tracking: Manage income, expenses, and savings with an RPG-themed interface",
-                "Debt Management: Track and conquer debt through dungeon raid mechanics",
-                "Daily Quests: Habit-forming financial tasks that reward consistency",
-                "Rank Progression: Rise from E-Rank to S-Rank Monarch as financial goals are met",
-                "Privacy-First: 100% offline, no account needed, zero data collected, no ads",
-                "Cross-Platform: Available on both iOS and Android"
+                "Money tracking: Accounts (Vaults), expenses with refunds, income and income schedules, transfers, receivables, merchants and search",
+                "Budgeting: Category budgets and spending pools, the 50/30/20 split, recurring transactions and bills, and a Safe-to-Spend number",
+                "Debt and savings: Debt tracking with payment history, and savings goals that either own an account or track existing ones",
+                "Reports: Spending, budget, cash flow, net worth and debt",
+                "Progression: XP, E-to-S ranks, daily and weekly quests, achievements, titles, a cosmetic Hunter Shop and the opt-in Weekly Hunter Board",
+                "AI: Huntee, an assistant that answers questions about the user's own finances, and Smart Import for CSV, PDF and screenshot statements",
+                "Platform: Offline-first core with no account required and no ads, optional cloud sync and backup, 11 languages"
             ],
-            "overview": "Hunter Vault is a personal finance app that reimagines budgeting as an RPG adventure, inspired by the Solo Leveling universe. Instead of spreadsheets and boring dashboards, users manage their financial life through quests, ranks, and a vault system — making money management engaging, motivating, and habit-forming. Built with a privacy-first philosophy, the app works entirely offline with no account required and zero data collection.",
-            "challenge": "Most budgeting apps fail because they're boring — users open them once and never return. The core challenge was building a finance tool that people actually want to use daily. A second constraint was doing this without compromising privacy: no ads, no data collection, no account lock-in. Building an engaging gamification layer on top of real financial logic while keeping the app fully offline required a fundamentally different architecture from typical finance apps.",
-            "approach": "Hunter Vault was designed around a single insight: people who game consistently show up every day because the progression loop is rewarding. By mapping financial behaviors to RPG mechanics — income as XP, debt as dungeon raids, savings goals as quests — the app makes responsible financial habits feel like meaningful progression. The rank system (E to S+) gives users a clear visual sense of growth over time. Going fully offline with no account requirement removed the biggest barrier to entry: trust. Users never have to wonder who holds their financial data.",
+            "overview": "Hunter Vault is a personal finance app that turns budgeting into an RPG, inspired by Solo Leveling. Users log their real expenses, income, debts and savings, and the app turns those habits into XP, ranks, quests and achievements, so showing up every day feels like progress. It launched on the App Store and Google Play in April 2026 and has grown to 2,500+ users.\nSince launch it has grown from a local expense-and-budget tracker into a full personal finance app: budgets and bills, debts, savings goals, receivables, five report types, a weekly leaderboard, cloud sync, and two AI features. Huntee is an in-app money assistant, and Smart Import pulls transactions out of bank statements.",
+            "challenge": "Most budgeting apps are abandoned within weeks. Logging every purchase feels like a chore, and nothing rewards consistency. Hunter Vault had to make daily tracking feel rewarding without turning into a game that ignores real money.\nIt also had to stay trustworthy. The core app works offline with no account and keeps financial data on the device, so every online feature added later (sync, AI, the leaderboard) had to be optional and sit behind that core rather than replace it. As the app grew, the harder problem became keeping more than a dozen features that all touch the same financial data consistent with each other.",
+            "approach": "The progression loop maps real behavior to game mechanics. Every logged expense and saved amount earns XP, daily and weekly quests reward consistency, streak multipliers reward showing up, and ranks from E to S make long-term growth visible.\nUnder that, the app is offline-first. Dexie over IndexedDB is the source of truth, screens read through reactive queries, and balances are derived from records rather than stored. The schema has been migrated in place on users' devices up to version 38 without data loss.\nOnline features sit behind the local core. Optional cloud sync gives every record a stable UUID, tombstones deletes and resolves conflicts last-write-wins. Huntee and Smart Import run on Supabase Edge Functions that call the Gemini API. RevenueCat handles the free tier, the one-time Elite unlock and the Hunter Pass subscription that funds AI credits. One React codebase ships to iOS and Android through Capacitor, in 11 languages.",
             "results": [
                 {
-                    "title": "Daily Active Users",
-                    "metric": "100+",
-                    "description": "100+ daily active users since launch"
+                    "title": "Users",
+                    "metric": "2,500+",
+                    "description": "People using Hunter Vault since the April 2026 launch"
                 },
                 {
                     "title": "Platforms",
                     "metric": "iOS & Android",
-                    "description": "Available on both major mobile platforms"
+                    "description": "Live on the App Store and Google Play from one React codebase"
                 },
                 {
-                    "title": "Privacy",
-                    "metric": "100%",
-                    "description": "Fully offline — zero data collected, no account required"
+                    "title": "Languages",
+                    "metric": "11",
+                    "description": "Localized from English into 10 more languages"
                 },
                 {
-                    "title": "Cost",
-                    "metric": "Free",
-                    "description": "Free forever with no ads"
+                    "title": "Local data model",
+                    "metric": "34 tables",
+                    "description": "Dexie schema migrated in place on users' devices up to version 38"
                 }
             ],
-            "conclusion": "Hunter Vault proves that personal finance tools don't have to be boring. By combining RPG-inspired gamification with a privacy-first, offline-first architecture, the app delivers a budgeting experience that users actually want to return to daily — turning one of personal finance's oldest problems (consistency) into a fun, rewarding habit."
+            "conclusion": "Hunter Vault shows that a personal finance app can be engaging and trustworthy at the same time. Gamification keeps people logging, the offline-first core keeps their data on their device, and the optional online layer of sync, AI and leaderboards adds value without becoming a requirement. Six months after launch it has 2,500+ users and has grown from a simple tracker into a full personal finance app, on an architecture built to keep changing."
         },
         {
             "platform": "web",
