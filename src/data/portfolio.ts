@@ -152,7 +152,7 @@ export const selectedBuilds: Build[] = [
     homepageOrder: 1,
     frame: "screenshot",
     image: "/images/projects/hunter-vault.webp",
-    imageAlt: "Hunter Vault app dashboard showing the Hunter rank, power level, Mana Pool budget, Power Vault savings and daily quests",
+    imageAlt: "Hunter Vault promo artwork with the headline Level Up Your Money, E-to-S rank badges, and two phones showing the Safe to Spend dashboard and daily quests",
   },
   {
     slug: "zendtri-pos",

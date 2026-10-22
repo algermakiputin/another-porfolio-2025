@@ -74,7 +74,7 @@
             "title": "Hunter Vault - Level Up Finance",
             "shortTitle": "Hunter Vault",
             "platforms": ["iOS", "Android"],
-            "imageAlt": "Hunter Vault app dashboard showing the Hunter rank, power level, Mana Pool budget, Power Vault savings and daily quests",
+            "imageAlt": "Hunter Vault promo artwork with the headline Level Up Your Money, E-to-S rank badges, and two phones showing the Safe to Spend dashboard and daily quests",
             "evidence": { "value": "2,500+", "label": "Users", "kind": "scale" },
             "archCaption": "React + TypeScript · Dexie (IndexedDB) · Supabase + Gemini API · Capacitor",
             "metaDescription": "Hunter Vault is a gamified personal finance app for iOS and Android with 2,500+ users: offline-first budgeting, debt and savings with quests, ranks, an AI assistant and Smart Import.",
