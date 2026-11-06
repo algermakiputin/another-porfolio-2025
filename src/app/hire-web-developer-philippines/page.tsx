@@ -5,7 +5,7 @@ import { SERVICES } from "../../data/services";
 const BASE_URL = "https://algermakiputin.com";
 const PAGE_URL = `${BASE_URL}/hire-web-developer-philippines/`;
 const OG_IMAGE = `${BASE_URL}/images/og-cover.jpg`;
-const TITLE = "Hire a Web Developer in the Philippines | Alger Makiputin";
+const TITLE = "Hire a Web Developer in the Philippines";
 const DESCRIPTION =
   "Filipino product engineer — 8+ years across web and mobile with React, React Native, TypeScript and Node.js. Strong English, competitive rates. Available for remote projects worldwide.";
 
@@ -28,14 +28,14 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     siteName: "Alger Makiputin",
-    title: TITLE,
+    title: `${TITLE} | Alger Makiputin`,
     description: DESCRIPTION,
     url: PAGE_URL,
     images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Hire a Web Developer in the Philippines" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: TITLE,
+    title: `${TITLE} | Alger Makiputin`,
     description: DESCRIPTION,
     images: [OG_IMAGE],
     creator: "@algermakiputin",

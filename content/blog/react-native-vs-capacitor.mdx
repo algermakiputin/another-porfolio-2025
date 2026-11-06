@@ -1,0 +1,106 @@
+---
+title: "React Native vs Capacitor: How I Choose for a New Mobile App"
+description: "React Native vs Capacitor from production experience—the rendering models, the honest costs of each, and the decision framework I use to pick."
+lastUpdated: "Nov 06, 2026"
+publishedDate: "Nov 06, 2026"
+category: "React"
+tags: ["React", "React Native", "Capacitor", "Mobile", "iOS", "Android"]
+image: "/images/blog/covers/react-native-vs-capacitor.webp"
+---
+
+The short version: Capacitor reuses your web app — the same React components, styles and logic running inside a native shell — while React Native renders genuinely native UI driven from JavaScript. So the choice is really a question about what you're starting from and what the app demands. If you have (or want) a web app with mostly standard UI, Capacitor gets you to both stores fastest. If the app lives or dies on native UI, animation or device integration, React Native earns its extra weight.
+
+This is the dedicated comparison I promised in [the Capacitor walkthrough](/blog/react-web-app-to-ios-android-capacitor/). It covers what each approach actually is, the decision flowchart I run through, when each one wins, the honest costs on both sides, and how I'd decide on a new project today. I shipped Hunter Vault with Capacitor and would make the same call again — and I can point at exactly which apps would flip my answer.
+
+## Quick summary
+
+- **Capacitor wraps your web build** in a native shell; you reuse your React app unchanged.
+- **React Native renders native components** from JavaScript; you build the UI in its world.
+- The biggest fork in the road: **is there a web app in the picture?** If yes, Capacitor starts ahead.
+- Capacitor wins on **reuse, speed and web skills**; React Native wins on **native UI, animation and deep device integration**.
+- Both still mean **two native toolchains, signing and app review** — neither escapes the stores.
+- The decision is sticky: **switching later means rewriting the UI layer**, so choose deliberately.
+
+## What each one actually is
+
+Capacitor takes the web app you already have and runs it in a native WebView, bridging to native features through plugins. Your React components, styles and logic come along unchanged — the same build ships to the web and, through the native projects, to iOS and Android. I cover the full mechanics in [turning a React web app into iOS and Android apps](/blog/react-web-app-to-ios-android-capacitor/): the sync step, the Xcode and Android Studio builds, and the rough edges like the keyboard, safe areas and the Android back button.
+
+React Native is a different deal. Your JavaScript drives real native components — actual iOS and Android views, not a WebView — so the UI renders and animates like a native app. The price is that you build (or rebuild) the interface in React Native's world: its components, its styling subset, its native modules. Most new React Native projects in 2026 start with Expo, which removes a large part of the native-toolchain friction, but the fundamental shape is the same — a mobile-first codebase where the web, if it exists at all, is a separate concern.
+
+Notice what this means: the core difference isn't which is "better," it's what you reuse. Capacitor reuses a web app. React Native reuses your React knowledge but asks for a new UI.
+
+## The decision, as a flowchart
+
+<img src="/svg/react-native-vs-capacitor-decision.svg" alt="Flowchart for choosing between React Native and Capacitor" style="width:100%;border-radius:10px;margin:1.5rem 0;" />
+
+Three questions, in order. The first one settles most cases: if a web app exists or is planned, Capacitor's reuse advantage is so large that React Native needs a strong reason to overcome it. Only when the app's demands cross into territory a WebView handles poorly does the answer flip. The rest of this article is what sits behind each of those boxes.
+
+## When Capacitor wins
+
+**You already have a web app.** This is the single biggest reason to choose Capacitor, and it was Hunter Vault's story: an existing React app, built with Vite, that needed to reach the App Store and Google Play without a rewrite. Rebuilding that UI natively would have bought almost nothing and cost months.
+
+**You want web and mobile from one codebase.** Hunter Vault ships to web, iOS and Android from one React project, and improvements land everywhere at once. If the product needs a web presence anyway, Capacitor means one codebase to maintain instead of two.
+
+**The app is data-and-UI.** Forms, lists, dashboards, finance, content, settings screens — the bread and butter of most apps — run beautifully in a WebView. Users cannot tell the difference, because for this kind of UI there is barely one to feel.
+
+**The team is small and web-shaped.** One codebase, web skills, familiar debugging, and a fast path to both stores. For a solo developer or a small team, the leverage is enormous: every hour goes into the product, not into platform work.
+
+**Offline-first comes free with the web patterns.** IndexedDB works in the WebView exactly as it does in the browser, so the entire [offline-first data layer](/blog/offline-first-react-dexie-indexeddb/) — Dexie, reactive queries, background sync — runs on mobile unchanged. No separate native storage story to build.
+
+## When React Native wins
+
+**The UI is native-heavy.** Complex gestures, shared-element transitions, 120fps animations, maps you live in, camera-first flows, media editing — the things where the difference between a WebView and the native renderer stops being theoretical. If your app's three most important interactions all fall here, that's your answer.
+
+**Device integration runs deep.** Bluetooth accessories, background processing, widgets, careful push-notification behavior, health data — anything where you're living in native APIs rather than visiting them. Capacitor can reach native features through plugins, but when the app *is* the integration, building on native ground is saner.
+
+**Native look-and-feel is central to the product.** Some products compete on feel: the scroll physics, the transitions, the way every control responds. A WebView can get close, and details like haptics narrow the gap further — but close isn't the same, and for some products the gap is the product.
+
+**There is no web app and none planned.** This dissolves Capacitor's main advantage. If the product is mobile-only, you're carrying a WebView's constraints without collecting its reuse reward.
+
+## The honest costs of each
+
+Capacitor's costs are the ones I catalogued in the walkthrough: a WebView performance ceiling that shows on low-end Android, plugin gaps you may have to fill with Swift or Kotlin, two native toolchains to maintain, app review to wait on, and a testing matrix that spans WKWebView and assorted Chromium WebViews. The [performance work](/blog/react-performance-problems/) — virtualized lists especially — matters more here than on the web.
+
+React Native's costs are different but equally real. You still own two native builds, and native dependencies mean version upgrades are a recurring project rather than a chore — the upgrade treadmill is the tax every RN team pays, softened but not removed by Expo. Debugging eventually requires some native literacy: reading a native stack trace, understanding a permission flow, tracing why a release build behaves differently from development. And sharing with the web is a second-class path — React Native Web exists, but it's a compatibility layer, not the same-assets reuse Capacitor gives you.
+
+Both share the stores' costs: signing, identifiers, listings, privacy declarations, review queues, and release trains instead of instant deploys. For a taste of how that goes wrong, Apple [rejected one of my releases three times](/blog/apple-rejected-app-cant-find-in-app-purchases/) over purchases the reviewer simply couldn't find. Neither framework negotiates with Apple or Google on your behalf.
+
+## How I'd decide on a new project today
+
+When the question comes up, I work through it in this order:
+
+1. **Is there a web app?** Existing or firmly planned — if yes, Capacitor is the default and needs a reason to lose.
+2. **List the three most demanding interactions.** Not features — interactions: the moments of heaviest animation, the deepest device integration, the most gesture-driven screen. If two or more genuinely need native rendering, React Native.
+3. **Check the team honestly.** Web-only team shipping their first mobile app? Capacitor's leverage dominates. A team with native experience, or an app whose roadmap is all native features? React Native stops looking expensive.
+4. **Check the timeline.** Capacitor compresses "both stores" dramatically when reuse applies. React Native pays back over a longer horizon on the right app — but only on the right app.
+
+Hunter Vault through this lens: web app existed (step 1 settles it), the demanding interactions are lists and forms (step 2 confirms), solo web developer (step 3 confirms), both stores quickly (step 4 confirms). Four for four — Capacitor, no contest.
+
+Now flip it: imagine a camera-first social app with real-time filters, gesture-driven navigation and heavy animation throughout. No web app planned, every core interaction native-heavy, feel as the differentiator. That's React Native just as clearly — and forcing it into a WebView would be the same category of mistake as rewriting Hunter Vault natively. The framework serves the app, not the other way around.
+
+## FAQs
+
+### Can I start with Capacitor and switch to React Native later?
+
+Technically yes, practically it's a rewrite of the UI layer — the components, navigation and styling don't transfer. What does transfer is everything underneath: API clients, domain logic, types, and often the data layer design. So the decision is sticky at the UI level. This is why the flowchart leads with the most durable facts (is there a web app? what does the UI demand?) rather than the changeable ones.
+
+### Which one performs better?
+
+React Native has the higher ceiling — native rendering beats a WebView on demanding animation and heavy lists, especially on low-end Android. But most data-and-UI apps never get near either ceiling, and Capacitor apps with virtualized lists and sane rendering feel instant. Don't choose on assumed performance; choose on the app's actual demands, then measure.
+
+### Does offline-first work in both?
+
+Yes, with different storage. Capacitor reuses the web stack directly — IndexedDB in the WebView, which is how Hunter Vault stays offline-first on mobile with zero mobile-specific data code. React Native needs native storage libraries instead, since there's no WebView and no IndexedDB. The sync design transfers either way; I cover the local-first side in [building an offline-first React app with Dexie](/blog/offline-first-react-dexie-indexeddb/).
+
+### What about Expo — is that a third option?
+
+Expo is React Native with the sharp edges filed down: managed builds, over-the-air updates, and a curated set of native capabilities without touching Xcode or Android Studio for most things. In 2026 it's the default way to start a React Native project. It doesn't change the Capacitor-vs-RN decision — it just makes the RN side of it cheaper to execute.
+
+### Do I still need Xcode and Android Studio with Capacitor?
+
+Yes. Capacitor removes the UI rewrite, not the native platforms. You build, sign and submit in Xcode and Android Studio, through the normal TestFlight tracks, Play Console tracks and store reviews. The [walkthrough](/blog/react-web-app-to-ios-android-capacitor/) goes through that process step by step.
+
+
+**Choosing between React Native and Capacitor for a new app?** [See how I help teams design and build production React and mobile applications →](/mobile-app-development/)
+
+*Related: [turning a React web app into iOS and Android apps](/blog/react-web-app-to-ios-android-capacitor/) · [building an offline-first React app with Dexie](/blog/offline-first-react-dexie-indexeddb/) · [the React hub](/react/)*

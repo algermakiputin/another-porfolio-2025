@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 580" font-family="-apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#334155"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="760" height="580" fill="#ffffff"/>
+  <text x="380" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#0f172a">React Native or Capacitor?</text>
+
+  <!-- Q1 -->
+  <rect x="40" y="66" width="300" height="64" rx="8" fill="#f1f5f9" stroke="#334155" stroke-width="1.5"/>
+  <text x="190" y="92" text-anchor="middle" font-size="13" fill="#0f172a">Do you need a web app too —</text>
+  <text x="190" y="112" text-anchor="middle" font-size="13" fill="#0f172a">now or planned?</text>
+  <rect x="430" y="66" width="290" height="64" rx="8" fill="#eef2ff" stroke="#4338ca" stroke-width="1.5"/>
+  <text x="575" y="92" text-anchor="middle" font-size="13" font-weight="700" fill="#312e81">Capacitor</text>
+  <text x="575" y="112" text-anchor="middle" font-size="12" fill="#312e81">reuse the web app</text>
+  <line x1="340" y1="98" x2="430" y2="98" stroke="#334155" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="385" y="90" text-anchor="middle" font-size="11" fill="#475569">Yes</text>
+  <line x1="190" y1="130" x2="190" y2="168" stroke="#334155" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="202" y="152" font-size="11" fill="#475569">No</text>
+
+  <!-- Q2 -->
+  <rect x="40" y="168" width="300" height="64" rx="8" fill="#f1f5f9" stroke="#334155" stroke-width="1.5"/>
+  <text x="190" y="194" text-anchor="middle" font-size="13" fill="#0f172a">Native-heavy UI, demanding</text>
+  <text x="190" y="214" text-anchor="middle" font-size="13" fill="#0f172a">animation, deep integration?</text>
+  <rect x="430" y="168" width="290" height="64" rx="8" fill="#eef2ff" stroke="#4338ca" stroke-width="1.5"/>
+  <text x="575" y="194" text-anchor="middle" font-size="13" font-weight="700" fill="#312e81">React Native</text>
+  <text x="575" y="214" text-anchor="middle" font-size="12" fill="#312e81">go native</text>
+  <line x1="340" y1="200" x2="430" y2="200" stroke="#334155" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="385" y="192" text-anchor="middle" font-size="11" fill="#475569">Yes</text>
+  <line x1="190" y1="232" x2="190" y2="270" stroke="#334155" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="202" y="254" font-size="11" fill="#475569">No</text>
+
+  <!-- Q3 -->
+  <rect x="40" y="270" width="300" height="64" rx="8" fill="#f1f5f9" stroke="#334155" stroke-width="1.5"/>
+  <text x="190" y="296" text-anchor="middle" font-size="13" fill="#0f172a">Small or web-only team,</text>
+  <text x="190" y="316" text-anchor="middle" font-size="13" fill="#0f172a">need both stores fast?</text>
+  <rect x="430" y="270" width="290" height="64" rx="8" fill="#eef2ff" stroke="#4338ca" stroke-width="1.5"/>
+  <text x="575" y="296" text-anchor="middle" font-size="13" font-weight="700" fill="#312e81">Capacitor</text>
+  <text x="575" y="316" text-anchor="middle" font-size="12" fill="#312e81">one codebase, both stores</text>
+  <line x1="340" y1="302" x2="430" y2="302" stroke="#334155" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="385" y="294" text-anchor="middle" font-size="11" fill="#475569">Yes</text>
+  <line x1="190" y1="334" x2="190" y2="392" stroke="#334155" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="202" y="366" font-size="11" fill="#475569">No</text>
+
+  <!-- Final -->
+  <rect x="40" y="392" width="300" height="64" rx="8" fill="#eef2ff" stroke="#4338ca" stroke-width="1.5"/>
+  <text x="190" y="418" text-anchor="middle" font-size="13" font-weight="700" fill="#312e81">Weigh toward React Native</text>
+  <text x="190" y="438" text-anchor="middle" font-size="12" fill="#312e81">no reuse case, native demands</text>
+
+  <rect x="430" y="392" width="290" height="64" rx="8" fill="#f1f5f9" stroke="#334155" stroke-width="1.5"/>
+  <text x="575" y="418" text-anchor="middle" font-size="12" fill="#0f172a">Either way: the decision is</text>
+  <text x="575" y="438" text-anchor="middle" font-size="12" fill="#0f172a">sticky — choose deliberately</text>
+
+  <text x="380" y="510" text-anchor="middle" font-size="12" fill="#64748b">Full reasoning in “React Native vs Capacitor: How I Choose for a New Mobile App”</text>
+  <text x="380" y="544" text-anchor="middle" font-size="12" fill="#64748b">algermakiputin.com</text>
+</svg>

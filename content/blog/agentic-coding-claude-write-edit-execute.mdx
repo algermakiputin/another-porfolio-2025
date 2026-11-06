@@ -1,11 +1,11 @@
 ---
-title: "Agentic Coding with Claude: How to Write, Edit, and Execute Code Independently"
+title: "Agentic Coding: Write, Edit & Execute with Claude"
 shortTitle: "Agentic Coding with Claude"
 featuredOnHomepage: true
 homepageOrder: 1
 description: "How to build a Claude-powered coding agent that reads real files, writes correct code, and runs it—plus the design choices that separate useful agents from demos."
+lastUpdated: "Nov 06, 2026"
 publishedDate: "Aug 31, 2026"
-readTime: "12 min read"
 category: "AI"
 tags: ["Claude", "AI Agents", "Agentic Coding", "Developer Tools", "Anthropic", "Automation"]
 image: "/images/blog/covers/agentic-coding-claude-write-edit-execute.webp"
@@ -321,5 +321,25 @@ Run `fixFailingTest("auth")` and the agent will: run the matching tests, read th
 
 **The agent spinning after a persistent error.** If the same test keeps failing after three attempts, something structural is wrong and the agent is unlikely to find it without more context. Cap retries and surface the failure to the user with the diagnostic information.
 
-[INTERNAL-LINK: agentic loop basics → building your first AI agent with agentic loops]
-[INTERNAL-LINK: git workflow automation → automating git workflows and refactoring with Claude]
+## FAQs
+
+### What tools does a coding agent need?
+
+Four categories: read, write, execute, and search. Start with read + write + execute, add search when navigating a large codebase, and add state tools once sessions run past 10–15 turns.
+
+### How do I keep the execute tool safe?
+
+Allowlist commands instead of denylisting, use `execFile` rather than `exec` to avoid shell injection, set timeouts and output caps, and always capture stderr — that's where test and compiler failures live.
+
+### Why does my agent write code without reading the file first?
+
+Because nothing told it not to. The system prompt needs an explicit read-before-write rule; without it, Claude sometimes writes from its assumptions about what the file probably contains.
+
+### When should the agent verify its own work?
+
+After every write: type-check or compile first, then run the relevant tests, and read failures to fix the root cause instead of retrying the same command unchanged.
+
+
+**Bringing AI-assisted coding to your team?** [Let's talk about baking agents into your engineering workflow →](/contact/)
+
+*Related: [agentic loop basics](/blog/building-ai-agent-agentic-loops-claude/) · [git workflow automation](/blog/automate-git-workflows-claude/)*

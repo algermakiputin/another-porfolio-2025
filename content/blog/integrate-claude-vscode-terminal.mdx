@@ -1,8 +1,8 @@
 ---
-title: "Tired of Context Switching? How to Integrate Claude into Your VS Code or Terminal Workflow"
+title: "Stop Context Switching: Claude in VS Code & Terminal"
 description: "Practical ways to bring Claude into your daily development workflow—VS Code extensions, Claude Code CLI, API-powered shell aliases, and when each approach pays off."
+lastUpdated: "Nov 06, 2026"
 publishedDate: "Aug 31, 2026"
-readTime: "9 min read"
 category: "AI"
 tags: ["Claude", "VS Code", "Developer Tools", "Claude Code", "Productivity", "Terminal"]
 image: "/images/blog/covers/integrate-claude-vscode-terminal.webp"
@@ -197,5 +197,25 @@ The core pattern is the same across all three: keep Claude close to the actual c
 
 **Expecting consistent decisions without a CLAUDE.md.** Without project context, Claude will make reasonable but inconsistent choices — sometimes naming things one way, sometimes another, sometimes using a library you already have, sometimes reaching for an alternative. The CLAUDE.md file is the fix.
 
-[INTERNAL-LINK: agentic coding in depth → Claude agent that writes, edits and executes code]
-[INTERNAL-LINK: git workflow automation → automating git workflows with Claude]
+## FAQs
+
+### VS Code extension or Claude Code CLI?
+
+The extension for in-file questions and quick single-file fixes; the CLI for multi-file tasks, shell access, and long sessions where context has to persist across steps.
+
+### What goes in CLAUDE.md?
+
+Stack, conventions, file layout, common commands, and an avoid-list — the project context you'd otherwise repeat at the start of every session. It's what makes output consistent instead of reasonable-but-random.
+
+### When are shell aliases the better choice?
+
+Piped one-shot tasks where latency matters: explain a build error, summarize logs, draft a PR description from a diff. If the task spans files or steps, graduate to the CLI.
+
+### Can Claude debug without the error output?
+
+Poorly. It can spot likely bugs by reading code, but for anything non-obvious give it the actual error output rather than a description — reproduction beats explanation every time.
+
+
+**Rolling out AI tooling to your developers?** [See how I help teams adopt AI-assisted workflows →](/contact/)
+
+*Related: [agentic coding in depth](/blog/agentic-coding-claude-write-edit-execute/) · [git workflow automation](/blog/automate-git-workflows-claude/)*

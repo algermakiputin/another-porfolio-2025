@@ -1,0 +1,1521 @@
+/* Alger World interior system ---------------------------------------------
+   Existing route components keep their semantics and behaviour while this
+   layer owns their shared geometry, typography, surfaces and interaction
+   language. */
+
+.alger-world--inner {
+  /* One interior-page geometry. Shell + gutter alias the global --page-*
+     tokens (see alger-world.css) so the header, hero, body and footer share
+     one axis with the homepage at every breakpoint. */
+  --world-shell-max: var(--page-max);
+  --world-gutter: var(--page-gutter);
+  --world-reading-max: 720px;
+  --world-section-space: clamp(72px, 8vw, 118px);
+  --world-line: rgba(25, 52, 71, 0.16);
+  --world-line-dark: rgba(250, 246, 234, 0.16);
+  --world-hard-shadow: 7px 8px 0 #0b2533;
+  --world-paper-shadow: 6px 7px 0 #c8d4cb;
+  --portfolio-ink: #142e3d;
+  --portfolio-charcoal: #193447;
+  --portfolio-bone: #faf6ea;
+  --portfolio-cobalt: #5bab79;
+  --portfolio-orange: #ee6454;
+  --portfolio-lime: #f8c95c;
+  --pf-ink-900: #102735;
+  --pf-ink-800: #142e3d;
+  --pf-ink-700: #193d4d;
+  --pf-cobalt: #5bab79;
+  --pf-cobalt-700: #438c62;
+  --pf-cobalt-300: #8ed6bc;
+  --pf-orange: #ee6454;
+  --pf-orange-600: #d94f43;
+  --pf-focus-ring: #f8c95c;
+  --pf-font-display: var(--display);
+  --pf-font-body: var(--body);
+  --pf-font-mono: var(--mono);
+  --pf-content-width: var(--world-shell-max);
+  --pf-content-width-wide: var(--world-shell-max);
+  --pf-gutter: var(--world-gutter);
+  --pf-section-py: var(--world-section-space);
+  --pf-radius-sm: 5px;
+  --pf-radius: 8px;
+  --pf-radius-lg: 10px;
+  --pf-header-height: 82px;
+  min-height: 100vh;
+  background: var(--cream);
+}
+
+.alger-world--inner .site-header {
+  position: sticky;
+  top: 0;
+  background: var(--paper);
+  border-bottom: 3px solid var(--ink);
+  box-shadow: 0 4px 0 rgba(20, 46, 61, 0.12);
+}
+
+/* .wrapper uses the global --page-* tokens; no inner override needed. */
+
+.alger-world--inner .pf-container,
+.alger-world--inner .section-inner {
+  width: 100%;
+  max-width: var(--world-shell-max);
+  margin-inline: auto;
+}
+
+.alger-world--inner main {
+  min-width: 0;
+}
+
+.alger-world--inner :is(
+  .project-archive-hero__eyebrow,
+  .archive-kicker,
+  .service-eyebrow,
+  .service-kicker,
+  .contact-kicker,
+  .article-kicker,
+  .project-form__eyebrow,
+  .archive-index,
+  .note-label,
+  .pf-case-back,
+  .pf-case-index,
+  .pf-nextcase__eyebrow
+) {
+  font-family: var(--mono);
+  font-weight: 850;
+  letter-spacing: 0.12em;
+}
+
+.alger-world--inner :is(
+  .project-archive-hero__title,
+  .archive-title,
+  .service-hero__title,
+  .contact-hero__headline,
+  .article-title,
+  .pf-case-title,
+  .service-cta__title
+) {
+  font-family: var(--display);
+  font-weight: 950;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.alger-world--inner .content-wrapper {
+  min-height: calc(100vh - var(--pf-header-height));
+  background: var(--cream);
+}
+
+.alger-world--inner .portfolio-root {
+  margin-top: 0;
+}
+
+.alger-world--inner .back-to-top {
+  color: var(--paper);
+  background: var(--ink);
+  border: 2px solid var(--gold);
+  border-radius: 5px;
+  box-shadow: 4px 5px 0 rgba(20, 46, 61, 0.24);
+}
+
+.alger-world--inner .back-to-top:hover {
+  border-color: var(--red);
+  box-shadow: 2px 3px 0 rgba(20, 46, 61, 0.24);
+}
+
+/* Projects Kingdom ------------------------------------------------------- */
+.alger-world--inner .project-archive {
+  background: var(--dark);
+}
+
+.alger-world--inner .project-archive-hero {
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    radial-gradient(circle at 82% 20%, #245268, var(--dark) 58%);
+  background-size: 58px 58px, 58px 58px, auto;
+  border-bottom: 4px solid #244b5d;
+}
+
+.alger-world--inner .project-archive-hero__eyebrow,
+.alger-world--inner .archive-index,
+.alger-world--inner .project-ledger-row__index span:first-child {
+  color: var(--gold);
+}
+
+.alger-world--inner .project-archive-hero__title,
+.alger-world--inner .archive-feature__content h2,
+.alger-world--inner .archive-evidence__value {
+  font-family: var(--display);
+}
+
+.alger-world--inner .portfolio-hero__media-img {
+  filter: saturate(0.72) contrast(1.05);
+  opacity: 0.58;
+}
+
+.alger-world--inner .portfolio-hero__media-index {
+  color: var(--gold);
+  border-top-color: rgba(248, 201, 92, 0.38);
+  background: rgba(20, 46, 61, 0.82);
+}
+
+.alger-world--inner .archive-filters-wrap,
+.alger-world--inner .archive-topics-wrap {
+  background: #173443;
+  border-bottom: 3px solid #244b5d;
+}
+
+.alger-world--inner .archive-filter[aria-pressed="true"]::after,
+.alger-world--inner .archive-topic[aria-pressed="true"]::after {
+  height: 4px;
+  background: var(--gold);
+}
+
+.alger-world--inner .archive-feature,
+.alger-world--inner .featured-note {
+  border: 3px solid #5d7782;
+  border-radius: 10px;
+  box-shadow: 7px 8px 0 #0b2533;
+}
+
+.alger-world--inner .archive-feature__content,
+.alger-world--inner .featured-note__content {
+  background: #193d4d;
+}
+
+.alger-world--inner .project-ledger-row,
+.alger-world--inner .note-row {
+  border-bottom-color: rgba(250, 246, 234, 0.16);
+}
+
+.alger-world--inner .project-ledger-row__link:hover,
+.alger-world--inner .note-row__link:hover {
+  background: rgba(248, 201, 92, 0.045);
+}
+
+.alger-world--inner .status {
+  color: var(--gold);
+  border-color: rgba(248, 201, 92, 0.45);
+}
+
+/* Knowledge Library ------------------------------------------------------ */
+.alger-world--inner .archive-page {
+  background: var(--dark);
+}
+
+.alger-world--inner .archive-hero {
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    radial-gradient(circle at 82% 8%, #28576a, #102735 62%);
+  background-size: 58px 58px, 58px 58px, auto;
+  border-bottom: 4px solid #244b5d;
+}
+
+.alger-world--inner .archive-kicker,
+.alger-world--inner .blog-hero__latest-cat,
+.alger-world--inner .note-label,
+.alger-world--inner .note-action {
+  color: var(--gold);
+}
+
+.alger-world--inner .archive-title,
+.alger-world--inner .featured-note__title,
+.alger-world--inner .notes-index__header h2 {
+  font-family: var(--display);
+}
+
+.blog-hero__world-icon {
+  position: absolute;
+  z-index: 0;
+  right: clamp(28px, 8vw, 120px);
+  top: 50%;
+  width: clamp(120px, 17vw, 250px);
+  transform: translateY(-50%) rotate(4deg);
+  opacity: 0.13;
+  image-rendering: pixelated;
+  pointer-events: none;
+}
+
+.alger-world--inner .featured-note__visual,
+.alger-world--inner .featured-note__fallback,
+.alger-world--inner .note-row__visual {
+  background: #102735;
+}
+
+.alger-world--inner .archive-cta {
+  border: 3px solid #66818a;
+  border-radius: 8px;
+  box-shadow: 5px 6px 0 #0b2533;
+  background: #193d4d;
+}
+
+/* Individual field notes ------------------------------------------------- */
+.alger-world--inner .article-shell {
+  --ink: #193447;
+  --cream: #faf6ea;
+  --cobalt: #5bab79;
+  --orange: #ee6454;
+  --prose: #2c4a5a;
+  background: var(--cream);
+}
+
+.alger-world--inner .article-author-mark {
+  color: var(--ink);
+  background: var(--gold);
+  border: 2px solid var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.alger-world--inner .article-copy-link,
+.alger-world--inner .article-topics li {
+  border: 2px solid rgba(25, 52, 71, 0.42);
+  border-radius: 4px;
+  background: #fffdf4;
+}
+
+.alger-world--inner .article-hero {
+  border: 4px solid var(--ink);
+  border-radius: 9px;
+  box-shadow: 7px 8px 0 #c8d4cb;
+}
+
+.alger-world--inner .article-toc {
+  border-left-color: var(--green);
+}
+
+.alger-world--inner .article-cta {
+  background: var(--dark);
+  border-top: 5px solid #244b5d;
+}
+
+/* Case-study quests ------------------------------------------------------ */
+.alger-world--inner .pf-case {
+  --case-navy: #142e3d;
+  --case-panel: #193d4d;
+  --case-cyan: #8ed6bc;
+  --case-cream: #faf6ea;
+  --case-muted: rgba(250, 246, 234, 0.78);
+  --case-faint: rgba(250, 246, 234, 0.5);
+}
+
+.alger-world--inner .pf-case-hero {
+  padding-block: clamp(3rem, 6vw, 5rem);
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    var(--case-navy);
+  background-size: 58px 58px, 58px 58px, auto;
+  border-bottom: 4px solid #244b5d;
+}
+
+.alger-world--inner .pf-case-index,
+.alger-world--inner .pf-case-back:hover,
+.alger-world--inner .pf-chap__num {
+  color: var(--gold);
+}
+
+.alger-world--inner .pf-case-index__mark {
+  background: var(--gold);
+}
+
+.alger-world--inner .pf-case-frame,
+.alger-world--inner .pf-arch {
+  border: 4px solid #78909a;
+  border-radius: 9px;
+  box-shadow: 8px 9px 0 #0b2533;
+  clip-path: none;
+}
+
+.alger-world--inner .pf-nextcase {
+  border-block: 4px solid #244b5d;
+}
+
+.alger-world--inner .pf-case-contact__cta,
+.alger-world--inner .pf-nextcase__cta {
+  color: var(--gold);
+}
+
+/* Contact Castle --------------------------------------------------------- */
+.alger-world--inner .contact-hero {
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    radial-gradient(circle at 82% 35%, #28576a, var(--dark) 60%);
+  background-size: 58px 58px, 58px 58px, auto;
+  border-bottom: 5px solid #244b5d;
+}
+
+.alger-world--inner .contact-hero__grid,
+.alger-world--inner .contact-hero::after,
+.alger-world--inner .contact-hero__mark {
+  display: none;
+}
+
+.contact-hero__title,
+.contact-hero__brief {
+  position: relative;
+  z-index: 1;
+}
+
+.contact-hero__world-icon {
+  position: absolute;
+  z-index: 0;
+  right: clamp(12px, 3vw, 40px);
+  bottom: -34px;
+  width: clamp(150px, 22vw, 300px);
+  opacity: 0.16;
+  image-rendering: pixelated;
+  pointer-events: none;
+}
+
+.alger-world--inner .contact-kicker,
+.alger-world--inner .aside-eyebrow {
+  color: var(--gold);
+}
+
+.alger-world--inner .project-intake {
+  background: var(--cream);
+}
+
+.alger-world--inner .project-field input,
+.alger-world--inner .project-field textarea,
+.alger-world--inner .project-field select {
+  background: var(--paper);
+  border: 2px solid rgba(25, 52, 71, 0.38);
+  border-radius: 5px;
+  box-shadow: 3px 4px 0 #d8d9c8;
+}
+
+.alger-world--inner .project-field input:focus,
+.alger-world--inner .project-field textarea:focus,
+.alger-world--inner .project-field select:focus {
+  border-color: var(--red);
+  outline-color: rgba(238, 100, 84, 0.24);
+}
+
+.alger-world--inner .project-submit {
+  min-height: 54px;
+  color: var(--paper);
+  background: var(--red);
+  border: 3px solid var(--ink);
+  border-radius: 6px;
+  box-shadow: 0 5px 0 var(--ink);
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+}
+
+.alger-world--inner .project-submit__arrow {
+  color: var(--gold);
+}
+
+.alger-world--inner .project-submit:hover:not(:disabled) {
+  color: var(--paper);
+  background: #d94f43;
+  border-color: var(--ink);
+  box-shadow: 0 2px 0 var(--ink);
+  transform: translateY(3px);
+}
+
+.alger-world--inner .next-step__num {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  color: var(--ink);
+  background: var(--gold);
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  box-shadow: 2px 2px 0 #b6ad7d;
+}
+
+.alger-world--inner .next-step {
+  padding-left: 3.25rem;
+}
+
+.alger-world--inner .next-step::before {
+  left: 1rem;
+}
+
+.alger-world--inner .direct-channels__link,
+.alger-world--inner .project-form__eyebrow {
+  color: var(--green);
+}
+
+/* Builders' Bazaar service routes --------------------------------------- */
+.alger-world--inner .service-page {
+  --svc-cobalt: #8ecbed;
+  --svc-line: rgba(250, 246, 234, 0.16);
+  --svc-dim: rgba(250, 246, 234, 0.66);
+  background: var(--dark);
+}
+
+.alger-world--inner .service-hero {
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    radial-gradient(circle at 82% 35%, #28576a, var(--dark) 62%);
+  background-size: 58px 58px, 58px 58px, auto;
+  border-bottom: 5px solid #244b5d;
+}
+
+.alger-world--inner .service-hero__grid {
+  display: none;
+}
+
+.alger-world--inner .service-hero__plane {
+  border-color: rgba(248, 201, 92, 0.28);
+  background: linear-gradient(135deg, rgba(248, 201, 92, 0.08), transparent 60%);
+}
+
+.alger-world--inner .service-eyebrow,
+.alger-world--inner .service-kicker,
+.alger-world--inner .capability__index,
+.alger-world--inner .service-index,
+.alger-world--inner .service-textlink {
+  color: var(--gold);
+}
+
+.alger-world--inner .service-btn {
+  border-width: 3px;
+  border-color: var(--ink);
+  border-radius: 6px;
+  box-shadow: 0 5px 0 var(--ink);
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  font-weight: 900;
+}
+
+.alger-world--inner .service-btn--primary {
+  color: var(--paper);
+  background: var(--red);
+}
+
+.alger-world--inner .service-btn--ghost {
+  color: var(--ink);
+  background: var(--paper);
+}
+
+.alger-world--inner .service-btn:hover {
+  box-shadow: 0 2px 0 var(--ink);
+  transform: translateY(3px);
+}
+
+.alger-world--inner .stack-group {
+  border-top-color: var(--green);
+}
+
+.alger-world--inner .service-band {
+  background: #193d4d;
+  border-block: 4px solid #244b5d;
+}
+
+.alger-world--inner .service-feature {
+  border: 3px solid #65808b;
+  border-radius: 10px;
+  box-shadow: 7px 8px 0 #0b2533;
+  overflow: hidden;
+}
+
+.alger-world--inner .service-feature__content {
+  background: #193d4d;
+}
+
+.alger-world--inner .principle {
+  border-top-color: var(--gold);
+}
+
+.alger-world--inner .service-cta {
+  background: #102735;
+  border-top: 5px solid #244b5d;
+}
+
+@media (max-width: 900px) {
+  .blog-hero__world-icon,
+  .contact-hero__world-icon {
+    opacity: 0.08;
+  }
+}
+
+@media (max-width: 660px) {
+  .alger-world--inner {
+    --pf-header-height: 72px;
+  }
+
+  .alger-world--inner .footer-inner > div {
+    flex-wrap: wrap;
+  }
+
+  .blog-hero__world-icon {
+    right: 12px;
+    width: 120px;
+  }
+
+  .contact-hero__world-icon {
+    width: 160px;
+  }
+}
+
+/* Interior page system ---------------------------------------------------
+   These rules intentionally own layout as well as colour. The original
+   route styles still provide their content-specific grids, while this layer
+   supplies one Alger World composition across every route. */
+
+.alger-world--inner :is(
+  .project-archive-hero,
+  .archive-hero,
+  .service-hero,
+  .contact-hero,
+  .pf-case-hero
+)::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 12% 18%, rgba(248, 201, 92, 0.1) 0 2px, transparent 3px),
+    radial-gradient(circle at 88% 72%, rgba(142, 214, 188, 0.09) 0 2px, transparent 3px);
+  background-size: 92px 92px, 126px 126px;
+  opacity: 0.7;
+}
+
+.alger-world--inner :is(
+  .project-archive-hero__inner,
+  .archive-hero__inner,
+  .service-hero__inner,
+  .contact-hero__inner,
+  .pf-case-hero__inner
+) {
+  position: relative;
+  z-index: 2;
+}
+
+.alger-world--inner :is(.archive-filter, .archive-topic) {
+  font-family: var(--mono);
+  font-weight: 850;
+}
+
+.alger-world--inner :is(.archive-feature, .featured-note, .service-feature) {
+  overflow: hidden;
+  border: 3px solid #66818a;
+  border-radius: 10px;
+  box-shadow: var(--world-hard-shadow);
+}
+
+.alger-world--inner :is(
+  .archive-feature__cta,
+  .note-action,
+  .service-textlink,
+  .archive-cta__link,
+  .article-back,
+  .article-authorcard__link
+) {
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Projects Kingdom + Knowledge Library --------------------------------- */
+.alger-world--inner :is(.project-archive-hero, .archive-hero) {
+  min-height: clamp(520px, 58vh, 660px);
+  padding-inline: var(--world-gutter);
+  padding-block: clamp(74px, 8vw, 118px);
+}
+
+.alger-world--inner .project-archive-hero__copy {
+  max-width: min(52%, 610px);
+}
+
+.alger-world--inner :is(.project-archive-hero__title, .archive-title) {
+  font-size: clamp(4.6rem, 8vw, 8.25rem);
+  line-height: 0.86;
+  text-shadow: 4px 4px 0 rgba(7, 27, 39, 0.38);
+}
+
+.alger-world--inner .project-archive-hero__intro p,
+.alger-world--inner .archive-intro {
+  color: rgba(250, 246, 234, 0.78);
+  font-size: clamp(1rem, 1.1vw, 1.18rem);
+}
+
+.alger-world--inner .portfolio-hero__media {
+  width: clamp(420px, 51%, 820px);
+  border-left: 3px solid rgba(248, 201, 92, 0.2);
+}
+
+.alger-world--inner .portfolio-hero__media::before {
+  background: linear-gradient(
+    90deg,
+    var(--dark) 0%,
+    rgba(20, 46, 61, 0.82) 22%,
+    rgba(20, 46, 61, 0.08) 100%
+  );
+}
+
+.alger-world--inner .portfolio-hero__media-img {
+  filter: saturate(0.7) contrast(1.08);
+  opacity: 0.7;
+}
+
+.alger-world--inner :is(.archive-filters-wrap, .archive-topics-wrap) {
+  padding-inline: var(--world-gutter);
+  background: #173443;
+  border-bottom: 4px solid #244b5d;
+}
+
+.alger-world--inner :is(.archive-filters, .archive-topics) {
+  gap: clamp(24px, 3vw, 44px);
+}
+
+.alger-world--inner :is(.archive-filter, .archive-topic) {
+  padding-block: 22px 18px;
+}
+
+.alger-world--inner :is(.project-archive, .archive-page) .archive-body {
+  padding-inline: var(--world-gutter);
+  padding-block: clamp(54px, 6vw, 88px) clamp(82px, 9vw, 124px);
+}
+
+.alger-world--inner :is(.archive-feature__content, .featured-note__content) {
+  background: #193d4d;
+  padding: clamp(30px, 4vw, 58px);
+}
+
+.alger-world--inner :is(.archive-feature__content h2, .featured-note__title) {
+  font-size: clamp(2.5rem, 4vw, 4rem);
+  line-height: 0.95;
+}
+
+.alger-world--inner :is(.project-ledger-row, .note-row) {
+  position: relative;
+  border-bottom: 2px solid rgba(250, 246, 234, 0.13);
+}
+
+.alger-world--inner :is(.project-ledger-row__link, .note-row__link) {
+  padding-inline: clamp(0px, 1vw, 16px);
+  transition: background 0.16s ease, transform 0.16s ease;
+}
+
+.alger-world--inner :is(.project-ledger-row__link, .note-row__link):hover {
+  background: rgba(248, 201, 92, 0.055);
+  transform: translateX(4px);
+}
+
+.alger-world--inner .archive-cta {
+  padding: clamp(28px, 4vw, 44px);
+  background: #193d4d;
+  border: 3px solid #66818a;
+  border-radius: 8px;
+  box-shadow: 5px 6px 0 #0b2533;
+}
+
+/* Case-study quests ------------------------------------------------------ */
+.alger-world--inner .pf-case-hero {
+  padding-inline: var(--world-gutter);
+  padding-block: clamp(64px, 7vw, 104px);
+  background-color: var(--case-navy);
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(20, 46, 61, 0.88) 0%,
+      rgba(20, 46, 61, 0.72) 44%,
+      rgba(20, 46, 61, 0.48) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(20, 46, 61, 0.12) 0%,
+      rgba(20, 46, 61, 0.42) 100%
+    ),
+    url("/alger-world/interior-quest-bg.webp");
+  background-position: center, center, center bottom;
+  background-size: cover, cover, 100% auto;
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+}
+
+.alger-world--inner .pf-case-hero::after {
+  background: linear-gradient(
+    180deg,
+    transparent 52%,
+    rgba(10, 34, 48, 0.54) 100%
+  );
+  opacity: 1;
+}
+
+.alger-world--inner .pf-case-hero__inner {
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  gap: clamp(44px, 6vw, 92px);
+}
+
+.alger-world--inner .pf-case-title {
+  max-width: 10ch;
+  font-size: clamp(4.5rem, 7.2vw, 7.4rem);
+  line-height: 0.88;
+  hyphens: none;
+  text-shadow: 4px 4px 0 rgba(7, 27, 39, 0.36);
+}
+
+.alger-world--inner .pf-case-thesis {
+  max-width: 44ch;
+  color: rgba(250, 246, 234, 0.8);
+  font-size: clamp(1.05rem, 0.6vw + 0.96rem, 1.26rem);
+}
+
+.alger-world--inner .pf-case-meta {
+  border-top-width: 2px;
+}
+
+.alger-world--inner .pf-case-meta__row {
+  padding-block: 0.85rem;
+  border-bottom-width: 2px;
+}
+
+.alger-world--inner .pf-case-frame {
+  background: #102735;
+  border-color: #8aa0a7;
+  border-radius: 11px;
+  box-shadow: 10px 11px 0 #0b2533;
+}
+
+.alger-world--inner .pf-case-evidence {
+  padding-inline: var(--world-gutter);
+  background: #102735;
+  border-bottom: 4px solid #244b5d;
+}
+
+.alger-world--inner .pf-case-evidence__grid {
+  background: rgba(250, 246, 234, 0.16);
+}
+
+.alger-world--inner .pf-case-ev {
+  background: #102735;
+  padding-block: clamp(24px, 3vw, 38px);
+}
+
+.alger-world--inner .pf-case-ev__value {
+  color: var(--gold);
+}
+
+.alger-world--inner .pf-case-body {
+  --case-line: rgba(25, 52, 71, 0.16);
+  --case-line-strong: rgba(25, 52, 71, 0.3);
+  --case-muted: #3d5967;
+  --case-faint: #6f838c;
+  padding-inline: var(--world-gutter);
+  padding-block: clamp(72px, 8vw, 118px);
+  color: var(--ink);
+  background:
+    linear-gradient(rgba(25, 52, 71, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(25, 52, 71, 0.045) 1px, transparent 1px),
+    var(--cream);
+  background-size: 58px 58px, 58px 58px, auto;
+}
+
+.alger-world--inner .pf-case-body__grid {
+  grid-template-columns: 210px minmax(0, 1fr);
+  gap: clamp(42px, 6vw, 92px);
+}
+
+.alger-world--inner .pf-case-body__chapters {
+  max-width: 980px;
+}
+
+.alger-world--inner .pf-case-rail {
+  top: calc(var(--pf-header-height) + 28px);
+  padding: 18px;
+  background: var(--paper);
+  border: 3px solid var(--ink);
+  border-radius: 7px;
+  box-shadow: 5px 6px 0 #c8d4cb;
+}
+
+.alger-world--inner .pf-case-rail ol {
+  border-left: 0;
+  gap: 2px;
+}
+
+.alger-world--inner .pf-case-rail__link {
+  margin-left: 0;
+  padding: 0.62rem 0.7rem;
+  border-left: 4px solid transparent;
+  color: var(--muted);
+}
+
+.alger-world--inner .pf-case-rail__link:hover {
+  color: var(--ink);
+  background: rgba(248, 201, 92, 0.16);
+}
+
+.alger-world--inner .pf-case-rail__link.is-active {
+  color: var(--ink);
+  background: rgba(248, 201, 92, 0.24);
+  border-left-color: var(--red);
+}
+
+.alger-world--inner .pf-chap {
+  padding-block: clamp(40px, 5vw, 68px);
+  border-top: 2px solid var(--world-line);
+  scroll-margin-top: calc(var(--pf-header-height) + 20px);
+}
+
+.alger-world--inner .pf-chap__head {
+  align-items: center;
+  margin-bottom: clamp(24px, 3vw, 36px);
+}
+
+.alger-world--inner .pf-chap__num {
+  display: grid;
+  flex: 0 0 auto;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  padding: 0;
+  color: var(--ink);
+  background: var(--gold);
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  box-shadow: 2px 2px 0 #b6ad7d;
+  font-family: var(--mono);
+}
+
+.alger-world--inner .pf-chap__title {
+  color: var(--ink);
+  font-size: clamp(2.6rem, 4.5vw, 4.25rem);
+}
+
+.alger-world--inner :is(.pf-case-p, .pf-case-lead) {
+  color: var(--ink2);
+}
+
+.alger-world--inner .pf-case-p {
+  max-width: 64ch;
+  font-size: clamp(1rem, 0.35vw + 0.98rem, 1.16rem);
+}
+
+.alger-world--inner .pf-scope {
+  max-width: 68ch;
+  border-top-width: 2px;
+}
+
+.alger-world--inner .pf-scope__item {
+  padding-block: 1rem;
+  border-bottom-width: 2px;
+}
+
+.alger-world--inner .pf-scope__num,
+.alger-world--inner .pf-stackspec__cat {
+  color: var(--green);
+}
+
+.alger-world--inner :is(.pf-scope__label, .pf-stackspec__items) {
+  color: var(--ink);
+}
+
+.alger-world--inner :is(.pf-scope__detail, .pf-delivered li) {
+  color: var(--ink2);
+}
+
+.alger-world--inner .pf-delivered__mark {
+  color: var(--green);
+}
+
+.alger-world--inner .pf-arch {
+  --case-line: rgba(250, 246, 234, 0.14);
+  --case-line-strong: rgba(250, 246, 234, 0.3);
+  --case-faint: rgba(250, 246, 234, 0.58);
+  overflow: hidden;
+  background: #102735;
+}
+
+.alger-world--inner .pf-arch__cap {
+  padding: 0 18px 16px;
+  color: rgba(250, 246, 234, 0.66);
+}
+
+/* Individual field notes ------------------------------------------------ */
+.alger-world--inner .article-shell {
+  --article-title-width: min(100%, 1020px);
+  --article-reading-width: var(--world-reading-max);
+  --article-breakout-width: 1160px;
+  --gutter: var(--world-gutter);
+  background:
+    linear-gradient(rgba(25, 52, 71, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(25, 52, 71, 0.035) 1px, transparent 1px),
+    var(--cream);
+  background-size: 58px 58px, 58px 58px, auto;
+}
+
+.alger-world--inner .article-header {
+  padding-top: clamp(56px, 7vw, 96px);
+  padding-bottom: clamp(28px, 4vw, 46px);
+}
+
+.alger-world--inner .article-header__inner {
+  gap: 1.3rem;
+}
+
+.alger-world--inner .article-back {
+  color: var(--green);
+}
+
+.alger-world--inner .article-title {
+  font-size: clamp(3.4rem, 6vw, 6.8rem);
+  line-height: 0.94;
+  color: var(--ink);
+}
+
+.alger-world--inner .article-dek {
+  color: var(--ink2);
+}
+
+.alger-world--inner .article-byline {
+  border-top: 2px solid var(--world-line);
+}
+
+.alger-world--inner .article-hero {
+  padding-inline: 0;
+  border: 4px solid var(--ink);
+  border-radius: 10px;
+  box-shadow: var(--world-paper-shadow);
+  overflow: hidden;
+}
+
+.alger-world--inner .article-hero img {
+  border: 0;
+  border-radius: 0;
+}
+
+.alger-world--inner .article-copy-link,
+.alger-world--inner .article-topics li {
+  font-family: var(--mono);
+  font-weight: 800;
+}
+
+.alger-world--inner .article-toc {
+  padding: 18px;
+  background: var(--paper);
+  border: 3px solid var(--ink);
+  border-radius: 7px;
+  box-shadow: 5px 6px 0 #c8d4cb;
+}
+
+.alger-world--inner .article-toc ul {
+  border-left: 0;
+}
+
+.alger-world--inner .article-toc__item a {
+  padding: 0.4rem 0.55rem;
+  border-left: 4px solid transparent;
+}
+
+.alger-world--inner .article-toc__item.is-active a {
+  color: var(--ink);
+  background: rgba(248, 201, 92, 0.22);
+  border-left-color: var(--red);
+}
+
+.alger-world--inner .article-prose :is(h2, h3) {
+  color: var(--ink);
+}
+
+.alger-world--inner .article-prose h2 {
+  font-family: var(--display);
+  font-size: clamp(2.4rem, 3.4vw, 3.6rem);
+  line-height: 1;
+}
+
+.alger-world--inner .article-prose blockquote {
+  padding: 22px 26px;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  border-left: 7px solid var(--red);
+  box-shadow: 4px 5px 0 #d7d7c7;
+}
+
+.alger-world--inner .article-prose .code-frame,
+.alger-world--inner .article-prose pre {
+  border: 3px solid var(--ink);
+  border-radius: 7px;
+  box-shadow: 5px 6px 0 #c8d4cb;
+}
+
+.alger-world--inner .article-authorcard,
+.alger-world--inner .article-adjacent__link {
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  border-radius: 7px;
+  box-shadow: 3px 4px 0 #d3d5c7;
+}
+
+.alger-world--inner .article-authorcard {
+  padding: 1.5rem;
+}
+
+.alger-world--inner .article-adjacent__link {
+  padding: 1.15rem;
+}
+
+.alger-world--inner .article-cta {
+  border-top: 5px solid #244b5d;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    var(--dark);
+  background-size: 58px 58px, 58px 58px, auto;
+}
+
+.alger-world--inner .article-cta__link {
+  font-family: var(--display);
+  color: var(--gold);
+}
+
+/* Contact Castle --------------------------------------------------------- */
+.alger-world--inner .contact-hero {
+  min-height: clamp(520px, 58vh, 660px);
+  padding-inline: var(--world-gutter);
+  padding-block: clamp(72px, 8vw, 112px);
+}
+
+.alger-world--inner .contact-hero__inner {
+  grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+}
+
+.alger-world--inner .contact-hero__headline {
+  font-size: clamp(4.5rem, 7vw, 8rem);
+  line-height: 0.88;
+  text-shadow: 4px 4px 0 rgba(7, 27, 39, 0.36);
+}
+
+.alger-world--inner .contact-status__row {
+  border-top-width: 2px;
+}
+
+.alger-world--inner .availability__dot {
+  background: var(--green);
+  box-shadow: 0 0 0 3px rgba(91, 171, 121, 0.2);
+}
+
+.alger-world--inner .project-intake {
+  padding-inline: var(--world-gutter);
+  background:
+    linear-gradient(rgba(25, 52, 71, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(25, 52, 71, 0.035) 1px, transparent 1px),
+    var(--cream);
+  background-size: 58px 58px, 58px 58px, auto;
+}
+
+.alger-world--inner .project-intake__inner {
+  grid-template-columns: minmax(0, 1.45fr) minmax(300px, 0.65fr);
+  gap: clamp(56px, 8vw, 120px);
+  padding-block: var(--world-section-space);
+}
+
+.alger-world--inner .project-form__header h2 {
+  font-family: var(--display);
+  font-size: clamp(2.8rem, 4vw, 4.2rem);
+  font-weight: 950;
+  line-height: 0.96;
+}
+
+.alger-world--inner .project-field :is(input, textarea, select) {
+  background: var(--paper);
+  border: 2px solid rgba(25, 52, 71, 0.4);
+  border-radius: 5px;
+  box-shadow: 3px 4px 0 #d8d9c8;
+}
+
+.alger-world--inner .project-intake__aside {
+  padding: clamp(24px, 3vw, 34px);
+  background: var(--paper);
+  border: 3px solid var(--ink);
+  border-radius: 8px;
+  box-shadow: var(--world-paper-shadow);
+}
+
+.alger-world--inner .project-submit {
+  border: 3px solid var(--ink);
+  border-radius: 6px;
+  box-shadow: 0 5px 0 var(--ink);
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+/* Builders' Bazaar ------------------------------------------------------- */
+.alger-world--inner .service-hero {
+  min-height: clamp(560px, 64vh, 720px);
+  padding-inline: var(--world-gutter);
+  padding-block: clamp(72px, 8vw, 112px);
+}
+
+.alger-world--inner .service-hero__title {
+  font-size: clamp(4rem, 6.5vw, 7rem);
+  text-shadow: 4px 4px 0 rgba(7, 27, 39, 0.34);
+}
+
+.alger-world--inner .service-hero__lede {
+  color: rgba(250, 246, 234, 0.78);
+}
+
+.alger-world--inner .service-page > .service-section {
+  --svc-line: rgba(25, 52, 71, 0.16);
+  --svc-dim: #526b77;
+  padding-inline: var(--world-gutter);
+  padding-block: clamp(64px, 7vw, 102px);
+  color: var(--ink);
+  background: var(--cream);
+  border-bottom: 2px solid rgba(25, 52, 71, 0.12);
+}
+
+.alger-world--inner .service-page > .service-section:nth-of-type(even) {
+  background: var(--paper2);
+}
+
+.alger-world--inner .service-page > .service-section :is(
+  .service-section__head h2,
+  .capability h3,
+  .stack-group__items,
+  .deliverable__title,
+  .process-step h3,
+  .principle h3,
+  .related-services a
+) {
+  color: var(--ink);
+}
+
+.alger-world--inner .service-page > .service-section :is(
+  .capability p,
+  .process-step p,
+  .principle p,
+  .service-location__body p
+) {
+  color: var(--ink2);
+}
+
+.alger-world--inner .service-page > .service-section .stack-group__label {
+  color: var(--muted);
+}
+
+.alger-world--inner .service-page > .service-section :is(
+  .service-kicker,
+  .capability__index
+) {
+  color: var(--green);
+}
+
+.alger-world--inner .service-page > .service-feature-wrap .service-index {
+  color: var(--gold);
+}
+
+.alger-world--inner .service-page > .service-section .deliverable__index {
+  color: var(--green);
+}
+
+.alger-world--inner .service-page > .service-section .process-step__index {
+  color: var(--ink);
+  background: var(--gold);
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  transform: translateY(-55%);
+  box-shadow: 2px 2px 0 #b6ad7d;
+}
+
+.alger-world--inner .service-btn {
+  min-height: 50px;
+  border: 3px solid var(--ink);
+  border-radius: 6px;
+  box-shadow: 0 5px 0 var(--ink);
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.alger-world--inner .service-btn--primary {
+  color: var(--paper);
+  background: var(--red);
+}
+
+.alger-world--inner .service-btn--ghost {
+  color: var(--ink);
+  background: var(--paper);
+}
+
+.alger-world--inner .service-band {
+  padding-inline: var(--world-gutter);
+  padding-block: clamp(64px, 7vw, 102px);
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    #193d4d;
+  background-size: 58px 58px, 58px 58px, auto;
+  border-block: 4px solid #244b5d;
+}
+
+.alger-world--inner .audience {
+  padding: 20px;
+  background: rgba(16, 39, 53, 0.5);
+  border: 2px solid rgba(248, 201, 92, 0.35);
+  border-top-width: 5px;
+  border-radius: 6px;
+}
+
+.alger-world--inner .service-feature {
+  --svc-dim: rgba(250, 246, 234, 0.7);
+  border: 3px solid #66818a;
+  border-radius: 10px;
+  box-shadow: var(--world-hard-shadow);
+}
+
+.alger-world--inner .service-feature__content {
+  background: #193d4d;
+}
+
+.alger-world--inner .service-cta {
+  padding-inline: var(--world-gutter);
+  border-top: 5px solid #244b5d;
+  background: #102735;
+}
+
+.alger-world--inner .service-cta__title {
+  font-size: clamp(3.4rem, 6vw, 6rem);
+}
+
+/* Shared legacy CTA used by the React hub ------------------------------- */
+.alger-world--inner .hire-cta-outer {
+  padding: 0 var(--world-gutter) var(--world-section-space) !important;
+  background: var(--cream);
+}
+
+.alger-world--inner .hire-cta-card {
+  padding: clamp(30px, 4vw, 52px);
+  background: #193d4d;
+  border: 3px solid #66818a;
+  border-radius: 10px;
+  box-shadow: var(--world-hard-shadow);
+}
+
+.alger-world--inner .hire-cta-icon-wrap {
+  background: var(--gold);
+  border: 3px solid var(--ink);
+  border-radius: 6px;
+  box-shadow: 3px 4px 0 #0b2533;
+}
+
+.alger-world--inner .hire-cta-icon-dot {
+  background: var(--green);
+  border-color: var(--ink);
+}
+
+.alger-world--inner .hire-cta-title {
+  font-family: var(--display) !important;
+  font-size: clamp(2rem, 3vw, 3rem) !important;
+  font-weight: 950 !important;
+  text-transform: uppercase;
+}
+
+.alger-world--inner :is(
+  .hire-cta-btn-primary,
+  .hire-cta-btn-secondary,
+  .hire-cta-btn-ai
+) {
+  min-height: 48px;
+  border: 3px solid var(--ink) !important;
+  border-radius: 6px !important;
+  box-shadow: 0 5px 0 var(--ink) !important;
+  font-family: var(--mono) !important;
+  font-size: 0.7rem !important;
+  font-weight: 900 !important;
+}
+
+.alger-world--inner .hire-cta-btn-primary {
+  background: var(--red) !important;
+}
+
+.alger-world--inner .hire-cta-btn-secondary {
+  color: var(--ink) !important;
+  background: var(--paper) !important;
+}
+
+.alger-world--inner .hire-cta-btn-ai {
+  color: var(--ink) !important;
+  background: var(--gold) !important;
+}
+
+.alger-world--inner .hire-cta-card :is(
+  .hire-cta-btn-primary,
+  .hire-cta-btn-secondary,
+  .hire-cta-btn-ai
+):hover {
+  transform: translateY(3px) !important;
+  box-shadow: 0 2px 0 var(--ink) !important;
+}
+
+.alger-world--inner .hire-cta-card .hire-cta-btn-primary:hover {
+  background: #d94f43 !important;
+}
+
+.alger-world--inner .hire-cta-card .hire-cta-btn-secondary:hover {
+  color: var(--ink) !important;
+  background: #fff7df !important;
+}
+
+.alger-world--inner .hire-cta-card .hire-cta-btn-ai:hover {
+  color: var(--ink) !important;
+  background: #ffd878 !important;
+}
+
+/* Contact intake stacks below desktop. The (0,2,0) two-column grid above
+   beats the route stylesheet's own mobile rule, so its responsive
+   counterpart must live at this layer. */
+@media (max-width: 1023px) {
+  .alger-world--inner .project-intake__inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(3rem, 9vw, 4rem);
+    padding-block: clamp(3.5rem, 12vw, 5rem);
+  }
+
+  .alger-world--inner .project-intake__form,
+  .alger-world--inner .project-intake__aside {
+    min-width: 0;
+  }
+}
+
+@media (max-width: 1024px) {
+  .alger-world--inner .pf-case-body__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .alger-world--inner .pf-case-rail {
+    position: static;
+    padding: 12px 16px;
+  }
+
+  .alger-world--inner .pf-case-rail ol {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 4px 12px;
+    padding: 0;
+    border: 0;
+  }
+
+  .alger-world--inner .pf-case-rail__link {
+    border-left: 0;
+    border-bottom: 3px solid transparent;
+  }
+
+  .alger-world--inner .pf-case-rail__link.is-active {
+    border-left: 0;
+    border-bottom-color: var(--red);
+  }
+}
+
+@media (max-width: 900px) {
+  .alger-world--inner .pf-case-hero__inner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .alger-world--inner .pf-case-title {
+    max-width: 12ch;
+  }
+
+  .alger-world--inner .project-archive-hero__copy {
+    max-width: min(78%, 610px);
+  }
+
+  .alger-world--inner .portfolio-hero__media {
+    width: 56%;
+    opacity: 0.5;
+  }
+
+  .alger-world--inner .project-intake__aside {
+    box-shadow: 5px 6px 0 #c8d4cb;
+  }
+}
+
+@media (max-width: 767px) {
+  .alger-world--inner {
+    --world-section-space: clamp(56px, 15vw, 84px);
+  }
+
+  .alger-world--inner :is(
+    .project-archive-hero,
+    .archive-hero,
+    .service-hero,
+    .contact-hero,
+    .pf-case-hero
+  ) {
+    min-height: 0;
+    padding-inline: var(--world-gutter);
+    padding-block: clamp(56px, 14vw, 82px);
+  }
+
+  .alger-world--inner :is(.project-archive-hero__title, .archive-title) {
+    font-size: clamp(4rem, 18vw, 6.2rem);
+  }
+
+  .alger-world--inner .project-archive-hero__copy {
+    max-width: 100%;
+  }
+
+  .alger-world--inner .portfolio-hero__media {
+    display: none;
+  }
+
+  .alger-world--inner .pf-case-title {
+    max-width: 100%;
+    font-size: clamp(3.7rem, 17vw, 5.6rem);
+  }
+
+  .alger-world--inner .pf-case-hero {
+    background-position: center, center, 62% bottom;
+    background-size: cover, cover, auto 100%;
+  }
+
+  .alger-world--inner .pf-case-body {
+    padding-inline: var(--world-gutter);
+  }
+
+  .alger-world--inner .pf-chap__head {
+    gap: 0.75rem;
+  }
+
+  .alger-world--inner .pf-chap__num {
+    width: 32px;
+    height: 32px;
+  }
+
+  .alger-world--inner .pf-chap__title {
+    font-size: clamp(2.3rem, 12vw, 3.4rem);
+  }
+
+  .alger-world--inner .article-hero {
+    margin-inline: var(--world-gutter);
+  }
+
+  .alger-world--inner .article-title {
+    font-size: clamp(3.2rem, 14vw, 5rem);
+  }
+
+  .alger-world--inner .project-intake__aside {
+    padding: 22px 18px;
+  }
+
+  .alger-world--inner .service-page > .service-section,
+  .alger-world--inner .service-band,
+  .alger-world--inner .service-cta {
+    padding-inline: var(--world-gutter);
+  }
+}
+

@@ -1,26 +1,13 @@
 import type { Metadata, Viewport } from "next";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import Script from "next/script";
-import { Bebas_Neue, Inter } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import ClientShell from "./ClientShell";
 import "../index.css";
 import "../App.css";
 import "../styles/portfolio.css";
-
-const bebas = Bebas_Neue({
-  weight: "400",
-  subsets: ["latin"],
-  variable: "--font-bebas",
-  display: "swap",
-});
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-  weight: ["300", "400", "500", "600", "700", "800"],
-});
+import "../styles/alger-world.css";
+import "../styles/alger-world-inner.css";
 
 const GA_ID = "G-XGKHB8ZDZJ";
 
@@ -35,16 +22,15 @@ const websiteJsonLd = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#09131f",
+  themeColor: "#faf6ea",
 };
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
-  // AM Northmark compass marker as the SVG favicon. The apple-touch icon still
-  // comes from the app/apple-icon.png convention (different rel, no duplicate).
+  // SVG favicon ("A" mark). The apple-touch icon remains the existing PNG.
   icons: {
-    icon: [{ url: "/logo/favicon.svg", type: "image/svg+xml" }],
-    shortcut: "/logo/favicon.svg",
+    icon: [{ url: "/alger-world/favicon.svg", type: "image/svg+xml" }],
+    shortcut: "/alger-world/favicon.svg",
     // Preserve the existing PNG apple-touch icon (config here disables the
     // app/apple-icon.png file convention, so it must be declared explicitly).
     apple: [{ url: "/apple-icon.png" }],
@@ -88,7 +74,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: BASE_URL,
-    siteName: "Alger Makiputin — Product Engineer | React, React Native & TypeScript",
+    siteName: "Alger Makiputin",
     title: "Alger Makiputin — Product Engineer | React, React Native & TypeScript",
     description:
       "Product Engineer with 8+ years of experience shipping production software across web, iOS, Android, APIs, and data using React, React Native, TypeScript, and Node.js.",
@@ -123,29 +109,11 @@ export default function RootLayout({
     // suppressHydrationWarning: browser extensions / preview tools inject
     // attributes (e.g. data-mdv-preview-bridge) onto <html> before React
     // hydrates. This is one-level only and does not mask app-level mismatches.
-    <html lang="en" className={`${bebas.variable} ${inter.variable}`} suppressHydrationWarning>
-      <head>
-        {/* Explicit preload: with unoptimized:true static export, next/image
-            priority prop doesn't reliably emit a preload tag. imagesrcset+
-            imagesizes let the browser preload the right responsive variant. */}
-        <link
-          rel="preload"
-          as="image"
-          href="/portfolio/characters/faceless-workstation.webp"
-          // @ts-ignore — imageSrcSet/imageSizes/fetchPriority on <link> valid in HTML5 but TS lags
-          imageSrcSet="/portfolio/characters/faceless-workstation-480.webp 480w, /portfolio/characters/faceless-workstation-800.webp 800w, /portfolio/characters/faceless-workstation-1200.webp 1200w, /portfolio/characters/faceless-workstation.webp 1640w"
-          imageSizes="(max-width: 900px) 92vw, (max-width: 1099px) 56vw, 68vw"
-          fetchPriority="high"
-        />
-      </head>
+    <html lang="en" suppressHydrationWarning>
       <body>
-        {/* Single global route-change progress bar. z-index sits above the fixed
-            header (--pf-z-header: 100) and overlays (200) so the thin orange line
-            is always visible. showForHashAnchor=false keeps it off same-page
-            hash links (#builds, skip link, TOC). Color is the portfolio accent
-            token (--portfolio-orange) rather than a one-off hex. */}
+        {/* Route changes use the same red as the primary action button. */}
         <NextTopLoader
-          color="#e7652d"
+          color="#ee6454"
           height={2}
           initialPosition={0.08}
           crawl

@@ -2,7 +2,6 @@
 title: "Forms and Validation in Large React Applications"
 description: "How I handle forms and validation in large React apps: controlled state, schema validation, dynamic fields and async submission—patterns from production."
 publishedDate: "Jun 24, 2026"
-readTime: "8 min read"
 category: "React"
 tags: ["React", "Forms", "TypeScript", "Validation", "Zod"]
 image: "/images/blog/covers/react-forms-validation-large-apps.webp"
@@ -52,7 +51,7 @@ function TransferForm({ sourceBalance }: { sourceBalance: number }) {
 }
 ```
 
-That live-derived `remaining` is the same principle I apply to balances everywhere — [compute from current data rather than storing a copy](/blog/offline-first-react-dexie-indexeddb) that can drift.
+That live-derived `remaining` is the same principle I apply to balances everywhere — [compute from current data rather than storing a copy](/blog/offline-first-react-dexie-indexeddb/) that can drift.
 
 ## When a form library earns its place
 
@@ -83,7 +82,7 @@ Defining the rule once and reusing it is what keeps client and server validation
 
 ## Domain validation belongs outside the component
 
-Here's the judgment that matters most. Validation in the form is for user experience — instant feedback, a disabled submit button, a helpful message. But a rule that affects correctness — a transfer can't exceed the source balance, a business constraint on an order — must be enforced in domain logic and on the server, not trusted to the form. The form is not the boundary, for the same reason the frontend isn't the boundary in a multi-tenant app: anything the client controls can be bypassed. Keeping correctness-critical rules in a domain layer is also what makes them clean, testable pure functions rather than logic tangled into a component — which connects directly to [my testing strategy](/blog/react-testing-strategy).
+Here's the judgment that matters most. Validation in the form is for user experience — instant feedback, a disabled submit button, a helpful message. But a rule that affects correctness — a transfer can't exceed the source balance, a business constraint on an order — must be enforced in domain logic and on the server, not trusted to the form. The form is not the boundary, for the same reason the frontend isn't the boundary in a multi-tenant app: anything the client controls can be bypassed. Keeping correctness-critical rules in a domain layer is also what makes them clean, testable pure functions rather than logic tangled into a component — which connects directly to [my testing strategy](/blog/react-testing-strategy/).
 
 ## Conditional fields, dynamic lists and derived values
 
@@ -99,11 +98,11 @@ The recurring theme: when the form owns the values, everything downstream — vi
 
 ## Async submission, errors and disabled states
 
-The submit lifecycle needs its own care: disable the button while a submission is in flight so it can't fire twice, surface validation and server errors clearly, and handle failure without losing the user's work. In an offline-first app there's an extra wrinkle — "submit" may mean writing locally and [syncing later](/blog/offline-first-react-dexie-indexeddb), so the form should confirm the local write immediately rather than hang waiting on the network.
+The submit lifecycle needs its own care: disable the button while a submission is in flight so it can't fire twice, surface validation and server errors clearly, and handle failure without losing the user's work. In an offline-first app there's an extra wrinkle — "submit" may mean writing locally and [syncing later](/blog/offline-first-react-dexie-indexeddb/), so the form should confirm the local write immediately rather than hang waiting on the network.
 
 ## Accessibility and restoring entered data
 
-Two things that are easy to skip and shouldn't be. Label your fields properly — it's essential for screen readers, and it also makes forms testable, since [behavior tests](/blog/react-testing-strategy) query by label the way a user would. Announce errors so assistive tech notices them (`role="alert"`). And don't throw away a user's input on a navigation or a failed submit — restoring previously entered data matters everywhere, and it matters most on mobile, where re-typing a form is genuinely painful.
+Two things that are easy to skip and shouldn't be. Label your fields properly — it's essential for screen readers, and it also makes forms testable, since [behavior tests](/blog/react-testing-strategy/) query by label the way a user would. Announce errors so assistive tech notices them (`role="alert"`). And don't throw away a user's input on a navigation or a failed submit — restoring previously entered data matters everywhere, and it matters most on mobile, where re-typing a form is genuinely painful.
 
 ## Tradeoffs and recommendation
 
@@ -128,6 +127,6 @@ Not for simple forms. It becomes worthwhile when you have validation rules you w
 Controlled state makes this straightforward: derive the computed values from the current inputs on each render rather than storing them as separate state. That keeps a single source of truth and avoids sync bugs.
 
 
-**Building complex forms in a React app?** [See how I help teams design and build production React applications →](/#)
+**Building complex forms in a React app?** [See how I help teams design and build production React applications →](/web-development-services/)
 
-*Related: [my React testing strategy](/blog/react-testing-strategy) · [building an offline-first React app with Dexie](/blog/offline-first-react-dexie-indexeddb) · [the React hub](/react/)*
+*Related: [my React testing strategy](/blog/react-testing-strategy/) · [building an offline-first React app with Dexie](/blog/offline-first-react-dexie-indexeddb/) · [the React hub](/react/)*

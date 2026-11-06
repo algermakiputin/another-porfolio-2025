@@ -1,8 +1,8 @@
 ---
 title: "Building an Offline-First React App with Dexie and IndexedDB"
 description: "How I built an offline-first React app with Dexie and IndexedDB—schema, migrations, reactive queries, derived balances and background cloud sync."
+lastUpdated: "Nov 06, 2026"
 publishedDate: "Jul 08, 2026"
-readTime: "9 min read"
 category: "React"
 tags: ["React", "Dexie", "IndexedDB", "Offline-First", "TypeScript", "Hunter Vault"]
 image: "/images/blog/covers/offline-first-react-dexie-indexeddb.webp"
@@ -10,7 +10,7 @@ image: "/images/blog/covers/offline-first-react-dexie-indexeddb.webp"
 
 An offline-first React app treats the device as the source of truth: every read and write hits a local database first, the UI updates immediately, and the network is something that happens in the background — not something the user waits on. I built [Hunter Vault](https://huntervault.app), a personal finance app that runs on the web and ships to iOS and Android, exactly this way, with Dexie over IndexedDB as the local store and the cloud handling sync behind it.
 
-This article covers how that's put together — the schema, migrations, reactive queries, and why derived values like balances are computed rather than stored — and where offline-first stops being worth the complexity. The genuinely hard part, syncing local data to the cloud, gets its own deep-dive; here I'll cover the shape of it and link out to the details.
+This article covers how that's put together — the schema, migrations, reactive queries, and why derived values like balances are computed rather than stored — and where offline-first stops being worth the complexity. The genuinely hard part, syncing local data to the cloud, gets its own deep-dive; here I'll cover the shape of it and link out to [the details](/blog/synchronizing-indexeddb-with-supabase/).
 
 ## Quick summary
 
@@ -102,7 +102,7 @@ export function useAccountBalance(accountId: string) {
 }
 ```
 
-That comment is the important part. A balance is derived from transactions, so it's computed on read rather than stored as a separate value. I learned why this matters the hard way: an early version of [savings goals](https://huntervault.app/features/savings-goals/) stored a balance and moved money into it like a real transaction, which meant the same money could be counted twice and balances stopped matching the user's bank. Deriving the value from the records fixed it. I tell the full story in [the architecture write-up](/blog/react-application-architecture); the principle is the same one behind [not duplicating server state](/blog/react-context-vs-zustand-vs-server-state) — if a value can be computed from data you already hold, don't store a second copy that can drift.
+That comment is the important part. A balance is derived from transactions, so it's computed on read rather than stored as a separate value. I learned why this matters the hard way: an early version of [savings goals](https://huntervault.app/features/savings-goals/) stored a balance and moved money into it like a real transaction, which meant the same money could be counted twice and balances stopped matching the user's bank. Deriving the value from the records fixed it. I tell the full story in [the architecture write-up](/blog/react-application-architecture/); the principle is the same one behind [not duplicating server state](/blog/react-context-vs-zustand-vs-server-state/) — if a value can be computed from data you already hold, don't store a second copy that can drift.
 
 ## The data flow
 
@@ -114,7 +114,7 @@ The user acts, the change is written to Dexie, the reactive query updates the UI
 
 ## Cloud synchronization — the hard part
 
-Syncing a local-first database to the cloud is the part that earns its own article, because it's where offline-first is genuinely difficult. When the device is the source of truth and multiple devices can edit the same data, you have to solve, at minimum: stable identifiers that agree across devices, timestamps to order changes, handling deletes (a deleted record has to be *communicated*, not just absent), conflict resolution when two devices changed the same thing, retrying failed syncs, and the difference between an initial full sync and ongoing incremental syncs. Hunter Vault syncs to Supabase and Firebase for exactly these remote concerns, but the mechanics deserve real depth — so I've put them in a dedicated piece: [synchronizing IndexedDB with Supabase](/blog/synchronizing-indexeddb-with-supabase). The short version: every syncable record carries both a local `++id` (used for all in-app foreign keys) and a `uuid` (the cloud's canonical key, stamped centrally by a Dexie creating hook). Deletes are physical locally — a Dexie `deleting` hook appends `{ table, uuid, deletedAt }` to a localStorage tombstone list that gets pushed on the next sync and then cleared. Conflict resolution is last-write-wins on `updatedAt`, bumped automatically by a Dexie `updating` hook on every local write; remote tombstones always win over local edits. Local writes never block on sync, and remote changes are merged back into Dexie, which re-renders the UI through the same reactive queries.
+Syncing a local-first database to the cloud is the part that earns its own article, because it's where offline-first is genuinely difficult. When the device is the source of truth and multiple devices can edit the same data, you have to solve, at minimum: stable identifiers that agree across devices, timestamps to order changes, handling deletes (a deleted record has to be *communicated*, not just absent), conflict resolution when two devices changed the same thing, retrying failed syncs, and the difference between an initial full sync and ongoing incremental syncs. Hunter Vault syncs to Supabase and Firebase for exactly these remote concerns, but the mechanics deserve real depth — so I've put them in a dedicated piece: [synchronizing IndexedDB with Supabase](/blog/synchronizing-indexeddb-with-supabase/). The short version: every syncable record carries both a local `++id` (used for all in-app foreign keys) and a `uuid` (the cloud's canonical key, stamped centrally by a Dexie creating hook). Deletes are physical locally — a Dexie `deleting` hook appends `{ table, uuid, deletedAt }` to a localStorage tombstone list that gets pushed on the next sync and then cleared. Conflict resolution is last-write-wins on `updatedAt`, bumped automatically by a Dexie `updating` hook on every local write; remote tombstones always win over local edits. Local writes never block on sync, and remote changes are merged back into Dexie, which re-renders the UI through the same reactive queries.
 
 ## Backup and recovery
 
@@ -144,9 +144,9 @@ No. Balances and totals are computed from the underlying records on read. Storin
 
 ### How does offline data get to the cloud?
 
-Through background sync. The local database is the source of truth; changes are queued and pushed to the cloud when a connection is available, and remote changes are merged back locally. The detailed mechanics — identifiers, conflicts, deletes — are their own subject, covered in the sync deep-dive.
+Through background sync. The local database is the source of truth; changes are queued and pushed to the cloud when a connection is available, and remote changes are merged back locally. The detailed mechanics — identifiers, conflicts, deletes — are their own subject, covered in [the sync deep-dive](/blog/synchronizing-indexeddb-with-supabase/).
 
 
-**Building something that needs to work offline?** [See how I help teams design and build production React and mobile applications →](/#)
+**Building something that needs to work offline?** [See how I help teams design and build production React and mobile applications →](/mobile-app-development/)
 
-*Related: [synchronizing IndexedDB with Supabase](/blog/synchronizing-indexeddb-with-supabase) · [how I structure production React applications](/blog/react-application-architecture) · [the React hub](/react/)*
+*Related: [synchronizing IndexedDB with Supabase](/blog/synchronizing-indexeddb-with-supabase/) · [how I structure production React applications](/blog/react-application-architecture/) · [the React hub](/react/)*

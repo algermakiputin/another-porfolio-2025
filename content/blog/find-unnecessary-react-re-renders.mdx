@@ -2,7 +2,6 @@
 title: "How to Find Unnecessary React Re-renders"
 description: "How to find unnecessary React re-renders with DevTools and the Profiler. A repeatable workflow: measure, find the cause, fix the narrowest thing, re-measure."
 publishedDate: "Jun 28, 2026"
-readTime: "7 min read"
 category: "React"
 tags: ["React", "Performance", "TypeScript", "Debugging", "Optimization"]
 image: "/images/blog/covers/find-unnecessary-react-re-renders.webp"
@@ -10,7 +9,7 @@ image: "/images/blog/covers/find-unnecessary-react-re-renders.webp"
 
 Finding unnecessary React re-renders is a measurement problem, not a guessing game. The workflow is short: reproduce the slow interaction, watch what re-renders, profile to learn *why* it rendered, fix the narrowest cause, then re-measure to confirm. Do that and you fix the render that actually matters instead of scattering `React.memo` across the codebase and hoping.
 
-This is the hands-on companion to [the performance problems I see most](/blog/react-performance-problems). Here I'll walk through the exact tools and steps I use to track down excessive re-renders in real apps — a POS with big tables (Zendtri) and a finance app with long lists (Hunter Vault) — and how to tell a re-render problem apart from something React was never going to fix.
+This is the hands-on companion to [the performance problems I see most](/blog/react-performance-problems/). Here I'll walk through the exact tools and steps I use to track down excessive re-renders in real apps — a POS with big tables (Zendtri) and a finance app with long lists (Hunter Vault) — and how to tell a re-render problem apart from something React was never going to fix.
 
 ## Quick summary
 
@@ -96,7 +95,7 @@ The profiler told you the cause; match it to the fix and change only that:
 | "Hooks changed" on unrelated updates | Over-broad context or store subscription | Narrow the subscription; split the context |
 | Whole subtree renders on one change | State lives too high in the tree | Move the state down to where it's used |
 
-Notice these all point back to state placement — which is why [choosing state management](/blog/react-state-management) prevents most of them in the first place. Fix the specific cause; resist the urge to memoize everything nearby "just in case."
+Notice these all point back to state placement — which is why [choosing state management](/blog/react-state-management/) prevents most of them in the first place. Fix the specific cause; resist the urge to memoize everything nearby "just in case."
 
 ## Step 6: Re-measure
 
@@ -129,6 +128,6 @@ No. `React.memo` only helps when a component's props are stable and re-rendering
 Yes, but less often. The compiler removes many routine re-renders automatically, so you'll hand-memoize far less. You still profile to find real bottlenecks — and the compiler doesn't touch network or bundle costs, which are frequently the real problem.
 
 
-**Fighting a React app that re-renders too much?** [See how I help teams design and build production React applications →](/web-development-services)
+**Fighting a React app that re-renders too much?** [See how I help teams design and build production React applications →](/web-development-services/)
 
-*Related: [common React performance problems I find in production](/blog/react-performance-problems) · [how to choose state management for a React app](/blog/react-state-management) · [the React hub](/react/)*
+*Related: [common React performance problems I find in production](/blog/react-performance-problems/) · [how to choose state management for a React app](/blog/react-state-management/) · [the React hub](/react/)*

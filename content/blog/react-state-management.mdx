@@ -2,7 +2,6 @@
 title: "How to Choose State Management for a React App"
 description: "How to choose React state management by type—local, shared, server, URL, form and offline—with the decisions I actually make in production."
 publishedDate: "Jul 12, 2026"
-readTime: "12 min read"
 category: "React"
 tags: ["React", "State Management", "TypeScript", "Architecture", "Hunter Vault"]
 image: "/images/blog/covers/react-state-management.webp"
@@ -62,7 +61,7 @@ In **Hunter Vault**, the interesting state is persisted and offline. Accounts, t
 
 In **Zendtri**, a POS, the in-progress sale is a good example of legitimate shared client state — the cart isn't server data until it's submitted, and several parts of the checkout UI need it, so a client store is the right home. Products, inventory and past sales are server state from Supabase; the current branch and filters live in the URL; role and tenant context is shared client state that shapes what the rest of the app is allowed to do.
 
-> The specific library choices for client state and server state get their own deep-dive in [Context vs Zustand vs server state](/blog/react-context-vs-zustand-vs-server-state). This article stays at the category level so the right placement decision is clear before you pick a tool.
+> The specific library choices for client state and server state get their own deep-dive in [Context vs Zustand vs server state](/blog/react-context-vs-zustand-vs-server-state/). This article stays at the category level so the right placement decision is clear before you pick a tool.
 
 ## Where the wrong choice causes pain
 
@@ -70,7 +69,7 @@ Most state problems trace back to putting state in the wrong category. The ones 
 
 **Copying server data into a store.** The moment backend data lives in Zustand or Context, you own a second copy that can go stale, and you inherit cache invalidation, loading states and "which one is right?" forever. Keep server data in a server-state layer that treats the server as the source of truth.
 
-**Storing what you can derive.** In Hunter Vault, my first savings-goals model stored a goal's balance and moved money into it as if it were a real transaction, which meant the same money could be represented twice and balances stopped matching the user's bank. The fix was to derive a goal's progress from its linked accounts instead of storing it. I cover the full modeling story in [my architecture write-up](/blog/react-application-architecture); the state lesson is narrower and worth stating on its own: if a value can be computed from state you already have, don't store it as separate state.
+**Storing what you can derive.** In Hunter Vault, my first savings-goals model stored a goal's balance and moved money into it as if it were a real transaction, which meant the same money could be represented twice and balances stopped matching the user's bank. The fix was to derive a goal's progress from its linked accounts instead of storing it. I cover the full modeling story in [my architecture write-up](/blog/react-application-architecture/); the state lesson is narrower and worth stating on its own: if a value can be computed from state you already have, don't store it as separate state.
 
 **Filters and pagination in component state.** Put them in the URL. State in the URL is shareable, deep-linkable and survives a refresh; the same values buried in `useState` are none of those things.
 
@@ -100,9 +99,9 @@ In the URL. That makes the current view shareable, bookmarkable and refresh-proo
 
 ### Is Context "state management," and when is it enough?
 
-Context is a way to *pass* state down without prop-drilling, not a performance tool. It's enough for low-frequency shared values like theme or session. For state that changes often or is read widely, a purpose-built store usually causes fewer re-renders — which is exactly the comparison I make in [Context vs Zustand vs server state](/blog/react-context-vs-zustand-vs-server-state).
+Context is a way to *pass* state down without prop-drilling, not a performance tool. It's enough for low-frequency shared values like theme or session. For state that changes often or is read widely, a purpose-built store usually causes fewer re-renders — which is exactly the comparison I make in [Context vs Zustand vs server state](/blog/react-context-vs-zustand-vs-server-state/).
 
 
-**Trying to untangle state in a growing React app?** [See how I help teams design and build production React applications →](/#)
+**Trying to untangle state in a growing React app?** [See how I help teams design and build production React applications →](/web-development-services/)
 
-*Related: [React Context vs Zustand vs server state](/blog/react-context-vs-zustand-vs-server-state) · [how I structure production React applications](/blog/react-application-architecture) · [the React hub](/react/)*
+*Related: [React Context vs Zustand vs server state](/blog/react-context-vs-zustand-vs-server-state/) · [how I structure production React applications](/blog/react-application-architecture/) · [the React hub](/react/)*

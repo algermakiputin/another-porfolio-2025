@@ -54,6 +54,8 @@ const CONFIG = {
   "integrate-claude-vscode-terminal": { motif: "architecture", coverTitle: "Claude in VS Code & Terminal" },
   // Shipping — App Store review war story; shield+check motif reads as "approved".
   "apple-rejected-app-cant-find-in-app-purchases": { motif: "testing", coverTitle: "Rejected 3 Times, Then Approved" },
+  "react-native-vs-capacitor": { motif: "columns", coverTitle: "React Native vs Capacitor" },
+  "synchronizing-indexeddb-with-supabase": { motif: "database", coverTitle: "Syncing IndexedDB with Supabase" },
 };
 
 /* ---------- text wrapping ---------- */

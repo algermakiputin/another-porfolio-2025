@@ -5,7 +5,7 @@ import { SERVICES } from "../../data/services";
 const BASE_URL = "https://algermakiputin.com";
 const PAGE_URL = `${BASE_URL}/mobile-app-development/`;
 const OG_IMAGE = `${BASE_URL}/images/og-cover.jpg`;
-const TITLE = "Custom Mobile App Development (iOS & Android) | Alger Makiputin";
+const TITLE = "Custom Mobile App Development (iOS & Android)";
 const DESCRIPTION =
   "Custom iOS & Android app development services for startups and businesses. React Native apps built for performance, scalability, and App Store publishing.";
 
@@ -28,14 +28,14 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     siteName: "Alger Makiputin",
-    title: TITLE,
+    title: `${TITLE} | Alger Makiputin`,
     description: DESCRIPTION,
     url: PAGE_URL,
     images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Custom Mobile App Development iOS Android" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: TITLE,
+    title: `${TITLE} | Alger Makiputin`,
     description: DESCRIPTION,
     images: [OG_IMAGE],
     creator: "@algermakiputin",

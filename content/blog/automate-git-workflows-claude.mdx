@@ -1,8 +1,8 @@
 ---
-title: "How to Automate Git Workflows and Refactor Legacy Codebases with Claude"
+title: "Automate Git Workflows & Refactors with Claude"
 description: "Practical patterns for using Claude to automate git operations, write commit messages, run large-scale refactors safely, and navigate codebases you didn't write."
+lastUpdated: "Nov 06, 2026"
 publishedDate: "Aug 31, 2026"
-readTime: "11 min read"
 category: "AI"
 tags: ["Claude", "Git", "Refactoring", "Developer Tools", "Automation", "Anthropic"]
 image: "/images/blog/covers/automate-git-workflows-claude.webp"
@@ -269,5 +269,25 @@ The `gh pr diff` command requires the GitHub CLI (`brew install gh`). The output
 
 **Confusing Claude about the goal.** "Refactor this" without a goal produces random changes. "Eliminate the duplicated validation logic between the create and update endpoints" produces focused, useful changes. Be specific about what problem you're solving.
 
-[INTERNAL-LINK: agentic coding setup → Claude agent that writes, edits and executes code]
-[INTERNAL-LINK: VS Code integration → integrating Claude into your VS Code and terminal workflow]
+## FAQs
+
+### What's the fastest Claude + git win?
+
+The `gcommit` alias: pipe the staged diff to Claude, get a commit message back, confirm to commit. Five minutes to set up, used dozens of times a week.
+
+### How do I run a large refactor safely with Claude?
+
+Start from a clean working tree, have Claude scope every affected call site first, then work chunk by chunk — review the diff and run tests between chunks, and verify with `tsc --noEmit` plus the test suite at the end.
+
+### Why exclude lockfiles from diffs sent to Claude?
+
+They bloat the payload with dependency churn that carries no useful signal. Exclude them with `git diff ':!*.lock' ':!package-lock.json'` so the diff stays about code.
+
+### Shell alias or Claude Code CLI?
+
+Aliases for single-file or diff-based questions; the CLI for cross-file analysis and multi-step tasks that need filesystem access and shell tools.
+
+
+**Drowning in git busywork?** [See how I help teams automate the mechanical parts of shipping →](/contact/)
+
+*Related: [agentic coding setup](/blog/agentic-coding-claude-write-edit-execute/) · [VS Code integration](/blog/integrate-claude-vscode-terminal/)*

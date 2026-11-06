@@ -2,7 +2,6 @@
 title: "Common React Performance Problems in Production"
 description: "The React performance problems I keep finding in production—over-subscribed state, unstable references, heavy lists—plus fixes with before/after code."
 publishedDate: "Jul 15, 2026"
-readTime: "13 min read"
 category: "React"
 tags: ["React", "Performance", "TypeScript", "Optimization", "Zendtri"]
 image: "/images/blog/covers/react-performance-problems.webp"
@@ -73,7 +72,7 @@ Worth knowing in 2026: with React Compiler enabled, most of this manual memoizat
 
 ## Over-subscribed state
 
-This is the one I find most often, and it ties directly to how you manage state (I go deep on that in [choosing state management](/blog/react-state-management)). The pattern: a component reads far more state than it uses, so it re-renders whenever anything nearby changes.
+This is the one I find most often, and it ties directly to how you manage state (I go deep on that in [choosing state management](/blog/react-state-management/)). The pattern: a component reads far more state than it uses, so it re-renders whenever anything nearby changes.
 
 With Context, the usual cause is one big provider whose value is a fresh object each render, re-rendering every consumer:
 
@@ -102,7 +101,7 @@ This is where a POS like Zendtri and a transaction-heavy finance app like Hunter
 
 ## Measure first — and check it's actually React
 
-Before optimizing anything, profile it. React DevTools' Profiler shows you which components render, how often, and why; and React 19.2's performance tracks line React's work up against network requests and JavaScript execution in the browser's own profiler, so you can see where the time really goes. I cover the hands-on workflow in [how to find unnecessary re-renders](/blog/find-unnecessary-react-re-renders).
+Before optimizing anything, profile it. React DevTools' Profiler shows you which components render, how often, and why; and React 19.2's performance tracks line React's work up against network requests and JavaScript execution in the browser's own profiler, so you can see where the time really goes. I cover the hands-on workflow in [how to find unnecessary re-renders](/blog/find-unnecessary-react-re-renders/).
 
 The reason to measure isn't diligence for its own sake — it's that a lot of "slow React" isn't React:
 
@@ -139,6 +138,6 @@ Not inherently. The problem is a single broad provider that re-renders a whole s
 Profile before you change anything. Guessing is how you end up optimizing code that was never the bottleneck. Let the profiler point at the slow thing, fix that, and measure again.
 
 
-**Got a React app that feels slow?** [See how I help teams design and build production React applications →](/#)
+**Got a React app that feels slow?** [See how I help teams design and build production React applications →](/web-development-services/)
 
-*Related: [how to find unnecessary React re-renders](/blog/find-unnecessary-react-re-renders) · [how to choose state management for a React app](/blog/react-state-management) · [the React hub](/react/)*
+*Related: [how to find unnecessary React re-renders](/blog/find-unnecessary-react-re-renders/) · [how to choose state management for a React app](/blog/react-state-management/) · [the React hub](/react/)*

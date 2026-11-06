@@ -5,7 +5,6 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import Link from "next/link";
 import HireMeSection from "../../components/hireMeSection/HireMeSection";
 import RevealSection from "../../components/ui/RevealSection";
-import useGetTheme from "../../hooks/useGetTheme";
 import "./react-hub.css";
 
 type Article = {
@@ -122,6 +121,16 @@ const sections: Section[] = [
         desc: "Shipping one React codebase to both app stores, and when React Native is the better call.",
       },
       {
+        title: "React Native vs Capacitor: How I Choose for a New Mobile App",
+        href: "/blog/react-native-vs-capacitor",
+        desc: "The rendering models, the honest costs of each, and the decision framework I use to pick.",
+      },
+      {
+        title: "Synchronizing an Offline-First Dexie Database with Supabase",
+        href: "/blog/synchronizing-indexeddb-with-supabase",
+        desc: "Dual-key identity, tombstone deletes, last-write-wins conflicts, and merging cloud changes back.",
+      },
+      {
         title: "React and Supabase Architecture for Multi-Tenant Applications",
         desc: "Tenant isolation with Row Level Security, roles and branches.",
         comingSoon: true,
@@ -143,24 +152,14 @@ const sections: Section[] = [
 ];
 
 const ReactHubPage = () => {
-  const { isDark } = useGetTheme();
-  const border = isDark ? "rgba(255,255,255,0.07)" : "var(--border)";
-
   return (
-    <>
+    <div className="react-hub-page">
       {/* Hero */}
-      <Box
-        className="rh-hero"
-        sx={{
-          background: isDark
-            ? "linear-gradient(160deg, #0b1220 0%, #111827 100%)"
-            : "#ffffff",
-        }}
-      >
+      <Box className="rh-hero">
         <Box className="rh-hero-inner">
-          <Box className="hero-badge">
-            <span className="hero-badge-dot" />
-            REACT
+          <Box className="rh-world-label">
+            <span aria-hidden="true">✦</span>
+            Blog / React articles
           </Box>
           <Typography variant="h1" className="rh-hero-title">
             React Development: Architecture, Performance and Production Lessons
@@ -194,14 +193,7 @@ const ReactHubPage = () => {
             </Box>
             <Box className="rh-projects-grid">
               {projects.map((p) => (
-                <Box
-                  key={p.name}
-                  className="rh-project-card"
-                  sx={{
-                    background: isDark ? "rgba(255,255,255,0.03)" : "#f8fafc",
-                    borderColor: border,
-                  }}
-                >
+                <Box key={p.name} className="rh-project-card">
                   <Typography className="rh-project-type">{p.type}</Typography>
                   <Typography className="rh-project-name">{p.name}</Typography>
                   <Typography className="rh-project-desc">{p.desc}</Typography>
@@ -217,17 +209,9 @@ const ReactHubPage = () => {
 
       {/* Start here */}
       <RevealSection>
-        <Box className="page-section" sx={{ pt: "0 !important" }}>
+        <Box className="page-section">
           <Box className="section-inner">
-            <Box
-              className="rh-start-here"
-              sx={{
-                background: isDark
-                  ? "rgba(22,163,74,0.06)"
-                  : "rgba(22,163,74,0.04)",
-                borderColor: "rgba(22,163,74,0.25)",
-              }}
-            >
+            <Box className="rh-start-here">
               <Typography className="rh-start-label">START HERE</Typography>
               <Typography className="rh-start-title">
                 <Link
@@ -253,10 +237,7 @@ const ReactHubPage = () => {
       {/* Article sections */}
       {sections.map((section) => (
         <RevealSection key={section.id}>
-          <Box
-            className="page-section"
-            sx={{ pt: "0 !important", pb: "2rem !important" }}
-          >
+          <Box className="page-section">
             <Box className="section-inner">
               <Box className="rh-section-header">
                 <Typography variant="h2" className="rh-section-label">
@@ -266,17 +247,10 @@ const ReactHubPage = () => {
                   {section.subtitle}
                 </Typography>
               </Box>
-              <Box
-                className="rh-article-list"
-                sx={{ borderColor: border }}
-              >
+              <Box className="rh-article-list">
                 {section.articles.map((article) =>
                   article.comingSoon ? (
-                    <Box
-                      key={article.title}
-                      className="rh-article rh-article--soon"
-                      sx={{ borderColor: border }}
-                    >
+                    <Box key={article.title} className="rh-article rh-article--soon">
                       <Box className="rh-article-body">
                         <Typography className="rh-article-title">
                           {article.title}
@@ -292,7 +266,6 @@ const ReactHubPage = () => {
                       key={article.title}
                       href={article.href!}
                       className="rh-article"
-                      style={{ borderColor: border }}
                     >
                       <Box className="rh-article-body">
                         <Typography className="rh-article-title">
@@ -315,10 +288,10 @@ const ReactHubPage = () => {
         </RevealSection>
       ))}
 
-      <Box sx={{ mt: { xs: 2, md: 4 } }}>
+      <Box className="rh-closing-cta">
         <HireMeSection />
       </Box>
-    </>
+    </div>
   );
 };
 

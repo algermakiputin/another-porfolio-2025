@@ -1,0 +1,12 @@
+Pixel Platformer 1.2
+
+Created and distributed by Kenney (https://kenney.nl)
+Creation date: October 7, 2023
+
+License: Creative Commons Zero (CC0 1.0)
+https://creativecommons.org/publicdomain/zero/1.0/
+
+This content may be used for personal, educational, and commercial purposes.
+Credit to Kenney is appreciated but is not required by the license.
+
+Source: https://kenney.nl/assets/pixel-platformer

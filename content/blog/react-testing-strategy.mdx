@@ -2,7 +2,6 @@
 title: "React Testing Strategy: Test Behavior, Not Details"
 description: "My risk-based React testing strategy: test behavior and workflows, not implementation details—what to unit test, what to skip, with real examples."
 publishedDate: "Jun 21, 2026"
-readTime: "8 min read"
 category: "React"
 tags: ["React", "Testing", "TypeScript", "Vitest", "Testing Library"]
 image: "/images/blog/covers/react-testing-strategy.webp"
@@ -76,7 +75,7 @@ If I later rewrite how that form manages its state, the test still passes — be
 
 Here's how the layers map onto Hunter Vault.
 
-**Unit** is where the money lives. Balances, safe-to-spend, budget usage and savings-goal progress are all derived from the underlying records, which makes them pure functions — and pure functions are the easiest, highest-value things to unit-test. That the balance is *derived* rather than stored (a [modeling decision I explain elsewhere](/blog/offline-first-react-dexie-indexeddb)) is exactly what makes it so testable. Hunter Vault runs 19 pure-logic test files in Vitest with no DOM setup — financial calculations, game mechanics (XP, rank tiers, streaks), sync planning and leaderboard scoring, none of it touching a component:
+**Unit** is where the money lives. Balances, safe-to-spend, budget usage and savings-goal progress are all derived from the underlying records, which makes them pure functions — and pure functions are the easiest, highest-value things to unit-test. That the balance is *derived* rather than stored (a [modeling decision I explain elsewhere](/blog/offline-first-react-dexie-indexeddb/)) is exactly what makes it so testable. Hunter Vault runs 19 pure-logic test files in Vitest with no DOM setup — financial calculations, game mechanics (XP, rank tiers, streaks), sync planning and leaderboard scoring, none of it touching a component:
 
 ```ts
 // src/app/lib/__tests__/financial-calculations.test.ts
@@ -100,9 +99,9 @@ describe("calcNetWorth", () => {
 
 **Integration and e2e** — Hunter Vault currently has no automated integration or e2e tests. The critical journeys (completing onboarding, restoring data from the cloud, a subscription unlocking features) are tested manually. Adding them would come after component coverage is solid — they're expensive to write and maintain, so the pure-logic foundation goes first.
 
-**Manual** covers what automation can't do well — the device-specific behavior of the [Capacitor mobile build](/blog/react-web-app-to-ios-android-capacitor), like keyboard handling and native feel on real iOS and Android hardware.
+**Manual** covers what automation can't do well — the device-specific behavior of the [Capacitor mobile build](/blog/react-web-app-to-ios-android-capacitor/), like keyboard handling and native feel on real iOS and Android hardware.
 
-And because Hunter Vault is offline-first, a few scenarios deserve explicit tests that a server-first app wouldn't need: editing while offline, migrations running against old on-device data, and conflicting edits across devices. Those are covered in [the offline-first write-up](/blog/offline-first-react-dexie-indexeddb).
+And because Hunter Vault is offline-first, a few scenarios deserve explicit tests that a server-first app wouldn't need: editing while offline, migrations running against old on-device data, and conflicting edits across devices. Those are covered in [the offline-first write-up](/blog/offline-first-react-dexie-indexeddb/).
 
 ## Tradeoffs and where over-testing hurts
 
@@ -131,6 +130,6 @@ Query and interact with the UI the way a user does — by role, label or visible
 Device-specific and native behavior — how the app feels on real iOS and Android hardware, keyboard handling, gestures. Those belong in manual and exploratory testing rather than an automated unit suite.
 
 
-**Want a React codebase you can refactor without fear?** [See how I help teams design and build production React applications →](/#)
+**Want a React codebase you can refactor without fear?** [See how I help teams design and build production React applications →](/web-development-services/)
 
-*Related: [how I test complex React forms](/blog/react-forms-validation-large-apps) · [building an offline-first React app with Dexie](/blog/offline-first-react-dexie-indexeddb) · [the React hub](/react/)*
+*Related: [how I test complex React forms](/blog/react-forms-validation-large-apps/) · [building an offline-first React app with Dexie](/blog/offline-first-react-dexie-indexeddb/) · [the React hub](/react/)*

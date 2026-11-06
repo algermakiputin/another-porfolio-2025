@@ -1,9 +1,9 @@
 ---
-title: "Apple Rejected My App 3 Times for 'Missing' In-App Purchases—Here's the Fix"
+title: "My App Was Rejected 3 Times Over In-App Purchases"
 shortTitle: "3 Apple Rejections, One Fix"
 description: "Apple rejected Hunter Vault three times saying it couldn't locate my new subscription and consumable purchases. The code was fine—the reviewer just couldn't sign in. Here's exactly what fixed it."
+lastUpdated: "Nov 06, 2026"
 publishedDate: "Sep 11, 2026"
-readTime: "9 min read"
 category: "Shipping"
 tags: ["App Store", "iOS", "In-App Purchase", "App Review", "Hunter Vault"]
 image: "/images/blog/covers/apple-rejected-app-cant-find-in-app-purchases.webp"
@@ -17,7 +17,7 @@ Then Apple rejected the build. Then it rejected the next one. Then a third. Ever
 
 Here's the part that made me want to throw my laptop into the sea — the code was fine. Purchases worked on my device, in TestFlight, and in the sandbox. StoreKit wasn't the problem. The reviewer simply couldn't reach the screen where the purchases live, because they couldn't sign in. This is the whole story, and the specific fix that finally got it approved.
 
-## The short version
+## Quick summary
 
 - Apple's rejection wasn't about broken billing. It was **Guideline 2.1 – App Completeness**: the reviewer couldn't *find* the products.
 - A brand-new subscription or consumable has to be **attached to and submitted with the app version** on its first review, or the reviewer's build has nothing to validate against.
@@ -33,7 +33,7 @@ Two features, both leaning on AI, both new to the store.
 
 **Huntee** is an AI money advisor built into the app. Instead of a generic chatbot, it can reason over your actual Hunter Vault data — what you spent, where it went, what's recurring — and answer in plain language. That also costs money per message.
 
-So the monetization has two shapes. **Hunter Pass** is the subscription for people who want ongoing access, and **AI credits** are a consumable for metered AI usage. If you've ever wondered why an app bothers with both a subscription *and* a consumable, this is exactly why — one is for access, the other is for usage that has a real per-action cost. Hunter Vault already runs its billing through RevenueCat, which is the same setup I described in [turning a React web app into iOS and Android apps with Capacitor](/blog/react-web-app-to-ios-android-capacitor).
+So the monetization has two shapes. **Hunter Pass** is the subscription for people who want ongoing access, and **AI credits** are a consumable for metered AI usage. If you've ever wondered why an app bothers with both a subscription *and* a consumable, this is exactly why — one is for access, the other is for usage that has a real per-action cost. Hunter Vault already runs its billing through RevenueCat, which is the same setup I described in [turning a React web app into iOS and Android apps with Capacitor](/blog/react-web-app-to-ios-android-capacitor/).
 
 ## Why Apple kept saying it "couldn't find" the purchases
 
@@ -98,7 +98,7 @@ I'd assume from day one that a reviewer is a smart stranger with none of my cont
 
 I'd also stop treating review notes as an afterthought typed at midnight. For anything gated behind a login or a purchase, the demo account and the walkthrough recording *are* part of the submission, as much as the binary. If I'd shipped those with the very first build, I'd have saved about a week and a fair amount of dignity.
 
-The features were the hard engineering. Getting a stranger to find the buy button turned out to be the actual boss fight. If you're shipping your first subscription or consumable behind a login, plan for that fight before it plans for you — and if you want the wider picture of getting a React app onto both stores, I wrote about that in [taking Hunter Vault from web to iOS and Android](/blog/react-web-app-to-ios-android-capacitor) and the [first 30 days of SEO and store optimization](/blog/seo-new-website-30-day-results).
+The features were the hard engineering. Getting a stranger to find the buy button turned out to be the actual boss fight. If you're shipping your first subscription or consumable behind a login, plan for that fight before it plans for you — and if you want the wider picture of getting a React app onto both stores, I wrote about that in [taking Hunter Vault from web to iOS and Android](/blog/react-web-app-to-ios-android-capacitor/) and the [first 30 days of SEO and store optimization](/blog/seo-new-website-30-day-results/).
 
 ## FAQs
 
@@ -122,6 +122,6 @@ Working demo credentials, numbered steps that name the exact buttons from login 
 
 There's no penalty for multiple rejections — mine took four submissions total. Each rejection is Apple telling you what's still blocking review, so read the note carefully and fix the specific thing rather than resubmitting the same build and hoping.
 
-**Building an app with subscriptions or AI credits behind a login?** [See how I design and ship production React and mobile apps →](/#)
+**Building an app with subscriptions or AI credits behind a login?** [See how I design and ship production React and mobile apps →](/mobile-app-development/)
 
-*Related: [React web app to iOS and Android with Capacitor](/blog/react-web-app-to-ios-android-capacitor) · [30 days of SEO on a new site](/blog/seo-new-website-30-day-results) · [building an offline-first React app with Dexie](/blog/offline-first-react-dexie-indexeddb)*
+*Related: [React web app to iOS and Android with Capacitor](/blog/react-web-app-to-ios-android-capacitor/) · [30 days of SEO on a new site](/blog/seo-new-website-30-day-results/) · [building an offline-first React app with Dexie](/blog/offline-first-react-dexie-indexeddb/)*

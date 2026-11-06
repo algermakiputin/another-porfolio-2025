@@ -5,7 +5,6 @@ featuredOnHomepage: true
 homepageOrder: 2
 description: "How I structure production React apps in 2026—feature-based architecture, state ownership, services and deployment—from real web and mobile products."
 publishedDate: "Jul 19, 2026"
-readTime: "18 min read"
 category: "React"
 tags: ["React", "Architecture", "TypeScript", "Production", "Hunter Vault"]
 image: "/images/blog/covers/react-application-architecture.webp"
@@ -80,7 +79,7 @@ The default React tutorial structure groups everything by what it *is*: all comp
 
 Feature-based organization keeps everything a feature needs in one place. When I work on transactions, the components, hooks, services and types are right there. When I delete a feature, I delete a folder. The generic top-level `components/`, `hooks/` and `services/` folders still exist — but only for genuinely shared, cross-feature things.
 
-I go deeper on this in [my folder structure guide](/blog/react-folder-structure); the short version is that the unit of organization should match the unit of work, and the unit of work is almost always a feature.
+I go deeper on this in [my folder structure guide](/blog/react-folder-structure/); the short version is that the unit of organization should match the unit of work, and the unit of work is almost always a feature.
 
 ### Give each feature a public API
 
@@ -134,7 +133,7 @@ This is the decision I make before any folder decision, and it's the one most ap
 
 Most state isn't global. Component toggles are local. Server data belongs in a data-fetching layer, not copied into a store. URL state (filters, pagination) belongs in the URL. Only genuinely shared client state — session, theme, a few cross-feature concerns — earns a spot in `stores/`.
 
-Getting this wrong is the root cause of a surprising share of "React is hard to maintain" complaints, so I gave it [its own article on choosing state management](/blog/react-state-management). For architecture purposes, the rule is: state has an owner, and the owner is as local as it can be.
+Getting this wrong is the root cause of a surprising share of "React is hard to maintain" complaints, so I gave it [its own article on choosing state management](/blog/react-state-management/). For architecture purposes, the rule is: state has an owner, and the owner is as local as it can be.
 
 ### Routing, error handling, environment config
 
@@ -142,7 +141,7 @@ Routing lives in `app/`, and route-level code-splitting maps cleanly onto featur
 
 ### Build and deployment structure
 
-Hunter Vault's build has to produce a web app *and* native iOS/Android bundles from the same source, which Capacitor handles — but it shapes the structure: native concerns get isolated so they don't leak into shared code, and subscriptions run through RevenueCat's SDK on-device while the cloud services stay behind the sync layer. I cover that path end to end in [turning a React web app into iOS and Android apps](/blog/react-web-app-to-ios-android-capacitor).
+Hunter Vault's build has to produce a web app *and* native iOS/Android bundles from the same source, which Capacitor handles — but it shapes the structure: native concerns get isolated so they don't leak into shared code, and subscriptions run through RevenueCat's SDK on-device while the cloud services stay behind the sync layer. I cover that path end to end in [turning a React web app into iOS and Android apps](/blog/react-web-app-to-ios-android-capacitor/).
 
 ## What changes as the application grows
 
@@ -225,6 +224,6 @@ Types used by one feature live in that feature's `types.ts`. Types shared across
 No. Use the feature-based *idea* (keep related things together) but skip the ceremony — public APIs, a full services layer, a global store. Add those when the app grows into them, the same way Hunter Vault did.
 
 
-**Building something that needs this kind of structure?** [See how I help teams design and build production React applications →](/#)
+**Building something that needs this kind of structure?** [See how I help teams design and build production React applications →](/web-development-services/)
 
-*Related: [React folder structure for scalable applications](/blog/react-folder-structure) · [how to choose state management for a React app](/blog/react-state-management) · [the React hub](/react/)*
+*Related: [React folder structure for scalable applications](/blog/react-folder-structure/) · [how to choose state management for a React app](/blog/react-state-management/) · [the React hub](/react/)*

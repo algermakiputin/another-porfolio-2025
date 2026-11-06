@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title: "Contact | Alger Makiputin",
     description:
       "Available for freelance projects and full-time opportunities. Let's talk about your next web app, mobile app, or system integration.",
-    url: `${BASE_URL}/contact`,
+    url: `${BASE_URL}/contact/`,
     images: [{ url: "/images/og-cover.jpg", width: 1200, height: 630, alt: "Contact Alger Makiputin" }],
   },
   alternates: {
@@ -24,7 +24,7 @@ const jsonLd = {
   "@type": "ContactPage",
   name: "Contact | Alger Makiputin",
   description: "Available for freelance projects and full-time opportunities.",
-  url: `${BASE_URL}/contact`,
+  url: `${BASE_URL}/contact/`,
   mainEntity: {
     "@type": "Person",
     name: "Alger Makiputin",

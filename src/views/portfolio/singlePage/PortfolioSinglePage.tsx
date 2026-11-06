@@ -46,6 +46,17 @@ export default function PortfolioSinglePage({
   }
 
   const v = buildCaseView(project, projects);
+  // Keep compound project names together at the natural line break. A normal
+  // hyphen is a legal wrap opportunity, which produced headings such as
+  // “FASHION E- / COMMERCE” in the split hero layout.
+  const displayTitle = v.shortTitle.replaceAll("-", "‑");
+  const hasWebTarget = v.platformTargets.some((platform) => /web/i.test(platform));
+  const hasNativeTarget = v.platformTargets.some((platform) => /ios|android/i.test(platform));
+  const projectAccent = hasWebTarget && hasNativeTarget
+    ? "#f8c95c"
+    : hasNativeTarget
+      ? "#8ecbed"
+      : "#5bab79";
   const archInHero = !v.hasRealImage && v.archLayers.length > 0;
   const delivered = (project.responsibilities ?? []).map((r) => r.trim()).filter(Boolean);
   const social = socials.filter((s) => s.label === "GitHub" || s.label === "LinkedIn");
@@ -139,18 +150,18 @@ export default function PortfolioSinglePage({
       {/* ── Hero ── */}
       <header
         className="pf-case-hero"
-        style={{ "--project-accent": project.accentColor ?? "#2457e6" } as React.CSSProperties}
+        style={{ "--project-accent": projectAccent } as React.CSSProperties}
       >
         <div className="pf-container pf-case-hero__inner">
           <div className="pf-case-hero__copy">
             <Link href="/portfolio" className="pf-case-back">
-              <span aria-hidden="true">←</span> Back to projects
+              <span aria-hidden="true">←</span> Back to Projects
             </Link>
             <p className="pf-case-index">
               <span className="pf-case-index__mark" aria-hidden="true" />
               Project {v.projectNumber} <span aria-hidden="true">/</span> {v.category}
             </p>
-            <h1 className="pf-case-title pf-display">{v.shortTitle}</h1>
+            <h1 className="pf-case-title pf-display">{displayTitle}</h1>
             {v.thesis && <p className="pf-case-thesis">{v.thesis}</p>}
             {v.ledger.length > 0 && (
               <dl className="pf-case-meta">
@@ -245,7 +256,9 @@ export default function PortfolioSinglePage({
           <div className="pf-container pf-nextcase__inner">
             <div className="pf-nextcase__copy">
               <span className="pf-nextcase__eyebrow">Next project / {v.nextCase.number}</span>
-              <h2 className="pf-nextcase__title pf-display">{v.nextCase.shortTitle}</h2>
+              <h2 className="pf-nextcase__title pf-display">
+                {v.nextCase.shortTitle.replaceAll("-", "‑")}
+              </h2>
               {v.nextCase.teaser && <p className="pf-nextcase__teaser">{v.nextCase.teaser}</p>}
               <span className="pf-nextcase__cta">
                 View case study <span aria-hidden="true">→</span>
