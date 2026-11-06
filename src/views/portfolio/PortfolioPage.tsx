@@ -91,54 +91,16 @@ export default function PortfolioPage({ projects }: Props) {
     : projects;
 
   return (
-    <main className="project-archive" id="project-archive" data-filter="all">
+    <div className="project-archive" id="project-archive" data-filter="all">
       {/* ── Hero ── */}
       <header className="project-archive-hero">
-        {/* Editorial contact sheet — three real project images, absolutely positioned
-            on the right so the composition can reach the viewport edge */}
-        <div className="portfolio-hero__media" aria-hidden="true">
-          <div className="portfolio-hero__media-primary">
-            <Image
-              src="/images/projects/hunter-vault.webp"
-              alt=""
-              fill
-              priority
-              sizes="(min-width: 900px) 28vw, 0px"
-              className="portfolio-hero__media-img"
-            />
-          </div>
-          <div className="portfolio-hero__media-secondary">
-            <Image
-              src="/images/projects/filipino-alamat.webp"
-              alt=""
-              fill
-              priority
-              sizes="(min-width: 900px) 16vw, 0px"
-              className="portfolio-hero__media-img"
-            />
-          </div>
-          <div className="portfolio-hero__media-tertiary">
-            <Image
-              src="/images/projects/trading-journal.webp"
-              alt=""
-              fill
-              priority
-              sizes="(min-width: 900px) 12vw, 0px"
-              className="portfolio-hero__media-img"
-            />
-          </div>
-          <div className="portfolio-hero__media-index">
-            Project Archive&nbsp;&nbsp;/&nbsp;&nbsp;01—{String(projects.length).padStart(2, "0")}
-          </div>
-        </div>
-
         <div className="pf-container project-archive-hero__inner">
           <div className="project-archive-hero__copy">
-            <p className="project-archive-hero__eyebrow">Work / Project Archive</p>
+            <p className="project-archive-hero__eyebrow"><span aria-hidden="true">—</span> Portfolio / Selected work</p>
             <h1 className="project-archive-hero__title">
-              Built
+              Selected
               <br />
-              Systems
+              Work
             </h1>
             <div className="project-archive-hero__intro">
               <p>
@@ -146,11 +108,29 @@ export default function PortfolioPage({ projects }: Props) {
                 operations, and culture.
               </p>
               <span className="project-archive-hero__count">
-                {projects.length} documented builds
+                Archive <b>/</b> {projects.length} documented projects
               </span>
             </div>
           </div>
+          {flagship && (
+            <Link
+              href={`/project/${flagship.slug}`}
+              className="project-archive-hero__quest"
+              aria-label={`Open featured project: ${flagship.title}`}
+            >
+              <span className="project-archive-hero__quest-label">Featured / Project 01</span>
+              <strong>{flagship.shortTitle}</strong>
+              <p>{flagship.summary}</p>
+              <span className="project-archive-hero__quest-meta">
+                <span>{flagship.categoryLabel}</span>
+                <span>{flagship.platforms.join(" · ")}</span>
+                {flagship.status && <span>{flagship.status}</span>}
+              </span>
+              <span className="project-archive-hero__quest-action" aria-hidden="true">OPEN CASE STUDY ↗</span>
+            </Link>
+          )}
         </div>
+        <span className="project-archive-hero__scene-label" aria-hidden="true">PROJECT ARCHIVE / SELECTED WORK</span>
       </header>
 
       {/* ── Filter rail (client island over server content) ── */}
@@ -164,7 +144,7 @@ export default function PortfolioPage({ projects }: Props) {
       </nav>
 
       {/* ── Body ── */}
-      <div className="pf-container archive-body" id="main-content">
+      <div className="pf-container archive-body" id="project-list">
         {/* Flagship */}
         {flagship && (
           <article
@@ -252,6 +232,6 @@ export default function PortfolioPage({ projects }: Props) {
           <Link href="/portfolio">View all projects →</Link>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

@@ -1,8 +1,8 @@
 ---
-title: "How to Give Your Claude Agent Persistent Memory for Complex, Multi-Step Tasks"
+title: "Persistent Memory for Claude Agents"
 description: "A practical breakdown of memory types for Claude agents—in-context, external file, vector, and key-value—and when to use each for tasks that span multiple sessions."
+lastUpdated: "Nov 06, 2026"
 publishedDate: "Aug 31, 2026"
-readTime: "10 min read"
 category: "AI"
 tags: ["Claude", "AI Agents", "Memory", "LLM", "Anthropic", "Developer Tools"]
 image: "/images/blog/covers/claude-agent-persistent-memory.webp"
@@ -268,5 +268,25 @@ Start simpler than you think you need. In-context memory handles most tasks. Fil
 
 **Storing raw tool outputs instead of summaries.** A 50KB JSON response from an API is useful in context once. In memory, you want what Claude learned from it, not the raw response.
 
-[INTERNAL-LINK: agentic loop fundamentals → building your first AI agent with agentic loops]
-[INTERNAL-LINK: agentic coding → using Claude to write, edit and execute code autonomously]
+## FAQs
+
+### Which memory type should I start with?
+
+In-context memory for single sessions, file-based memory when work spans invocations. Reach for vector or key-value storage only when you hit a concrete retrieval or state problem files can't solve.
+
+### When is vector memory worth the setup?
+
+When the knowledge base is large — hundreds of sessions, long histories — and loading all of it is unaffordable. Its job is semantic retrieval ("what do we know about X?"), not structured state.
+
+### How do I stop the memory file growing forever?
+
+Cap its size, re-summarize when you hit the cap, and prune stale entries — completed tasks older than 30 days, for example. Unbounded memory becomes context debt.
+
+### File-based or key-value memory?
+
+Files for narrative context loaded at session start (project summaries, decisions); key-value JSON for structured state the agent reads and writes itself through tools (task lists, preferences, registries).
+
+
+**Building an agent that needs to remember?** [See how I help teams design production agent architectures →](/contact/)
+
+*Related: [agentic loop fundamentals](/blog/building-ai-agent-agentic-loops-claude/) · [agentic coding](/blog/agentic-coding-claude-write-edit-execute/)*

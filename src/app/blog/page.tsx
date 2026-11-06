@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import type { Metadata } from "next";
 import BlogPage from "../../views/blog/BlogPage";
 import { getBlogs } from "../../lib/blog";
@@ -14,7 +13,7 @@ export const metadata: Metadata = {
     title: "Blog | Alger Makiputin",
     description:
       "Practical notes on product engineering, React, mobile architecture, AI-assisted development, and the lessons behind shipping real software.",
-    url: `${BASE_URL}/blog`,
+    url: `${BASE_URL}/blog/`,
     images: [{ url: "/images/og-cover.jpg", width: 1200, height: 630, alt: "Alger Makiputin — Blog" }],
   },
   alternates: {
@@ -28,7 +27,7 @@ const jsonLd = {
   name: "Alger Makiputin — Blog",
   description:
     "Practical notes on product engineering, React, mobile architecture, AI-assisted development, and shipping real software.",
-  url: `${BASE_URL}/blog`,
+  url: `${BASE_URL}/blog/`,
   author: {
     "@type": "Person",
     name: "Alger Makiputin",
@@ -45,9 +44,7 @@ export default function Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <Suspense fallback={null}>
-        <BlogPage posts={posts} />
-      </Suspense>
+      <BlogPage posts={posts} />
     </>
   );
 }

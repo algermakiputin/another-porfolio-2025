@@ -4,7 +4,7 @@ import ReactHubPage from "../../views/react/ReactHubPage";
 const BASE_URL = "https://algermakiputin.com";
 const PAGE_URL = `${BASE_URL}/react/`;
 const OG_IMAGE = `${BASE_URL}/images/og-cover.jpg`;
-const TITLE = "React Architecture, Performance & Production Lessons | Alger Makiputin";
+const TITLE = "React Architecture, Performance & Production Lessons";
 const DESCRIPTION =
   "Production React lessons from a team lead who ships real web and mobile apps—architecture, state, performance, testing, offline-first and Capacitor.";
 
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     siteName: "Alger Makiputin",
-    title: TITLE,
+    title: `${TITLE} | Alger Makiputin`,
     description: DESCRIPTION,
     url: PAGE_URL,
     images: [
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: TITLE,
+    title: `${TITLE} | Alger Makiputin`,
     description: DESCRIPTION,
     images: [OG_IMAGE],
     creator: "@algermakiputin",

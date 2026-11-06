@@ -2,7 +2,6 @@
 title: "React Context vs Zustand vs Server State: What I Actually Use"
 description: "React Context vs Zustand vs server state: where each one fails, and why in my apps most state belongs to neither—it lives in the database."
 publishedDate: "Jul 05, 2026"
-readTime: "9 min read"
 category: "React"
 tags: ["React", "State Management", "Zustand", "TypeScript", "Architecture"]
 image: "/images/blog/covers/react-context-vs-zustand-vs-server-state.webp"
@@ -10,7 +9,7 @@ image: "/images/blog/covers/react-context-vs-zustand-vs-server-state.webp"
 
 The most useful thing I can tell you about React Context vs Zustand is that it's usually the wrong question. Context, Zustand and a server-state layer aren't competing for the same job — they solve three different problems — and in the apps I build, the biggest owner of state is none of them. It's the database. Get the ownership right first, and choosing between Context and a store becomes a small, swappable detail for one narrow slice of your app.
 
-This is the deeper dive under [how to choose state management for a React app](/blog/react-state-management). I'll cover where each option fails, then show what I actually run in production — an offline-first finance app where a local database is the source of truth (Hunter Vault), and a Supabase-backed POS (Zendtri) — and why "which store wins?" is the least interesting decision I make.
+This is the deeper dive under [how to choose state management for a React app](/blog/react-state-management/). I'll cover where each option fails, then show what I actually run in production — an offline-first finance app where a local database is the source of truth (Hunter Vault), and a Supabase-backed POS (Zendtri) — and why "which store wins?" is the least interesting decision I make.
 
 ## Quick summary
 
@@ -51,7 +50,7 @@ There's a nuance here that shapes my own stack: in an offline-first app, the loc
 
 I don't treat every kind of state as one global-state problem. Here's the ownership, by app.
 
-**Hunter Vault** is offline-first, so its centre of gravity isn't a store at all — it's the local database. Accounts, transactions, budgets, debts, goals and recurring records live in Dexie/IndexedDB, which is the local source of truth; the UI shouldn't wait on the network to show them. Components read that data through Dexie-backed reactive hooks — in some areas the Dexie subscription is wrapped in feature-specific hooks so components don't need to understand the database implementation directly. Derived numbers like account balances or a savings-goal's progress are computed from those records rather than stored as separate state (I explain why in [the architecture write-up](/blog/react-application-architecture), where getting this wrong once made balances stop matching the user's bank). Supabase and Firebase handle remote concerns — synchronization, auth, analytics — behind the sync layer. Temporary interface state stays in `useState` and feature hooks. App-wide concerns are handled independently with no shared context layer: theme is backed by Dexie — a `useLiveQuery()` hook reads the equipped settings row from IndexedDB so every component calling `useTheme()` stays reactive without a provider; haptics preference lives in `localStorage` with a custom `window.dispatchEvent` event bus (`hv:haptic-changed`) so listeners stay in sync across components; session is plain `useState` inside `useAuth()`, seeded by `supabase.auth.getSession()` and kept fresh via `onAuthStateChange()`. Zustand appears exactly once: a `persist` store for subscription state in `useRevenueCat.tsx`.
+**Hunter Vault** is offline-first, so its centre of gravity isn't a store at all — it's the local database. Accounts, transactions, budgets, debts, goals and recurring records live in Dexie/IndexedDB, which is the local source of truth; the UI shouldn't wait on the network to show them. Components read that data through Dexie-backed reactive hooks — in some areas the Dexie subscription is wrapped in feature-specific hooks so components don't need to understand the database implementation directly. Derived numbers like account balances or a savings-goal's progress are computed from those records rather than stored as separate state (I explain why in [the architecture write-up](/blog/react-application-architecture/), where getting this wrong once made balances stop matching the user's bank). Supabase and Firebase handle remote concerns — synchronization, auth, analytics — behind the sync layer. Temporary interface state stays in `useState` and feature hooks. App-wide concerns are handled independently with no shared context layer: theme is backed by Dexie — a `useLiveQuery()` hook reads the equipped settings row from IndexedDB so every component calling `useTheme()` stays reactive without a provider; haptics preference lives in `localStorage` with a custom `window.dispatchEvent` event bus (`hv:haptic-changed`) so listeners stay in sync across components; session is plain `useState` inside `useAuth()`, seeded by `supabase.auth.getSession()` and kept fresh via `onAuthStateChange()`. Zustand appears exactly once: a `persist` store for subscription state in `useRevenueCat.tsx`.
 
 **Zendtri** is server-first, so it sits differently. Supabase (Postgres with Row Level Security) is the source of truth for POS, inventory, purchasing, receiving, branches and reporting. Data fetching is mid-migration: around 13 hooks — `useBranches`, `useAlerts`, `useSubscription`, `useSales`, and others — use TanStack Query's `useQuery`/`useMutation`; around 10 more — `useItems`, `usePurchaseOrders`, `useTransfers`, `useReports`, `usePromotions` and others — still use the classic `useState` + `useEffect` pattern. Both reach Supabase through the same `api-client.ts` Edge Function wrapper; there are no direct `supabase.from()` calls in the hooks layer. React owns temporary screen and form state. There's no TanStack Query equivalent in Hunter Vault; when Dexie is your source of truth, `useLiveQuery()` handles the reactive reads and a query cache adds nothing.
 
@@ -72,7 +71,7 @@ The reason "Context vs Zustand" feels hard is that people are trying to make one
 
 ## Tradeoffs
 
-Every one of these carries a cost. Context over-used causes broad re-renders; a store adds structure you have to maintain; a server-state layer is a dependency to learn and configure. The offline-first choice that makes Dexie the source of truth in Hunter Vault has real tradeoffs of its own — synchronization, conflicts, migrations — which I dig into in [building an offline-first React app with Dexie](/blog/offline-first-react-dexie-indexeddb). Matching each tool to its category is what keeps you from adopting all of them by reflex.
+Every one of these carries a cost. Context over-used causes broad re-renders; a store adds structure you have to maintain; a server-state layer is a dependency to learn and configure. The offline-first choice that makes Dexie the source of truth in Hunter Vault has real tradeoffs of its own — synchronization, conflicts, migrations — which I dig into in [building an offline-first React app with Dexie](/blog/offline-first-react-dexie-indexeddb/). Matching each tool to its category is what keeps you from adopting all of them by reflex.
 
 ## My recommendation
 
@@ -97,6 +96,6 @@ Less than you'd expect. When a local database like Dexie is your source of truth
 It's the opposite. The decision is *which category a piece of state is in*; once you know that, the tool follows. Using each for its job — and recognizing most state belongs in the database — is more disciplined than routing everything through one store.
 
 
-**Not sure where your app's state should live?** [See how I help teams design and build production React applications →](/#)
+**Not sure where your app's state should live?** [See how I help teams design and build production React applications →](/web-development-services/)
 
-*Related: [how to choose state management for a React app](/blog/react-state-management) · [building an offline-first React app with Dexie](/blog/offline-first-react-dexie-indexeddb) · [the React hub](/react/)*
+*Related: [how to choose state management for a React app](/blog/react-state-management/) · [building an offline-first React app with Dexie](/blog/offline-first-react-dexie-indexeddb/) · [the React hub](/react/)*

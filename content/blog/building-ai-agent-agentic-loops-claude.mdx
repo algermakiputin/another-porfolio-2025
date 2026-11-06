@@ -1,8 +1,8 @@
 ---
-title: "Building Your First AI Agent: A Guide to Agentic Loops (Observe-Think-Act) with Claude"
+title: "Agentic Loops: Build Your First AI Agent"
 description: "A practical guide to building AI agents that actually work—covering the observe-think-act loop, tool use, and the real failure modes that trip up first-time agent builders."
+lastUpdated: "Nov 06, 2026"
 publishedDate: "Aug 31, 2026"
-readTime: "11 min read"
 category: "AI"
 tags: ["Claude", "AI Agents", "Agentic Loops", "LLM", "Developer Tools", "Anthropic"]
 image: "/images/blog/covers/building-ai-agent-agentic-loops-claude.webp"
@@ -332,5 +332,25 @@ Once you have the basic loop, the useful extensions are:
 
 The pattern scales. The fundamentals don't change. Master the loop first, and everything else is just configuration.
 
-[INTERNAL-LINK: persistent memory for agents → how to give your Claude agent persistent memory]
-[INTERNAL-LINK: agentic coding → using Claude to write, edit and execute code autonomously]
+## FAQs
+
+### What is the observe-think-act loop?
+
+Observe (assemble state into messages), think (the model responds), act (execute tool calls and feed results back), repeat. The loop — not any single call — is what makes the system an agent.
+
+### How does the loop know when to stop?
+
+It doesn't decide; Claude does, by returning a stop reason of `end_turn` instead of `tool_use`. Your code drives the cycle — plus a max-iterations guard so a confused model can't spin forever.
+
+### What's the most common first-agent failure?
+
+Tool errors swallowed by your code instead of fed back with `is_error`, so the model never learns the call failed. After that: missing iteration caps, bloated tool outputs eating context, and too many overlapping tools.
+
+### Should I use the SDK Tool Runner or hand-roll the loop?
+
+Use the runner when you don't need custom behavior — it handles history, plumbing, and stop detection. Hand-roll when you inject state mid-run, truncate outputs conditionally, or monitor between iterations.
+
+
+**Building an AI agent for your product?** [See how I help teams design and ship production AI features →](/contact/)
+
+*Related: [persistent memory for agents](/blog/claude-agent-persistent-memory/) · [agentic coding](/blog/agentic-coding-claude-write-edit-execute/) · [agents operating a computer](/blog/claude-computer-use-screen-reading-clicks/)*

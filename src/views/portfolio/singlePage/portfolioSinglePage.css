@@ -35,6 +35,7 @@
 
 /* ---------------------------------------------------------------- Hero ---- */
 .pf-case-hero {
+  padding-inline: var(--pf-gutter);
   padding-block: calc(var(--pf-header-height) + clamp(2.5rem, 6vw, 4.5rem))
     clamp(3rem, 6vw, 5rem);
   overflow: hidden;
@@ -184,6 +185,7 @@
 
 /* ------------------------------------------------------- Evidence strip ---- */
 .pf-case-evidence {
+  padding-inline: var(--pf-gutter);
   padding-block: 0;
   border-bottom: 1px solid var(--case-line);
   background: var(--pf-ink-900);
@@ -223,6 +225,7 @@
 
 /* ------------------------------------------------------------- Chapters ---- */
 .pf-case-body {
+  padding-inline: var(--pf-gutter);
   padding-block: clamp(3rem, 6vw, 5.5rem);
 }
 .pf-case-body__grid {

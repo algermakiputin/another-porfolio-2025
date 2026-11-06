@@ -1,8 +1,8 @@
 ---
 title: "Turning a React Web App into iOS and Android Apps with Capacitor"
 description: "How I turned a React web app into iOS and Android apps with Capacitor—project setup, native builds, store releases, and when React Native fits better."
+lastUpdated: "Nov 06, 2026"
 publishedDate: "Jun 17, 2026"
-readTime: "8 min read"
 category: "React"
 tags: ["React", "Capacitor", "iOS", "Android", "Mobile", "Hunter Vault"]
 image: "/images/blog/covers/react-web-app-to-ios-android-capacitor.webp"
@@ -25,7 +25,7 @@ This article covers how that actually works, how the project and native builds a
 
 The core difference is what you reuse. React Native renders your UI with native components, so you build (or rebuild) the interface in RN's world. Capacitor takes the web app you already have, runs it in a native WebView, and bridges to native features through plugins — so your React components, styles and logic come along unchanged.
 
-For Hunter Vault that made Capacitor the obvious choice. It was already a React web app; it's fundamentally a data-and-UI app rather than one built around native-heavy interactions; and the goal was to reach both stores quickly from one codebase. Capacitor let me ship the same app to web, iOS and Android and keep improving it in one place. Rewriting the UI in React Native would have bought little for this particular app and cost a lot. That decision goes the other way for different apps, which I'll get to — and I compare the two in depth in [React Native vs Capacitor](/blog/react-native-vs-capacitor).
+For Hunter Vault that made Capacitor the obvious choice. It was already a React web app; it's fundamentally a data-and-UI app rather than one built around native-heavy interactions; and the goal was to reach both stores quickly from one codebase. Capacitor let me ship the same app to web, iOS and Android and keep improving it in one place. Rewriting the UI in React Native would have bought little for this particular app and cost a lot. That decision goes the other way for different apps, which I'll get to — and I compare the two approaches in depth in [React Native vs Capacitor](/blog/react-native-vs-capacitor/).
 
 ## One codebase, three targets
 
@@ -37,7 +37,7 @@ Your React app builds to web assets the way it always has — in Hunter Vault's 
 
 ## Project structure and native builds
 
-The main structural rule is to keep native concerns isolated so they don't bleed into shared code. The generated `ios/` and `android/` projects live alongside your `src/`, and platform-specific bits (a native plugin call here, a platform check there) are kept at the edges rather than scattered through feature code — the same [feature-based architecture](/blog/react-application-architecture) I use everywhere else applies.
+The main structural rule is to keep native concerns isolated so they don't bleed into shared code. The generated `ios/` and `android/` projects live alongside your `src/`, and platform-specific bits (a native plugin call here, a platform check there) are kept at the edges rather than scattered through feature code — the same [feature-based architecture](/blog/react-application-architecture/) I use everywhere else applies.
 
 The day-to-day build flow is: build the web app, run Capacitor's sync to push that build into the native projects, then build and sign in Xcode or Android Studio. Native capabilities come through plugins — for example, subscriptions in Hunter Vault run through RevenueCat, which provides the native billing integration behind a JavaScript API, so the React side calls into it without touching Swift or Kotlin.
 
@@ -51,7 +51,7 @@ Running a web UI as a native app is mostly smooth, but a few things need explici
 - **The Android hardware back button.** It isn't a browser back button — you handle it explicitly so it navigates within the app (or exits) the way users expect.
 - **Native feel.** Small touches like haptics on key interactions make a web UI feel like an app rather than a website in a frame.
 - **WebView differences.** iOS uses WKWebView and Android uses a Chromium-based WebView whose version varies by device, so behaviour isn't identical across platforms and you test on both.
-- **Performance on low-end Android.** The WebView isn't as fast as native rendering, and it shows most on cheaper Android hardware — heavy lists and animations are where you feel it, which is where the [performance work](/blog/react-performance-problems) (virtualization especially) pays off.
+- **Performance on low-end Android.** The WebView isn't as fast as native rendering, and it shows most on cheaper Android hardware — heavy lists and animations are where you feel it, which is where the [performance work](/blog/react-performance-problems/) (virtualization especially) pays off.
 
 Three of these needed more than a standard fix in Hunter Vault:
 
@@ -63,11 +63,11 @@ Three of these needed more than a standard fix in Hunter Vault:
 
 ## Shipping to the App Store and Google Play
 
-This is the part that surprises web developers, because it's pure native-platform process. For iOS you build in Xcode, upload to App Store Connect, typically test through TestFlight, and go through Apple's review. For Android you produce a signed app bundle, upload it to the Play Console, roll it out through testing tracks, and go through Google's review. Both stores review submissions, so you plan for review time rather than shipping on demand, and both require the usual native paperwork — signing, identifiers, store listings and privacy declarations. If you're selling subscriptions, they run through each store's billing, which is exactly what a layer like RevenueCat manages across both platforms.
+This is the part that surprises web developers, because it's pure native-platform process. For iOS you build in Xcode, upload to App Store Connect, typically test through TestFlight, and go through [Apple's review](/blog/apple-rejected-app-cant-find-in-app-purchases/) — which rejected one of my releases three times before I fixed the submission, not the code. For Android you produce a signed app bundle, upload it to the Play Console, roll it out through testing tracks, and go through Google's review. Both stores review submissions, so you plan for review time rather than shipping on demand, and both require the usual native paperwork — signing, identifiers, store listings and privacy declarations. If you're selling subscriptions, they run through each store's billing, which is exactly what a layer like RevenueCat manages across both platforms.
 
 ## When React Native would be the better choice
 
-I'd reach for React Native (or fully native) when the app is built around things a WebView does poorly: heavy native UI, deep native integrations, demanding animations or graphics, or when a truly native look and feel is central to the product. Capacitor's sweet spot is the opposite — you have or want a web app, your UI is mostly standard, and reaching multiple platforms from one codebase matters more than squeezing out native-grade rendering. It's not that one is better; they're bets on different constraints, which is the whole subject of the [comparison article](/blog/react-native-vs-capacitor).
+I'd reach for React Native (or fully native) when the app is built around things a WebView does poorly: heavy native UI, deep native integrations, demanding animations or graphics, or when a truly native look and feel is central to the product. Capacitor's sweet spot is the opposite — you have or want a web app, your UI is mostly standard, and reaching multiple platforms from one codebase matters more than squeezing out native-grade rendering. It's not that one is better; they're bets on different constraints, which is the whole subject of the [comparison article](/blog/react-native-vs-capacitor/).
 
 ## Tradeoffs
 
@@ -81,17 +81,17 @@ Yes. It's installable, distributed through the App Store and Google Play, and ca
 
 ### Capacitor or React Native — which should I use?
 
-Capacitor if you want to reuse a web app and your UI is mostly standard; React Native (or native) if the app needs heavy native UI or performance a WebView can't deliver. I go through the full decision in the dedicated comparison.
+Capacitor if you want to reuse a web app and your UI is mostly standard; React Native (or native) if the app needs heavy native UI or performance a WebView can't deliver. I go through the full decision in [the dedicated comparison](/blog/react-native-vs-capacitor/).
 
 ### Does my offline-first data still work in the app?
 
-Yes. IndexedDB works in the WebView, which is exactly how Hunter Vault stays offline-first on mobile — the local database and reactive queries behave the same as on the web. I cover that in [building an offline-first React app with Dexie](/blog/offline-first-react-dexie-indexeddb).
+Yes. IndexedDB works in the WebView, which is exactly how Hunter Vault stays offline-first on mobile — the local database and reactive queries behave the same as on the web. I cover that in [building an offline-first React app with Dexie](/blog/offline-first-react-dexie-indexeddb/).
 
 ### How do subscriptions work in a Capacitor app?
 
 Through the stores' billing systems, accessed via a plugin. In Hunter Vault that's RevenueCat, which provides the native billing integration behind a JavaScript API so the React side stays platform-agnostic.
 
 
-**Want to take your React app to the App Store and Google Play?** [See how I help teams design and build production React and mobile applications →](/#)
+**Want to take your React app to the App Store and Google Play?** [See how I help teams design and build production React and mobile applications →](/mobile-app-development/)
 
-*Related: [React Native vs Capacitor: how I choose](/blog/react-native-vs-capacitor) · [building an offline-first React app with Dexie](/blog/offline-first-react-dexie-indexeddb) · [the React hub](/react/)*
+*Related: [React Native vs Capacitor: how I choose](/blog/react-native-vs-capacitor/) · [building an offline-first React app with Dexie](/blog/offline-first-react-dexie-indexeddb/) · [the React hub](/react/)*

@@ -5,7 +5,7 @@ import { SERVICES } from "../../data/services";
 const BASE_URL = "https://algermakiputin.com";
 const PAGE_URL = `${BASE_URL}/small-business-web-design-philippines/`;
 const OG_IMAGE = `${BASE_URL}/images/og-cover.jpg`;
-const TITLE = "Affordable Small Business Web Design Philippines | Alger Makiputin";
+const TITLE = "Affordable Small Business Web Design Philippines";
 const DESCRIPTION =
   "Affordable professional websites for small businesses across the Philippines — mobile-friendly, SEO-optimized, built to bring in more customers from Google.";
 
@@ -28,14 +28,14 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     siteName: "Alger Makiputin",
-    title: TITLE,
+    title: `${TITLE} | Alger Makiputin`,
     description: DESCRIPTION,
     url: PAGE_URL,
     images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Affordable Small Business Web Design Philippines" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: TITLE,
+    title: `${TITLE} | Alger Makiputin`,
     description: DESCRIPTION,
     images: [OG_IMAGE],
     creator: "@algermakiputin",

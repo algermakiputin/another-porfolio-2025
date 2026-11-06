@@ -2,7 +2,6 @@
 title: "React Folder Structure for Scalable Applications"
 description: "The React folder structure I use for scalable apps: feature-based organization with real examples for transactions, budgets and accounts."
 publishedDate: "Jul 01, 2026"
-readTime: "12 min read"
 category: "React"
 tags: ["React", "Architecture", "TypeScript", "Feature-Based", "Hunter Vault"]
 image: "/images/blog/covers/react-folder-structure.webp"
@@ -31,7 +30,7 @@ The deeper issue is that proximity is following the wrong axis. Files that chang
 
 ## The folder structure I use
 
-Here's the top-level shape. It's the same structure I describe in [my production React architecture guide](/blog/react-application-architecture); this article zooms into the folders themselves.
+Here's the top-level shape. It's the same structure I describe in [my production React architecture guide](/blog/react-application-architecture/); this article zooms into the folders themselves.
 
 ```
 src/
@@ -131,7 +130,7 @@ The structure isn't fixed at every size.
 
 **Small apps** don't need most of it. If you have a handful of screens, skip the per-feature `index.ts` and the shared services layer — feature folders alone are plenty, and boundaries you don't need yet are just friction.
 
-**Medium apps** are where the full structure earns its keep. Hunter Vault reached this point once accounts, transfers, debts, goals, bills, reports and the rest all touched the same financial data — strict feature APIs and a real shared-infrastructure layer stopped being optional. (I walk through that transition in more depth in the [architecture guide](/blog/react-application-architecture).)
+**Medium apps** are where the full structure earns its keep. Hunter Vault reached this point once accounts, transfers, debts, goals, bills, reports and the rest all touched the same financial data — strict feature APIs and a real shared-infrastructure layer stopped being optional. (I walk through that transition in more depth in the [architecture guide](/blog/react-application-architecture/).)
 
 **Large codebases and teams** add one more level: group related features into domain areas, and *enforce* the import boundaries with lint rules rather than trusting them. At real scale you might extract the shared layers into their own packages. The shape barely changes; the enforcement does.
 
@@ -158,6 +157,6 @@ No. Use it at the feature boundary as the public API, and skip it elsewhere. Bar
 Those folders organize by *what a file is*; feature folders organize by *what a file is for*. Since files change together by feature, not by type, feature-based grouping keeps related code together and scales far better as the app grows.
 
 
-**Want a codebase that stays easy to change as it grows?** [See how I help teams design and build production React applications →](/#)
+**Want a codebase that stays easy to change as it grows?** [See how I help teams design and build production React applications →](/web-development-services/)
 
-*Related: [how I structure production React applications](/blog/react-application-architecture) · [how to choose state management for a React app](/blog/react-state-management) · [the React hub](/react/)*
+*Related: [how I structure production React applications](/blog/react-application-architecture/) · [how to choose state management for a React app](/blog/react-state-management/) · [the React hub](/react/)*

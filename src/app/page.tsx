@@ -6,9 +6,31 @@ import type { BlogMeta } from "../types/BlogType";
 export const metadata: Metadata = {
   title: "Alger Makiputin — Product Engineer | React, React Native & TypeScript",
   description:
-    "Product Engineer with 8+ years of experience shipping production software across web, iOS, Android, APIs, and data using React, React Native, TypeScript, and Node.js.",
+    "Portfolio of product engineer and technical lead Alger Makiputin. Explore shipped apps, SaaS products, mobile engineering, and case studies.",
   alternates: {
     canonical: "https://algermakiputin.com/",
+  },
+  openGraph: {
+    type: "website",
+    url: "https://algermakiputin.com/",
+    title: "Alger Makiputin — Product Engineer",
+    description:
+      "Product engineering across web and mobile. Explore Alger Makiputin's projects, experience, and technical writing.",
+    images: [
+      {
+        url: "/images/og-cover.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Alger Makiputin — Product Engineer, Web & Mobile",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Alger Makiputin — Product Engineer",
+    description:
+      "Product engineering across web and mobile. Explore Alger Makiputin's projects, experience, and technical writing.",
+    images: ["/images/og-cover.jpg"],
   },
 };
 
@@ -18,9 +40,9 @@ const jsonLd = {
   name: "Alger Makiputin",
   url: "https://algermakiputin.com",
   image: "https://algermakiputin.com/images/profile.webp",
-  jobTitle: "Product Engineer",
+  jobTitle: "Product Engineer and Software Engineering Team Lead",
   description:
-    "Product Engineer with 8+ years of experience shipping production software across web, iOS, Android, APIs, and data using React, React Native, TypeScript, and Node.js.",
+    "Product engineer and technical lead building production software across web, iOS, Android, APIs, and data.",
   sameAs: [
     "https://ph.linkedin.com/in/alger-makiputin",
     "https://github.com/algermakiputin",

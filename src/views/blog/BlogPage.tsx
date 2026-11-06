@@ -1,7 +1,7 @@
 "use client";
 
-import { useMemo } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
+import { Suspense, useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import type { BlogMeta } from "../../types/BlogType";
@@ -18,15 +18,17 @@ const LABEL_TO_SLUG: Record<string, string> = {
   "AI & Agents": "ai-agents",
   React: "react",
   "Product & Growth": "product",
+  Shipping: "shipping",
 };
 
 const LABEL_COLOR: Record<string, string> = {
   "AI & Agents": "var(--portfolio-orange, #e7652d)",
   React: "var(--portfolio-lime, #b7f34a)",
   "Product & Growth": "rgba(242, 235, 221, 0.65)",
+  Shipping: "#a78bfa",
 };
 
-const TOPIC_ORDER = ["AI & Agents", "React", "Product & Growth"];
+const TOPIC_ORDER = ["AI & Agents", "React", "Product & Growth", "Shipping"];
 
 function normalizeCategory(raw: string): string {
   return RAW_TO_LABEL[raw] ?? raw;
@@ -103,12 +105,36 @@ function NoteRow({ post, rowNum, catColor }: NoteRowProps) {
   );
 }
 
+// ── TopicFromUrl ─────────────────────────────────────────────────
+// Reads ?topic= inside a suspended island so the rest of the page can
+// prerender statically. Reports the URL topic once it resolves.
+function TopicFromUrl({ onTopic }: { onTopic: (slug: string) => void }) {
+  const searchParams = useSearchParams();
+  const topic = searchParams.get("topic") ?? "all";
+  useEffect(() => {
+    onTopic(topic);
+  }, [topic, onTopic]);
+  return null;
+}
+
 // ── BlogPage ─────────────────────────────────────────────────────
 type Props = { posts: BlogMeta[] };
 
+const VALID_SLUGS = ["all", ...Object.values(LABEL_TO_SLUG)];
+
 export default function BlogPage({ posts }: Props) {
-  const searchParams = useSearchParams();
-  const router = useRouter();
+  // Filter state lives here (SSR-safe); the URL is read by TopicFromUrl
+  // after hydration and applied on top of the prerendered full list.
+  const [urlTopic, setUrlTopic] = useState("all");
+
+  // Keep the filter in sync with browser back/forward navigation.
+  useEffect(() => {
+    const onPopState = () => {
+      setUrlTopic(new URLSearchParams(window.location.search).get("topic") ?? "all");
+    };
+    window.addEventListener("popstate", onPopState);
+    return () => window.removeEventListener("popstate", onPopState);
+  }, []);
 
   // Normalise categories once
   const allPosts: NormalisedPost[] = useMemo(
@@ -131,8 +157,8 @@ export default function BlogPage({ posts }: Props) {
     [topicCounts]
   );
 
-  // Active filter slug from URL
-  const activeSlug = searchParams.get("topic") ?? "all";
+  // Active filter slug from URL (unknown values fall back to "all")
+  const activeSlug = VALID_SLUGS.includes(urlTopic) ? urlTopic : "all";
 
   // Filtered posts
   const filteredPosts = useMemo(() => {
@@ -168,27 +194,33 @@ export default function BlogPage({ posts }: Props) {
   const showYearGroups = years.length > 1;
 
   function setTopic(slug: string) {
-    const params = new URLSearchParams(searchParams.toString());
+    setUrlTopic(slug);
+    // Static export: update the URL without a navigation.
+    const params = new URLSearchParams(window.location.search);
     if (slug === "all") params.delete("topic");
     else params.set("topic", slug);
     const qs = params.toString();
-    router.push(`/blog${qs ? `?${qs}` : ""}`, { scroll: false });
+    window.history.pushState(null, "", `/blog${qs ? `?${qs}` : ""}`);
   }
 
   const catColor = (label: string) => LABEL_COLOR[label] ?? "var(--portfolio-orange)";
 
   const latestPost = allPosts[0] ?? null;
-  const currentYear = new Date().getFullYear();
-
   return (
-    <main className="archive-page" id="main-content">
+    <div className="archive-page">
+      <Suspense fallback={null}>
+        <TopicFromUrl onTopic={setUrlTopic} />
+      </Suspense>
 
       {/* ── Hero ────────────────────────────────────────────────── */}
       <header className="archive-hero">
         <div className="pf-container archive-hero__inner">
           <div className="archive-hero__title-col">
-            <p className="archive-kicker">Writing / Field Notes</p>
-            <h1 className="archive-title">Field<br />Notes</h1>
+            <p className="archive-kicker"><span aria-hidden="true">—</span> Blog / Technical articles</p>
+            <h1 className="archive-title">Latest<br />Articles</h1>
+            <p className="archive-hero__edition">
+              Index <span>/</span> {allPosts.length} published articles
+            </p>
           </div>
           <div className="archive-hero__desc-col">
             <p className="archive-intro">
@@ -196,33 +228,32 @@ export default function BlogPage({ posts }: Props) {
               AI-assisted development, and the lessons behind shipping real
               software.
             </p>
-            <p className="archive-count">{allPosts.length} published notes</p>
             {latestPost && (
-              <div className="blog-hero__latest" aria-label="Latest entry">
+              <Link
+                href={`/blog/${latestPost.slug}`}
+                className="blog-hero__latest"
+                aria-label={`Read latest entry: ${latestPost.title}`}
+              >
                 <span className="blog-hero__latest-label">
-                  LATEST ENTRY / {String(allPosts.length).padStart(3, "0")}
+                  LATEST ARTICLE / {String(allPosts.length).padStart(3, "0")}
                 </span>
-                <span className="blog-hero__latest-cat">
-                  {normalizeCategory(latestPost.category).toUpperCase()}
+                <strong>{latestPost.shortTitle ?? latestPost.title}</strong>
+                <span className="blog-hero__latest-summary">{latestPost.description}</span>
+                <span className="blog-hero__latest-meta">
+                  <span className="blog-hero__latest-cat">
+                    {normalizeCategory(latestPost.category).toUpperCase()}
+                  </span>
+                  <span>{latestPost.readTime?.toUpperCase()}</span>
+                  <time dateTime={toIsoDate(latestPost.publishedDate)}>
+                    {latestPost.publishedDate?.toUpperCase()}
+                  </time>
                 </span>
-                <span className="blog-hero__latest-read">
-                  {latestPost.readTime?.toUpperCase()}
-                </span>
-                <time
-                  className="blog-hero__latest-date"
-                  dateTime={toIsoDate(latestPost.publishedDate)}
-                >
-                  {latestPost.publishedDate?.toUpperCase()}
-                </time>
-              </div>
+                <span className="blog-hero__latest-action" aria-hidden="true">READ ARTICLE ↗</span>
+              </Link>
             )}
           </div>
         </div>
-        {/* Ghost issue number — cropped at right edge, sits behind content */}
-        <div className="blog-hero__folio" aria-hidden="true">
-          <span>{String(allPosts.length).padStart(3, "0")}</span>
-          <small>FIELD NOTES / {currentYear}</small>
-        </div>
+        <span className="blog-hero__scene-label" aria-hidden="true">BLOG / ARTICLE INDEX</span>
       </header>
 
       {/* ── Topic navigation ────────────────────────────────────── */}
@@ -260,8 +291,8 @@ export default function BlogPage({ posts }: Props) {
         {/* Empty filtered state */}
         {filteredPosts.length === 0 && (
           <div className="archive-empty" role="status">
-            <p>No field notes in this topic yet.</p>
-            <Link href="/blog" className="archive-empty__link">View all notes →</Link>
+            <p>No articles in this topic yet.</p>
+            <Link href="/blog" className="archive-empty__link">View all articles →</Link>
           </div>
         )}
 
@@ -317,7 +348,7 @@ export default function BlogPage({ posts }: Props) {
                   <span aria-hidden="true">·</span>
                   <span>{featuredPost.readTime}</span>
                 </div>
-                <span className="note-action" aria-hidden="true">Read field note →</span>
+                <span className="note-action" aria-hidden="true">Read article →</span>
               </div>
             </Link>
           </article>
@@ -327,8 +358,11 @@ export default function BlogPage({ posts }: Props) {
         {listPosts.length > 0 && (
           <section className="notes-index" aria-label="All field notes">
             <header className="notes-index__header">
-              <h2>All notes</h2>
-              <span>Newest first</span>
+              <div>
+                <span className="notes-index__eyebrow">Article index</span>
+                <h2>All articles</h2>
+              </div>
+              <span>{listPosts.length} entries / newest first</span>
             </header>
             <div className="notes-index__list">
               {showYearGroups
@@ -363,11 +397,11 @@ export default function BlogPage({ posts }: Props) {
 
         {/* Static CTA */}
         <div className="archive-cta">
-          <p className="archive-cta__label">Building something complex?</p>
+          <p className="archive-cta__label"><span>NEXT STEP</span> Building something complex?</p>
           <Link href="/contact" className="archive-cta__link">LET&apos;S TALK →</Link>
         </div>
 
       </div>
-    </main>
+    </div>
   );
 }

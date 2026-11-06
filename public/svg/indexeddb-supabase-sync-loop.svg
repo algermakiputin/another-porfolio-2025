@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 560" font-family="-apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#334155"/>
+    </marker>
+    <marker id="arrow-indigo" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4338ca"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="760" height="560" fill="#ffffff"/>
+  <text x="380" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#0f172a">The sync loop: Dexie ⇄ Supabase</text>
+
+  <!-- Device column -->
+  <rect x="40" y="66" width="200" height="120" rx="8" fill="#f1f5f9" stroke="#334155" stroke-width="1.5"/>
+  <text x="140" y="94" text-anchor="middle" font-size="13" font-weight="700" fill="#0f172a">Dexie (device)</text>
+  <text x="140" y="116" text-anchor="middle" font-size="12" fill="#475569">source of truth</text>
+  <text x="140" y="136" text-anchor="middle" font-size="12" fill="#475569">++id · uuid · updatedAt</text>
+  <text x="140" y="156" text-anchor="middle" font-size="12" fill="#475569">reactive queries → UI</text>
+
+  <!-- Cloud column -->
+  <rect x="520" y="66" width="200" height="120" rx="8" fill="#eef2ff" stroke="#4338ca" stroke-width="1.5"/>
+  <text x="620" y="94" text-anchor="middle" font-size="13" font-weight="700" fill="#312e81">Supabase (cloud)</text>
+  <text x="620" y="116" text-anchor="middle" font-size="12" fill="#312e81">mirror + backup</text>
+  <text x="620" y="136" text-anchor="middle" font-size="12" fill="#312e81">rows keyed by uuid</text>
+  <text x="620" y="156" text-anchor="middle" font-size="12" fill="#312e81">tombstones table</text>
+
+  <!-- Push arrow (top) -->
+  <line x1="240" y1="96" x2="520" y2="96" stroke="#334155" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="380" y="86" text-anchor="middle" font-size="11" font-weight="700" fill="#0f172a">PUSH</text>
+  <text x="380" y="122" text-anchor="middle" font-size="11" fill="#475569">changed records + tombstones</text>
+  <text x="380" y="138" text-anchor="middle" font-size="11" fill="#475569">since push watermark</text>
+
+  <!-- Pull arrow (bottom) -->
+  <line x1="520" y1="168" x2="240" y2="168" stroke="#4338ca" stroke-width="1.5" marker-end="url(#arrow-indigo)"/>
+  <text x="380" y="160" text-anchor="middle" font-size="11" font-weight="700" fill="#312e81">PULL</text>
+  <text x="380" y="196" text-anchor="middle" font-size="11" fill="#475569">remote changes merged into Dexie</text>
+
+  <!-- Rules row -->
+  <rect x="40" y="230" width="200" height="110" rx="8" fill="#f1f5f9" stroke="#334155" stroke-width="1.5"/>
+  <text x="140" y="256" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">Conflicts</text>
+  <text x="140" y="278" text-anchor="middle" font-size="12" fill="#475569">last write wins</text>
+  <text x="140" y="298" text-anchor="middle" font-size="12" fill="#475569">on updatedAt</text>
+  <text x="140" y="318" text-anchor="middle" font-size="12" fill="#475569">no prompts, no queue</text>
+
+  <rect x="280" y="230" width="200" height="110" rx="8" fill="#f1f5f9" stroke="#334155" stroke-width="1.5"/>
+  <text x="380" y="256" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">Deletes</text>
+  <text x="380" y="278" text-anchor="middle" font-size="12" fill="#475569">{ table, uuid,</text>
+  <text x="380" y="298" text-anchor="middle" font-size="12" fill="#475569">deletedAt } tombstones</text>
+  <text x="380" y="318" text-anchor="middle" font-size="12" fill="#475569">remote deletes always win</text>
+
+  <rect x="520" y="230" width="200" height="110" rx="8" fill="#f1f5f9" stroke="#334155" stroke-width="1.5"/>
+  <text x="620" y="256" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">Failures</text>
+  <text x="620" y="278" text-anchor="middle" font-size="12" fill="#475569">watermarks hold,</text>
+  <text x="620" y="298" text-anchor="middle" font-size="12" fill="#475569">pushes replay by uuid,</text>
+  <text x="620" y="318" text-anchor="middle" font-size="12" fill="#475569">retries stay quiet</text>
+
+  <!-- Local writes note -->
+  <rect x="40" y="370" width="680" height="64" rx="8" fill="#eef2ff" stroke="#4338ca" stroke-width="1.5"/>
+  <text x="380" y="396" text-anchor="middle" font-size="13" font-weight="700" fill="#312e81">Local writes never block on sync</text>
+  <text x="380" y="418" text-anchor="middle" font-size="12" fill="#312e81">user acts → Dexie updates → UI re-renders · sync reads what happened afterward</text>
+
+  <text x="380" y="486" text-anchor="middle" font-size="12" fill="#64748b">Full mechanics in “Synchronizing an Offline-First Dexie Database with Supabase”</text>
+  <text x="380" y="520" text-anchor="middle" font-size="12" fill="#64748b">algermakiputin.com</text>
+</svg>

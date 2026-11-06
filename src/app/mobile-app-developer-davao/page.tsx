@@ -5,7 +5,7 @@ import { SERVICES } from "../../data/services";
 const BASE_URL = "https://algermakiputin.com";
 const PAGE_URL = `${BASE_URL}/mobile-app-developer-davao/`;
 const OG_IMAGE = `${BASE_URL}/images/og-cover.jpg`;
-const TITLE = "Custom Mobile App Developer in Davao City | Alger Makiputin";
+const TITLE = "Custom Mobile App Developer in Davao City";
 const DESCRIPTION =
   "Custom iOS & Android app developer in Davao City — React Native for local businesses. Automate operations, reach more customers, grow faster.";
 
@@ -28,14 +28,14 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     siteName: "Alger Makiputin",
-    title: TITLE,
+    title: `${TITLE} | Alger Makiputin`,
     description: DESCRIPTION,
     url: PAGE_URL,
     images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Custom Mobile App Developer Davao City iOS Android" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: TITLE,
+    title: `${TITLE} | Alger Makiputin`,
     description: DESCRIPTION,
     images: [OG_IMAGE],
     creator: "@algermakiputin",

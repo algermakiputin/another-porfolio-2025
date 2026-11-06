@@ -1,0 +1,142 @@
+---
+title: "Synchronizing an Offline-First Dexie Database with Supabase"
+description: "The sync engine behind an offline-first app—dual-key identity, tombstone deletes, last-write-wins conflicts, and merging Supabase changes back into Dexie."
+publishedDate: "Nov 04, 2026"
+category: "React"
+tags: ["React", "Dexie", "IndexedDB", "Supabase", "Sync", "Hunter Vault"]
+image: "/images/blog/covers/synchronizing-indexeddb-with-supabase.webp"
+---
+
+The short version: every record carries two keys — a local auto-increment id the app uses and a UUID the cloud uses. Changes push to Supabase in the background, remote changes merge back into Dexie, deletes travel as tombstones, and conflicts resolve to whichever side wrote last. Local writes never wait on the network, so the app stays instant offline and converges when a connection returns.
+
+This is the deep-dive I promised in [building an offline-first React app with Dexie](/blog/offline-first-react-dexie-indexeddb/). That article covered the local side — the schema, migrations, and reactive queries. This one covers the genuinely hard part: the sync engine between IndexedDB and Supabase, as it runs in production in Hunter Vault. (Hunter Vault also syncs to Firebase for other remote concerns; this article covers the Supabase path, which is where the record sync lives.)
+
+## Quick summary
+
+- The device is the **source of truth**; Supabase is the mirror that devices converge through.
+- Every record has two keys: local `++id` for in-app relations, **`uuid` as the cloud's canonical key**.
+- Change tracking runs on **`updatedAt` watermarks**: push and pull only what changed since the last successful sync.
+- **Deletes are tombstones**: a `{ table, uuid, deletedAt }` record that propagates the delete, then clears.
+- Conflicts resolve **last-write-wins on `updatedAt`**; remote tombstones always beat local edits.
+- Sync is **background work with retries** — local writes never block on it, and pushes are idempotent.
+
+## The sync model
+
+<img src="/svg/indexeddb-supabase-sync-loop.svg" alt="Sync loop between Dexie on the device and Supabase in the cloud, with push, pull, and tombstone flows" style="width:100%;border-radius:10px;margin:1.5rem 0;" />
+
+There are two directions, and keeping them conceptually separate is half the design:
+
+**Push** carries local changes to the cloud: new and edited records go up, tombstones go up as deletes. **Pull** brings remote changes down: records created or edited on another device merge into Dexie, remote tombstones delete local records. A sync run does push, then pull, and each direction tracks its own watermark so a failed run resumes instead of restarting.
+
+There's also a deliberate split between the **first sync** and every sync after it. A fresh install pulls the full dataset — thousands of records, tables in dependency order — and that doubles as the restore path: reinstall the app or move to a new device and the cloud copy rebuilds the local database. Incremental syncs move only what changed since the last successful run. The full sync is rare and slow; the incremental sync is constant and cheap. Designing them as two paths instead of one keeps the common case fast.
+
+The invariant underneath all of it: local writes never block on sync. The user acts, Dexie updates, the UI re-renders through the same reactive queries — and sync reads what happened afterward. Offline isn't an error state; it's the normal state sync is built around.
+
+## Identity: two keys for two worlds
+
+A record needs an identity that survives being created offline on one device and meeting its siblings in the cloud later. Auto-increment integers can't do that — device A and device B both mint `id: 42` for different records. UUIDs can, but they're awkward as foreign keys inside the app. So every syncable record carries both:
+
+- `++id`: the local auto-increment integer, used for all in-app foreign keys (`accountId`, `goalId`, and the rest).
+- `uuid`: a UUID v4, the cloud's canonical key — the value Supabase rows and tombstones reference.
+
+The `uuid` is stamped centrally by a Dexie `creating` hook, so none of the ~138 write call sites have to think about it:
+
+```ts
+// identity.ts — every syncable table gets these hooks
+import { v4 as uuidv4 } from "uuid";
+
+export function syncable<T extends { uuid?: string; updatedAt?: number }>(table: Table<T>) {
+  table.hook("creating", (_primKey, obj) => {
+    obj.uuid ??= uuidv4();
+    obj.updatedAt = Date.now();
+  });
+  table.hook("updating", (mods) => {
+    (mods as Record<string, unknown>).updatedAt = Date.now();
+  });
+}
+```
+
+Two things worth noticing. First, `creating` stamps both the `uuid` and the initial `updatedAt` — a created record is, by definition, the newest version of itself. Second, `updating` bumps `updatedAt` on *every* local write automatically, which is what makes the watermark and conflict logic trustworthy: no call site can forget to mark a record dirty, because dirty-marking isn't any call site's job.
+
+## Knowing what changed
+
+Push and pull both work off the same question: what changed since the last successful run? The answer is `updatedAt` compared against a stored watermark — the timestamp of the last record each direction processed. Push asks each table for local records newer than the push watermark; pull asks Supabase for rows newer than the pull watermark. After each direction succeeds, its watermark advances. If a run fails halfway, the watermark doesn't move, and the next run picks up where the last one actually finished rather than where it hoped to.
+
+This is why the automatic `updatedAt` bump matters so much. A watermark scheme is only as reliable as its timestamps, and centralizing them in the hooks means the sync engine can trust that "changed since X" really means changed since X.
+
+One honest caveat: `updatedAt` comes from device clocks, and device clocks can disagree. For a single user's data — where true simultaneous edits from two devices are rare — clock skew is a theoretical concern rather than a practical one. It becomes a real problem the moment multiple people edit shared data concurrently, which is exactly where this design stops being enough (more on that below).
+
+## Deletes need tombstones
+
+Deleting locally is physical — the record is gone from Dexie. But "gone" doesn't propagate: the cloud can't distinguish "deleted on device A" from "device A never synced it." So a Dexie `deleting` hook appends a tombstone to a small outbox kept in `localStorage`:
+
+```ts
+// a delete becomes a tombstone, not just an absence
+db.expenses.hook("deleting", (_primKey, obj) => {
+  appendTombstone({ table: "expenses", uuid: obj.uuid, deletedAt: Date.now() });
+});
+```
+
+On the next push, tombstones go up, the matching Supabase rows are deleted, and the local list clears. `localStorage` is the right home for this outbox precisely because it's boring: a tiny list that needs no querying, no indexes, and no migrations — just append, push, clear.
+
+The pull direction has a matching rule with a deliberate asymmetry: **remote tombstones always win over local edits**. If device A edits a record while device B deletes it, the delete wins when they converge. That sounds aggressive until you consider the alternative — resurrecting something a user deliberately removed. For personal data, honoring the delete is the safer default, and it's simple enough to reason about: deletes beat edits, everywhere, always.
+
+## Conflicts: last write wins
+
+When the same `uuid` changed on two devices since they last converged, the merge has to pick one. The rule is last-write-wins on `updatedAt`: whichever version has the newer timestamp survives, and the older one is overwritten. No prompts, no three-way merge UI, no conflict queue for the user to resolve.
+
+Be clear-eyed about what that costs: a conflicting edit made on the other device is silently lost. For one person's finance data — where genuine simultaneous edits to the same record are vanishingly rare — that's a tradeoff worth naming rather than engineering away. The failure mode that actually matters here isn't a lost concurrent edit; it's sync complexity that introduces bugs into the common path. Last-write-wins keeps the common path dead simple.
+
+What would change the answer is multiple users editing shared records. The moment two people concurrently edit the same budget, record-level last-write-wins starts losing real work, and that's the point where I'd reach for field-level merging or CRDTs instead. The design is honest about its scope: single-user sync, done reliably.
+
+## Pull: merging the cloud back down
+
+Pull mirrors push. Supabase rows carry the same `uuid` + `updatedAt` shape, so merging is an upsert by `uuid`: if the local record is missing or older, write the remote version into Dexie; if local is newer, leave it (push will carry it up). Remote tombstones apply first — deletes win — then record upserts.
+
+Because the merge target is Dexie, the UI updates for free: the same reactive queries that re-render on local writes re-render on merged remote writes. There's no separate "sync UI" path. A record edited on the web appears on the phone the way any local change appears — the component can't tell the difference, and doesn't need to.
+
+The fresh-install path is just pull with an empty database and a zero watermark: download everything, in table order so foreign keys resolve, and the app comes up with months of history intact. That this doubles as the backup story is not a coincidence — it's the same code path doing the same job.
+
+## When sync fails, because it will
+
+Sync runs opportunistically — on launch, on reconnect, after bursts of local writes, periodically while open — and every run assumes the network can vanish mid-flight. Three properties make that safe:
+
+1. **Watermarks only advance on success.** A failed push or pull retries from the last known-good point. Nothing is ever marked synced that wasn't.
+2. **Pushes are idempotent.** Every write is keyed by `uuid`, so replaying a push that partially landed just overwrites the same rows with the same data. Retry logic never has to wonder what already made it.
+3. **Failures stay quiet.** A failed run schedules a retry with backoff; it doesn't surface an error the user must clear. The app is fully usable offline, so a failed sync is background noise, not a blocking state.
+
+This is the payoff of the whole architecture: because local-first means offline is normal, the sync engine is allowed to be patient. It doesn't race the user, it doesn't hold the UI hostage, and it converges whenever the network allows.
+
+## Limits of this design
+
+Every sync design is a bundle of assumptions, so here are this one's, stated plainly:
+
+- **Single user.** Last-write-wins and device-clock timestamps hold for one person's data. Shared editing needs CRDTs or operational transforms, which is a different engine.
+- **Record granularity.** Conflicts resolve per record, not per field. Two devices editing different fields of the same record still lose one side's edit.
+- **Tombstones accumulate.** Deleted-everywhere tombstones need a retention policy — once all of a user's devices have converged past a tombstone, it can be pruned. Without pruning, the tombstone set grows forever.
+- **First sync is heavy.** A fresh install with years of history downloads everything. Chunked, resumable pull keeps it robust, but it isn't instant.
+
+None of these are reasons to avoid the design. They're the boundaries it operates inside — and knowing them is what lets you trust it.
+
+## FAQs
+
+### Why not just read and write Supabase directly?
+
+Because then offline breaks. Direct Supabase access makes the network part of every interaction: no connection, no app. The offline-first design inverts that — Dexie answers every read and write locally, and Supabase handles sync, backup, and cross-device convergence behind the scenes. I go through the two models in [building an offline-first React app with Dexie](/blog/offline-first-react-dexie-indexeddb/).
+
+### What happens when two devices edit the same record offline?
+
+Last write wins. When the devices converge through Supabase, the version with the newer `updatedAt` survives and the older is overwritten. For single-user data this is almost never felt; for shared data you'd want field-level merging instead.
+
+### Why UUIDs instead of just using the local id?
+
+Because auto-increment ids collide across devices — two offline devices both mint `id: 42` for different records. The `uuid` is the stable identity the cloud uses to match records; the local `++id` stays as the fast key for in-app relations.
+
+### Where does Firebase fit in?
+
+Hunter Vault syncs to Supabase and Firebase for its remote concerns. This article covers the Supabase path, which is where record sync — pushes, pulls, tombstones, conflicts — lives.
+
+
+**Dealing with offline data, sync, or conflict resolution?** [See how I help teams design and build production React and mobile applications →](/mobile-app-development/)
+
+*Related: [building an offline-first React app with Dexie](/blog/offline-first-react-dexie-indexeddb/) · [how I structure production React applications](/blog/react-application-architecture/) · [the React hub](/react/)*

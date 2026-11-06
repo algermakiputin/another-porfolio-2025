@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     title: "Portfolio | Alger Makiputin",
     description:
       "Case studies and projects across retail, e-commerce, and banking — web apps, mobile apps, and cloud-deployed systems built for real businesses.",
-    url: `${BASE_URL}/portfolio`,
+    url: `${BASE_URL}/portfolio/`,
     images: [{ url: "/images/og-cover.jpg", width: 1200, height: 630, alt: "Alger Makiputin — Portfolio" }],
   },
   alternates: {
@@ -37,14 +37,14 @@ export default function Page() {
     name: "Portfolio | Alger Makiputin",
     description:
       "Case studies and projects across retail, e-commerce, and banking.",
-    url: `${BASE_URL}/portfolio`,
+    url: `${BASE_URL}/portfolio/`,
     mainEntity: {
       "@type": "ItemList",
       itemListElement: raw.map((p, i) => ({
         "@type": "ListItem",
         position: i + 1,
         name: p.title,
-        url: `${BASE_URL}/project/${p.slug}`,
+        url: `${BASE_URL}/project/${p.slug}/`,
         description: p.metaDescription,
       })),
     },

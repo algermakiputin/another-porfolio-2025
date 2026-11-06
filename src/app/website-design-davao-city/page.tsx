@@ -5,7 +5,7 @@ import { SERVICES } from "../../data/services";
 const BASE_URL = "https://algermakiputin.com";
 const PAGE_URL = `${BASE_URL}/website-design-davao-city/`;
 const OG_IMAGE = `${BASE_URL}/images/og-cover.jpg`;
-const TITLE = "Professional Website Design Davao City | Alger Makiputin";
+const TITLE = "Professional Website Design Davao City";
 const DESCRIPTION =
   "Professional website design in Davao City — fast, mobile-friendly, SEO-optimized. Help your business get found on Google and convert visitors into customers.";
 
@@ -28,14 +28,14 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     siteName: "Alger Makiputin",
-    title: TITLE,
+    title: `${TITLE} | Alger Makiputin`,
     description: DESCRIPTION,
     url: PAGE_URL,
     images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Professional Website Design Davao City" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: TITLE,
+    title: `${TITLE} | Alger Makiputin`,
     description: DESCRIPTION,
     images: [OG_IMAGE],
     creator: "@algermakiputin",

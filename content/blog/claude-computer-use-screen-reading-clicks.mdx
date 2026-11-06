@@ -1,8 +1,8 @@
 ---
-title: "A Developer's First Look at Claude's Computer Use Feature: From Screen Reading to Clicks"
+title: "Claude Computer Use: From Screen Reading to Clicks"
 description: "What computer use actually is, how it works under the hood, the real constraints you'll hit, and where it's genuinely useful versus where it struggles in practice."
+lastUpdated: "Nov 06, 2026"
 publishedDate: "Aug 31, 2026"
-readTime: "10 min read"
 category: "AI"
 tags: ["Claude", "Computer Use", "AI Agents", "Anthropic", "Developer Tools", "Automation"]
 image: "/images/blog/covers/claude-computer-use-screen-reading-clicks.webp"
@@ -203,5 +203,25 @@ The main limitations — coordinate precision, timing sensitivity, and reliabili
 
 For now, the useful mental model is: if you can do it with an API, do it with an API. If you can do it with Playwright selectors, use Playwright. If neither is available and the task is worth automating at all, computer use is the option left.
 
-[INTERNAL-LINK: agentic loop fundamentals → building your first AI agent with agentic loops]
-[INTERNAL-LINK: VS Code and terminal integration → integrating Claude into your development workflow]
+## FAQs
+
+### When should I use computer use instead of Playwright or an API?
+
+Almost never first. The priority order is direct API, then Playwright or Selenium with explicit selectors, then computer use — as the fallback for legacy UIs, cross-app flows, and one-offs with no machine interface.
+
+### Is it safe to run against my own desktop?
+
+No. Always use a sandboxed virtual display, typically Docker with Xvfb. Computer use moves a real mouse and types into real apps — one bad coordinate on your own machine clicks something you didn't expect.
+
+### Why does it misclick?
+
+Coordinates come from reading screenshots, so dense UIs with small targets — toolbar icons, calendar cells, dropdown items — miss more than you'd expect. A few pixels of error clicks the wrong option.
+
+### How do I debug a failed run?
+
+Log every screenshot. When something goes wrong, reviewing what Claude saw at each step is how you learn why it clicked there — without that history you're guessing.
+
+
+**Automating something with no API?** [See how I help teams automate the awkward parts →](/contact/)
+
+*Related: [agentic loop fundamentals](/blog/building-ai-agent-agentic-loops-claude/) · [VS Code and terminal integration](/blog/integrate-claude-vscode-terminal/)*

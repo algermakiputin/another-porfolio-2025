@@ -116,19 +116,16 @@ const ContactPage = () => {
     <div className="contact-page">
       {/* ═══════════════ Hero ═══════════════ */}
       <section className="contact-hero">
-        <span className="contact-hero__grid" aria-hidden="true" />
-        <span className="contact-hero__mark contact-hero__mark--tl" aria-hidden="true" />
-        <span className="contact-hero__mark contact-hero__mark--br" aria-hidden="true" />
-
         <div className="pf-container contact-hero__inner">
           <div className="contact-hero__title">
-            <p className="contact-kicker">Contact / Project Intake</p>
+            <p className="contact-kicker"><span aria-hidden="true">—</span> Contact / Project inquiries</p>
             <h1 className="contact-hero__headline">
-              Let&apos;s build something that actually works.
+              Your next great build starts here.
             </h1>
           </div>
 
           <div className="contact-hero__brief">
+            <span className="contact-hero__brief-label">Project brief / New inquiry</span>
             <p className="contact-hero__lead">
               Tell me about your project. I&apos;ll help turn it into a clear,
               scalable, production-ready system.
@@ -153,12 +150,14 @@ const ContactPage = () => {
                 <dd>{contact.focus}</dd>
               </div>
             </dl>
+            <a className="contact-hero__brief-action" href="#project-intake">START PROJECT BRIEF ↓</a>
           </div>
         </div>
+        <span className="contact-hero__scene-label" aria-hidden="true">CONTACT / OPEN CHANNEL</span>
       </section>
 
       {/* ═══════════════ Project intake ═══════════════ */}
-      <section className="project-intake">
+      <section className="project-intake" id="project-intake">
         <div className="pf-container project-intake__inner">
           {/* ── Form ── */}
           <div className="project-intake__form">
@@ -303,18 +302,20 @@ const ContactPage = () => {
                 </div>
 
                 <div className="project-field project-field--full">
-                  <Controller
-                    control={control}
-                    name="recaptcha"
-                    rules={{ required: "Please complete the verification below." }}
-                    render={({ field }) => (
-                      <ReCAPTCHA
-                        ref={recaptchaRef}
-                        sitekey={RECAPTCHA_SITE_KEY}
-                        onChange={field.onChange}
-                      />
-                    )}
-                  />
+                  <div className="project-field__captcha">
+                    <Controller
+                      control={control}
+                      name="recaptcha"
+                      rules={{ required: "Please complete the verification below." }}
+                      render={({ field }) => (
+                        <ReCAPTCHA
+                          ref={recaptchaRef}
+                          sitekey={RECAPTCHA_SITE_KEY}
+                          onChange={field.onChange}
+                        />
+                      )}
+                    />
+                  </div>
                   {errors.recaptcha && (
                     <p
                       className="project-field__error"

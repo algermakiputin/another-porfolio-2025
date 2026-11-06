@@ -97,14 +97,14 @@ export default function ServicePage({ content }: { content: ServicePageContent }
   } = content;
 
   return (
-    <main className="service-page" id="main-content">
+    <div className="service-page">
       {/* ── Hero ── */}
       <header className="service-hero">
         <span className="service-hero__grid" aria-hidden="true" />
         <span className="service-hero__plane" aria-hidden="true" />
         <div className="pf-container service-hero__inner">
           <div className="service-hero__copy">
-            <p className="service-eyebrow">{eyebrow}</p>
+            <p className="service-eyebrow">Services / {eyebrow}</p>
             <h1 className="service-hero__title">
               {titleLines.map((line, i) => (
                 <span key={i}>
@@ -299,6 +299,6 @@ export default function ServicePage({ content }: { content: ServicePageContent }
           </Link>
         </div>
       </section>
-    </main>
+    </div>
   );
 }
