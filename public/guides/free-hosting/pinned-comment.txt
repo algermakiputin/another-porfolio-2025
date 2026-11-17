@@ -1,0 +1,19 @@
+📌 LIBRENG HOSTING GUIDE — PARA SA LAHAT NG NAG-COMMENT NG "HOSTING"
+
+Salamat sa panonood! Eto ang pinangakong step-by-step tutorial: paano mag-publish ng website nang LIBRE (kahit beginner, kahit cellphone lang):
+
+👉 https://algermakiputin.com/guides/free-hosting/
+
+Sa guide na yan:
+• GitHub Pages, Cloudflare Pages, Vercel, at Netlify — compared nang simple
+• May quiz para malaman kung alin ang bagay sa website mo
+• Step-by-step na may pictures, plus libreng sample website na puwede mong i-practice
+• Troubleshooting kapag nagka-error
+
+PAANO GAMITIN:
+1. Buksan ang link sa phone o laptop mo.
+2. Sundan ang Chapter 1 → 2 → 3 nang sunod-sunod.
+3. Pagkatapos ng Chapter 3, may LIVE website ka na. 🎉
+
+💬 Tapusin mo ang guide, tapos i-comment dito ang link ng website mo — gusto kong makita ang gawa ninyo!
+➕ Pa-follow para sa susunod na tech tutorials. Salamat sa suporta!
